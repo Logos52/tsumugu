@@ -1,0 +1,51 @@
+{
+  "schema": "tsumugu/prepared-content@1",
+  "lang": "zh-Hant",
+  "title": "夜市 — A night out",
+  "source": "phase0-handmade",
+  "ciTarget": 0.95,
+  "ciMeasured": 0.73,
+  "generatedAt": "2026-06-04T00:00:00Z",
+  "tokens": [
+    { "text": "今晚", "isWord": true },
+    { "text": "我們", "isWord": true },
+    { "text": "去", "isWord": true },
+    { "text": "夜市", "isWord": true },
+    { "text": "吃", "isWord": true },
+    { "text": "小吃", "isWord": true },
+    { "text": "，", "isWord": false },
+    { "text": "那裡", "isWord": true },
+    { "text": "很", "isWord": true },
+    { "text": "熱鬧", "isWord": true },
+    { "text": "。", "isWord": false }
+  ],
+  "glossary": {
+    "夜市": {
+      "term": "夜市",
+      "gloss": "night market",
+      "reading": "ㄧㄝˋ ㄕˋ / yè shì",
+      "pos": "noun",
+      "level": "TOCFL-A2",
+      "examples": ["今晚我們去夜市吃小吃。", "台灣的夜市很有名。"],
+      "explanation": "晚上才開的市場，可以一邊走一邊吃東西、買東西，通常很熱鬧。"
+    },
+    "小吃": {
+      "term": "小吃",
+      "gloss": "snacks; street food",
+      "reading": "ㄒㄧㄠˇ ㄔ / xiǎo chī",
+      "pos": "noun",
+      "level": "TOCFL-A2",
+      "examples": ["夜市有很多好吃的小吃。"],
+      "explanation": "份量小、價格便宜的食物，常常在夜市或路邊賣。"
+    },
+    "熱鬧": {
+      "term": "熱鬧",
+      "gloss": "lively; bustling",
+      "reading": "ㄖㄜˋ ㄋㄠˋ / rè nào",
+      "pos": "adjective",
+      "level": "TOCFL-B1",
+      "examples": ["那裡很熱鬧。", "過年的時候街上很熱鬧。"],
+      "explanation": "人多、聲音多、很有活力的樣子，跟「安靜」相反。"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "tsumugu/word-store@1",
+  "updatedAt": "2026-06-04T00:00:00Z",
+  "entries": [
+    {
+      "lang": "zh-Hant",
+      "word": "夜市",
+      "status": "l2",
+      "firstSeen": "2026-06-01T10:00:00Z",
+      "lastSeen": "2026-06-04T00:00:00Z",
+      "seenCount": 3,
+      "tags": ["topic/food", "topic/city"]
+    },
+    {
+      "lang": "zh-Hant",
+      "word": "熱鬧",
+      "status": "l1",
+      "firstSeen": "2026-06-04T00:00:00Z",
+      "lastSeen": "2026-06-04T00:00:00Z",
+      "seenCount": 1,
+      "flagged": true,
+      "flagNote": "Want a mnemonic — keep confusing it with 鬧鐘.",
+      "srs": {
+        "due": "2026-06-05T00:00:00Z",
+        "stability": 3.17,
+        "difficulty": 5.2,
+        "elapsedDays": 0,
+        "scheduledDays": 1,
+        "reps": 1,
+        "lapses": 0,
+        "state": 1,
+        "lastReview": "2026-06-04T00:00:00Z"
+      }
+    },
+    {
+      "lang": "zh-Hant",
+      "word": "發展",
+      "status": "known",
+      "seenCount": 12,
+      "related": [{ "lang": "vi", "word": "phát triển" }]
+    },
+    {
+      "lang": "vi",
+      "word": "phát triển",
+      "status": "l1",
+      "firstSeen": "2026-06-04T00:00:00Z",
+      "lastSeen": "2026-06-04T00:00:00Z",
+      "seenCount": 1,
+      "related": [{ "lang": "zh-Hant", "word": "發展" }],
+      "notes": "Cross-seeded from known Hanzi 發展 via the Hán-Việt bridge."
+    },
+    {
+      "lang": "vi",
+      "word": "đang",
+      "status": "l3",
+      "seenCount": 8
+    }
+  ]
+}

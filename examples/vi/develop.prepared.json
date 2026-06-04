@@ -1,0 +1,51 @@
+{
+  "schema": "tsumugu/prepared-content@1",
+  "lang": "vi",
+  "title": "Phát triển — learning vi through zh",
+  "source": "phase0-handmade",
+  "ciTarget": 0.95,
+  "ciMeasured": 0.6,
+  "generatedAt": "2026-06-04T00:00:00Z",
+  "tokens": [
+    { "text": "Việt Nam", "isWord": true },
+    { "text": " ", "isWord": false },
+    { "text": "đang", "isWord": true },
+    { "text": " ", "isWord": false },
+    { "text": "phát triển", "isWord": true },
+    { "text": " ", "isWord": false },
+    { "text": "nhanh", "isWord": true },
+    { "text": ".", "isWord": false }
+  ],
+  "glossary": {
+    "phát triển": {
+      "term": "phát triển",
+      "gloss": "to develop; to grow",
+      "reading": "phát triển",
+      "pos": "verb",
+      "level": "freq-2k",
+      "examples": ["Việt Nam đang phát triển nhanh.", "Công ty phát triển sản phẩm mới."],
+      "explanation": "Sino-Vietnamese (Hán-Việt). Because you know Chinese 發展, you already know this: 發 phát = emit/set out, 展 triển = unfold/extend → develop.",
+      "bridge": {
+        "bridgeLang": "zh-Hant",
+        "etymon": "發展",
+        "bridgeReading": "fā zhǎn / ㄈㄚ ㄓㄢˇ",
+        "meaning": "to develop; development",
+        "confidence": 0.95,
+        "corrected": false,
+        "morphemes": [
+          { "surface": "phát", "etymon": "發", "reading": "fā", "gloss": "emit; set out; issue" },
+          { "surface": "triển", "etymon": "展", "reading": "zhǎn", "gloss": "unfold; extend; exhibit" }
+        ]
+      }
+    },
+    "đang": {
+      "term": "đang",
+      "gloss": "(progressive marker) currently …-ing",
+      "reading": "đang",
+      "pos": "particle",
+      "level": "freq-1k",
+      "examples": ["Tôi đang ăn.", "Việt Nam đang phát triển nhanh."],
+      "explanation": "Đặt trước động từ để chỉ hành động đang xảy ra (giống 正在 trong tiếng Trung)."
+    }
+  }
+}
