@@ -1,6 +1,8 @@
 # Tsumugu wiki (Repo 2 starter)
 
-The Karpathy-style **LLM-wiki** for your languages, published via **Quartz** to a public GitHub-Pages site that's also **openable offline as HTML** (PRD §5.5). This folder is a *starter* designed to be extracted into a **separate public repo**, sibling to your `llm-knowledge-base` — it reuses that same Obsidian → Quartz → Pages toolchain, not a rebuild.
+> **Live:** https://logos52.github.io/tsumugu-wiki/ — repo [`Logos52/tsumugu-wiki`](https://github.com/Logos52/tsumugu-wiki) (Quartz v4 → GitHub Pages, auto-deploys on push). That repo is the source of truth; this folder is the seed content it was created from.
+
+The Karpathy-style **LLM-wiki** for your languages, published via **Quartz** to a public GitHub-Pages site that's also **openable offline as HTML** (PRD §5.5). Extracted into a **separate public repo**, sibling to your `llm-knowledge-base` — it reuses that same Obsidian → Quartz → Pages toolchain, not a rebuild.
 
 ## The loop
 

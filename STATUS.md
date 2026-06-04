@@ -28,7 +28,7 @@ No secrets/keys, no network calls in the engine or reader runtime, no licensed d
 ## What's NOT here (by design or deferred)
 
 - **Private zh/vi packs** — real CC-CEDICT/MoEDict dictionaries, jieba-wasm, full TOCFL data. Live in your private folder; plug in via `--pack-module`. The `examples/packs/zh-hant-example` proves the interface + real OpenCC with a tiny original sample.
-- **Published Quartz wiki (Repo 2)** — `wiki/` is a ready-to-extract starter (config + content + intake docs), not a deployed site.
+- **Published Quartz wiki (Repo 2)** — now live at **https://logos52.github.io/tsumugu-wiki/** (repo [`Logos52/tsumugu-wiki`](https://github.com/Logos52/tsumugu-wiki), Quartz v4 → GitHub Pages, auto-deploys on push). The `wiki/` folder here is the seed content; the live repo is the source of truth.
 - **Phase 6–8** — Chromium extension, transcript ingestion, voice (deferred per PRD §9).
 - **The agent fill step** — generation prompts brief Claude Code / Grok Build; the actual gloss/explanation/etymology writing is that agent's job (no API in the core).
 
