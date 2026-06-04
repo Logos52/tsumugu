@@ -97,7 +97,10 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (app.settings.toneColoring) {
       let tones: number[] | undefined;
       try {
-        tones = app.pack.phoneticLayer.toneClasses?.(word);
+        // Pass the word's pre-baked reading so tone coloring works offline
+        // from content alone (no live dictionary needed).
+        const reading = lookupPrebaked(content, word)?.reading;
+        tones = app.pack.phoneticLayer.toneClasses?.(word, reading);
       } catch {
         tones = undefined;
       }

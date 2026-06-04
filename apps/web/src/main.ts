@@ -17,6 +17,7 @@ import {
 } from "./host/index.js";
 import { el, clear } from "./ui/dom.js";
 import { SAMPLES } from "./samples.js";
+import { packForLang } from "./packs/index.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -35,6 +36,17 @@ const toolbarEl = $<HTMLElement>("#app-toolbar")!;
 const statusEl = $<HTMLElement>("#app-status")!;
 
 let view: ViewController | null = null;
+
+/**
+ * Point the app at the right language pack for the current content so the
+ * reader gets real tone coloring, OpenCC normalization, and zh-TW / vi-VN TTS.
+ * Falls back to the generic demo pack for languages with no browser pack. A
+ * granted vault wires an optional vault-backed dictionary for live hover.
+ */
+function syncPack(): void {
+  app.pack =
+    packForLang(app.content?.lang ?? "", { vault: app.vault }) ?? demoPack;
+}
 
 /** Parse #/encoding/<word> → the word, else null. */
 function encodingRoute(): string | null {
@@ -96,6 +108,9 @@ function buildToolbar(): void {
           const s = SAMPLES.find((x) => x.id === id);
           if (s) {
             app.setContent(s.content);
+            // Pick the pack for the new content's language BEFORE remounting so
+            // the reader uses zh-TW / vi-VN TTS + tone coloring + OpenCC.
+            syncPack();
             // Remount unconditionally: the reader recolors via its own "change"
             // listener, but the review view builds its due queue once at mount
             // and has no such listener — so a new sample (new language) only
@@ -125,6 +140,9 @@ function buildToolbar(): void {
           return;
         }
         app.setVault(vault);
+        // Re-evaluate the pack now that a vault is granted, so a vault-backed
+        // dictionary (if present) is wired for live hover lookups.
+        syncPack();
         await app.loadStore();
         await app.saveStore();
         // A freshly loaded store may carry due cards / new statuses; remount so
@@ -205,6 +223,7 @@ async function exportAnki(): Promise<void> {
 }
 
 // ── start ────────────────────────────────────────────────────────────────────
+syncPack();
 buildToolbar();
 remount();
 refreshStatus();
