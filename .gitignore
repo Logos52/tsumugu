@@ -1,0 +1,27 @@
+# Dependencies / build
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+
+# Generated demo artifacts
+examples/out/
+
+# Secrets — never commit (even though the project is otherwise public)
+.env
+.env.*
+*.key
+*.pem
+*.token
+
+# Personal layer must NOT live in the public engine repo
+/packs/private/
+/personal/
+/data/
+/vocab/
+*.local.*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
