@@ -1,0 +1,22 @@
+{
+  "name": "@tsumugu/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tsumugu reader — client-side, offline graded-reader web app consuming @tsumugu/engine.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tsumugu/demo-pack": "workspace:*",
+    "@tsumugu/engine": "workspace:*",
+    "sql.js": "^1.12.0"
+  },
+  "devDependencies": {
+    "happy-dom": "^15.11.0",
+    "vite": "^5.4.0"
+  }
+}

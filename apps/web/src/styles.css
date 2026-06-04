@@ -1,0 +1,454 @@
+/*
+ * Tsumugu web — app stylesheet.
+ *
+ * Self-contained, offline, clean light theme. No remote @imports, no fonts
+ * fetched over the network. Class names mirror apps/web/src/ui/classes.ts
+ * (CLS + STATUS_COLOR_CLASSES + toneClass) and the index.html element ids.
+ *
+ * Status coloring fades new → l4 → known: "new" is the strongest highlight,
+ * each level above gets fainter, "known" has no highlight, "ignored" is muted.
+ */
+
+:root {
+  /* ── palette ────────────────────────────────────────────────────────────── */
+  --tsg-bg: #fbfaf7;
+  --tsg-surface: #ffffff;
+  --tsg-ink: #1f2328;
+  --tsg-ink-muted: #5c636e;
+  --tsg-ink-faint: #8b919c;
+  --tsg-border: #e3e1da;
+  --tsg-border-strong: #cfccc3;
+  --tsg-accent: #2563eb;
+  --tsg-accent-ink: #ffffff;
+  --tsg-shadow: 0 6px 24px rgba(31, 35, 40, 0.14);
+  --tsg-shadow-sm: 0 1px 2px rgba(31, 35, 40, 0.08);
+  --tsg-radius: 8px;
+  --tsg-radius-sm: 5px;
+
+  /* ── status highlight ramp (amber/yellow, fading new → l4) ──────────────── */
+  --tsg-status-hue: 41; /* warm amber */
+  --tsg-new-underline: #e0a300;
+  --tsg-new-bg: hsl(var(--tsg-status-hue) 92% 82%);
+  --tsg-l1-bg: hsl(var(--tsg-status-hue) 90% 86%);
+  --tsg-l2-bg: hsl(var(--tsg-status-hue) 88% 90%);
+  --tsg-l3-bg: hsl(var(--tsg-status-hue) 86% 93%);
+  --tsg-l4-bg: hsl(var(--tsg-status-hue) 84% 96%);
+
+  /* ── tone colors (Mandarin standard scheme) ─────────────────────────────── */
+  --tsg-tone-1: #c0392b; /* 1st — red */
+  --tsg-tone-2: #1e8449; /* 2nd — green */
+  --tsg-tone-3: #2471a3; /* 3rd — blue */
+  --tsg-tone-4: #7d3c98; /* 4th — purple */
+  --tsg-tone-5: #707b8a; /* neutral — gray */
+
+  /* ── reading column ─────────────────────────────────────────────────────── */
+  --tsg-reading-width: 38rem;
+
+  /* type stacks (system fonts only — nothing fetched) */
+  --tsg-font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, "Hiragino Sans", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+  --tsg-font-read: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Songti SC", "Noto Serif CJK SC", serif;
+}
+
+/* ── base reset ───────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--tsg-bg);
+  color: var(--tsg-ink);
+  font-family: var(--tsg-font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* ── header / nav / toolbar / footer ──────────────────────────────────────── */
+
+#app-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: var(--tsg-surface);
+  border-bottom: 1px solid var(--tsg-border);
+  box-shadow: var(--tsg-shadow-sm);
+}
+
+#app-header h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+#app-nav {
+  display: flex;
+  gap: 0.4rem;
+}
+
+#app-nav button {
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--tsg-border-strong);
+  border-radius: var(--tsg-radius-sm);
+  background: var(--tsg-surface);
+  color: var(--tsg-ink-muted);
+  cursor: pointer;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+#app-nav button:hover {
+  background: #f1efe9;
+  color: var(--tsg-ink);
+}
+
+#app-nav button:focus-visible {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 2px;
+}
+
+#app-nav button[aria-pressed="true"],
+#app-nav button.tsg-btn-active {
+  background: var(--tsg-accent);
+  border-color: var(--tsg-accent);
+  color: var(--tsg-accent-ink);
+}
+
+#app-toolbar {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+#app-root {
+  flex: 1 1 auto;
+  width: 100%;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+#app-status {
+  padding: 0.4rem 1.25rem;
+  min-height: 1.6rem;
+  background: var(--tsg-surface);
+  border-top: 1px solid var(--tsg-border);
+  color: var(--tsg-ink-muted);
+  font-size: 0.85rem;
+}
+
+#app-status:empty {
+  padding: 0;
+  min-height: 0;
+  border-top: 0;
+}
+
+/* ── shared controls ──────────────────────────────────────────────────────── */
+
+.tsg-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--tsg-border-strong);
+  border-radius: var(--tsg-radius-sm);
+  background: var(--tsg-surface);
+  color: var(--tsg-ink);
+  cursor: pointer;
+  line-height: 1.2;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.tsg-btn:hover {
+  background: #f1efe9;
+  border-color: var(--tsg-border-strong);
+}
+
+.tsg-btn:focus-visible {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 2px;
+}
+
+.tsg-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tsg-btn-active {
+  background: var(--tsg-accent);
+  border-color: var(--tsg-accent);
+  color: var(--tsg-accent-ink);
+}
+
+.tsg-btn-active:hover {
+  background: var(--tsg-accent);
+}
+
+.tsg-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tsg-metrics {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--tsg-ink-muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── status coloring (engine: statusColorClass) ───────────────────────────── */
+/*
+ * Highlights ride on the token's background; tone color sits on text and is
+ * unaffected. Intensity visibly decreases new → l4, then disappears at known.
+ */
+
+.tsg-status-new {
+  background: var(--tsg-new-bg);
+  box-shadow: inset 0 -0.18em 0 0 var(--tsg-new-underline);
+}
+
+.tsg-status-l1 {
+  background: var(--tsg-l1-bg);
+}
+
+.tsg-status-l2 {
+  background: var(--tsg-l2-bg);
+}
+
+.tsg-status-l3 {
+  background: var(--tsg-l3-bg);
+}
+
+.tsg-status-l4 {
+  background: var(--tsg-l4-bg);
+}
+
+.tsg-status-known {
+  /* mastered — no highlight */
+  background: transparent;
+}
+
+.tsg-status-ignored {
+  /* muted / struck, no highlight */
+  background: transparent;
+  color: var(--tsg-ink-faint);
+  text-decoration: line-through;
+  text-decoration-color: var(--tsg-ink-faint);
+}
+
+/* ── tone coloring (engine: toneClass) — text color only ──────────────────── */
+
+.tsg-tone-1 {
+  color: var(--tsg-tone-1);
+}
+.tsg-tone-2 {
+  color: var(--tsg-tone-2);
+}
+.tsg-tone-3 {
+  color: var(--tsg-tone-3);
+}
+.tsg-tone-4 {
+  color: var(--tsg-tone-4);
+}
+.tsg-tone-5 {
+  color: var(--tsg-tone-5);
+}
+
+/* ── reader ───────────────────────────────────────────────────────────────── */
+
+.tsg-reader {
+  display: block;
+}
+
+.tsg-reader-text {
+  max-width: var(--tsg-reading-width);
+  margin: 0 auto;
+  font-family: var(--tsg-font-read);
+  font-size: 1.4rem;
+  line-height: 2;
+  color: var(--tsg-ink);
+  word-break: break-word;
+}
+
+.tsg-token {
+  cursor: pointer;
+  border-radius: var(--tsg-radius-sm);
+  padding: 0.02em 0.06em;
+  transition: filter 0.1s ease;
+}
+
+.tsg-token:hover {
+  filter: brightness(0.96);
+}
+
+.tsg-word {
+  /* word tokens are interactive; punctuation is not */
+}
+
+.tsg-punct {
+  cursor: default;
+  color: var(--tsg-ink-muted);
+}
+
+.tsg-flagged {
+  position: relative;
+  border-left: 2px solid var(--tsg-new-underline);
+  padding-left: 0.12em;
+}
+
+.tsg-flagged::after {
+  content: "⚑";
+  font-size: 0.7em;
+  color: var(--tsg-new-underline);
+  vertical-align: super;
+  margin-left: 0.05em;
+}
+
+.tsg-active {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 1px;
+}
+
+/* ── popup (hover card) ───────────────────────────────────────────────────── */
+
+.tsg-popup {
+  position: absolute;
+  z-index: 1000;
+  max-width: 22rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--tsg-surface);
+  border: 1px solid var(--tsg-border);
+  border-radius: var(--tsg-radius);
+  box-shadow: var(--tsg-shadow);
+  font-family: var(--tsg-font-ui);
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--tsg-ink);
+}
+
+.tsg-popup-term {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.tsg-popup-reading {
+  color: var(--tsg-ink-muted);
+  font-size: 0.9rem;
+  margin-top: 0.1rem;
+}
+
+.tsg-popup-gloss {
+  margin-top: 0.45rem;
+}
+
+.tsg-popup-explain {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--tsg-ink-muted);
+}
+
+.tsg-popup-examples {
+  margin: 0.45rem 0 0;
+  padding-left: 1.1rem;
+  font-style: italic;
+  font-size: 0.88rem;
+  color: var(--tsg-ink-muted);
+}
+
+.tsg-popup-examples li {
+  margin: 0.1rem 0;
+}
+
+.tsg-popup-bridge {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.55rem;
+  border-radius: var(--tsg-radius-sm);
+  background: hsl(210 60% 96%);
+  border: 1px solid hsl(210 50% 88%);
+  font-size: 0.85rem;
+  color: hsl(210 40% 28%);
+}
+
+.tsg-popup-grades {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+
+/* guess-first: conceal the gloss/answer until the learner hits Reveal.
+ * The conceal must hold on hover too — otherwise hovering leaks the answer,
+ * defeating the point. Reveal happens only via the separate Reveal button,
+ * which removes this class (see reader.ts). */
+.tsg-popup-hidden {
+  filter: blur(6px);
+  user-select: none;
+  transition: filter 0.12s ease;
+}
+
+/* ── review ───────────────────────────────────────────────────────────────── */
+
+.tsg-review {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.tsg-card {
+  width: 100%;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 2rem 1.75rem;
+  background: var(--tsg-surface);
+  border: 1px solid var(--tsg-border);
+  border-radius: var(--tsg-radius);
+  box-shadow: var(--tsg-shadow);
+  text-align: center;
+}
+
+.tsg-card-term {
+  font-family: var(--tsg-font-read);
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.tsg-card-back {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tsg-border);
+  color: var(--tsg-ink-muted);
+  font-size: 1.05rem;
+}
+
+.tsg-card-controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
