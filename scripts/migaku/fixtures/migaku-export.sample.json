@@ -1,0 +1,12 @@
+{
+  "words": [
+    { "word": "夜市", "reading": "yè shì", "language": "zh", "status": 2 },
+    { "word": "熱鬧", "reading": "rè nào", "language": "zh", "status": 1 },
+    { "word": "發展", "reading": "fā zhǎn", "language": "zh", "status": 2 },
+    { "word": "垃圾", "reading": "lè sè", "language": "zh", "status": "ignored" },
+    { "word": "電腦", "reading": "diàn nǎo", "language": "zh", "status": 0 },
+    { "word": "怪", "reading": "guài", "language": "zh", "status": 7 },
+    { "word": "phát triển", "reading": "phát triển", "language": "vi", "status": 2 },
+    { "word": "あいさつ", "reading": "aisatsu", "language": "ja", "status": 2 }
+  ]
+}

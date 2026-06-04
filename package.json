@@ -12,6 +12,7 @@
     "build": "pnpm -r --filter \"./packages/*\" build",
     "dev": "pnpm --filter @tsumugu/web dev",
     "gen": "tsx scripts/gen/cli.ts",
+    "migaku:convert": "tsx scripts/migaku/convert.ts",
     "validate:phase0": "tsx scripts/validate-phase0.ts"
   },
   "devDependencies": {
