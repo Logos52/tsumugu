@@ -1,0 +1,21 @@
+{
+  "name": "@tsumugu/engine",
+  "version": "0.0.0",
+  "description": "Tsumugu engine — language-agnostic, DOM-free, data-free core: word-status model, store, pull SRS, CI scorer, prepared-content consumer, cross-language bridge, Anki export, pack interface.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "fflate": "^0.8.2",
+    "sql.js": "^1.12.0",
+    "ts-fsrs": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/sql.js": "^1.4.9"
+  }
+}

@@ -1,0 +1,14 @@
+/**
+ * Public API of the `content` module — the prepared-content consumer and
+ * offline hover resolver (PRD §5.3, §2.5, §2.1).
+ */
+
+export {
+  isPreparedContent,
+  parsePreparedContent,
+  lookupPrebaked,
+  wordTokens,
+} from "./prepared.js";
+
+export { mergeHover } from "./hover.js";
+export type { ResolvedHover, HoverSource } from "./hover.js";

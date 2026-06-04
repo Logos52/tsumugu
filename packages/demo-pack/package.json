@@ -1,0 +1,16 @@
+{
+  "name": "@tsumugu/demo-pack",
+  "version": "0.0.0",
+  "description": "Tsumugu demo language pack — generic, data-free. Whitespace segmentation + a tiny toy dictionary, so the public engine clones and runs with zero licensed data.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "dependencies": {
+    "@tsumugu/engine": "workspace:*"
+  }
+}
