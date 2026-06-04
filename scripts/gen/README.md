@@ -26,9 +26,13 @@ The CLI keeps the **machine-checkable** work out of the model's hands, so genera
 
 ```bash
 # Phase 2 — reader content
-pnpm gen prep     --lang zh-Hant --in <source.txt> --store <ws.json> [--target 0.95] [--mode directed --words 夜市,小吃]
-pnpm gen verify   --in <prepared.json> --store <ws.json> [--lang zh-Hant] [--fix]   # OpenCC + CI re-score
-pnpm gen auto     --lang vi --store <ws.json> [--limit 8]                            # autonomous: gaps + due
+pnpm gen prep       --lang zh-Hant --in <source.txt> --store <ws.json> [--target 0.95] [--mode directed --words 夜市,小吃]
+pnpm gen verify     --in <prepared.json> --store <ws.json> [--lang zh-Hant] [--fix]   # OpenCC + CI re-score
+pnpm gen auto       --lang vi --store <ws.json> [--limit 8]                            # autonomous: gaps + due
+
+# Phase 7 — transcripts (SRT / VTT / YouTube paste / plain; text-first)
+pnpm gen transcript --lang zh-Hant --in <file> [--format auto] [--store <ws.json>] [--pack-module path] [--out path]
+#   → PreparedContent (line breaks preserved) + <out>.cues.json timestamp sidecar + content-prep & commentary prompts
 
 # Phase 3 — wiki + encoding pages
 pnpm gen wiki     --lang zh-Hant --store <ws.json> [--words a,b | --flagged | --srs] [--out-dir wiki/Inbox]

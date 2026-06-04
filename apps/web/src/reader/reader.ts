@@ -63,7 +63,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
   for (const token of content.tokens) {
     if (!token.isWord) {
-      text.append(el("span", { class: CLS.punct, text: token.text }));
+      text.append(renderPunct(token.text));
       continue;
     }
     const span = renderWord(token);
@@ -73,6 +73,24 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
   clear(root);
   root.append(container);
+
+  /**
+   * Render a non-word token, making any embedded "\n" line breaks visible.
+   * The text is split on newlines and rendered as a punctuation span whose
+   * pieces are joined by `<br>` elements: `"foo\nbar"` → text "foo", `<br>`,
+   * text "bar"; a token that is purely "\n" becomes a single `<br>`. Tokens
+   * without newlines render exactly as before (a single span of text).
+   */
+  function renderPunct(text: string): HTMLSpanElement {
+    const span = el("span", { class: CLS.punct });
+    const parts = text.split("\n");
+    for (let i = 0; i < parts.length; i++) {
+      if (i > 0) span.append(el("br"));
+      const piece = parts[i];
+      if (piece) span.append(piece);
+    }
+    return span;
+  }
 
   /** Build a word span with its status color, flagged marker, and tone wrap. */
   function renderWord(token: PreparedToken): HTMLSpanElement {

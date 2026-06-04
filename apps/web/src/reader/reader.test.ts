@@ -92,6 +92,43 @@ describe("mountReader", () => {
     view.unmount();
   });
 
+  it("renders newline non-word tokens as visible <br> line breaks", () => {
+    // Transcript-style content: word tokens separated by a pure "\n" cue break,
+    // plus a token mixing text and a newline ("foo\nbar").
+    const content: PreparedContent = {
+      schema: "tsumugu/prepared-content@1",
+      lang: "zh-Hant",
+      tokens: [
+        { text: "你好", isWord: true },
+        { text: "\n", isWord: false },
+        { text: "世界", isWord: true },
+        { text: "foo\nbar", isWord: false },
+      ],
+      glossary: {},
+    };
+    const app = new AppState({
+      pack: fakePack(),
+      content,
+      store: new WordStore(),
+    });
+    const root = document.createElement("div");
+    const view = mountReader(root, app);
+
+    const text = root.querySelector(`.${CLS.readerText}`);
+    expect(text).not.toBeNull();
+    // Pure "\n" token → one <br>; "foo\nbar" token → one more <br>: two total.
+    const brs = text?.querySelectorAll("br") ?? [];
+    expect(brs.length).toBe(2);
+    // The mixed token keeps its surrounding text around the break.
+    expect(text?.textContent).toContain("foo");
+    expect(text?.textContent).toContain("bar");
+    // Word tokens are unaffected — still interactive spans.
+    expect(wordSpan(root, "你好").classList.contains(CLS.word)).toBe(true);
+    expect(wordSpan(root, "世界").classList.contains(CLS.word)).toBe(true);
+
+    view.unmount();
+  });
+
   it("renders an empty-state hint when content is null", () => {
     const app = new AppState({ pack: fakePack(), content: null, store: new WordStore() });
     const root = document.createElement("div");

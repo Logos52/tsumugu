@@ -21,6 +21,7 @@ import { parseArgs, str, num, list, flag } from "./lib/args.js";
 import { readText, readJson, writeJson, writeText, slugify } from "./lib/io.js";
 import { buildRegistry, resolvePack } from "./lib/packs.js";
 import { buildSkeleton } from "./lib/skeleton.js";
+import { buildTranscriptSkeleton, type TranscriptFormat } from "./lib/transcript.js";
 import { verifyContent } from "./lib/verify.js";
 import { selectAutonomousTargets } from "./lib/targets.js";
 import { loadPrompt, contextBlock } from "./lib/prompt.js";
@@ -99,6 +100,62 @@ async function cmdPrep(opts: Record<string, string | boolean>): Promise<void> {
   );
   console.error(
     `\n✓ skeleton written: ${outPath} (${content.tokens.filter((t) => t.isWord).length} word-tokens, ${unknownWords.length} to resolve)`,
+  );
+}
+
+async function cmdTranscript(opts: Record<string, string | boolean>): Promise<void> {
+  const lang = str(opts, "lang") ?? fail("transcript needs --lang");
+  const inPath = str(opts, "in") ?? fail("transcript needs --in <transcript file>");
+  const raw = await readText(inPath);
+  const store = await loadStore(str(opts, "store"));
+  const reg = await buildRegistry(str(opts, "pack-module"));
+  const pack = resolvePack(reg, lang, str(opts, "pack"));
+  const format = (str(opts, "format") as TranscriptFormat | undefined) ?? "auto";
+  const ciTarget = num(opts, "target") ?? 0.95;
+  const title = str(opts, "title");
+
+  const { content, unknownWords, cues } = await buildTranscriptSkeleton({
+    lang,
+    pack,
+    store,
+    raw,
+    format,
+    source: `transcript:${inPath.replace(/.*\//, "")}`,
+    ...(title ? { title } : {}),
+    ...(ciTarget !== undefined ? { ciTarget } : {}),
+  });
+
+  const slug = slugify(title ?? inPath.replace(/.*\//, "").replace(/\.[^.]+$/, ""));
+  const outPath = str(opts, "out") ?? `Inbox/${lang}/${slug}.prepared.json`;
+  const cuesPath = `${outPath.replace(/\.json$/, "")}.cues.json`;
+  await writeJson(outPath, content);
+  await writeJson(cuesPath, { schema: "tsumugu/transcript-cues@1", lang, source: content.source, cues });
+
+  const prepPrompt = await loadPrompt("content-prep.md");
+  const commentaryPrompt = await loadPrompt("transcript-commentary.md");
+  console.log(prepPrompt);
+  console.log("\n---\n");
+  console.log(commentaryPrompt);
+  console.log(
+    [
+      "",
+      "---",
+      "## Run context (filled by `pnpm gen transcript`)",
+      `- agent: ${str(opts, "agent") ?? "claude"}`,
+      `- lang: ${lang}`,
+      `- mode: transcript`,
+      `- format: ${format}`,
+      `- skeleton file (edit in place; fill empty \`gloss\`/\`explanation\`): \`${outPath}\``,
+      `- cues sidecar (timestamps; do not edit): \`${cuesPath}\``,
+      `- cues: ${cues.length}`,
+      `- words needing resolution (${unknownWords.length}): ${unknownWords.join("、") || "(none)"}`,
+      "",
+      `After filling the skeleton, run \`pnpm gen verify --in ${outPath}\` (OpenCC + CI re-score).`,
+      "",
+    ].join("\n"),
+  );
+  console.error(
+    `\n✓ transcript skeleton written: ${outPath} (${content.tokens.filter((t) => t.isWord).length} word-tokens, ${cues.length} cues, ${unknownWords.length} to resolve)\n  cues sidecar: ${cuesPath}`,
   );
 }
 
@@ -288,6 +345,9 @@ function usage(): void {
       "  pnpm gen prep   --lang <id> --in <source.txt> [--store ws.json] [--target 0.95]",
       "                  [--mode directed --words a,b] [--title T] [--out path]",
       "                  [--pack <id>] [--pack-module <path>] [--agent claude|grok]",
+      "  pnpm gen transcript --lang <id> --in <transcript> [--store ws.json] [--target 0.95]",
+      "                  [--format auto|srt|vtt|youtube|plain] [--title T] [--out path]",
+      "                  [--pack <id>] [--pack-module <path>]",
       "  pnpm gen verify --in <prepared.json> [--store ws.json] [--lang <id>] [--fix]",
       "                  [--target 0.95] [--words a,b] [--pack-module <path>]",
       "  pnpm gen auto     --lang <id> --store ws.json [--limit 8] [--out path]",
@@ -309,6 +369,8 @@ async function main(): Promise<void> {
   switch (cmd) {
     case "prep":
       return cmdPrep(opts);
+    case "transcript":
+      return cmdTranscript(opts);
     case "verify":
       return cmdVerify(opts);
     case "auto":
