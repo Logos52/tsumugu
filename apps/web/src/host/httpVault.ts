@@ -42,3 +42,21 @@ export async function devVaultAvailable(base = BASE): Promise<boolean> {
     return false;
   }
 }
+
+/** A `*.prepared.json` reading discovered in the dev vault. */
+export interface VaultReading {
+  path: string;
+  lang?: string;
+  title?: string;
+}
+
+/** List the prepared readings under the dev vault (empty if unavailable). */
+export async function listVaultReadings(base = BASE): Promise<VaultReading[]> {
+  try {
+    const r = await fetch(base + "__readings");
+    if (!r.ok) return [];
+    return (await r.json()) as VaultReading[];
+  } catch {
+    return [];
+  }
+}

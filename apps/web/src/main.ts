@@ -14,13 +14,15 @@ import {
   pickVaultFolder,
   createHttpVault,
   devVaultAvailable,
+  listVaultReadings,
+  type VaultReading,
   createWebAudio,
   exportAndDownloadApkg,
 } from "./host/index.js";
 import { el, clear } from "./ui/dom.js";
 import { SAMPLES } from "./samples.js";
 import { packForLang } from "./packs/index.js";
-import { readReadingFiles } from "./loadReading.js";
+import { readReadingFiles, classifyReadingDocs } from "./loadReading.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -41,6 +43,10 @@ const statusEl = $<HTMLElement>("#app-status")!;
 let view: ViewController | null = null;
 // True once the dev-server vault auto-loads; hides the manual grant button.
 let devVault = false;
+// Readings discovered in the dev vault (populated on init when devVault).
+let vaultReadings: VaultReading[] = [];
+const LAST_READING_KEY = "tsg-last-reading";
+const READING_PICKER_ID = "tsg-reading-picker";
 
 /**
  * Point the app at the right language pack for the current content so the
@@ -122,38 +128,98 @@ async function openReadingFiles(files: File[]): Promise<void> {
   );
 }
 
+/**
+ * Load a reading discovered in the dev vault (its `.prepared.json` + sibling
+ * `.cues.json`) and remember it, so it auto-restores on the next page-load.
+ */
+async function loadVaultReading(path: string): Promise<void> {
+  const vault = app.vault;
+  if (!vault) return;
+  const cuesPath = path.replace(/\.json$/, "") + ".cues.json";
+  const docs: unknown[] = [];
+  try {
+    const prep = await vault.readText(path);
+    if (prep) docs.push(JSON.parse(prep));
+    const cues = await vault.readText(cuesPath);
+    if (cues) docs.push(JSON.parse(cues));
+  } catch (err) {
+    app.setStatusMessage(`Couldn't load ${path}: ${String(err)}`);
+    return;
+  }
+  const payload = classifyReadingDocs(docs);
+  if (!payload.content) {
+    app.setStatusMessage(`No reading content in ${path}.`);
+    return;
+  }
+  app.setContent(payload.content);
+  syncPack();
+  app.setTranscript(payload.transcript ?? null);
+  try {
+    localStorage.setItem(LAST_READING_KEY, path);
+  } catch {
+    /* private mode / storage disabled — non-fatal */
+  }
+  remount();
+  const sel = $<HTMLSelectElement>(`#${READING_PICKER_ID}`);
+  if (sel) sel.value = "vault:" + path;
+  const t = payload.transcript;
+  app.setStatusMessage(
+    `Loaded ${path.split("/").pop()}${t ? ` (${t.cues.length} cues${t.videoId ? ", synced video" : ""})` : ""}.`,
+  );
+}
+
 // ── toolbar ──────────────────────────────────────────────────────────────────
 function buildToolbar(): void {
   clear(toolbarEl);
 
+  const sampleOpts = SAMPLES.map((s) =>
+    el("option", { attrs: { value: s.id }, text: s.label }),
+  );
+  // Vault readings (discovered under personal/) appear above the bundled samples.
+  const pickerChildren = vaultReadings.length
+    ? [
+        el(
+          "optgroup",
+          { attrs: { label: "Vault readings" } },
+          ...vaultReadings.map((r) =>
+            el("option", {
+              attrs: { value: "vault:" + r.path },
+              text:
+                (r.title ||
+                  r.path.split("/").pop()?.replace(/\.prepared\.json$/, "") ||
+                  r.path) + (r.lang ? ` (${r.lang})` : ""),
+            }),
+          ),
+        ),
+        el("optgroup", { attrs: { label: "Samples" } }, ...sampleOpts),
+      ]
+    : sampleOpts;
   const picker = el(
     "select",
     {
       class: "tsg-btn",
-      title: "Sample text",
+      title: "Pick a reading",
+      attrs: { id: READING_PICKER_ID },
       on: {
         change: (e) => {
-          const id = (e.target as HTMLSelectElement).value;
-          const s = SAMPLES.find((x) => x.id === id);
+          const v = (e.target as HTMLSelectElement).value;
+          if (v.startsWith("vault:")) {
+            void loadVaultReading(v.slice("vault:".length));
+            return;
+          }
+          const s = SAMPLES.find((x) => x.id === v);
           if (s) {
             app.setContent(s.content);
             // Bind (or clear) the sample's timed transcript for the synced reader.
             app.setTranscript(s.transcript ?? null);
-            // Pick the pack for the new content's language BEFORE remounting so
-            // the reader uses zh-TW / vi-VN TTS + tone coloring + OpenCC.
+            // Pick the pack for the new content's language before remounting.
             syncPack();
-            // Remount unconditionally: the reader recolors via its own "change"
-            // listener, but the review view builds its due queue once at mount
-            // and has no such listener — so a new sample (new language) only
-            // reaches Review through a full remount.
             remount();
           }
         },
       },
     },
-    ...SAMPLES.map((s) =>
-      el("option", { attrs: { value: s.id }, text: s.label }),
-    ),
+    ...pickerChildren,
   );
 
   const grant = el("button", {
@@ -299,9 +365,12 @@ async function init(): Promise<void> {
   // File System Access click. Falls back silently (manual grant) otherwise.
   devVault = await devVaultAvailable();
   if (devVault) {
+    // Store lives at vault/tsumugu/word-store.json under the personal/ root.
+    app.updateSettings({ storePath: "vault/tsumugu/word-store.json" });
     app.setVault(createHttpVault());
     try {
       await app.loadStore();
+      vaultReadings = await listVaultReadings();
     } catch (err) {
       app.setStatusMessage(`Vault auto-load failed: ${String(err)}`);
       devVault = false;
@@ -309,11 +378,28 @@ async function init(): Promise<void> {
   }
   syncPack();
   buildToolbar();
-  remount();
-  refreshStatus();
+
+  // Restore the last-opened vault reading so a reload doesn't reset the page.
+  let restored = false;
   if (devVault) {
-    const m = app.metrics();
-    app.setStatusMessage(`Vault auto-loaded — ${m.knownCount}/${m.trackedCount} known words.`);
+    let last: string | null = null;
+    try {
+      last = localStorage.getItem(LAST_READING_KEY);
+    } catch {
+      last = null;
+    }
+    if (last && vaultReadings.some((r) => r.path === last)) {
+      await loadVaultReading(last);
+      restored = true;
+    }
   }
+  if (!restored) {
+    remount();
+    if (devVault) {
+      const m = app.metrics();
+      app.setStatusMessage(`Vault auto-loaded — ${m.knownCount}/${m.trackedCount} known words.`);
+    }
+  }
+  refreshStatus();
 }
 void init();
