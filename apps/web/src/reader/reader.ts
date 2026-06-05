@@ -101,6 +101,17 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       })
     : null;
 
+  // Transcript layout: subtitle (video on top, only the playing line shown big)
+  // vs document (full text scrolling beside a sticky video). CSS drives both.
+  if (app.transcript) {
+    if (app.settings.transcriptLayout === "subtitle") {
+      container.classList.add("tsg-reader-subtitle");
+      text.classList.add("tsg-subtitle-layout");
+    } else if (app.transcript.videoId) {
+      container.classList.add("tsg-reader-split");
+    }
+  }
+
   /**
    * Render a non-word token, making any embedded "\n" line breaks visible.
    * The text is split on newlines and rendered as a punctuation span whose

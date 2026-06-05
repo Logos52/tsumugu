@@ -41,6 +41,12 @@ export interface AppSettings {
    * held — Yomitan-style). Hovering always sets the keyboard-grade target.
    */
   hoverMode: "unknown" | "all" | "shift";
+  /**
+   * How a transcript reads: `document` (full text scrolling beside the video) or
+   * `subtitle` (video large on top, only the playing line shown big + centered,
+   * updating as it plays — like watching with interactive subtitles).
+   */
+  transcriptLayout: "document" | "subtitle";
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }
@@ -51,6 +57,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   phonetics: false,
   guessFirst: false,
   hoverMode: "unknown",
+  transcriptLayout: "document",
   storePath: "tsumugu/word-store.json",
 };
 

@@ -108,10 +108,10 @@ function refreshStatus(): void {
 /** Persist the user-facing reader toggles so they survive a reload. */
 function persistSettings(): void {
   try {
-    const { phonetics, toneColoring, guessFirst, hoverMode } = app.settings;
+    const { phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout } = app.settings;
     localStorage.setItem(
       SETTINGS_KEY,
-      JSON.stringify({ phonetics, toneColoring, guessFirst, hoverMode }),
+      JSON.stringify({ phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout }),
     );
   } catch {
     /* storage disabled — non-fatal */
@@ -332,6 +332,27 @@ function buildToolbar(): void {
     " zhuyin",
   );
 
+  const layout = el(
+    "select",
+    {
+      class: "tsg-btn",
+      title: "Transcript layout: document (read) or subtitle (watch)",
+      on: {
+        change: (e) => {
+          app.updateSettings({
+            transcriptLayout: (e.target as HTMLSelectElement)
+              .value as AppSettings["transcriptLayout"],
+          });
+          persistSettings();
+          if (app.mode === "reader") remount();
+        },
+      },
+    },
+    el("option", { attrs: { value: "document" }, text: "layout: document" }),
+    el("option", { attrs: { value: "subtitle" }, text: "layout: subtitle" }),
+  );
+  layout.value = app.settings.transcriptLayout;
+
   const hover = el(
     "select",
     {
@@ -408,7 +429,7 @@ function buildToolbar(): void {
   // vault isn't auto-loading (e.g. the production build).
   const items = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, hover, tone, guess, phonetics, theme, styleBtn);
+  items.push(exportBtn, layout, hover, tone, guess, phonetics, theme, styleBtn);
   toolbarEl.append(...items);
 }
 

@@ -643,3 +643,32 @@ button {
     width: 100%;
   }
 }
+
+/* Subtitle layout: video large on top, only the playing line shown big/centered
+ * (it reuses the same token spans — just hides everything but the active cue). */
+.tsg-reader-subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.tsg-reader-subtitle .tsg-transcript {
+  width: 100%;
+  max-width: 46rem;
+  margin: 0;
+}
+.tsg-subtitle-layout {
+  width: 100%;
+  max-width: 46rem;
+  text-align: center;
+  font-size: 2.1rem;
+  line-height: 2.6;
+  min-height: 2.4em; /* reserve space so the video doesn't jump between lines */
+}
+.tsg-subtitle-layout > * {
+  display: none;
+}
+.tsg-subtitle-layout .tsg-cue-active {
+  display: inline;
+  background: transparent; /* the whole line IS the cue; no need to tint it */
+}
