@@ -394,7 +394,10 @@ button {
 .tsg-popup {
   position: absolute;
   z-index: 1000;
-  max-width: 22rem;
+  /* A real width: the card is an absolutely-positioned child of the inline word
+   * span, so without this it shrink-to-fits to a sliver and every line wraps. */
+  width: 20rem;
+  max-width: 92vw;
   padding: 0.75rem 0.9rem;
   background: var(--tsg-surface);
   border: 1px solid var(--tsg-border);
@@ -407,9 +410,15 @@ button {
 }
 
 .tsg-popup-term {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-weight: 700;
   font-size: 1.25rem;
   line-height: 1.2;
+}
+.tsg-popup-term > span {
+  flex: 1;
 }
 
 .tsg-popup-reading {
@@ -542,4 +551,34 @@ button {
 .tsg-cue-active {
   background: hsl(210 100% 92%);
   border-radius: var(--tsg-radius-sm);
+}
+
+/* Video present → player beside the text (sticky left column, text scrolls). */
+.tsg-reader-split {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.tsg-reader-split .tsg-transcript {
+  position: sticky;
+  top: 1rem;
+  flex: 0 0 22rem;
+  width: 22rem;
+  margin: 0;
+}
+.tsg-reader-split .tsg-reader-text {
+  flex: 1 1 auto;
+  max-width: none;
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .tsg-reader-split {
+    flex-direction: column;
+  }
+  .tsg-reader-split .tsg-transcript {
+    position: static;
+    flex-basis: auto;
+    width: 100%;
+  }
 }

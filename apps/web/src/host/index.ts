@@ -4,5 +4,6 @@
  */
 
 export { MemoryVault, pickVaultFolder } from "./fsVault.js";
+export { createHttpVault, devVaultAvailable } from "./httpVault.js";
 export { createWebAudio } from "./webAudio.js";
 export { exportAndDownloadApkg, downloadBytes } from "./anki.js";

@@ -12,6 +12,8 @@ import { mountEncoding } from "./encoding/encoding.js";
 import {
   MemoryVault,
   pickVaultFolder,
+  createHttpVault,
+  devVaultAvailable,
   createWebAudio,
   exportAndDownloadApkg,
 } from "./host/index.js";
@@ -37,6 +39,8 @@ const toolbarEl = $<HTMLElement>("#app-toolbar")!;
 const statusEl = $<HTMLElement>("#app-status")!;
 
 let view: ViewController | null = null;
+// True once the dev-server vault auto-loads; hides the manual grant button.
+let devVault = false;
 
 /**
  * Point the app at the right language pack for the current content so the
@@ -254,7 +258,12 @@ function buildToolbar(): void {
     on: { click: () => fileInput.click() },
   });
 
-  toolbarEl.append(picker, openBtn, fileInput, grant, exportBtn, tone, guess, phonetics);
+  // The manual "Grant vault folder" button is only needed when the dev-server
+  // vault isn't auto-loading (e.g. the production build).
+  const items = [picker, openBtn, fileInput];
+  if (!devVault) items.push(grant);
+  items.push(exportBtn, tone, guess, phonetics);
+  toolbarEl.append(...items);
 }
 
 async function exportAnki(): Promise<void> {
@@ -285,7 +294,26 @@ async function exportAnki(): Promise<void> {
 }
 
 // ── start ────────────────────────────────────────────────────────────────────
-syncPack();
-buildToolbar();
-remount();
-refreshStatus();
+async function init(): Promise<void> {
+  // Under `pnpm dev`, auto-load the real vault over the dev-server bridge — no
+  // File System Access click. Falls back silently (manual grant) otherwise.
+  devVault = await devVaultAvailable();
+  if (devVault) {
+    app.setVault(createHttpVault());
+    try {
+      await app.loadStore();
+    } catch (err) {
+      app.setStatusMessage(`Vault auto-load failed: ${String(err)}`);
+      devVault = false;
+    }
+  }
+  syncPack();
+  buildToolbar();
+  remount();
+  refreshStatus();
+  if (devVault) {
+    const m = app.metrics();
+    app.setStatusMessage(`Vault auto-loaded — ${m.knownCount}/${m.trackedCount} known words.`);
+  }
+}
+void init();

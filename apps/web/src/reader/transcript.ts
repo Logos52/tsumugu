@@ -58,6 +58,9 @@ export function mountTranscriptSync(opts: {
   const timeLabel = el("span", { class: CLS.metrics, text: `${fmt(0)} / ${fmt(duration)}` });
   panel.append(playerHost, el("div", { class: CLS.transport }, playBtn, scrubber, timeLabel));
   host.prepend(panel);
+  // With a real video, lay the player out beside the text (sticky left column);
+  // scrubber-only transcripts keep the thin bar on top.
+  if (transcript.videoId) host.classList.add("tsg-reader-split");
 
   // ── time source: YouTube IFrame if videoId, else a local clock ───────────
   let player: VideoPlayer | null = null;
@@ -152,6 +155,7 @@ export function mountTranscriptSync(opts: {
       if (raf) cancelAnimationFrame(raf);
       player?.destroy();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);
+      host.classList.remove("tsg-reader-split");
       panel.remove();
     },
   };
