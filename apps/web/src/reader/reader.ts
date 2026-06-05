@@ -280,6 +280,23 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         },
       }),
     );
+    // Deep dive → the word's encoding page (etymology, examples, mnemonics,
+    // bridge). Progressive disclosure: the rich helper is one click away, not
+    // crammed into the hover card.
+    head.append(
+      el("button", {
+        class: CLS.btn,
+        type: "button",
+        text: "↗",
+        title: "Encoding page — etymology, examples, mnemonics",
+        on: {
+          click: (ev) => {
+            ev.stopPropagation();
+            location.hash = `#/encoding/${encodeURIComponent(word)}`;
+          },
+        },
+      }),
+    );
     host.append(head);
 
     // Reading (always visible — you can guess from form).
