@@ -10,6 +10,9 @@ describe("createZhHantBrowserPack", () => {
     const pack = createZhHantBrowserPack();
     expect(await pack.scriptNormalizer?.("发展")).toBe("發展");
     expect(await pack.scriptNormalizer?.("学习中文")).toBe("學習中文");
+    // s2twp Taiwan-idiom layer (not plain s2t): vocabulary, not just glyphs.
+    expect(await pack.scriptNormalizer?.("软件")).toBe("軟體");
+    expect(await pack.scriptNormalizer?.("信息")).toBe("資訊");
   });
 
   it("derives tone classes from a Zhuyin reading", () => {

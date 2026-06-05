@@ -2,12 +2,19 @@
  * External-vocab cross-reference harness (PRD §5.7). Import a Migaku/Pleco/Anki
  * export, reconcile it against the word store, and (optionally, import-first)
  * apply external statuses. Write-back to the external tool is out of scope.
+ *
+ * Apply is clock-aware: it uses the engine's `resolveStatusUpdate` so an import
+ * may seed/promote but (by default) never silently demotes a word the user
+ * graded up — Tsumugu is canonical, Migaku is a timestamped input.
  */
 import {
   migakuAdapter,
   reconcile,
+  resolveStatusUpdate,
+  type ExternalRef,
   type ExternalVocabAdapter,
   type ExternalVocabRecord,
+  type MonotonicityPolicy,
   type ReconciliationReport,
   type WordStore,
 } from "@tsumugu/engine";
@@ -36,38 +43,126 @@ export function reconcileAgainstStore(
 }
 
 export interface ApplyResult {
+  /** New words seeded into the store. */
   imported: number;
-  overwritten: number;
-  skippedConflicts: number;
+  /** Existing words whose status changed (promote or newer-wins). */
+  changed: number;
+  /** Would-be demotes prevented by the `never-demote` policy. */
+  demotionsBlocked: number;
+  /** Existing words left unchanged (equal, store-newer, or ambiguous). */
+  kept: number;
+  /** External 4-tuple links attached/refreshed (enriched imports only). */
+  refsLinked: number;
+}
+
+/** Migaku's `mod` epoch → ISO, tolerating seconds-vs-ms; undefined if absent. */
+function externalChangeIso(r: ExternalVocabRecord): string | undefined {
+  const mod = r.raw?.["mod"];
+  if (typeof mod !== "number" || !Number.isFinite(mod)) return undefined;
+  const ms = mod < 1e12 ? mod * 1000 : mod; // tolerate epoch seconds
+  const d = new Date(ms);
+  return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
+}
+
+/** Map a Migaku `wordHistory.origin` to a Tsumugu status origin. */
+function externalOrigin(r: ExternalVocabRecord): "manual" | "study" | "import" {
+  const o = String(r.raw?.["origin"] ?? "").toLowerCase();
+  if (o === "manual") return "manual";
+  if (o === "study") return "study";
+  return "import";
+}
+
+const str = (v: unknown): string | undefined =>
+  typeof v === "string" && v.length > 0 ? v : undefined;
+
+/**
+ * Attach (or refresh) the Migaku 4-tuple on the entry so the (lang,word) ↔
+ * 4-tuple collapse stays reversible. Only fires for enriched imports that carry
+ * the tuple (the lossy word/lang/status export has none). Returns true if linked.
+ */
+function linkExternalRef(
+  store: WordStore,
+  lang: string,
+  word: string,
+  r: ExternalVocabRecord,
+): boolean {
+  const raw = r.raw ?? {};
+  const hasTuple =
+    raw["dictForm"] != null || raw["secondary"] != null || raw["partOfSpeech"] != null;
+  if (!hasTuple) return false;
+  const e = store.get(lang, word);
+  if (!e) return false;
+  const mod = raw["mod"];
+  const ref: ExternalRef = {
+    source: "migaku",
+    dictForm: str(raw["dictForm"]) ?? word,
+    secondary: str(raw["secondary"]) ?? "",
+    partOfSpeech: str(raw["partOfSpeech"]) ?? "",
+    language: str(raw["language"]) ?? r.lang,
+    mod: typeof mod === "number" ? mod : 0,
+  };
+  const refs = e.externalRefs ?? [];
+  const i = refs.findIndex(
+    (x) =>
+      x.source === ref.source &&
+      x.dictForm === ref.dictForm &&
+      x.secondary === ref.secondary &&
+      x.partOfSpeech === ref.partOfSpeech &&
+      x.language === ref.language,
+  );
+  if (i >= 0) refs[i] = ref;
+  else refs.push(ref);
+  e.externalRefs = refs;
+  return true;
 }
 
 /**
- * Import-first apply: add words the store is missing (using the external
- * status), and—only with `overwriteConflicts`—overwrite where they disagree.
+ * Import-first apply, clock-aware. Seeds missing words; for existing words it
+ * defers to {@link resolveStatusUpdate} (default `never-demote`). The deprecated
+ * `overwriteConflicts: true` maps to the `newest-wins` policy.
  */
 export function applyToStore(
   store: WordStore,
   lang: string,
   records: ExternalVocabRecord[],
-  opts: { overwriteConflicts?: boolean } = {},
+  opts: { policy?: MonotonicityPolicy; overwriteConflicts?: boolean } = {},
 ): ApplyResult {
+  const policy: MonotonicityPolicy =
+    opts.policy ?? (opts.overwriteConflicts ? "newest-wins" : "never-demote");
   let imported = 0;
-  let overwritten = 0;
-  let skippedConflicts = 0;
+  let changed = 0;
+  let demotionsBlocked = 0;
+  let kept = 0;
+  let refsLinked = 0;
+
   for (const r of records) {
     if (r.lang !== lang || r.status === undefined) continue;
+    const incomingAt = externalChangeIso(r);
+    const prov = { source: "migaku" as const, origin: externalOrigin(r), at: incomingAt };
     const existing = store.get(lang, r.word);
+
     if (!existing) {
-      store.setStatus(lang, r.word, r.status);
+      store.setStatus(lang, r.word, r.status, undefined, prov);
       imported++;
-    } else if (existing.status !== r.status) {
-      if (opts.overwriteConflicts) {
-        store.setStatus(lang, r.word, r.status);
-        overwritten++;
+    } else {
+      const decision = resolveStatusUpdate({
+        current: existing.status,
+        currentAt: existing.statusUpdatedAt,
+        incoming: r.status,
+        incomingAt,
+        policy,
+      });
+      if (decision.action === "set") {
+        store.setStatus(lang, r.word, decision.status, undefined, prov);
+        changed++;
+      } else if (decision.code === "never-demote") {
+        demotionsBlocked++;
       } else {
-        skippedConflicts++;
+        kept++;
       }
     }
+
+    if (linkExternalRef(store, lang, r.word, r)) refsLinked++;
   }
-  return { imported, overwritten, skippedConflicts };
+  return { imported, changed, demotionsBlocked, kept, refsLinked };
 }

@@ -197,6 +197,27 @@ export interface WordRef {
   word: string;
 }
 
+/**
+ * A link to the same word in an external tool, preserved verbatim so a status
+ * decision is reversible and a future write-back can re-address the exact row.
+ * Migaku keys its WordList on a 4-tuple `(dictForm, secondary, partOfSpeech,
+ * language)`; Tsumugu keys `(lang, word)`, so several Migaku rows can collapse
+ * to one Tsumugu entry. Keeping the tuple here makes that collapse reversible.
+ */
+export interface ExternalRef {
+  source: "migaku" | (string & {});
+  /** Migaku WordList composite key — the dictionary/lemma form. */
+  dictForm: string;
+  /** Secondary disambiguator (reading/sense index). */
+  secondary: string;
+  /** Part of speech. */
+  partOfSpeech: string;
+  /** External language code (as the external tool stores it). */
+  language: string;
+  /** External per-word change epoch (ms) — the external clock for conflict resolution. */
+  mod: number;
+}
+
 /** One persisted entry, keyed by (lang, word). */
 export interface WordEntry {
   lang: string;
@@ -213,6 +234,18 @@ export interface WordEntry {
   flagNote?: string;
   /** Custom/override dictionary fields (user-authored). */
   custom?: Partial<DictEntry>;
+  /**
+   * Provenance of the current `status` (PRD §5.7, two-way sync). Distinct from
+   * `lastSeen`, which is stamped on every encounter: `statusUpdatedAt` moves
+   * ONLY on a real status change, so it is a usable clock for reconciliation.
+   */
+  statusUpdatedAt?: string;
+  /** What last set the status. */
+  statusSource?: "tsumugu" | "migaku" | "import" | (string & {});
+  /** How the status was set (user grade vs SRS study vs bulk import). */
+  statusOrigin?: "manual" | "study" | "import" | (string & {});
+  /** Links to this word in external tools (for reversible write-back). */
+  externalRefs?: ExternalRef[];
   /** FSRS scheduling state, if this word is in the SRS. */
   srs?: SrsState;
   /** Cross-language etymon links (PRD §5.6). */
@@ -223,13 +256,17 @@ export interface WordEntry {
 
 /** The vault word-store document (one JSON file, syncs across machines). */
 export interface WordStoreDoc {
-  schema: "tsumugu/word-store@1";
+  /** `@2` adds the per-word provenance envelope; `@1` files load unchanged. */
+  schema: "tsumugu/word-store@1" | "tsumugu/word-store@2";
   /** ISO datetime of last write. */
   updatedAt?: string;
   entries: WordEntry[];
 }
 
-export const WORD_STORE_SCHEMA = "tsumugu/word-store@1" as const;
+/** Current schema written on save. `@1` is still accepted on load (additive). */
+export const WORD_STORE_SCHEMA = "tsumugu/word-store@2" as const;
+/** The pre-provenance schema; load() accepts it and treats fields as absent. */
+export const WORD_STORE_SCHEMA_V1 = "tsumugu/word-store@1" as const;
 
 // ───────────────────────────────────────────────────────────────────────────
 // Prepared content — the batch-generation output the reader consumes

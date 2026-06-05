@@ -36,6 +36,7 @@ import {
   reconcileAgainstStore,
   applyToStore,
 } from "./lib/crossref.js";
+import { readMigakuDb } from "./lib/migaku-db.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -311,13 +312,26 @@ async function cmdBridge(opts: Record<string, string | boolean>): Promise<void> 
 
 async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void> {
   const source = str(opts, "source") ?? "migaku";
-  const inPath = str(opts, "in") ?? fail("crossref needs --in <export.json>");
+  const inPath = str(opts, "in") ?? fail("crossref needs --in <export.json | migaku-core.db>");
   const storePath = str(opts, "store");
   const store = await loadStore(storePath);
-  const records = importExternal(source, await readJson<unknown>(inPath));
+  // A .db input (or --source migaku-db) reads the real Migaku SQLite directly,
+  // enriched with each word's mod / 4-tuple / latest origin so the clock-aware
+  // reconciler can never silently demote. Otherwise parse the lossy JSON export.
+  const isDb = source === "migaku-db" || inPath.toLowerCase().endsWith(".db");
+  const records = isDb
+    ? await readMigakuDb(inPath)
+    : importExternal(source, await readJson<unknown>(inPath));
   const lang = str(opts, "lang") ?? records[0]?.lang ?? fail("specify --lang");
-  const report = reconcileAgainstStore(lang, store, records);
-  const inLang = records.filter((r) => r.lang === lang).length;
+  // Optional source→canonical language relabel (e.g. Migaku stores Chinese as
+  // "zh"; Tsumugu's store/reader use "zh-Hant"): keep only --from-lang rows and
+  // re-tag them to --lang. The original code is preserved in externalRefs.
+  const fromLang = str(opts, "from-lang");
+  const tagged = fromLang
+    ? records.filter((r) => r.lang === fromLang).map((r) => ({ ...r, lang }))
+    : records;
+  const report = reconcileAgainstStore(lang, store, tagged);
+  const inLang = tagged.filter((r) => r.lang === lang).length;
 
   console.log(`crossref ${source} (${lang}): ${inLang} record(s)`);
   console.log(`  reconciled: ${report.reconciled.length}`);
@@ -328,11 +342,13 @@ async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void
   console.log(`  missing from store: ${report.missingFromStore.length}`);
 
   if (flag(opts, "apply")) {
-    const res = applyToStore(store, lang, records, { overwriteConflicts: flag(opts, "overwrite") });
+    const policy = flag(opts, "overwrite") ? ("newest-wins" as const) : ("never-demote" as const);
+    const res = applyToStore(store, lang, tagged, { policy });
     const out = str(opts, "out") ?? storePath ?? fail("--apply needs --store or --out to write to");
     await writeJson(out, store.toDoc());
     console.error(
-      `✓ applied: +${res.imported} imported, ${res.overwritten} overwritten, ${res.skippedConflicts} conflict(s) skipped → ${out}`,
+      `✓ applied (${policy}): +${res.imported} seeded, ${res.changed} updated, ` +
+        `${res.demotionsBlocked} demotion(s) blocked, ${res.kept} kept → ${out}`,
     );
   }
 }
@@ -356,6 +372,7 @@ function usage(): void {
       "  pnpm gen bridge   --lang vi --store ws.json [--bridge-lang zh-Hant] [--words a,b]",
       "                    | --cache results.json --registry bridge/vi-bridge.json --lang vi --store ws.json",
       "  pnpm gen crossref --source migaku --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
+      "  pnpm gen crossref --source migaku-db --in migaku-core.db --lang zh-Hant --from-lang zh [--apply]   (enriched: reads the real SQLite; relabels Migaku 'zh' → 'zh-Hant')",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",

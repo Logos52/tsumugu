@@ -23,12 +23,16 @@ import {
   type PrebakedEntry,
 } from "@tsumugu/engine";
 
+import type { TranscriptDoc } from "./reader/sync.js";
+
 /** Reader/review display preferences. */
 export interface AppSettings {
   /** Explanation language for hover/wiki: target-monolingual default. */
   explanationLang: "target" | "en" | (string & {});
   /** zh tone coloring toggle (separate from status coloring; off by default). */
   toneColoring: boolean;
+  /** Zhuyin/bopomofo ruby above each word (Migaku-style); off by default. */
+  phonetics: boolean;
   /** Guess-first: hide the gloss until the user asks to reveal. */
   guessFirst: boolean;
   /** Path of the word-store JSON inside the granted vault folder. */
@@ -38,6 +42,7 @@ export interface AppSettings {
 export const DEFAULT_SETTINGS: AppSettings = {
   explanationLang: "target",
   toneColoring: false,
+  phonetics: false,
   guessFirst: true,
   storePath: "tsumugu/word-store.json",
 };
@@ -64,6 +69,8 @@ export class AppState {
   store: WordStore;
   pack: LanguagePack;
   content: PreparedContent | null;
+  /** Optional timed transcript bound to the current content (synced-reader). */
+  transcript: TranscriptDoc | null;
   settings: AppSettings;
   vault: VaultIO | null;
   audio: AudioPort | null;
@@ -76,6 +83,7 @@ export class AppState {
     pack: LanguagePack;
     store?: WordStore;
     content?: PreparedContent | null;
+    transcript?: TranscriptDoc | null;
     settings?: Partial<AppSettings>;
     vault?: VaultIO | null;
     audio?: AudioPort | null;
@@ -84,6 +92,7 @@ export class AppState {
     this.pack = opts.pack;
     this.store = opts.store ?? new WordStore();
     this.content = opts.content ?? null;
+    this.transcript = opts.transcript ?? null;
     this.settings = { ...DEFAULT_SETTINGS, ...opts.settings };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
@@ -147,7 +156,16 @@ export class AppState {
 
   setContent(content: PreparedContent | null): void {
     this.content = content;
+    // New content drops any prior transcript binding; callers re-attach via
+    // setTranscript() if the new content has one.
+    this.transcript = null;
     this.recordContentSeen();
+    this.emit("change");
+  }
+
+  /** Bind (or clear) a timed transcript for the synced-reader (M4). */
+  setTranscript(transcript: TranscriptDoc | null): void {
+    this.transcript = transcript;
     this.emit("change");
   }
 

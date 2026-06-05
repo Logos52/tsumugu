@@ -41,6 +41,10 @@
   --tsg-tone-4: #7d3c98; /* 4th — purple */
   --tsg-tone-5: #707b8a; /* neutral — gray */
 
+  /* Migaku-style underlines (phonetics visual only) */
+  --tsg-unknown-underline: #fe4670; /* new / l1 */
+  --tsg-learning-underline: #ff9345; /* l2 / l3 */
+
   /* ── reading column ─────────────────────────────────────────────────────── */
   --tsg-reading-width: 38rem;
 
@@ -331,6 +335,60 @@ button {
   outline-offset: 1px;
 }
 
+/* ── Migaku reading visual (phonetics on: data-visual="migaku") ───────────── */
+/*
+ * Scoped so the default fill model above stays intact when phonetics is off.
+ * Safari: also set -webkit-ruby-position: over if ruby rows misalign.
+ */
+
+.tsg-ruby {
+  ruby-position: over;
+  ruby-align: center;
+}
+
+.tsg-ruby rt {
+  font-size: 0.5em;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.tsg-ruby rt:not([class]) {
+  color: var(--tsg-ink-muted);
+}
+
+.tsg-reader-text[data-visual="migaku"] {
+  line-height: 2.4;
+}
+
+.tsg-reader-text[data-visual="migaku"] .tsg-status-new,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l1 {
+  background: transparent;
+  box-shadow: inset 0 -0.1em 0 0 var(--tsg-unknown-underline);
+}
+
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l2,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l3 {
+  background: transparent;
+  box-shadow: inset 0 -0.1em 0 0 var(--tsg-learning-underline);
+}
+
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l4,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-known {
+  background: transparent;
+  box-shadow: none;
+}
+
+.tsg-reader-text[data-visual="migaku"] .tsg-status-ignored {
+  background: transparent;
+  box-shadow: none;
+}
+
+.tsg-reader-text[data-visual="migaku"] .tsg-active {
+  background: rgba(37, 99, 235, 0.18);
+  outline: none;
+  border-radius: var(--tsg-radius-sm);
+}
+
 /* ── popup (hover card) ───────────────────────────────────────────────────── */
 
 .tsg-popup {
@@ -451,4 +509,37 @@ button {
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-top: 1.5rem;
+}
+
+/* ── transcript synced-reader (M4) ────────────────────────────────────────── */
+.tsg-transcript {
+  max-width: var(--tsg-reading-width);
+  margin: 0 auto 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tsg-player {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--tsg-radius);
+  overflow: hidden;
+}
+.tsg-player:empty {
+  display: none; /* scrubber-only (no videoId): hide the empty video frame */
+}
+.tsg-transport {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.tsg-scrubber {
+  flex: 1;
+  accent-color: var(--tsg-accent);
+}
+/* Tokens of the cue currently playing — distinct from status/tone color. */
+.tsg-cue-active {
+  background: hsl(210 100% 92%);
+  border-radius: var(--tsg-radius-sm);
 }

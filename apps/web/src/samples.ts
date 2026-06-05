@@ -6,6 +6,8 @@
  */
 import type { PreparedContent } from "@tsumugu/engine";
 
+import type { TranscriptDoc } from "./reader/sync.js";
+
 const en: PreparedContent = {
   schema: "tsumugu/prepared-content@1",
   lang: "demo",
@@ -134,14 +136,29 @@ const vi: PreparedContent = {
   },
 };
 
+/**
+ * A timed transcript for the zh sample (M4 synced-reader demo). No videoId, so
+ * it plays on the local scrubber — the cue highlight sweeps Tsumugu's own text
+ * with zero network/ToS surface. The two cues partition the zh tokens in order.
+ */
+const zhTranscript: TranscriptDoc = {
+  cues: [
+    { text: "今晚我們去夜市吃小吃，", start: "00:00:00,000", end: "00:00:03,000" },
+    { text: "那裡很熱鬧。", start: "00:00:03,000", end: "00:00:06,000" },
+  ],
+};
+
 export interface Sample {
   id: string;
   label: string;
   content: PreparedContent;
+  /** Optional timed transcript → mounts the synced-reader panel. */
+  transcript?: TranscriptDoc;
 }
 
 export const SAMPLES: Sample[] = [
   { id: "en", label: "Demo (English)", content: en },
   { id: "zh", label: "中文 — 夜市 (zh-Hant)", content: zh },
+  { id: "zh-sync", label: "中文 — 夜市 (synced ▶)", content: zh, transcript: zhTranscript },
   { id: "vi", label: "Tiếng Việt — phát triển", content: vi },
 ];

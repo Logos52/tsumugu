@@ -80,8 +80,10 @@ function fallbackSegment(text: string): Token[] {
  */
 export function createZhHantBrowserPack(opts?: { dict?: BrowserDict }): LanguagePack {
   const dict = opts?.dict;
-  // Created once: Simplified→Traditional (OpenCC guard on all zh-Hant output).
-  const cn2tw = Converter({ from: "cn", to: "tw" });
+  // Created once: Simplified→Traditional with the Taiwan-idiom layer (s2twp:
+  // 軟件→軟體, 信息→資訊) — the OpenCC guard on all zh-Hant output. `twp`, not
+  // plain `tw`, so no Mainland phrasing leaks onto any surface.
+  const cn2tw = Converter({ from: "cn", to: "twp" });
 
   return {
     id: "zh-Hant",

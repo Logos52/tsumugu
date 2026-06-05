@@ -108,6 +108,8 @@ function buildToolbar(): void {
           const s = SAMPLES.find((x) => x.id === id);
           if (s) {
             app.setContent(s.content);
+            // Bind (or clear) the sample's timed transcript for the synced reader.
+            app.setTranscript(s.transcript ?? null);
             // Pick the pack for the new content's language BEFORE remounting so
             // the reader uses zh-TW / vi-VN TTS + tone coloring + OpenCC.
             syncPack();
@@ -192,7 +194,22 @@ function buildToolbar(): void {
     " guess-first",
   );
 
-  toolbarEl.append(picker, grant, exportBtn, tone, guess);
+  const phonetics = el(
+    "label",
+    { class: "tsg-btn", title: "Migaku visual: zhuyin above each word + unknown underlines" },
+    el("input", {
+      attrs: app.settings.phonetics ? { type: "checkbox", checked: "" } : { type: "checkbox" },
+      on: {
+        change: (e) => {
+          app.updateSettings({ phonetics: (e.target as HTMLInputElement).checked });
+          if (app.mode === "reader") remount();
+        },
+      },
+    }),
+    " zhuyin",
+  );
+
+  toolbarEl.append(picker, grant, exportBtn, tone, guess, phonetics);
 }
 
 async function exportAnki(): Promise<void> {

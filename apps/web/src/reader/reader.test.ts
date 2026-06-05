@@ -92,6 +92,31 @@ describe("mountReader", () => {
     view.unmount();
   });
 
+  it("renders zhuyin ruby above each char when phonetics is on", () => {
+    const app = buildApp({ phonetics: true });
+    const root = document.createElement("div");
+    const view = mountReader(root, app);
+
+    // "你好" has a prebaked reading ("nǐ hǎo") that aligns 1:1 with its chars,
+    // so it renders as <ruby> with one <rt> per character.
+    const span = wordSpan(root, "你好");
+    expect(span.querySelector("ruby")).not.toBeNull();
+    const rts = span.querySelectorAll("rt");
+    expect(rts.length).toBe(2);
+    expect(rts[0]?.textContent).toBe("nǐ");
+    expect(rts[1]?.textContent).toBe("hǎo");
+    // Base glyphs are preserved, in order, as the ruby's direct <span> children.
+    const base = [...span.querySelectorAll("ruby > span")]
+      .map((s) => s.textContent)
+      .join("");
+    expect(base).toBe("你好");
+    // "世界" has no prebaked reading → falls back to plain text (no ruby).
+    expect(wordSpan(root, "世界").querySelector("ruby")).toBeNull();
+    expect(wordSpan(root, "世界").textContent).toBe("世界");
+
+    view.unmount();
+  });
+
   it("renders newline non-word tokens as visible <br> line breaks", () => {
     // Transcript-style content: word tokens separated by a pure "\n" cue break,
     // plus a token mixing text and a newline ("foo\nbar").

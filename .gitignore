@@ -25,3 +25,6 @@ examples/out/
 .DS_Store
 .idea/
 .vscode/
+
+# Local agent state (Claude Code worktrees, session data)
+.claude/

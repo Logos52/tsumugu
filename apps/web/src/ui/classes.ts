@@ -16,6 +16,14 @@ export const CLS = {
   punct: "tsg-punct",
   flagged: "tsg-flagged",
   active: "tsg-active",
+  ruby: "tsg-ruby", // <ruby> wrapper for zhuyin-above rendering (phonetics on)
+  cueActive: "tsg-cue-active", // tokens of the transcript cue currently playing
+
+  // transcript synced-reader (M4)
+  transcript: "tsg-transcript",
+  player: "tsg-player",
+  transport: "tsg-transport",
+  scrubber: "tsg-scrubber",
 
   // hover popup
   popup: "tsg-popup",

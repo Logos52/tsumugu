@@ -323,7 +323,7 @@ describe("serialization", () => {
     const s = new WordStore();
     s.upsert({ lang: "zh", word: "雲", status: "l4" });
     const doc = s.toDoc(fixedClock(T1));
-    expect(doc.schema).toBe("tsumugu/word-store@1");
+    expect(doc.schema).toBe("tsumugu/word-store@2");
     expect(doc.updatedAt).toBe(T1);
     expect(doc.entries).toHaveLength(1);
   });

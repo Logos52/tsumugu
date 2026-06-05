@@ -113,19 +113,54 @@ describe("crossref import + reconcile + apply", () => {
     expect(report.missingFromStore.map((c) => c.word).sort()).toEqual(["小吃", "熱鬧"]);
   });
 
-  it("import-first apply adds missing words, skips conflicts unless overwrite", () => {
+  it("seeds missing words and preserves an explicit local grade (no external clock)", () => {
     const records = importExternal("migaku", migaku);
     const store = new WordStore();
-    store.setStatus("zh-Hant", "夜市", "l2");
+    store.setStatus("zh-Hant", "夜市", "l2"); // explicit local grade
 
     const r1 = applyToStore(store, "zh-Hant", records, {});
-    expect(r1.imported).toBe(1); // 熱鬧 (小吃 has no status → not imported)
-    expect(r1.skippedConflicts).toBe(1); // 夜市
+    expect(r1.imported).toBe(1); // 熱鬧 seeded (小吃 has no status → skipped)
     expect(store.getStatus("zh-Hant", "熱鬧")).toBe("l3"); // LEARNING → l3
-    expect(store.getStatus("zh-Hant", "夜市")).toBe("l2"); // unchanged
+    // 夜市: external "known" cannot override a more-specific local grade with no
+    // timestamp evidence it is newer. Tsumugu is canonical.
+    expect(store.getStatus("zh-Hant", "夜市")).toBe("l2");
+    expect(r1.changed).toBe(0);
+    expect(r1.kept).toBe(1);
+  });
 
-    const r2 = applyToStore(store, "zh-Hant", records, { overwriteConflicts: true });
-    expect(r2.overwritten).toBe(1);
+  it("never silently demotes a locally-known word, even under overwrite", () => {
+    const lower = { words: [{ word: "夜市", lang: "zh-Hant", status: "LEARNING" }] };
+    const records = importExternal("migaku", lower);
+    const store = new WordStore();
+    store.setStatus("zh-Hant", "夜市", "known"); // user graded it up
+
+    const r1 = applyToStore(store, "zh-Hant", records, {}); // never-demote
     expect(store.getStatus("zh-Hant", "夜市")).toBe("known");
+    expect(r1.demotionsBlocked).toBe(1);
+
+    // Even the legacy --overwrite (→ newest-wins) won't demote without a clock.
+    const r2 = applyToStore(store, "zh-Hant", records, { overwriteConflicts: true });
+    expect(store.getStatus("zh-Hant", "夜市")).toBe("known");
+    expect(r2.changed).toBe(0);
+  });
+
+  it("lets a strictly-newer external change win (clock-aware)", () => {
+    const clockAt = (iso: string) => ({ now: () => new Date(iso) });
+    const store = new WordStore();
+    // Old local grade…
+    store.setStatus("zh-Hant", "夜市", "l2", clockAt("2020-01-01T00:00:00.000Z"));
+    // …and a newer Migaku change (its `mod` epoch passes through record.raw).
+    const newer = {
+      words: [
+        { word: "夜市", lang: "zh-Hant", status: "KNOWN", mod: Date.parse("2025-01-01T00:00:00.000Z") },
+      ],
+    };
+    const records = importExternal("migaku", newer);
+    const res = applyToStore(store, "zh-Hant", records, {}); // never-demote (a promote here)
+    expect(store.getStatus("zh-Hant", "夜市")).toBe("known");
+    expect(res.changed).toBe(1);
+    const e = store.get("zh-Hant", "夜市");
+    expect(e?.statusSource).toBe("migaku");
+    expect(e?.statusUpdatedAt).toBe("2025-01-01T00:00:00.000Z"); // dated by Migaku's mod
   });
 });

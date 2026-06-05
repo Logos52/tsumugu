@@ -21,6 +21,7 @@ import {
 import type { AppState, ViewController } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS, toneClass } from "../ui/classes.js";
+import { mountTranscriptSync, type TranscriptController } from "./transcript.js";
 
 /** Labels shown on the grading row, in order; each maps via `hotkeyToStatus`. */
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
@@ -59,20 +60,42 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // ── render ──────────────────────────────────────────────────────────────────
   const container = el("div", { class: CLS.reader });
   const text = el("div", { class: CLS.readerText });
+  // Opt into the Migaku visual model (zhuyin ruby + colored-underline grading,
+  // no background fill) when phonetics is on; the default fill model otherwise.
+  if (app.settings.phonetics) text.dataset.visual = "migaku";
   container.append(text);
 
+  // One element per token (word OR punctuation span), index-aligned with
+  // content.tokens, so the transcript sync can highlight a cue's token range.
+  const tokenEls: (HTMLElement | null)[] = [];
   for (const token of content.tokens) {
     if (!token.isWord) {
-      text.append(renderPunct(token.text));
+      const punct = renderPunct(token.text);
+      text.append(punct);
+      tokenEls.push(punct);
       continue;
     }
     const span = renderWord(token);
     wordSpans.push({ word: token.text, span });
     text.append(span);
+    tokenEls.push(span);
   }
 
   clear(root);
   root.append(container);
+
+  // Synced-reader (M4): when a timed transcript is bound to this content, mount
+  // the player/scrubber panel and highlight the playing cue in our own text.
+  // Inert when there's no transcript, so plain reading (and the reader tests)
+  // are unaffected.
+  const transcriptCtl: TranscriptController | null = app.transcript
+    ? mountTranscriptSync({
+        host: container,
+        tokens: content.tokens,
+        transcript: app.transcript,
+        tokenEls,
+      })
+    : null;
 
   /**
    * Render a non-word token, making any embedded "\n" line breaks visible.
@@ -109,31 +132,79 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     return span;
   }
 
-  /** Render the inner characters of a word span (tone-colored or plain). */
+  /**
+   * Render the inner content of a word span. Three independently-toggled
+   * layers: zhuyin ruby ABOVE each character (`settings.phonetics`,
+   * Migaku-style), tone-coloring of the glyphs (`settings.toneColoring`), and
+   * the plain glyphs. Ruby and tone-coloring both need a per-syllable reading
+   * that aligns 1:1 with the word's characters; when it doesn't, we fall back
+   * gracefully (tone spans, then plain text).
+   */
   function paintWordContent(span: HTMLSpanElement, word: string): void {
     clear(span);
-    if (app.settings.toneColoring) {
-      let tones: number[] | undefined;
-      try {
-        // Pass the word's pre-baked reading so tone coloring works offline
-        // from content alone (no live dictionary needed).
-        const reading = lookupPrebaked(content, word)?.reading;
-        tones = app.pack.phoneticLayer.toneClasses?.(word, reading);
-      } catch {
-        tones = undefined;
-      }
-      const chars = [...word];
-      if (tones && tones.length === chars.length) {
-        for (let i = 0; i < chars.length; i++) {
-          const n = tones[i];
-          span.append(
-            el("span", { class: n != null ? toneClass(n) : "", text: chars[i] ?? "" }),
-          );
-        }
-        return;
-      }
+    const chars = [...word];
+
+    // Fast path: nothing to annotate.
+    if (!app.settings.phonetics && !app.settings.toneColoring) {
+      span.textContent = word;
+      return;
     }
+
+    const reading = readingFor(word);
+    const syllables = reading ? reading.split(/\s+/).filter(Boolean) : [];
+    const aligned = syllables.length === chars.length;
+    // Tones drive coloring of both the glyph and (when ruby is shown) the rt.
+    const tones = app.settings.toneColoring ? tonesFor(word, reading) : undefined;
+
+    // Zhuyin ruby above each char (needs a per-char-aligned reading).
+    if (app.settings.phonetics && aligned) {
+      const ruby = el("ruby", { class: CLS.ruby });
+      for (let i = 0; i < chars.length; i++) {
+        const t = tones?.[i];
+        const cls = t != null ? toneClass(t) : "";
+        ruby.append(el("span", { class: cls, text: chars[i] ?? "" }));
+        ruby.append(el("rt", { class: cls, text: syllables[i] ?? "" }));
+      }
+      span.append(ruby);
+      return;
+    }
+
+    // Tone coloring only (no ruby): per-char colored glyphs.
+    if (tones && tones.length === chars.length) {
+      for (let i = 0; i < chars.length; i++) {
+        const n = tones[i];
+        span.append(
+          el("span", { class: n != null ? toneClass(n) : "", text: chars[i] ?? "" }),
+        );
+      }
+      return;
+    }
+
     span.textContent = word;
+  }
+
+  /**
+   * The word's pre-baked reading, zhuyin part only (drops any "/ pinyin"
+   * variant suffix). Offline-safe: reads from content, never a live dict.
+   */
+  function readingFor(word: string): string | undefined {
+    try {
+      const raw = lookupPrebaked(content, word)?.reading;
+      if (!raw) return undefined;
+      const zhuyin = raw.split("/")[0]?.trim();
+      return zhuyin || undefined;
+    } catch {
+      return undefined;
+    }
+  }
+
+  /** Per-syllable tone classes for a word from its reading (pack-computed). */
+  function tonesFor(word: string, reading: string | undefined): number[] | undefined {
+    try {
+      return app.pack.phoneticLayer.toneClasses?.(word, reading);
+    } catch {
+      return undefined;
+    }
   }
 
   /** Re-read every word's status and swap its color class (no re-render). */
@@ -380,6 +451,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     unmount() {
       root.removeEventListener("keydown", onKeyDown);
       offChange();
+      transcriptCtl?.destroy();
       closePopup();
       clear(root);
     },
