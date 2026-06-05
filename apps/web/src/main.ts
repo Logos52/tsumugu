@@ -9,6 +9,7 @@ import { AppState, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
 import { mountEncoding } from "./encoding/encoding.js";
+import { mountStyleguide } from "./styleguide/styleguide.js";
 import {
   MemoryVault,
   pickVaultFolder,
@@ -80,6 +81,10 @@ function encodingRoute(): string | null {
 function remount(): void {
   view?.unmount();
   clear(rootEl);
+  if (location.hash === "#/styleguide") {
+    view = mountStyleguide(rootEl, app);
+    return;
+  }
   const word = encodingRoute();
   if (word) {
     view = mountEncoding(rootEl, app, word);
@@ -324,6 +329,30 @@ function buildToolbar(): void {
     " zhuyin",
   );
 
+  const theme = el(
+    "label",
+    { class: "tsg-btn", title: "Catppuccin Mocha (dark)" },
+    el("input", {
+      attrs:
+        document.documentElement.dataset.theme === "dark"
+          ? { type: "checkbox", checked: "" }
+          : { type: "checkbox" },
+      on: {
+        change: (e) => {
+          const dark = (e.target as HTMLInputElement).checked;
+          if (dark) document.documentElement.dataset.theme = "dark";
+          else delete document.documentElement.dataset.theme;
+          try {
+            localStorage.setItem("tsg-theme", dark ? "dark" : "light");
+          } catch {
+            /* storage disabled — non-fatal */
+          }
+        },
+      },
+    }),
+    " dark",
+  );
+
   const fileInput = el("input", {
     attrs: { type: "file", accept: ".json,application/json", multiple: "" },
     style: { display: "none" },
@@ -344,11 +373,19 @@ function buildToolbar(): void {
     on: { click: () => fileInput.click() },
   });
 
+  const styleBtn = el("button", {
+    class: "tsg-btn",
+    text: "🎨",
+    title: "Styleguide / testing page",
+    type: "button",
+    on: { click: () => { location.hash = "#/styleguide"; } },
+  });
+
   // The manual "Grant vault folder" button is only needed when the dev-server
   // vault isn't auto-loading (e.g. the production build).
   const items = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, tone, guess, phonetics);
+  items.push(exportBtn, tone, guess, phonetics, theme, styleBtn);
   toolbarEl.append(...items);
 }
 

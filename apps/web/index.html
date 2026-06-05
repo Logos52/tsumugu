@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tsumugu — reader</title>
+    <!-- Apply the saved Catppuccin variant before paint to avoid a flash. -->
+    <script>
+      try {
+        if (localStorage.getItem("tsg-theme") === "dark")
+          document.documentElement.dataset.theme = "dark";
+      } catch (e) {}
+    </script>
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
   <body>

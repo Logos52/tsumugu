@@ -71,8 +71,10 @@ function wordSpan(root: HTMLElement, word: string): HTMLSpanElement {
   return span;
 }
 
-function key(root: HTMLElement, k: string): void {
-  root.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true }));
+function key(_root: HTMLElement, k: string): void {
+  // The reader listens on document (so grade keys work while hovering); dispatch
+  // there so a detached test root still reaches the handler.
+  document.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true }));
 }
 
 // ── tests ────────────────────────────────────────────────────────────────────

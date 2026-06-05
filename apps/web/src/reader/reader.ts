@@ -52,6 +52,10 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   const wordSpans: { word: string; span: HTMLSpanElement }[] = [];
 
   let activeIndex = 0;
+  // The word the keyboard grades / flags: set by hover OR arrow-nav, so pressing
+  // 1–4/K/X always targets the word you're actually looking at.
+  let currentWord: string | null = null;
+  let activeSpan: HTMLElement | null = null;
   let popup: HTMLElement | null = null;
   // Monotonic token so a slow dictionaryProvider for a closed/replaced popup
   // never paints stale content.
@@ -127,8 +131,17 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (app.getEntry(word)?.flagged) span.classList.add(CLS.flagged);
     paintWordContent(span, word);
 
-    span.addEventListener("mouseenter", () => openPopup(word, span));
-    span.addEventListener("focus", () => openPopup(word, span));
+    // Hover (or keyboard focus) marks this the current word AND shows its card;
+    // leaving the word (and its popup, which is a child) hides the card again.
+    span.addEventListener("mouseenter", () => {
+      setCurrent(word, span);
+      openPopup(word, span);
+    });
+    span.addEventListener("mouseleave", () => closePopup());
+    span.addEventListener("focus", () => {
+      setCurrent(word, span);
+      openPopup(word, span);
+    });
     return span;
   }
 
@@ -375,6 +388,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
           class: CLS.btn,
           type: "button",
           text: label,
+          dataset: { grade: label },
           on: {
             click: (ev) => {
               ev.stopPropagation();
@@ -390,15 +404,21 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
   // ── keyboard navigation ─────────────────────────────────────────────────────
 
+  /** Mark `word`/`span` the current target (moves the active box; no scroll). */
+  function setCurrent(word: string, span: HTMLElement): void {
+    currentWord = word;
+    if (activeSpan && activeSpan !== span) activeSpan.classList.remove(CLS.active);
+    activeSpan = span;
+    span.classList.add(CLS.active);
+  }
+
   function setActive(index: number): void {
     if (wordSpans.length === 0) return;
     const clamped = Math.max(0, Math.min(index, wordSpans.length - 1));
-    const prev = wordSpans[activeIndex];
-    if (prev) prev.span.classList.remove(CLS.active);
     activeIndex = clamped;
     const cur = wordSpans[activeIndex];
     if (!cur) return;
-    cur.span.classList.add(CLS.active);
+    setCurrent(cur.word, cur.span);
     cur.span.focus();
     openPopup(cur.word, cur.span);
   }
@@ -417,7 +437,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   }
 
   function onKeyDown(ev: KeyboardEvent): void {
-    const cur = wordSpans[activeIndex];
+    // Don't hijack typing in the toolbar (select / checkbox / file input).
+    const tag = (ev.target as HTMLElement | null)?.tagName;
+    if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
 
     if (ev.key === "Escape") {
       closePopup();
@@ -440,33 +462,35 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     }
     if (ev.key === "f") {
       ev.preventDefault();
-      if (!cur) return;
-      if (app.getEntry(cur.word)?.flagged) app.unflagWord(cur.word);
-      else app.flagWord(cur.word);
+      if (!currentWord) return;
+      if (app.getEntry(currentWord)?.flagged) app.unflagWord(currentWord);
+      else app.flagWord(currentWord);
       return;
     }
     const status = hotkeyToStatus(ev.key);
-    if (status && cur) {
+    if (status && currentWord) {
       ev.preventDefault();
-      app.gradeWord(cur.word, status);
+      app.gradeWord(currentWord, status);
       closePopup();
     }
   }
 
-  root.addEventListener("keydown", onKeyDown);
+  // Global so a grade key works while you're hovering with the mouse (focus is
+  // on <body>, not the reader, so a root-level listener would never fire).
+  document.addEventListener("keydown", onKeyDown);
 
   // Recolor (no re-render) whenever the store changes.
   const offChange = app.on("change", () => recolor());
 
-  // Establish an initial active word.
+  // Establish an initial current word (so a grade key works before any hover).
   if (wordSpans.length > 0) {
     const first = wordSpans[0];
-    if (first) first.span.classList.add(CLS.active);
+    if (first) setCurrent(first.word, first.span);
   }
 
   return {
     unmount() {
-      root.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("keydown", onKeyDown);
       offChange();
       transcriptCtl?.destroy();
       closePopup();

@@ -43,7 +43,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   explanationLang: "target",
   toneColoring: false,
   phonetics: false,
-  guessFirst: true,
+  guessFirst: false,
   storePath: "tsumugu/word-store.json",
 };
 
