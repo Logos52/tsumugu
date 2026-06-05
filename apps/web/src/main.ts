@@ -108,8 +108,11 @@ function refreshStatus(): void {
 /** Persist the user-facing reader toggles so they survive a reload. */
 function persistSettings(): void {
   try {
-    const { phonetics, toneColoring, guessFirst } = app.settings;
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ phonetics, toneColoring, guessFirst }));
+    const { phonetics, toneColoring, guessFirst, hoverMode } = app.settings;
+    localStorage.setItem(
+      SETTINGS_KEY,
+      JSON.stringify({ phonetics, toneColoring, guessFirst, hoverMode }),
+    );
   } catch {
     /* storage disabled — non-fatal */
   }
@@ -329,6 +332,26 @@ function buildToolbar(): void {
     " zhuyin",
   );
 
+  const hover = el(
+    "select",
+    {
+      class: "tsg-btn",
+      title: "When the hover card appears (Migaku-style: only unknown words)",
+      on: {
+        change: (e) => {
+          app.updateSettings({
+            hoverMode: (e.target as HTMLSelectElement).value as AppSettings["hoverMode"],
+          });
+          persistSettings();
+        },
+      },
+    },
+    el("option", { attrs: { value: "unknown" }, text: "hover: unknown" }),
+    el("option", { attrs: { value: "all" }, text: "hover: all" }),
+    el("option", { attrs: { value: "shift" }, text: "hover: ⇧shift" }),
+  );
+  hover.value = app.settings.hoverMode;
+
   const theme = el(
     "label",
     { class: "tsg-btn", title: "Catppuccin Mocha (dark)" },
@@ -385,7 +408,7 @@ function buildToolbar(): void {
   // vault isn't auto-loading (e.g. the production build).
   const items = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, tone, guess, phonetics, theme, styleBtn);
+  items.push(exportBtn, hover, tone, guess, phonetics, theme, styleBtn);
   toolbarEl.append(...items);
 }
 

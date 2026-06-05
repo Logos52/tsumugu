@@ -119,6 +119,14 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     return span;
   }
 
+  /** Whether hovering `word` should open the card, per settings.hoverMode. */
+  function shouldHover(word: string, ev: MouseEvent): boolean {
+    const mode = app.settings.hoverMode;
+    if (mode === "all") return true;
+    if (mode === "shift") return ev.shiftKey;
+    return !isKnown(app.getStatus(word)); // "unknown" — Migaku-style
+  }
+
   /** Build a word span with its status color, flagged marker, and tone wrap. */
   function renderWord(token: PreparedToken): HTMLSpanElement {
     const word = token.text;
@@ -137,9 +145,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     // The card is STICKY: it does not vanish on mouse-leave (so you can move onto
     // it and click 1–4/K/X). Dismiss by clicking off it, Escape, or hovering
     // another word (see onDocMouseDown / onKeyDown / openPopup).
-    span.addEventListener("mouseenter", () => {
+    span.addEventListener("mouseenter", (ev) => {
       setCurrent(word, span);
-      openPopup(word, span);
+      if (shouldHover(word, ev)) openPopup(word, span);
     });
     span.addEventListener("focus", () => {
       setCurrent(word, span);

@@ -35,6 +35,12 @@ export interface AppSettings {
   phonetics: boolean;
   /** Guess-first: hide the gloss until the user asks to reveal. */
   guessFirst: boolean;
+  /**
+   * When the hover card appears: `unknown` (Migaku-style — only words you don't
+   * know yet), `all` (any word), or `shift` (any word, but only while Shift is
+   * held — Yomitan-style). Hovering always sets the keyboard-grade target.
+   */
+  hoverMode: "unknown" | "all" | "shift";
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }
@@ -44,6 +50,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   toneColoring: false,
   phonetics: false,
   guessFirst: false,
+  hoverMode: "unknown",
   storePath: "tsumugu/word-store.json",
 };
 
