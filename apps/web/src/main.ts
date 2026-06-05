@@ -18,6 +18,7 @@ import {
 import { el, clear } from "./ui/dom.js";
 import { SAMPLES } from "./samples.js";
 import { packForLang } from "./packs/index.js";
+import { readReadingFiles } from "./loadReading.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -92,6 +93,30 @@ app.on("change", refreshStatus);
 app.on("status", (msg) => {
   if (typeof msg === "string") statusEl.textContent = msg;
 });
+
+/**
+ * Load an ingested reading from disk (a `gen transcript` `.prepared.json`, and
+ * optionally its `.cues.json` sidecar) into a reader session — synced to the
+ * sidecar's video when it carries a `videoId` (M4).
+ */
+async function openReadingFiles(files: File[]): Promise<void> {
+  const payload = await readReadingFiles(files);
+  if (!payload.content) {
+    app.setStatusMessage("No reading found — pick a gen-transcript .prepared.json (and its .cues.json).");
+    return;
+  }
+  app.setContent(payload.content);
+  // Pick the pack for the loaded content's language before remounting.
+  syncPack();
+  app.setTranscript(payload.transcript ?? null);
+  remount();
+  const t = payload.transcript;
+  app.setStatusMessage(
+    t
+      ? `Loaded reading + transcript (${t.cues.length} cues${t.videoId ? ", synced video" : ""}).`
+      : "Loaded reading.",
+  );
+}
 
 // ── toolbar ──────────────────────────────────────────────────────────────────
 function buildToolbar(): void {
@@ -209,7 +234,27 @@ function buildToolbar(): void {
     " zhuyin",
   );
 
-  toolbarEl.append(picker, grant, exportBtn, tone, guess, phonetics);
+  const fileInput = el("input", {
+    attrs: { type: "file", accept: ".json,application/json", multiple: "" },
+    style: { display: "none" },
+    on: {
+      change: (e) => {
+        const input = e.target as HTMLInputElement;
+        const files = input.files ? Array.from(input.files) : [];
+        input.value = ""; // allow re-picking the same files
+        if (files.length) void openReadingFiles(files);
+      },
+    },
+  });
+  const openBtn = el("button", {
+    class: "tsg-btn",
+    text: "Open reading…",
+    title: "Load a gen-transcript .prepared.json (+ its .cues.json) to read, optionally synced to a video.",
+    type: "button",
+    on: { click: () => fileInput.click() },
+  });
+
+  toolbarEl.append(picker, openBtn, fileInput, grant, exportBtn, tone, guess, phonetics);
 }
 
 async function exportAnki(): Promise<void> {

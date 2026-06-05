@@ -21,7 +21,7 @@ import { parseArgs, str, num, list, flag } from "./lib/args.js";
 import { readText, readJson, writeJson, writeText, slugify } from "./lib/io.js";
 import { buildRegistry, resolvePack } from "./lib/packs.js";
 import { buildSkeleton } from "./lib/skeleton.js";
-import { buildTranscriptSkeleton, type TranscriptFormat } from "./lib/transcript.js";
+import { buildTranscriptSkeleton, parseYouTubeId, type TranscriptFormat } from "./lib/transcript.js";
 import { verifyContent } from "./lib/verify.js";
 import { selectAutonomousTargets } from "./lib/targets.js";
 import { loadPrompt, contextBlock } from "./lib/prompt.js";
@@ -126,11 +126,21 @@ async function cmdTranscript(opts: Record<string, string | boolean>): Promise<vo
     ...(ciTarget !== undefined ? { ciTarget } : {}),
   });
 
+  // A YouTube source (--video <url|id>) records its 11-char id in the sidecar,
+  // so the reader can embed the sanctioned IFrame and sync to it (M4).
+  const videoId = parseYouTubeId(str(opts, "video"));
+
   const slug = slugify(title ?? inPath.replace(/.*\//, "").replace(/\.[^.]+$/, ""));
   const outPath = str(opts, "out") ?? `Inbox/${lang}/${slug}.prepared.json`;
   const cuesPath = `${outPath.replace(/\.json$/, "")}.cues.json`;
   await writeJson(outPath, content);
-  await writeJson(cuesPath, { schema: "tsumugu/transcript-cues@1", lang, source: content.source, cues });
+  await writeJson(cuesPath, {
+    schema: "tsumugu/transcript-cues@1",
+    lang,
+    source: content.source,
+    ...(videoId ? { videoId } : {}),
+    cues,
+  });
 
   const prepPrompt = await loadPrompt("content-prep.md");
   const commentaryPrompt = await loadPrompt("transcript-commentary.md");
@@ -149,6 +159,7 @@ async function cmdTranscript(opts: Record<string, string | boolean>): Promise<vo
       `- skeleton file (edit in place; fill empty \`gloss\`/\`explanation\`): \`${outPath}\``,
       `- cues sidecar (timestamps; do not edit): \`${cuesPath}\``,
       `- cues: ${cues.length}`,
+      `- videoId: ${videoId ?? "(none — not a YouTube source)"}`,
       `- words needing resolution (${unknownWords.length}): ${unknownWords.join("、") || "(none)"}`,
       "",
       `After filling the skeleton, run \`pnpm gen verify --in ${outPath}\` (OpenCC + CI re-score).`,
@@ -361,7 +372,7 @@ function usage(): void {
       "  pnpm gen prep   --lang <id> --in <source.txt> [--store ws.json] [--target 0.95]",
       "                  [--mode directed --words a,b] [--title T] [--out path]",
       "                  [--pack <id>] [--pack-module <path>] [--agent claude|grok]",
-      "  pnpm gen transcript --lang <id> --in <transcript> [--store ws.json] [--target 0.95]",
+      "  pnpm gen transcript --lang <id> --in <transcript> [--video <youtube url|id>] [--store ws.json] [--target 0.95]",
       "                  [--format auto|srt|vtt|youtube|plain] [--title T] [--out path]",
       "                  [--pack <id>] [--pack-module <path>]",
       "  pnpm gen verify --in <prepared.json> [--store ws.json] [--lang <id>] [--fix]",

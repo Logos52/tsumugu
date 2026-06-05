@@ -1,7 +1,23 @@
 import { describe, it, expect } from "vitest";
 import { WordStore } from "@tsumugu/engine";
 import { demoPack } from "@tsumugu/demo-pack";
-import { parseTranscript, buildTranscriptSkeleton } from "./transcript.js";
+import { parseTranscript, buildTranscriptSkeleton, parseYouTubeId } from "./transcript.js";
+
+describe("parseYouTubeId", () => {
+  it("extracts the 11-char id from common YouTube URL forms", () => {
+    expect(parseYouTubeId("https://www.youtube.com/watch?v=dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+    expect(parseYouTubeId("https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=42s")).toBe("dQw4w9WgXcQ");
+    expect(parseYouTubeId("https://youtu.be/dQw4w9WgXcQ?si=abc")).toBe("dQw4w9WgXcQ");
+    expect(parseYouTubeId("https://www.youtube.com/embed/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+    expect(parseYouTubeId("https://www.youtube.com/shorts/dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+  });
+  it("accepts a bare id and rejects non-YouTube input", () => {
+    expect(parseYouTubeId("dQw4w9WgXcQ")).toBe("dQw4w9WgXcQ");
+    expect(parseYouTubeId(undefined)).toBeUndefined();
+    expect(parseYouTubeId("https://www.netflix.com/watch/80100172")).toBeUndefined();
+    expect(parseYouTubeId("not a url")).toBeUndefined();
+  });
+});
 
 describe("parseTranscript — SRT", () => {
   const srt = [

@@ -188,6 +188,22 @@ export function parseTranscript(raw: string, format: TranscriptFormat = "auto"):
   return { cues, text };
 }
 
+/**
+ * Extract an 11-char YouTube video id from a watch / youtu.be / embed / shorts
+ * / live URL, or accept a bare id. Returns undefined for anything else (e.g. a
+ * Netflix source), so the cues sidecar simply carries no videoId.
+ */
+export function parseYouTubeId(input: string | undefined): string | undefined {
+  if (!input) return undefined;
+  const s = input.trim();
+  if (/^[A-Za-z0-9_-]{11}$/.test(s)) return s; // already a bare id
+  const v = /[?&]v=([A-Za-z0-9_-]{11})/.exec(s);
+  if (v) return v[1];
+  const path = /(?:youtu\.be\/|\/embed\/|\/shorts\/|\/live\/|\/v\/)([A-Za-z0-9_-]{11})/.exec(s);
+  if (path) return path[1];
+  return undefined;
+}
+
 export interface TranscriptSkeletonOptions {
   lang: string;
   pack: LanguagePack;
