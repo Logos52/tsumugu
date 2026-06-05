@@ -55,12 +55,17 @@ export interface ApplyResult {
   refsLinked: number;
 }
 
-/** Migaku's `mod` epoch → ISO, tolerating seconds-vs-ms; undefined if absent. */
+/**
+ * Migaku's `mod` epoch (always milliseconds) → ISO; undefined if absent or
+ * outside a sane epoch-ms window (~2001..2096). Rejecting out-of-range values
+ * (rather than rescaling a "small" number as seconds) avoids minting an
+ * expanded-year ISO that would invert the resolver's lexicographic compare.
+ */
 function externalChangeIso(r: ExternalVocabRecord): string | undefined {
   const mod = r.raw?.["mod"];
   if (typeof mod !== "number" || !Number.isFinite(mod)) return undefined;
-  const ms = mod < 1e12 ? mod * 1000 : mod; // tolerate epoch seconds
-  const d = new Date(ms);
+  if (mod < 1e12 || mod > 4e12) return undefined; // not a usable ms clock
+  const d = new Date(mod);
   return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
 }
 
@@ -110,7 +115,9 @@ function linkExternalRef(
       x.partOfSpeech === ref.partOfSpeech &&
       x.language === ref.language,
   );
-  if (i >= 0) refs[i] = ref;
+  // On refresh, keep a previously-recorded mod if this record has none, so a
+  // later same-tuple record without a numeric mod can't zero the change-epoch.
+  if (i >= 0) refs[i] = { ...ref, mod: typeof mod === "number" ? mod : refs[i]!.mod };
   else refs.push(ref);
   e.externalRefs = refs;
   return true;

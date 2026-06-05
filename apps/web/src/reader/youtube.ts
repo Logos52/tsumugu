@@ -49,9 +49,12 @@ export async function createYouTubePlayer(
   host: HTMLElement,
   videoId: string,
 ): Promise<VideoPlayer | null> {
-  const ok = await loadApi();
+  await loadApi();
+  // Trust the live DOM check, not loadApi's cached boolean: if an earlier call
+  // timed out and cached `false`, a later call still self-heals once the API
+  // script has actually finished loading.
   const YT = (window as Win).YT;
-  if (!ok || !YT?.Player) return null;
+  if (!YT?.Player) return null;
 
   return new Promise<VideoPlayer | null>((resolve) => {
     let settled = false;
@@ -85,6 +88,15 @@ export async function createYouTubePlayer(
           }),
       },
     });
-    setTimeout(() => done(null), 6000); // never hang the UI
+    setTimeout(() => {
+      if (settled) return; // a genuine onReady already won
+      try {
+        yt.destroy?.(); // tear down the orphaned player instead of leaking it
+      } catch {
+        /* not ready yet / already gone */
+      }
+      mount.remove();
+      done(null);
+    }, 6000); // never hang the UI
   });
 }

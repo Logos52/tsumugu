@@ -66,9 +66,16 @@ export function mountTranscriptSync(opts: {
   let lastFrameMs: number | null = null;
   let lastCue = -2;
   let raf = 0;
+  let destroyed = false;
 
   if (transcript.videoId) {
     void createYouTubePlayer(playerHost, transcript.videoId).then((p) => {
+      // The panel may have been torn down while the IFrame API was loading;
+      // destroy the late player rather than holding an orphaned reference.
+      if (destroyed) {
+        p?.destroy();
+        return;
+      }
       player = p;
     });
   }
@@ -141,6 +148,7 @@ export function mountTranscriptSync(opts: {
 
   return {
     destroy() {
+      destroyed = true;
       if (raf) cancelAnimationFrame(raf);
       player?.destroy();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);

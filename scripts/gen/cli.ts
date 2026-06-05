@@ -38,6 +38,7 @@ import {
 } from "./lib/crossref.js";
 import { readMigakuDb } from "./lib/migaku-db.js";
 import { writeBack } from "./lib/migaku-writeback.js";
+import { resolve as resolvePath } from "node:path";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -375,6 +376,9 @@ async function cmdWriteback(opts: Record<string, string | boolean>): Promise<voi
   if (apply && !inPlace && !outPath) {
     fail("--apply writes a COPY: pass --out <copy.db>, or --in-place --yes to overwrite the snapshot (your LIVE Migaku store is never touched either way)");
   }
+  if (apply && outPath && resolvePath(outPath) === resolvePath(dbPath)) {
+    fail("--out must differ from --db (it would overwrite the snapshot); use --in-place --yes to overwrite it deliberately");
+  }
   if (apply && inPlace && !flag(opts, "yes")) {
     fail("--in-place overwrites the snapshot DB; re-run with --yes to confirm");
   }
@@ -396,8 +400,11 @@ async function cmdWriteback(opts: Record<string, string | boolean>): Promise<voi
   if (result.changes.length > 30) console.log(`  … +${result.changes.length - 30} more`);
   console.log(`  skipped: ${JSON.stringify(result.skipped)}`);
   if (result.wrote) {
+    const planned = result.changes.length;
+    const modified = result.modified ?? planned;
+    const warn = modified < planned ? `  (⚠ ${planned - modified} planned row(s) did not match WordList)` : "";
     console.error(
-      `\n✓ wrote ${result.changes.length} change(s) → ${result.wrote}` +
+      `\n✓ wrote ${modified}/${planned} change(s) → ${result.wrote}${warn}` +
         (inPlace ? "" : "  (a COPY — re-import into Migaku yourself; your live store is untouched)"),
     );
   } else {

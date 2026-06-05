@@ -60,6 +60,13 @@ describe("resolveStatusUpdate", () => {
     expect(d).toEqual({ action: "set", status: "known", code: "seed-promote" });
   });
 
+  it("keeps an explicit grade that carries no clock (e.g. migrated @1) — no seed-promote", () => {
+    // current is a real grade (l4) but has no statusUpdatedAt (the @1 schema had
+    // no status clock). Incoming KNOWN with a clock must NOT silently promote it.
+    const d = resolveStatusUpdate({ current: "l4", incoming: "known", incomingAt: NEW });
+    expect(d).toEqual({ action: "keep", status: "l4", code: "ambiguous-keep" });
+  });
+
   it("does NOT override an explicit local grade without a newer clock", () => {
     const d = resolveStatusUpdate({
       current: "l2",

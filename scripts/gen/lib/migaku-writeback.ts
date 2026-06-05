@@ -158,24 +158,37 @@ export function planWriteback(
   return { changes, skipped };
 }
 
-/** Apply changes to an open DB: WordList only, with a fresh mod + pending flag. */
+/**
+ * Apply changes to an open DB: WordList only, with a fresh mod + pending flag.
+ * Returns the number of rows actually modified. The tuple columns are COALESCEd
+ * so the match mirrors the read-time NULL→"" normalization (`SQLite NULL = ''`
+ * is never true, so a row with a NULL secondary/partOfSpeech would otherwise
+ * match zero rows and be silently skipped).
+ */
 export function applyWriteback(
   db: Database,
   changes: readonly WritebackChange[],
   nowMs: number,
-): void {
+): number {
+  let modified = 0;
   for (const c of changes) {
     db.run(
       "UPDATE WordList SET knownStatus = ?, mod = ?, isPendingEnqueue = 1 " +
-        "WHERE dictForm = ? AND secondary = ? AND partOfSpeech = ? AND language = ?",
+        "WHERE dictForm = ? AND COALESCE(secondary, '') = ? " +
+        "AND COALESCE(partOfSpeech, '') = ? AND language = ?",
       [c.to, nowMs, c.dictForm, c.secondary, c.partOfSpeech, c.language],
     );
+    modified += db.getRowsModified();
   }
+  return modified;
 }
 
 export interface WritebackResult extends WritebackPlan {
   /** Path written when applied, else undefined (dry-run). */
   wrote?: string;
+  /** WordList rows actually modified by the apply (may be < changes.length if
+   *  a planned tuple no longer matches a row). */
+  modified?: number;
 }
 
 /** Plan, and (only with apply) write a modified COPY — or the snapshot if forced. */
@@ -196,11 +209,11 @@ export async function writeBack(opts: {
     const plan = planWriteback(opts.store.all(opts.lang), dbRows);
     if (!opts.apply || plan.changes.length === 0) return plan;
 
-    applyWriteback(db, plan.changes, opts.nowMs);
+    const modified = applyWriteback(db, plan.changes, opts.nowMs);
     const target = opts.inPlace ? opts.dbPath : opts.outPath;
     if (!target) return plan; // guarded by the CLI; defensive
     await writeFile(target, Buffer.from(db.export()));
-    return { ...plan, wrote: target };
+    return { ...plan, wrote: target, modified };
   } finally {
     db.close();
   }

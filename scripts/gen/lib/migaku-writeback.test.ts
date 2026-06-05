@@ -92,4 +92,30 @@ describe("applyWriteback", () => {
     const xi = after.get(["習", "", "verb", "zh"].join(String.fromCharCode(31)));
     expect(xi).toEqual({ knownStatus: "LEARNING", mod: 2000 });
   });
+
+  it("matches rows with SQL NULL tuple columns (COALESCE) and reports rows modified", () => {
+    const d = new SQL.Database();
+    d.run(
+      "CREATE TABLE WordList (dictForm TEXT, secondary TEXT, partOfSpeech TEXT, language TEXT, mod INTEGER, del INTEGER, knownStatus TEXT, isPendingEnqueue INTEGER)",
+    );
+    // secondary AND partOfSpeech are SQL NULL — the read normalizes them to "".
+    d.run(
+      "INSERT INTO WordList (dictForm, secondary, partOfSpeech, language, mod, del, knownStatus, isPendingEnqueue) VALUES ('案', NULL, NULL, 'zh', 1000, 0, 'UNKNOWN', 0)",
+    );
+    const e: WordEntry = {
+      lang: "zh",
+      word: "案",
+      status: "known",
+      statusUpdatedAt: iso(5000),
+      externalRefs: [ref("案", "", 1000)],
+    };
+    const plan = planWriteback([e], readWordListStatus(d));
+    expect(plan.changes).toHaveLength(1);
+
+    // Without COALESCE this UPDATE would match zero rows (NULL = '' is false).
+    const modified = applyWriteback(d, plan.changes, 999);
+    expect(modified).toBe(1);
+    const key = ["案", "", "", "zh"].join(String.fromCharCode(31));
+    expect(readWordListStatus(d).get(key)).toEqual({ knownStatus: "KNOWN", mod: 999 });
+  });
 });

@@ -76,7 +76,7 @@ function compareTimes(a: string | undefined, b: string | undefined): number {
  *  2. A demote under `never-demote` is blocked outright (the data-loss guard).
  *  3. With a usable clock on both sides, the strictly-newer side wins.
  *  4. Without one (tie / missing clock), only SEED: take the incoming value
- *     when the store was never explicitly graded (`currentAt` absent) AND the
+ *     when the stored word was never graded (`current === "new"`) AND the
  *     incoming raises known-ness. An explicit local grade is never overwritten
  *     without timestamp evidence that the external is newer — Tsumugu is
  *     canonical; Migaku is a timestamped input.
@@ -98,8 +98,11 @@ export function resolveStatusUpdate(input: StatusUpdateInput): StatusDecision {
   if (cmp > 0) return { action: "set", status: incoming, code: "newer-wins" };
   if (cmp < 0) return { action: "keep", status: current, code: "store-newer" };
 
-  // Tie / unknown clock: seed only an un-graded word, and only upward.
-  if (currentAt === undefined && KNOWN_RANK[incoming] > KNOWN_RANK[current]) {
+  // Tie / unknown clock: seed only a never-graded word (`current === "new"`),
+  // and only upward. Gating on the status — not on `currentAt === undefined` —
+  // keeps an explicit grade that carries no clock (e.g. migrated from the @1
+  // schema, which had no status clock) instead of silently promoting it.
+  if (current === "new" && KNOWN_RANK[incoming] > KNOWN_RANK[current]) {
     return { action: "set", status: incoming, code: "seed-promote" };
   }
   return { action: "keep", status: current, code: "ambiguous-keep" };
