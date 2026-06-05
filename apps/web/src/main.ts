@@ -5,7 +5,7 @@
  */
 import { demoPack } from "@tsumugu/demo-pack";
 import type { AnkiDeck, WordStatus } from "@tsumugu/engine";
-import { AppState, type ViewController } from "./state.js";
+import { AppState, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
 import { mountEncoding } from "./encoding/encoding.js";
@@ -29,11 +29,23 @@ const $ = <T extends HTMLElement>(sel: string): T | null =>
 
 const firstSample = SAMPLES[0]!;
 
+// Reader toggles persist across reloads (reads off raw, but better than resetting
+// zhuyin/tones/guess-first every page-load given how often dev reloads).
+const SETTINGS_KEY = "tsg-settings";
+const persistedSettings: Partial<AppSettings> = (() => {
+  try {
+    return JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}") as Partial<AppSettings>;
+  } catch {
+    return {};
+  }
+})();
+
 const app = new AppState({
   pack: demoPack,
   audio: createWebAudio(),
   vault: new MemoryVault(), // in-session persistence until a real folder is granted
   content: firstSample.content,
+  settings: persistedSettings,
 });
 
 const rootEl = $<HTMLElement>("#app-root")!;
@@ -86,6 +98,23 @@ function refreshStatus(): void {
   statusEl.textContent =
     `${app.lang} · known ${m.knownCount}/${m.trackedCount}` +
     (m.flaggedCount ? ` · flagged ${m.flaggedCount}` : "");
+}
+
+/** Persist the user-facing reader toggles so they survive a reload. */
+function persistSettings(): void {
+  try {
+    const { phonetics, toneColoring, guessFirst } = app.settings;
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({ phonetics, toneColoring, guessFirst }));
+  } catch {
+    /* storage disabled — non-fatal */
+  }
+}
+
+/** Apply a toggle change: update settings, persist, and re-render the reader. */
+function setToggle(patch: Partial<AppSettings>): void {
+  app.updateSettings(patch);
+  persistSettings();
+  if (app.mode === "reader") remount();
 }
 
 // ── header nav ───────────────────────────────────────────────────────────────
@@ -265,10 +294,7 @@ function buildToolbar(): void {
     el("input", {
       attrs: app.settings.toneColoring ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {
-        change: (e) => {
-          app.updateSettings({ toneColoring: (e.target as HTMLInputElement).checked });
-          if (app.mode === "reader") remount();
-        },
+        change: (e) => setToggle({ toneColoring: (e.target as HTMLInputElement).checked }),
       },
     }),
     " tones",
@@ -280,10 +306,7 @@ function buildToolbar(): void {
     el("input", {
       attrs: app.settings.guessFirst ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {
-        change: (e) => {
-          app.updateSettings({ guessFirst: (e.target as HTMLInputElement).checked });
-          if (app.mode === "reader") remount();
-        },
+        change: (e) => setToggle({ guessFirst: (e.target as HTMLInputElement).checked }),
       },
     }),
     " guess-first",
@@ -295,10 +318,7 @@ function buildToolbar(): void {
     el("input", {
       attrs: app.settings.phonetics ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {
-        change: (e) => {
-          app.updateSettings({ phonetics: (e.target as HTMLInputElement).checked });
-          if (app.mode === "reader") remount();
-        },
+        change: (e) => setToggle({ phonetics: (e.target as HTMLInputElement).checked }),
       },
     }),
     " zhuyin",
