@@ -48,7 +48,9 @@ Building the Migaku-style reading layer (zhuyin ruby above, colored unknown-unde
 
 - **M4b — caption ingest glue.** `gen transcript --video <youtube url|id>` extracts the 11-char id (`parseYouTubeId`) into the `.cues.json` sidecar. The web app's **"Open reading…"** loads a `gen transcript` `.prepared.json` (+ its `.cues.json`) from disk and binds them via `setContent`/`setTranscript` (`classifyReadingDocs`/`readReadingFiles`), so a real ingested video reads synced (IFrame when a videoId is present, scrubber otherwise — Netflix readings ride the scrubber path). Full chain: yt-dlp → `gen transcript --video` → read synced. Tests: `parseYouTubeId` (2) + `classifyReadingDocs` (4).
 
-Outstanding: the optional, default-off Migaku write-back (PRD §8, Fork B2 — `externalRefs` 4-tuples are now persisted, so it's addressable). Handoffs in `personal/migaku-style-overlay/HANDOFF*.md`. **401 public + 195 private tests green.**
+- **M3c — Migaku write-back (Fork B2, fenced).** `scripts/gen/lib/migaku-writeback.ts` + `gen writeback --store ws.json --db migaku-core.db`. Pushes Tsumugu grades back toward Migaku, addressed by the persisted `externalRefs` 4-tuple. Safety is the design: **dry-run by default** (reports the diff, writes nothing); **never-clobber** (pushes only where Tsumugu's `statusUpdatedAt` is strictly newer than Migaku's `mod`); **copy-only** (`--apply --out copy.db` writes a MODIFIED COPY — `--in-place` needs `--yes`; the live OPFS store is never touched). Updates `WordList` (knownStatus + fresh mod + `isPendingEnqueue=1`) so Migaku's syncer uploads it; `wordHistory` left alone (opaque `day`). Real-DB acceptance: a simulated grade pushes 1 change to a copy, skips 2108 unchanged, **original DB byte-identical (md5 unchanged)**. Test `migaku-writeback.test.ts` (3).
+
+The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync). Remaining is integration polish + the agent fill step (pre-baked glosses). **404 public + 195 private tests green.**
 
 ## Run it
 

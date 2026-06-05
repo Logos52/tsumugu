@@ -37,6 +37,7 @@ import {
   applyToStore,
 } from "./lib/crossref.js";
 import { readMigakuDb } from "./lib/migaku-db.js";
+import { writeBack } from "./lib/migaku-writeback.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -364,6 +365,46 @@ async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void
   }
 }
 
+async function cmdWriteback(opts: Record<string, string | boolean>): Promise<void> {
+  const storePath = str(opts, "store") ?? fail("writeback needs --store <word-store.json>");
+  const dbPath = str(opts, "db") ?? fail("writeback needs --db <migaku-core.db>");
+  const store = await loadStore(storePath);
+  const apply = flag(opts, "apply");
+  const inPlace = flag(opts, "in-place");
+  const outPath = str(opts, "out");
+  if (apply && !inPlace && !outPath) {
+    fail("--apply writes a COPY: pass --out <copy.db>, or --in-place --yes to overwrite the snapshot (your LIVE Migaku store is never touched either way)");
+  }
+  if (apply && inPlace && !flag(opts, "yes")) {
+    fail("--in-place overwrites the snapshot DB; re-run with --yes to confirm");
+  }
+  const lang = str(opts, "lang");
+  const result = await writeBack({
+    store,
+    dbPath,
+    ...(lang ? { lang } : {}),
+    apply,
+    ...(outPath ? { outPath } : {}),
+    inPlace,
+    nowMs: Date.now(),
+  });
+
+  console.log(`writeback: ${result.changes.length} word(s) where Tsumugu is newer than Migaku`);
+  for (const c of result.changes.slice(0, 30)) {
+    console.log(`  ${c.word}  [${c.partOfSpeech}/${c.language}]  ${c.from} → ${c.to}`);
+  }
+  if (result.changes.length > 30) console.log(`  … +${result.changes.length - 30} more`);
+  console.log(`  skipped: ${JSON.stringify(result.skipped)}`);
+  if (result.wrote) {
+    console.error(
+      `\n✓ wrote ${result.changes.length} change(s) → ${result.wrote}` +
+        (inPlace ? "" : "  (a COPY — re-import into Migaku yourself; your live store is untouched)"),
+    );
+  } else {
+    console.error("\n(dry-run — pass --apply --out <copy.db> to write a modified COPY. Nothing was changed.)");
+  }
+}
+
 function usage(): void {
   console.log(
     [
@@ -384,6 +425,7 @@ function usage(): void {
       "                    | --cache results.json --registry bridge/vi-bridge.json --lang vi --store ws.json",
       "  pnpm gen crossref --source migaku --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
       "  pnpm gen crossref --source migaku-db --in migaku-core.db --lang zh-Hant --from-lang zh [--apply]   (enriched: reads the real SQLite; relabels Migaku 'zh' → 'zh-Hant')",
+      "  pnpm gen writeback --store ws.json --db migaku-core.db [--lang <id>] [--apply --out copy.db]   (Fork B2: dry-run by default; writes a COPY, never your live Migaku)",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",
@@ -411,6 +453,8 @@ async function main(): Promise<void> {
       return cmdBridge(opts);
     case "crossref":
       return cmdCrossref(opts);
+    case "writeback":
+      return cmdWriteback(opts);
     case "help":
     case undefined:
       return usage();
