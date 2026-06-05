@@ -133,11 +133,14 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
     // Hover (or keyboard focus) marks this the current word AND shows its card;
     // leaving the word (and its popup, which is a child) hides the card again.
+    // Hover (or keyboard focus) marks this the current word and shows its card.
+    // The card is STICKY: it does not vanish on mouse-leave (so you can move onto
+    // it and click 1–4/K/X). Dismiss by clicking off it, Escape, or hovering
+    // another word (see onDocMouseDown / onKeyDown / openPopup).
     span.addEventListener("mouseenter", () => {
       setCurrent(word, span);
       openPopup(word, span);
     });
-    span.addEventListener("mouseleave", () => closePopup());
     span.addEventListener("focus", () => {
       setCurrent(word, span);
       openPopup(word, span);
@@ -475,9 +478,18 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     }
   }
 
+  /** Click off the card (and not on a word) dismisses the sticky popup. */
+  function onDocMouseDown(ev: MouseEvent): void {
+    if (!popup) return;
+    const t = ev.target as Element | null;
+    if (t && (popup.contains(t) || t.closest?.(`.${CLS.word}`))) return;
+    closePopup();
+  }
+
   // Global so a grade key works while you're hovering with the mouse (focus is
   // on <body>, not the reader, so a root-level listener would never fire).
   document.addEventListener("keydown", onKeyDown);
+  document.addEventListener("mousedown", onDocMouseDown);
 
   // Recolor (no re-render) whenever the store changes.
   const offChange = app.on("change", () => recolor());
@@ -491,6 +503,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   return {
     unmount() {
       document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onDocMouseDown);
       offChange();
       transcriptCtl?.destroy();
       closePopup();
