@@ -641,6 +641,22 @@ button {
   border-radius: var(--tsg-radius-sm);
 }
 
+/* Segment-loop practice bar (M2.1) — collapsible; the waveform is wavesurfer. */
+.tsg-practice {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--tsg-radius-sm);
+  background: color-mix(in oklab, var(--ctp-blue) 7%, var(--tsg-surface));
+  border-left: 3px solid var(--ctp-blue);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tsg-practice-wave {
+  width: 100%;
+  min-height: 64px;
+}
+
 /* Video present → player beside the text (sticky left column, text scrolls). */
 .tsg-reader-split {
   display: flex;

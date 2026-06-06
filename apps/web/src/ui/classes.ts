@@ -26,6 +26,8 @@ export const CLS = {
   scrubber: "tsg-scrubber",
   translation: "tsg-translation", // the current line's sentence translation
   section: "tsg-section", // the "now talking about…" section summary
+  practiceBar: "tsg-practice", // segment-loop practice bar container (M2.1)
+  practiceWave: "tsg-practice-wave", // wavesurfer waveform host
 
   // hover popup
   popup: "tsg-popup",

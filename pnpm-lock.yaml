@@ -53,6 +53,9 @@ importers:
       sql.js:
         specifier: ^1.12.0
         version: 1.14.1
+      wavesurfer.js:
+        specifier: ^7.12.7
+        version: 7.12.7
     devDependencies:
       happy-dom:
         specifier: ^15.11.0
@@ -777,6 +780,9 @@ packages:
       jsdom:
         optional: true
 
+  wavesurfer.js@7.12.7:
+    resolution: {integrity: sha512-TIe7hB6OCZysNOZ2cn2NR8Qpko22POWel6rauNcqOammFoH65NYQUM35unNLLMIlUMVYvjJ6w/TTl/G/m+w0nA==}
+
   webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
     engines: {node: '>=12'}
@@ -1316,6 +1322,8 @@ snapshots:
       - sugarss
       - supports-color
       - terser
+
+  wavesurfer.js@7.12.7: {}
 
   webidl-conversions@7.0.0: {}
 

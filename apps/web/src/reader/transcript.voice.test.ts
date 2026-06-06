@@ -1,11 +1,13 @@
 // @vitest-environment happy-dom
 import { describe, it, expect } from "vitest";
 
-import type { PreparedToken } from "@tsumugu/engine";
+import type { PreparedToken, VaultIO } from "@tsumugu/engine";
 import { mountTranscriptSync } from "./transcript.js";
 import { CLS } from "../ui/classes.js";
 import type { TranscriptDoc } from "./sync.js";
 import type { VoicePlayer } from "../voice/player.js";
+import { bindVoiceNotes, parseVoiceNotes, VOICE_NOTES_SCHEMA, type VoiceNotesBinding } from "../voice/manifest.js";
+import type { PracticeBar, PracticeBarArgs, PracticeBarFactory } from "../voice/practiceBar.js";
 
 /** 8 tokens, two cues: c0 → [0,4) at 0–3s, c1 → [4,8) at 3–6s. */
 const tokens: PreparedToken[] = [
@@ -37,10 +39,62 @@ function fakePlayer(calls: Call[]): VoicePlayer {
   };
 }
 
+/** A vault whose readBytes always returns one byte (enough to "have audio"). */
+const fakeVault: VaultIO = {
+  readText: async () => null,
+  writeText: async () => {},
+  readBytes: async () => new Uint8Array([1]),
+};
+
+/** A manifest binding with audio for both cues. */
+function fakeBinding(): VoiceNotesBinding {
+  const m = parseVoiceNotes(
+    {
+      schema: VOICE_NOTES_SCHEMA,
+      lang: "zh-Hant",
+      slug: "x",
+      engine: "e",
+      voice: "Serena",
+      notes: [
+        { cueIndex: 0, audio: "audio/x/cue-0000.mp3" },
+        { cueIndex: 1, audio: "audio/x/cue-0001.mp3" },
+      ],
+    },
+    2,
+  )!;
+  return bindVoiceNotes(m, "base");
+}
+
+/** A practice-bar stub recording calls; captures the args it was built with. */
+function fakeBarFactory(calls: Call[], onArgs: (a: PracticeBarArgs) => void): PracticeBarFactory {
+  return async (args) => {
+    onArgs(args);
+    let looping = false;
+    const bar: PracticeBar = {
+      toggleLoop: () => {
+        looping = !looping;
+        calls.push(["loop", looping]);
+      },
+      nudge: (d) => calls.push(["nudge", d]),
+      cycleSpeed: () => {
+        calls.push(["speed"]);
+        return 0.85;
+      },
+      playPause: () => calls.push(["play"]),
+      isLooping: () => looping,
+      destroy: () => calls.push(["destroy"]),
+    };
+    return bar;
+  };
+}
+
 function mount(opts: {
   player?: VoicePlayer | null;
   voiceSlow?: boolean;
   onSlowToggle?: (slow: boolean) => void;
+  vault?: VaultIO | null;
+  voiceNotes?: VoiceNotesBinding | null;
+  createPracticeBar?: PracticeBarFactory;
 }) {
   const host = document.createElement("div");
   const tokenEls = tokens.map(() => document.createElement("span"));
@@ -52,9 +106,14 @@ function mount(opts: {
     player: opts.player ?? null,
     ...(opts.voiceSlow !== undefined ? { voiceSlow: opts.voiceSlow } : {}),
     ...(opts.onSlowToggle ? { onSlowToggle: opts.onSlowToggle } : {}),
+    ...(opts.vault !== undefined ? { vault: opts.vault } : {}),
+    ...(opts.voiceNotes !== undefined ? { voiceNotes: opts.voiceNotes } : {}),
+    ...(opts.createPracticeBar ? { createPracticeBar: opts.createPracticeBar } : {}),
   });
   return { host, tokenEls, ctl };
 }
+
+const tick = (): Promise<void> => new Promise((r) => setTimeout(r, 0));
 
 /** Find a transport button by its exact label text. */
 function btn(host: HTMLElement, text: string): HTMLButtonElement | undefined {
@@ -162,6 +221,81 @@ describe("transcript voice transport + shadowing wiring", () => {
     expect(ctl.isShadowing()).toBe(true);
     ctl.shadowAdvance(); // past the end → done
     expect(ctl.isShadowing()).toBe(false);
+    ctl.destroy();
+  });
+});
+
+describe("transcript practice bar (M2.1) wiring", () => {
+  it("shows the 🌊 button only when a player + vault + manifest are all present", () => {
+    expect(btn(mount({ player: fakePlayer([]) }).host, "🌊")).toBeUndefined(); // no vault/manifest
+    const withAll = mount({ player: fakePlayer([]), vault: fakeVault, voiceNotes: fakeBinding() });
+    expect(btn(withAll.host, "🌊")).toBeDefined();
+    withAll.ctl.destroy();
+  });
+
+  it("opens pinned to the current cue, then closes (destroying the bar)", async () => {
+    const calls: Call[] = [];
+    let args: PracticeBarArgs | undefined;
+    const { host, ctl } = mount({
+      player: fakePlayer([]),
+      vault: fakeVault,
+      voiceNotes: fakeBinding(),
+      createPracticeBar: fakeBarFactory(calls, (a) => (args = a)),
+    });
+    const barBtn = btn(host, "🌊")!;
+
+    barBtn.click(); // open
+    expect(ctl.isPracticeBarOpen()).toBe(true); // set synchronously
+    expect(barBtn.classList.contains(CLS.btnActive)).toBe(true);
+    await tick(); // factory resolves
+    expect(args?.cueIndex).toBe(0); // pinned to the current cue
+    expect(host.querySelector(`.${CLS.practiceBar}`)).not.toBeNull();
+
+    barBtn.click(); // close
+    expect(ctl.isPracticeBarOpen()).toBe(false);
+    expect(barBtn.classList.contains(CLS.btnActive)).toBe(false);
+    expect(calls.at(-1)).toEqual(["destroy"]);
+  });
+
+  it("routes loop / nudge / speed / play to the bar; Esc-close destroys it", async () => {
+    const calls: Call[] = [];
+    const { host, ctl } = mount({
+      player: fakePlayer([]),
+      vault: fakeVault,
+      voiceNotes: fakeBinding(),
+      createPracticeBar: fakeBarFactory(calls, () => {}),
+    });
+    btn(host, "🌊")!.click();
+    await tick();
+
+    ctl.practiceToggleLoop();
+    expect(calls.at(-1)).toEqual(["loop", true]);
+    const loopBtn = btn(host, "🔁")!;
+    expect(loopBtn.classList.contains(CLS.btnActive)).toBe(true); // reflects bar.isLooping()
+
+    ctl.practiceNudge(-1);
+    expect(calls.at(-1)).toEqual(["nudge", -1]);
+
+    btn(host, "1×")!.click(); // speed cycle button shows the new rate
+    expect(calls.some((c) => c[0] === "speed")).toBe(true);
+    expect(btn(host, "0.85×")).toBeDefined();
+
+    ctl.practiceCloseBar(); // mirrors the Esc path
+    expect(ctl.isPracticeBarOpen()).toBe(false);
+    expect(calls.at(-1)).toEqual(["destroy"]);
+  });
+
+  it("no-ops loop/nudge when the bar is closed", () => {
+    const calls: Call[] = [];
+    const { ctl } = mount({
+      player: fakePlayer([]),
+      vault: fakeVault,
+      voiceNotes: fakeBinding(),
+      createPracticeBar: fakeBarFactory(calls, () => {}),
+    });
+    ctl.practiceToggleLoop();
+    ctl.practiceNudge(1);
+    expect(calls).toEqual([]); // no bar instance → nothing happened
     ctl.destroy();
   });
 });

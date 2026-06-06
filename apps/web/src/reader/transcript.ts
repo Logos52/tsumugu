@@ -8,9 +8,9 @@
  * when content has a bound transcript; plain reading is untouched.
  */
 
-import type { PreparedToken } from "@tsumugu/engine";
+import type { PreparedToken, VaultIO } from "@tsumugu/engine";
 
-import { el } from "../ui/dom.js";
+import { el, clear } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
 import {
   alignCuesToTokens,
@@ -27,6 +27,12 @@ import {
   type ShadowState,
   type ShadowEvent,
 } from "../voice/shadowing.js";
+import type { VoiceNotesBinding } from "../voice/manifest.js";
+import {
+  createPracticeBar as defaultPracticeBarFactory,
+  type PracticeBar,
+  type PracticeBarFactory,
+} from "../voice/practiceBar.js";
 
 export interface TranscriptController {
   destroy(): void;
@@ -48,6 +54,16 @@ export interface TranscriptController {
   isVoiceDriving(): boolean;
   /** Advance shadowing to the next cue (Space while shadowing). */
   shadowAdvance(): void;
+  /** Open/close the segment-loop practice bar on the current cue (M2.1). */
+  togglePracticeBar(): void;
+  /** Whether the practice bar is currently open. */
+  isPracticeBarOpen(): boolean;
+  /** Toggle the practice-bar loop (L while the bar is open). */
+  practiceToggleLoop(): void;
+  /** Nudge the nearest region edge: -1 earlier (`[`), +1 later (`]`). */
+  practiceNudge(dir: -1 | 1): void;
+  /** Close the practice bar if open (Esc). */
+  practiceCloseBar(): void;
 }
 
 /** mm:ss for the time label. */
@@ -73,9 +89,18 @@ export function mountTranscriptSync(opts: {
   voiceSlow?: boolean;
   /** Called when the slow toggle flips, so the host can persist it. */
   onSlowToggle?: (slow: boolean) => void;
+  /** Vault + manifest for the practice bar to load cue audio (M2.1). */
+  vault?: VaultIO | null;
+  voiceNotes?: VoiceNotesBinding | null;
+  /** Practice-bar factory (injectable for tests; defaults to the real wavesurfer one). */
+  createPracticeBar?: PracticeBarFactory;
 }): TranscriptController {
   const { host, tokens, transcript, tokenEls } = opts;
   const voicePlayer = opts.player ?? null;
+  const vault = opts.vault ?? null;
+  const voiceNotes = opts.voiceNotes ?? null;
+  const practiceFactory = opts.createPracticeBar ?? defaultPracticeBarFactory;
+  const canPractice = !!(voicePlayer && vault && voiceNotes);
   const cues = transcript.cues;
   const sections = transcript.sections ?? [];
   const ranges = alignCuesToTokens(tokens, cues);
@@ -99,12 +124,13 @@ export function mountTranscriptSync(opts: {
   let voiceHighlight = false; // when true, voice playback owns the highlight (not the clock)
   let shadow: ShadowState = SHADOW_IDLE;
   let shadowBtn: HTMLButtonElement | null = null;
+  let practiceBtn: HTMLButtonElement | null = null;
   const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel];
   if (voicePlayer) {
     const vPlay = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this line's voice note" });
     const vFrom = el("button", { class: CLS.btn, type: "button", text: "⏩", title: "Play voice notes from here" });
     const vStop = el("button", { class: CLS.btn, type: "button", text: "⏹", title: "Stop voice" });
-    const vSlow = el("button", { class: CLS.btn, type: "button", text: "🐢", title: "Slow voice (slow take, else 0.75×)" });
+    const vSlow = el("button", { class: CLS.btn, type: "button", text: "🐢", title: "Slow voice (slow take, else 0.85×)" });
     if (slow) vSlow.classList.add(CLS.btnActive);
     const vShadow = el("button", { class: CLS.btn, type: "button", text: "跟讀", title: "Shadowing: hear → repeat → Space to advance (Esc exits)" });
     shadowBtn = vShadow;
@@ -118,8 +144,31 @@ export function mountTranscriptSync(opts: {
     });
     vShadow.addEventListener("click", () => toggleShadowing());
     transportChildren.push(vPlay, vFrom, vStop, vSlow, vShadow);
+    if (canPractice) {
+      const vBar = el("button", { class: CLS.btn, type: "button", text: "🌊", title: "Practice bar: loop a slice of this line (L), nudge edges ([ ]), slow it" });
+      practiceBtn = vBar;
+      vBar.addEventListener("click", () => togglePracticeBar());
+      transportChildren.push(vBar);
+    }
   }
   panel.append(playerHost, el("div", { class: CLS.transport }, ...transportChildren));
+
+  // ── practice bar (M2.1) — collapsible, hidden until opened ────────────────
+  const practicePanel = el("div", { class: CLS.practiceBar });
+  const waveHost = el("div", { class: CLS.practiceWave });
+  const pPlay = el("button", { class: CLS.btn, type: "button", text: "▶", title: "Play / pause the loop" });
+  const pLoop = el("button", { class: CLS.btn, type: "button", text: "🔁", title: "Loop the selection (L)" });
+  const pSpeed = el("button", { class: CLS.btn, type: "button", text: "1×", title: "Playback speed (pitch-corrected)" });
+  const pHint = el("span", { class: CLS.metrics, text: "drag to select · L loop · [ ] nudge edges" });
+  practicePanel.style.display = "none";
+  practicePanel.append(waveHost, el("div", { class: CLS.transport }, pPlay, pLoop, pSpeed, pHint));
+  pPlay.addEventListener("click", () => practiceBar?.playPause());
+  pLoop.addEventListener("click", () => practiceToggleLoop());
+  pSpeed.addEventListener("click", () => {
+    const r = practiceBar?.cycleSpeed();
+    if (r) pSpeed.textContent = `${r}×`;
+  });
+  panel.append(practicePanel);
   // "Now talking about…" — the active section's summary (shown when present).
   const sectionEl = el("div", { class: CLS.section });
   if (sections.length === 0) sectionEl.style.display = "none";
@@ -215,6 +264,57 @@ export function mountTranscriptSync(opts: {
     return i >= 0 ? i : 0;
   }
 
+  // ── practice bar (M2.1) ───────────────────────────────────────────────────
+  let practiceBar: PracticeBar | null = null;
+  let practiceOpen = false;
+
+  function updateLoopBtn(): void {
+    pLoop.classList.toggle(CLS.btnActive, !!practiceBar?.isLooping());
+  }
+
+  async function openPracticeBar(): Promise<void> {
+    if (practiceOpen || !canPractice) return;
+    practiceOpen = true;
+    practiceBtn?.classList.add(CLS.btnActive);
+    practicePanel.style.display = "block";
+    pSpeed.textContent = "1×";
+    pLoop.classList.remove(CLS.btnActive);
+    clear(waveHost);
+    // Voice owns the audio: stop the video + any cue playback so they don't overlap.
+    pauseVideoForVoice();
+    voicePlayer?.stop();
+    const pinnedCue = currentCue();
+    try {
+      practiceBar = await practiceFactory({ container: waveHost, vault: vault!, binding: voiceNotes!, cueIndex: pinnedCue });
+    } catch {
+      practiceBar = null;
+    }
+    if (!practiceBar && practiceOpen) closePracticeBar(); // nothing to drill (no audio)
+  }
+
+  function closePracticeBar(): void {
+    practiceOpen = false;
+    practiceBtn?.classList.remove(CLS.btnActive);
+    practicePanel.style.display = "none";
+    practiceBar?.destroy();
+    practiceBar = null;
+    clear(waveHost);
+  }
+
+  function togglePracticeBar(): void {
+    if (practiceOpen) closePracticeBar();
+    else void openPracticeBar();
+  }
+
+  function practiceToggleLoop(): void {
+    practiceBar?.toggleLoop();
+    updateLoopBtn();
+  }
+
+  function practiceNudge(dir: -1 | 1): void {
+    practiceBar?.nudge(dir);
+  }
+
   function updateShadowBtn(): void {
     shadowBtn?.classList.toggle(CLS.btnActive, shadowActive(shadow));
   }
@@ -305,6 +405,7 @@ export function mountTranscriptSync(opts: {
       if (raf) cancelAnimationFrame(raf);
       player?.destroy();
       voicePlayer?.stop();
+      closePracticeBar();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);
       panel.remove();
     },
@@ -328,6 +429,15 @@ export function mountTranscriptSync(opts: {
     },
     shadowAdvance() {
       dispatchShadow({ type: "advance" });
+    },
+    togglePracticeBar,
+    isPracticeBarOpen() {
+      return practiceOpen;
+    },
+    practiceToggleLoop,
+    practiceNudge,
+    practiceCloseBar() {
+      closePracticeBar();
     },
   };
 }

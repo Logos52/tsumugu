@@ -116,6 +116,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         player: voicePlayer,
         voiceSlow: app.settings.voiceSlow,
         onSlowToggle: (slow) => app.updateSettings({ voiceSlow: slow }),
+        vault: app.vault,
+        voiceNotes: app.voiceNotes,
       })
     : null;
 
@@ -492,7 +494,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
 
     if (ev.key === "Escape") {
-      // Esc leaves shadowing first (if engaged), else dismisses the hover popup.
+      // Esc closes the practice bar first, then leaves shadowing, then the popup.
+      if (transcriptCtl?.isPracticeBarOpen()) {
+        ev.preventDefault();
+        transcriptCtl.practiceCloseBar();
+        return;
+      }
       if (transcriptCtl?.isShadowing()) {
         ev.preventDefault();
         transcriptCtl.toggleShadowing();
@@ -500,6 +507,26 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       }
       closePopup();
       return;
+    }
+    // While the practice bar is open it claims its drill keys (Audacity-style):
+    // L toggles the loop, [ / ] nudge the nearest region edge. Scoped so `l`
+    // stays next-word when the bar is closed.
+    if (transcriptCtl?.isPracticeBarOpen()) {
+      if (ev.key === "l" || ev.key === "L") {
+        ev.preventDefault();
+        transcriptCtl.practiceToggleLoop();
+        return;
+      }
+      if (ev.key === "[") {
+        ev.preventDefault();
+        transcriptCtl.practiceNudge(-1);
+        return;
+      }
+      if (ev.key === "]") {
+        ev.preventDefault();
+        transcriptCtl.practiceNudge(1);
+        return;
+      }
     }
     // Space: while shadowing, advance to the next cue (hear → repeat → Space);
     // otherwise it pauses/plays the synced video (so you can stop to read a line).

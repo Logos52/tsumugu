@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (463 public tests; 658 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (479 public tests; 674 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -23,7 +23,7 @@ Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.m
 
 ## Open-core hygiene (audited)
 
-No secrets/keys, no network calls in the engine or reader runtime, no licensed dictionary dumps. All deps (`ts-fsrs`, `sql.js`, `fflate`, `opencc-js`) are **Apache-2.0**. `.gitignore` blocks `/packs/private/`, `/personal/`, `/data/`, `/vocab/`, and secrets. Engine is DOM-/fs-/network-free (only the `systemClock` adapter touches `new Date`).
+No secrets/keys, no network calls in the engine or reader runtime, no licensed dictionary dumps. All deps are permissively licensed: the **engine** deps (`ts-fsrs`, `sql.js`, `fflate`, `opencc-js`) are **Apache-2.0**; the **reader** adds `wavesurfer.js` (**BSD-3-Clause**, the M2.1 practice bar — reader/host layer only, lazy-loaded, engine untouched). `.gitignore` blocks `/packs/private/`, `/personal/`, `/data/`, `/vocab/`, and secrets. Engine is DOM-/fs-/network-free (only the `systemClock` adapter touches `new Date`).
 
 ## What's NOT here (by design or deferred)
 
@@ -31,7 +31,7 @@ No secrets/keys, no network calls in the engine or reader runtime, no licensed d
 - **Published Quartz wiki (Repo 2)** — now live at **https://logos52.github.io/tsumugu-wiki/** (repo [`Logos52/tsumugu-wiki`](https://github.com/Logos52/tsumugu-wiki), Quartz v4 → GitHub Pages, auto-deploys on push). The `wiki/` folder here is the seed content; the live repo is the source of truth.
 - **Phase 6 (Chromium extension)** — **descoped** (see `DESIGN-HISTORY.md`): it conflicts with the pre-baked design and duplicates the web app + clip→prep→read pipeline.
 - **Phase 7 (transcript ingestion)** — **done**: `pnpm gen transcript` parses SRT/VTT/YouTube/plain (dedup, tag-strip, timestamp sidecar) → reader content with line breaks; `prompts/transcript-commentary.md` for AI commentary on hard sections.
-- **Phase 8 (voice)** — **M1 done (2026-06-06)**: local open-source batch TTS landed end-to-end (see the "Voice notes (Phase 8 M1)" section below). `PRD-Voice-Notes.md` (v2) dropped the Supergrok-UI path (v1 archived in `personal/archive/`); M0 bake-off chose **Qwen3-TTS 1.7B CustomVoice via mlx-audio, voice Serena** (full engine survey in `personal/research/zh-tts-options.md`). M1 shipped the `gen voice-notes` helper + reader playback, shadowing mode, and Anki-with-audio. Next (M2.1): the segment-loop practice bar (wavesurfer). BreezyVoice = TW/zhuyin fallback; GPT-SoVITS = accent fine-tune track (M3).
+- **Phase 8 (voice)** — **M1 done (2026-06-06)**: local open-source batch TTS landed end-to-end (see the "Voice notes (Phase 8 M1)" section below). `PRD-Voice-Notes.md` (v2) dropped the Supergrok-UI path (v1 archived in `personal/archive/`); M0 bake-off chose **Qwen3-TTS 1.7B CustomVoice via mlx-audio, voice Serena** (full engine survey in `personal/research/zh-tts-options.md`). M1 shipped the `gen voice-notes` helper + reader playback, shadowing mode, and Anki-with-audio; **M2.1** added the segment-loop practice bar (see the sections below). BreezyVoice = TW/zhuyin fallback; GPT-SoVITS = accent fine-tune track (M3).
 - **The agent fill step** — generation prompts brief Claude Code / Grok Build; the actual gloss/explanation/etymology writing is that agent's job (no API in the core).
 
 ## Migaku reading layer + two-way sync (in progress — 2026-06-05)
@@ -54,7 +54,7 @@ Building the Migaku-style reading layer (zhuyin ruby above, colored unknown-unde
 
 - **Agent fill step — proven end-to-end.** Filled the `why-friendship-differs` transcript skeleton (Mandarin Corner, `2idX7w0gs4k`) via a 17-agent parallel fill workflow: 660 glossary entries → full `PrebakedEntry` (gloss, zhuyin reading, pos, level, leveled Traditional explanation, source examples); `gen verify --fix` → **"✓ verified — ready to read"** (OpenCC-clean; CI 80% is the transcript's difficulty, not a gate). Findings: `gen verify --fix` OpenCC-normalizes tokens too (a source `了解`→`瞭解` then reads as unknown unless the store is s2twp-normalized); `s2twp` over-localizes a few terms (e.g. `連接詞→連線詞`).
 
-The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **463 public + 195 private tests green.**
+The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **479 public + 195 private tests green.**
 
 ## Voice notes — Phase 8 M1 (done — 2026-06-06)
 
@@ -66,6 +66,28 @@ Per-sentence local TTS for listen + read + shadowing, per `PRD-Voice-Notes.md` +
 - **Anki with audio (B4).** Engine exporter gained `deck.media` (numbered media map + archive entries; determinism preserved; the empty/absent case is **byte-identical** to media-free exports) + web sentence-deck builder (`voice/ankiDeck.ts`: front = cue text, back = `tr` + `[sound:cue-NNNN.mp3]`, audio bytes read via the vault; unreadable cues skipped) + an "Export Anki 🔊" toolbar action. Tests: exporter media (3) + `ankiDeck` (2).
 - **Builder-decided knobs (QA-tuned):** mp3 96 kbps mono; player LRU 10; chained/​shadowing gap 350 ms; **slow = reader-side `playbackRate 0.85×`** (generation-side instruct dropped — it overcorrected 1.4–2× and unpredictably); voice **Serena** confirmed by ear-check. The `--slow` CLI flag + `instruct` worker path remain available (off by default) for a future better slow take. **Not built (out of M1):** wavesurfer/segment-loop (M2.1), read+explain, tr/commentary voices, multi-voice, cloning, any cloud/API path, loop-region persistence, Vietnamese.
 - **Not yet verified:** a real-Anki import of the audio deck (structural tests only, mirroring the existing exporter caveat); the in-browser click-through demo (load `why-friendship-differs`, play cues 73/386/647, toggle slow, shadow 0–8) is a manual step — the dev-bridge audio path, the transport/shadowing DOM wiring, and the player's blob-IO/fallback are verified headlessly (happy-dom). **57 new tests (406 → 463 public).**
+
+## Voice notes — Phase 8 M2.1 (done — 2026-06-07)
+
+Audacity-style **segment-loop practice bar** (PRD §8 + Decision Log): open a waveform under a voiced cue,
+drag-select a slice, loop it (L) and slow it, to drill shadowing in-context. Engine untouched; reader-only.
+
+- **wavesurfer.js v7 + regions plugin** (BSD-3-Clause), added to `apps/web` only and **dynamically imported**
+  inside `voice/practiceBar.ts` — it code-splits into lazy `wavesurfer.esm` (40 kB) + `regions.esm` (16 kB)
+  chunks, so the main bundle is unchanged (~591 kB) and no other module pulls it. Engine gains no dep.
+- **`voice/practiceBar.ts`** mounts the waveform for one cue's blob (`vault.readBytes` + object URL),
+  `enableDragSelection` for a single region, loop via the regions `region-out` seek-back (~30 ms media-element
+  seam, per PRD; gapless `AudioBufferSourceNode` is the documented upgrade), speed via `setPlaybackRate(rate, true)`.
+  Pure math in **`voice/practiceBarLogic.ts`** (`loopBounds`, `nudgeEdge` clamped, `nearestEdge`, `cycleSpeed`).
+- **Reader UX:** a 🌊 transport button (only with a voice manifest) opens the bar **pinned to the current cue**;
+  controls ▶ / 🔁 / speed (1× / 0.85× / 0.75×). Hotkeys are **scoped to when the bar is open**: `L` toggles
+  loop (Audacity-style), `[` / `]` nudge the nearest edge, `Esc` closes — so `l` stays next-word when the bar
+  is closed (collision resolved). Per-session (no region persistence yet — PRD open question).
+- **Tests (+16):** `practiceBarLogic` (10), practice-bar wiring via an injected fake factory in
+  `transcript.voice.test.ts` (5), and the L-collision integration in `reader.practice.test.ts` (2, wavesurfer
+  mocked). The real waveform render + loop seam is a **manual** check (wavesurfer needs Web Audio/canvas).
+- **Not built (out of M2.1):** loop-region persistence, gapless `AudioBufferSourceNode`, other M2 items
+  (read+explain, tr/commentary voices, multi-voice).
 
 ## Run it
 
