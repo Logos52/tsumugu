@@ -42,11 +42,12 @@ export interface AppSettings {
    */
   hoverMode: "unknown" | "all" | "shift";
   /**
-   * How a transcript reads: `document` (full text scrolling beside the video) or
-   * `subtitle` (video large on top, only the playing line shown big + centered,
-   * updating as it plays — like watching with interactive subtitles).
+   * How a transcript reads: `document` (full text scrolling beside the video),
+   * `subtitle` (video large on top, only the playing line shown big + centered),
+   * or `theater` (the playing line overlaid on the bottom of the video itself —
+   * interactive subtitles burned onto the picture).
    */
-  transcriptLayout: "document" | "subtitle";
+  transcriptLayout: "document" | "subtitle" | "theater";
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }

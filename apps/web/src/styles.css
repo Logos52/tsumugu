@@ -672,3 +672,39 @@ button {
   display: inline;
   background: transparent; /* the whole line IS the cue; no need to tint it */
 }
+
+/* Theater: the playing line is moved inside .tsg-player and pinned to the bottom
+ * of the video — interactive subtitles burned onto the picture. */
+.tsg-reader-theater {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.tsg-reader-theater .tsg-transcript {
+  width: 100%;
+  max-width: 52rem;
+  margin: 0;
+}
+.tsg-reader-theater .tsg-player {
+  position: relative;
+  overflow: visible; /* let the hover card escape the video box */
+}
+.tsg-reader-theater .tsg-player .tsg-reader-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  max-width: none;
+  min-height: 0;
+  padding: 2.5rem 1.25rem 0.9rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.95);
+  font-size: 1.7rem;
+  line-height: 1.5;
+  z-index: 5;
+}
+.tsg-reader-theater .tsg-ruby rt {
+  color: rgba(255, 255, 255, 0.85);
+}

@@ -350,6 +350,7 @@ function buildToolbar(): void {
     },
     el("option", { attrs: { value: "document" }, text: "layout: document" }),
     el("option", { attrs: { value: "subtitle" }, text: "layout: subtitle" }),
+    el("option", { attrs: { value: "theater" }, text: "layout: theater" }),
   );
   layout.value = app.settings.transcriptLayout;
 

@@ -101,13 +101,23 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       })
     : null;
 
-  // Transcript layout: subtitle (video on top, only the playing line shown big)
-  // vs document (full text scrolling beside a sticky video). CSS drives both.
+  // Transcript layout. CSS + (for theater) one DOM move drive all three; the
+  // active-cue token spans are reused, so the layouts can never drift.
   if (app.transcript) {
-    if (app.settings.transcriptLayout === "subtitle") {
+    const layout = app.settings.transcriptLayout;
+    const hasVideo = !!app.transcript.videoId;
+    const playerEl = hasVideo ? container.querySelector(".tsg-player") : null;
+    if (layout === "theater" && playerEl) {
+      // The playing line rides on the bottom of the video (no-fill underline
+      // visual so colors read over the picture; only the active cue is shown).
+      container.classList.add("tsg-reader-theater");
+      text.classList.add("tsg-subtitle-layout");
+      text.dataset.visual = "migaku";
+      playerEl.appendChild(text);
+    } else if (layout === "subtitle" || layout === "theater") {
       container.classList.add("tsg-reader-subtitle");
       text.classList.add("tsg-subtitle-layout");
-    } else if (app.transcript.videoId) {
+    } else if (hasVideo) {
       container.classList.add("tsg-reader-split");
     }
   }
