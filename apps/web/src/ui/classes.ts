@@ -25,6 +25,7 @@ export const CLS = {
   transport: "tsg-transport",
   scrubber: "tsg-scrubber",
   translation: "tsg-translation", // the current line's sentence translation
+  section: "tsg-section", // the "now talking about…" section summary
 
   // hover popup
   popup: "tsg-popup",

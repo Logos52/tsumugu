@@ -19,11 +19,22 @@ export interface TranscriptCue {
   tr?: string;
 }
 
+/** A topical section of the transcript — a coarse time range with a summary. */
+export interface TranscriptSection {
+  start: string;
+  end: string;
+  title?: string;
+  /** A short "what's being talked about here" summary. */
+  summary: string;
+}
+
 /** An ingested transcript bound to the current content, with an optional video. */
 export interface TranscriptDoc {
   cues: TranscriptCue[];
   /** 11-char YouTube id; when present the panel embeds the sanctioned IFrame. */
   videoId?: string;
+  /** Optional topical sections (for the "now talking about…" summary). */
+  sections?: TranscriptSection[];
 }
 
 /** A cue mapped to a contiguous token range `[startToken, endToken)`. */
@@ -54,9 +65,11 @@ export function parseTimecode(tc: string): number {
   return seconds;
 }
 
-/** Pre-parse cue start/end to seconds once, in order. */
-export function cueTimes(cues: readonly TranscriptCue[]): { start: number; end: number }[] {
-  return cues.map((c) => ({ start: parseTimecode(c.start), end: parseTimecode(c.end) }));
+/** Pre-parse start/end to seconds once, in order (cues OR sections). */
+export function cueTimes(
+  spans: readonly { start: string; end: string }[],
+): { start: number; end: number }[] {
+  return spans.map((c) => ({ start: parseTimecode(c.start), end: parseTimecode(c.end) }));
 }
 
 /**
@@ -66,9 +79,9 @@ export function cueTimes(cues: readonly TranscriptCue[]): { start: number; end: 
  * per-frame poll.
  */
 export function cueIndexAtTime(
-  cues: readonly TranscriptCue[],
+  spans: readonly { start: string; end: string }[],
   seconds: number,
-  times: { start: number; end: number }[] = cueTimes(cues),
+  times: { start: number; end: number }[] = cueTimes(spans),
 ): number {
   for (let i = 0; i < times.length; i++) {
     const t = times[i]!;

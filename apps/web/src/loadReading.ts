@@ -10,7 +10,7 @@
 
 import type { PreparedContent } from "@tsumugu/engine";
 
-import type { TranscriptCue, TranscriptDoc } from "./reader/sync.js";
+import type { TranscriptCue, TranscriptDoc, TranscriptSection } from "./reader/sync.js";
 
 export interface ReadingPayload {
   content?: PreparedContent;
@@ -26,9 +26,10 @@ export function classifyReadingDocs(docs: readonly unknown[]): ReadingPayload {
     if (o.schema === "tsumugu/prepared-content@1" && Array.isArray(o.tokens)) {
       out.content = d as PreparedContent;
     } else if (o.schema === "tsumugu/transcript-cues@1" && Array.isArray(o.cues)) {
-      const cues = o.cues as TranscriptCue[];
-      const videoId = typeof o.videoId === "string" ? o.videoId : undefined;
-      out.transcript = videoId ? { cues, videoId } : { cues };
+      const td: TranscriptDoc = { cues: o.cues as TranscriptCue[] };
+      if (typeof o.videoId === "string") td.videoId = o.videoId;
+      if (Array.isArray(o.sections)) td.sections = o.sections as TranscriptSection[];
+      out.transcript = td;
     }
   }
   return out;

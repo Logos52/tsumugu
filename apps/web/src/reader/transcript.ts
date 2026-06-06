@@ -48,8 +48,10 @@ export function mountTranscriptSync(opts: {
 }): TranscriptController {
   const { host, tokens, transcript, tokenEls } = opts;
   const cues = transcript.cues;
+  const sections = transcript.sections ?? [];
   const ranges = alignCuesToTokens(tokens, cues);
   const times = cueTimes(cues);
+  const sectionTimes = cueTimes(sections);
   const duration = times.reduce((m, t) => Math.max(m, t.end), 0);
 
   // ── panel UI (prepended above the text) ──────────────────────────────────
@@ -62,6 +64,10 @@ export function mountTranscriptSync(opts: {
   });
   const timeLabel = el("span", { class: CLS.metrics, text: `${fmt(0)} / ${fmt(duration)}` });
   panel.append(playerHost, el("div", { class: CLS.transport }, playBtn, scrubber, timeLabel));
+  // "Now talking about…" — the active section's summary (shown when present).
+  const sectionEl = el("div", { class: CLS.section });
+  if (sections.length === 0) sectionEl.style.display = "none";
+  panel.append(sectionEl);
   const trEl = el("div", { class: CLS.translation });
   let showTr = opts.showTranslation ?? false;
   trEl.style.display = showTr ? "block" : "none";
@@ -138,6 +144,10 @@ export function mountTranscriptSync(opts: {
     if (document.activeElement !== scrubber) scrubber.value = String(t);
     timeLabel.textContent = `${fmt(t)} / ${fmt(duration)}`;
     if (showTr) trEl.textContent = lastCue >= 0 ? (cues[lastCue]?.tr ?? "— (no translation yet)") : "";
+    if (sections.length) {
+      const si = cueIndexAtTime(sections, t, sectionTimes);
+      sectionEl.textContent = si >= 0 ? sections[si]!.summary : "";
+    }
   }
 
   function frame(now: number): void {

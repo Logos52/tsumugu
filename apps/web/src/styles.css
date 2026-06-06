@@ -621,6 +621,20 @@ button {
   font-family: var(--tsg-font-ui);
   min-height: 1.2em;
 }
+/* "Now talking about…" — the active section summary (auto-shows when present). */
+.tsg-section {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--tsg-radius-sm);
+  background: color-mix(in oklab, var(--ctp-mauve) 9%, var(--tsg-surface));
+  border-left: 3px solid var(--ctp-mauve);
+  color: var(--tsg-ink);
+  font-size: 0.95rem;
+  font-family: var(--tsg-font-ui);
+}
+.tsg-section:empty {
+  display: none;
+}
 /* Tokens of the cue currently playing — distinct from status/tone color. */
 .tsg-cue-active {
   background: color-mix(in oklab, var(--ctp-blue) 16%, var(--tsg-surface));
