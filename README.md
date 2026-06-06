@@ -8,7 +8,7 @@ An open-source, **language-agnostic** engine for a **graded reader** + a compoun
 
 First two (private) language packs: **Traditional Mandarin (Taiwan)** and **Vietnamese**, with a **Hán-Việt bridge** that uses your Chinese to bootstrap Vietnamese.
 
-> **Status:** Phases 0–5 implemented — engine + offline reader + agent-run generation CLI + wiki/bridge/cross-reference, with the OpenCC guard proven on a real `opencc-js` pack. See [`STATUS.md`](./STATUS.md) for the audited coverage. Read [`PRD.md`](./PRD.md) (the source of truth) and [`AGENTS.md`](./AGENTS.md) (build guide) first.
+> **Status:** Phases 0–7 implemented — engine + offline reader + agent-run generation CLI + wiki/bridge/cross-reference + transcript ingestion with a synced reader. **Phase 8 (voice): M1 shipped** — local batch TTS, cue-synced playback, shadowing mode, and Anki-with-audio; see [`PRD-Voice-Notes.md`](./PRD-Voice-Notes.md). See [`STATUS.md`](./STATUS.md) for the audited coverage. Read [`PRD.md`](./PRD.md) (the source of truth) and [`AGENTS.md`](./AGENTS.md) (build guide) first.
 
 ## Structure — two public repos + one private folder
 
@@ -23,6 +23,7 @@ First two (private) language packs: **Traditional Mandarin (Taiwan)** and **Viet
 - **1–4 / Known / Ignore grading + hover popup**; pre-baked definitions for instant offline hover.
 - **Built-in pull SRS** (no scheduler / no nagging) **+ Anki export**.
 - All Traditional-Chinese LLM output passes through **OpenCC** (Simplified→Traditional).
+- **Voice notes (M1)** — per-sentence audio pre-baked in batch by a **local open-source TTS engine** (reference setup: Qwen3-TTS, Apache-2.0, via `mlx-audio` on Apple Silicon). The reader plays cue-synced audio with a shadowing/chorusing mode; Web Speech stays as the fallback. Same rules as everything else: $0, offline after generation, no cloud TTS APIs.
 
 ## License
 

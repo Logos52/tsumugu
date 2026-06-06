@@ -24,6 +24,7 @@ import {
 } from "@tsumugu/engine";
 
 import type { TranscriptDoc } from "./reader/sync.js";
+import type { VoiceNotesBinding } from "./voice/manifest.js";
 
 /** Reader/review display preferences. */
 export interface AppSettings {
@@ -50,6 +51,10 @@ export interface AppSettings {
   transcriptLayout: "document" | "subtitle" | "theater";
   /** Reveal the current line's sentence translation (toggle / `t` hotkey). */
   showTranslation: boolean;
+  /** Voice notes on when a manifest is present (default on; inert without one). */
+  voiceNotesEnabled: boolean;
+  /** Prefer slow voice playback (slow take when present, else 0.75×). */
+  voiceSlow: boolean;
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }
@@ -62,6 +67,8 @@ export const DEFAULT_SETTINGS: AppSettings = {
   hoverMode: "unknown",
   transcriptLayout: "document",
   showTranslation: false,
+  voiceNotesEnabled: true,
+  voiceSlow: false,
   storePath: "tsumugu/word-store.json",
 };
 
@@ -89,6 +96,8 @@ export class AppState {
   content: PreparedContent | null;
   /** Optional timed transcript bound to the current content (synced-reader). */
   transcript: TranscriptDoc | null;
+  /** Optional per-cue voice notes bound to the current reading (M1 voice). */
+  voiceNotes: VoiceNotesBinding | null;
   settings: AppSettings;
   vault: VaultIO | null;
   audio: AudioPort | null;
@@ -102,6 +111,7 @@ export class AppState {
     store?: WordStore;
     content?: PreparedContent | null;
     transcript?: TranscriptDoc | null;
+    voiceNotes?: VoiceNotesBinding | null;
     settings?: Partial<AppSettings>;
     vault?: VaultIO | null;
     audio?: AudioPort | null;
@@ -111,6 +121,7 @@ export class AppState {
     this.store = opts.store ?? new WordStore();
     this.content = opts.content ?? null;
     this.transcript = opts.transcript ?? null;
+    this.voiceNotes = opts.voiceNotes ?? null;
     this.settings = { ...DEFAULT_SETTINGS, ...opts.settings };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
@@ -174,9 +185,10 @@ export class AppState {
 
   setContent(content: PreparedContent | null): void {
     this.content = content;
-    // New content drops any prior transcript binding; callers re-attach via
-    // setTranscript() if the new content has one.
+    // New content drops any prior transcript + voice-notes binding; callers
+    // re-attach via setTranscript() / setVoiceNotes() if the new reading has them.
     this.transcript = null;
+    this.voiceNotes = null;
     this.recordContentSeen();
     this.emit("change");
   }
@@ -184,6 +196,12 @@ export class AppState {
   /** Bind (or clear) a timed transcript for the synced-reader (M4). */
   setTranscript(transcript: TranscriptDoc | null): void {
     this.transcript = transcript;
+    this.emit("change");
+  }
+
+  /** Bind (or clear) per-cue voice notes for the current reading (M1 voice). */
+  setVoiceNotes(voiceNotes: VoiceNotesBinding | null): void {
+    this.voiceNotes = voiceNotes;
     this.emit("change");
   }
 

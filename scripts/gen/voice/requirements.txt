@@ -1,0 +1,7 @@
+# Python deps for the `gen voice-notes` synthesis worker (Apple Silicon / MLX).
+# Install into a venv OUTSIDE the pnpm workspace (gitignored). See
+# personal/voice/README.md. The worker code is public + data-free; this env and
+# the model cache are not committed.
+mlx-audio
+soundfile
+numpy

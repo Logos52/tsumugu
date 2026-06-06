@@ -5,5 +5,5 @@
  */
 
 export { buildApkg, ANKI_DEFAULT_NOW } from "./exporter.js";
-export type { AnkiNote, AnkiDeck, AnkiExportOptions } from "./exporter.js";
+export type { AnkiNote, AnkiDeck, AnkiMedia, AnkiExportOptions } from "./exporter.js";
 export { sha1Hex } from "./sha1.js";

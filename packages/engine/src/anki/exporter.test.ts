@@ -358,6 +358,67 @@ describe("buildApkg", () => {
     }
   });
 
+  it("embeds media: numbered archive entries + a filename map + sound tag in fields", async () => {
+    const a = new Uint8Array([1, 2, 3, 4]);
+    const b = new Uint8Array([9, 8, 7]);
+    const apkg = await buildApkg(
+      {
+        name: "Voice",
+        notes: [
+          { front: "你好,", back: "hello [sound:cue-0000.mp3]" },
+          { front: "再見。", back: "goodbye [sound:cue-0001.mp3]" },
+        ],
+        media: [
+          { filename: "cue-0000.mp3", bytes: a },
+          { filename: "cue-0001.mp3", bytes: b },
+        ],
+      },
+      { now: ANKI_DEFAULT_NOW },
+    );
+    const unzipped = unzipSync(apkg);
+
+    // Media map: numeric index → filename.
+    expect(JSON.parse(strFromU8(unzipped["media"] as Uint8Array))).toEqual({
+      "0": "cue-0000.mp3",
+      "1": "cue-0001.mp3",
+    });
+    // Bytes stored under the numeric names, intact.
+    expect(Array.from(unzipped["0"] as Uint8Array)).toEqual([1, 2, 3, 4]);
+    expect(Array.from(unzipped["1"] as Uint8Array)).toEqual([9, 8, 7]);
+
+    // A note field carries the [sound:…] reference.
+    const SQL = await initSqlJs();
+    const db = new SQL.Database(unzipped["collection.anki2"] as Uint8Array);
+    try {
+      const flds = (db.exec("SELECT flds FROM notes ORDER BY id")[0]?.values ?? []).map(
+        (r) => r[0] as string,
+      );
+      expect(flds[0]).toContain("[sound:cue-0000.mp3]");
+      expect(flds[1]).toContain("[sound:cue-0001.mp3]");
+    } finally {
+      db.close();
+    }
+  });
+
+  it("media embedding stays deterministic (identical bytes for same input)", async () => {
+    const deck: AnkiDeck = {
+      name: "Voice",
+      notes: [{ front: "f", back: "b [sound:x.mp3]" }],
+      media: [{ filename: "x.mp3", bytes: new Uint8Array([5, 6, 7]) }],
+    };
+    const a = await buildApkg(deck, { now: ANKI_DEFAULT_NOW });
+    const b = await buildApkg(deck, { now: ANKI_DEFAULT_NOW });
+    expect(Buffer.from(a).equals(Buffer.from(b))).toBe(true);
+  });
+
+  it("an empty/absent media list is byte-identical to a media-free export", async () => {
+    const withEmpty = await buildApkg({ ...DECK, media: [] }, { now: ANKI_DEFAULT_NOW });
+    const without = await buildApkg(DECK, { now: ANKI_DEFAULT_NOW });
+    expect(Buffer.from(withEmpty).equals(Buffer.from(without))).toBe(true);
+    // And the media map is still the empty object.
+    expect(strFromU8(unzipSync(without)["media"] as Uint8Array)).toBe("{}");
+  });
+
   it("accepts a provided sqlWasm binary (browser-host path)", async () => {
     // Load the wasm the way a browser host would, then feed it back in.
     const { readFile } = await import("node:fs/promises");

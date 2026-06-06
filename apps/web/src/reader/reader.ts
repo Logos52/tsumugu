@@ -22,6 +22,7 @@ import type { AppState, ViewController } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS, toneClass } from "../ui/classes.js";
 import { mountTranscriptSync, type TranscriptController } from "./transcript.js";
+import { createVoicePlayer, type VoicePlayer } from "../voice/player.js";
 
 /** Labels shown on the grading row, in order; each maps via `hotkeyToStatus`. */
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
@@ -92,6 +93,19 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // the player/scrubber panel and highlight the playing cue in our own text.
   // Inert when there's no transcript, so plain reading (and the reader tests)
   // are unaffected.
+  // Voice notes (M1): build a cue-aware player when a manifest is bound to this
+  // reading, voice notes are enabled, and a vault can serve the audio bytes.
+  // Inert otherwise — the transport + shadowing controls don't appear.
+  const voicePlayer: VoicePlayer | null =
+    app.transcript && app.voiceNotes && app.vault && app.settings.voiceNotesEnabled
+      ? createVoicePlayer({
+          vault: app.vault,
+          binding: app.voiceNotes,
+          cues: app.transcript.cues,
+          speak: (t) => app.speak(t),
+        })
+      : null;
+
   const transcriptCtl: TranscriptController | null = app.transcript
     ? mountTranscriptSync({
         host: container,
@@ -99,6 +113,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         transcript: app.transcript,
         tokenEls,
         showTranslation: app.settings.showTranslation,
+        player: voicePlayer,
+        voiceSlow: app.settings.voiceSlow,
+        onSlowToggle: (slow) => app.updateSettings({ voiceSlow: slow }),
       })
     : null;
 
@@ -475,12 +492,31 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
 
     if (ev.key === "Escape") {
+      // Esc leaves shadowing first (if engaged), else dismisses the hover popup.
+      if (transcriptCtl?.isShadowing()) {
+        ev.preventDefault();
+        transcriptCtl.toggleShadowing();
+        return;
+      }
       closePopup();
       return;
     }
-    // Space pauses/plays the synced video (so you can stop to read a line).
+    // Space: while shadowing, advance to the next cue (hear → repeat → Space);
+    // otherwise it pauses/plays the synced video (so you can stop to read a line).
     if (ev.key === " " || ev.code === "Space") {
       if (tag === "BUTTON") return; // let a focused button activate normally
+      if (transcriptCtl?.isShadowing()) {
+        ev.preventDefault();
+        transcriptCtl.shadowAdvance();
+        return;
+      }
+      // While "play from here" voice playback owns the highlight, Space stops it
+      // rather than starting the video over the top of it.
+      if (transcriptCtl?.isVoiceDriving()) {
+        ev.preventDefault();
+        transcriptCtl.stopVoice();
+        return;
+      }
       if (transcriptCtl) {
         ev.preventDefault();
         transcriptCtl.togglePlay();
@@ -555,6 +591,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       document.removeEventListener("mousedown", onDocMouseDown);
       offChange();
       transcriptCtl?.destroy();
+      voicePlayer?.destroy();
       closePopup();
       clear(root);
     },

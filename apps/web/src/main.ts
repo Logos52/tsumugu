@@ -4,7 +4,7 @@
  * the reader / review views. Client-side, offline, no backend.
  */
 import { demoPack } from "@tsumugu/demo-pack";
-import type { AnkiDeck, WordStatus } from "@tsumugu/engine";
+import type { AnkiDeck, WordStatus, VaultIO } from "@tsumugu/engine";
 import { AppState, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
@@ -24,6 +24,8 @@ import { el, clear } from "./ui/dom.js";
 import { SAMPLES } from "./samples.js";
 import { packForLang } from "./packs/index.js";
 import { readReadingFiles, classifyReadingDocs } from "./loadReading.js";
+import { parseVoiceNotes, bindVoiceNotes, type VoiceNotesBinding } from "./voice/manifest.js";
+import { buildVoiceNotesDeck } from "./voice/ankiDeck.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -108,8 +110,16 @@ function refreshStatus(): void {
 /** Persist the user-facing reader toggles so they survive a reload. */
 function persistSettings(): void {
   try {
-    const { phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout, showTranslation } =
-      app.settings;
+    const {
+      phonetics,
+      toneColoring,
+      guessFirst,
+      hoverMode,
+      transcriptLayout,
+      showTranslation,
+      voiceNotesEnabled,
+      voiceSlow,
+    } = app.settings;
     localStorage.setItem(
       SETTINGS_KEY,
       JSON.stringify({
@@ -119,6 +129,8 @@ function persistSettings(): void {
         hoverMode,
         transcriptLayout,
         showTranslation,
+        voiceNotesEnabled,
+        voiceSlow,
       }),
     );
   } catch {
@@ -176,6 +188,30 @@ async function openReadingFiles(files: File[]): Promise<void> {
 }
 
 /**
+ * Discover a `<slug>.voice-notes.json` sidecar beside a reading and bind it to
+ * its directory (audio paths resolve against that dir). Null when absent/invalid
+ * — the voice module then stays inert. Tolerant: any read/parse error → null.
+ */
+async function discoverVoiceNotes(
+  vault: VaultIO,
+  readingPath: string,
+  cueCount: number,
+): Promise<VoiceNotesBinding | null> {
+  if (cueCount === 0) return null;
+  const slugBase = readingPath.replace(/\.prepared\.json$/, "").replace(/\.json$/, "");
+  const lastSlash = slugBase.lastIndexOf("/");
+  const baseDir = lastSlash >= 0 ? slugBase.slice(0, lastSlash) : "";
+  try {
+    const raw = await vault.readText(`${slugBase}.voice-notes.json`);
+    if (!raw) return null;
+    const manifest = parseVoiceNotes(JSON.parse(raw), cueCount);
+    return manifest ? bindVoiceNotes(manifest, baseDir) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Load a reading discovered in the dev vault (its `.prepared.json` + sibling
  * `.cues.json`) and remember it, so it auto-restores on the next page-load.
  */
@@ -201,6 +237,9 @@ async function loadVaultReading(path: string): Promise<void> {
   app.setContent(payload.content);
   syncPack();
   app.setTranscript(payload.transcript ?? null);
+  // Voice notes: a `<slug>.voice-notes.json` sidecar beside the reading. Audio
+  // paths in it resolve against the manifest's directory (this reading's dir).
+  app.setVoiceNotes(await discoverVoiceNotes(vault, path, payload.transcript?.cues.length ?? 0));
   try {
     localStorage.setItem(LAST_READING_KEY, path);
   } catch {
@@ -306,6 +345,14 @@ function buildToolbar(): void {
     on: { click: () => void exportAnki() },
   });
 
+  const exportVoiceBtn = el("button", {
+    class: "tsg-btn",
+    text: "Export Anki 🔊",
+    title: "Build an .apkg of this reading's sentences with embedded voice-note audio (when present).",
+    type: "button",
+    on: { click: () => void exportVoiceAnki() },
+  });
+
   const tone = el(
     "label",
     { class: "tsg-btn", title: "zh tone coloring" },
@@ -398,6 +445,18 @@ function buildToolbar(): void {
     " 譯",
   );
 
+  const voiceToggle = el(
+    "label",
+    { class: "tsg-btn", title: "Voice notes: per-cue audio playback + shadowing (when a manifest is present)" },
+    el("input", {
+      attrs: app.settings.voiceNotesEnabled ? { type: "checkbox", checked: "" } : { type: "checkbox" },
+      on: {
+        change: (e) => setToggle({ voiceNotesEnabled: (e.target as HTMLInputElement).checked }),
+      },
+    }),
+    " 🔊",
+  );
+
   const theme = el(
     "label",
     { class: "tsg-btn", title: "Catppuccin Mocha (dark)" },
@@ -452,9 +511,9 @@ function buildToolbar(): void {
 
   // The manual "Grant vault folder" button is only needed when the dev-server
   // vault isn't auto-loading (e.g. the production build).
-  const items = [picker, openBtn, fileInput];
+  const items: HTMLElement[] = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, layout, hover, translate, tone, guess, phonetics, theme, styleBtn);
+  items.push(exportBtn, exportVoiceBtn, layout, hover, translate, voiceToggle, tone, guess, phonetics, theme, styleBtn);
   toolbarEl.append(...items);
 }
 
@@ -482,6 +541,37 @@ async function exportAnki(): Promise<void> {
     app.setStatusMessage(`Exported ${entries.length} cards.`);
   } catch (err) {
     app.setStatusMessage(`Anki export failed: ${String(err)}`);
+  }
+}
+
+/**
+ * Export a sentence deck for the current reading with each cue's voice note
+ * embedded as audio (`[sound:cue-NNNN.mp3]`) — for SRS shadowing on due lines.
+ */
+async function exportVoiceAnki(): Promise<void> {
+  const binding = app.voiceNotes;
+  const cues = app.transcript?.cues;
+  const readBytes = app.vault?.readBytes;
+  if (!binding || !cues || !readBytes) {
+    app.setStatusMessage("No voice notes to export for this reading.");
+    return;
+  }
+  try {
+    const deck = await buildVoiceNotesDeck({
+      deckName: `Tsumugu ${app.lang} — ${binding.manifest.slug}`,
+      tags: ["tsumugu", app.lang, "voice"],
+      cues,
+      binding,
+      readBytes: (p) => readBytes.call(app.vault, p),
+    });
+    if (deck.notes.length === 0) {
+      app.setStatusMessage("No readable voice-note audio found to export.");
+      return;
+    }
+    await exportAndDownloadApkg(deck, `tsumugu-${binding.manifest.slug}-voice.apkg`);
+    app.setStatusMessage(`Exported ${deck.notes.length} sentence cards with audio.`);
+  } catch (err) {
+    app.setStatusMessage(`Voice Anki export failed: ${String(err)}`);
   }
 }
 

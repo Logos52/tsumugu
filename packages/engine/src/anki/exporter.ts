@@ -36,7 +36,18 @@ export interface AnkiNote {
   tags?: string[];
 }
 
-/** A named deck of notes, with optional fixed deck/model ids. */
+/**
+ * A media file embedded in the `.apkg`. The caller provides the bytes (the
+ * engine stays fs-free); a note field references it via `[sound:<filename>]`
+ * (audio) or `<img src="<filename>">` (image). Order is significant: media is
+ * numbered 0..n-1 in array order for reproducible archives.
+ */
+export interface AnkiMedia {
+  filename: string;
+  bytes: Uint8Array;
+}
+
+/** A named deck of notes, with optional fixed deck/model ids and media. */
 export interface AnkiDeck {
   name: string;
   notes: AnkiNote[];
@@ -44,6 +55,8 @@ export interface AnkiDeck {
   deckId?: number;
   /** Override the deterministic model (note type) id. */
   modelId?: number;
+  /** Media files to embed; referenced from note fields by `[sound:filename]`. */
+  media?: AnkiMedia[];
 }
 
 /** Export tuning. All time-derived ids come from `now` for determinism. */
@@ -456,9 +469,21 @@ export async function buildApkg(
 
     const archive: Record<string, Uint8Array> = {
       "collection.anki2": collectionBytes,
-      // Empty media map: index → filename. No media in these exports.
-      media: strToU8("{}"),
     };
+    // Media map: numeric index → filename. Bytes are stored under the numeric
+    // name (genanki layout); a note field references the file via [sound:name].
+    // Order is the caller's array order, so archives stay reproducible. With no
+    // media this stays the empty `{}` map and the archive is byte-identical to
+    // the media-free exports.
+    const media = deck.media ?? [];
+    const mediaMap: Record<string, string> = {};
+    for (let i = 0; i < media.length; i++) {
+      const m = media[i];
+      if (!m) continue;
+      mediaMap[String(i)] = m.filename;
+      archive[String(i)] = m.bytes;
+    }
+    archive["media"] = strToU8(JSON.stringify(mediaMap));
 
     // Fixed mtime + no compression so the zip bytes are reproducible. fflate's
     // DOS timestamp must be in 1980-2099, so we anchor to a fixed in-range date

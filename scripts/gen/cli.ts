@@ -9,6 +9,9 @@
  *   pnpm gen auto   --lang vi --store ws.json [--limit 8]
  */
 import { existsSync } from "node:fs";
+import { mkdir, readdir, rm } from "node:fs/promises";
+import { spawn, spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import {
   WordStore,
   BridgeRegistry,
@@ -38,7 +41,32 @@ import {
 } from "./lib/crossref.js";
 import { readMigakuDb } from "./lib/migaku-db.js";
 import { writeBack } from "./lib/migaku-writeback.js";
-import { resolve as resolvePath } from "node:path";
+import { resolve as resolvePath, dirname, join, relative } from "node:path";
+import {
+  deriveSlug,
+  selectCues,
+  parseSlowSpec,
+  slowSelection,
+  planWork,
+  buildWorkerJob,
+  ffmpegArgs,
+  buildManifest,
+  makeNote,
+  validateManifest,
+  cueFileName,
+  DEFAULT_MODEL,
+  DEFAULT_VOICE,
+  DEFAULT_LANGUAGE,
+  DEFAULT_SLOW_INSTRUCT,
+  WORKER_REPORT_BEGIN,
+  WORKER_REPORT_END,
+  type VoiceCue,
+  type VoiceNote,
+  type VoiceNotesManifest,
+  type WorkerJob,
+  type WorkerReport,
+  type CueSelection,
+} from "./lib/voiceNotes.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -412,6 +440,223 @@ async function cmdWriteback(opts: Record<string, string | boolean>): Promise<voi
   }
 }
 
+// ── voice notes (PRD-Voice-Notes M1, Part A) ─────────────────────────────────
+
+const VOICE_WORKER = fileURLToPath(new URL("./voice/synthesize_qwen3_mlx.py", import.meta.url));
+
+/** First existing TTS-venv python: env override → bake-off venv → personal/voice venv. */
+function resolveVoicePython(): string {
+  const candidates = [
+    process.env.TSUMUGU_VOICE_PYTHON,
+    "personal/research/bakeoff/.venv/bin/python",
+    "personal/voice/.venv/bin/python",
+  ].filter((p): p is string => !!p);
+  for (const c of candidates) if (existsSync(c)) return c;
+  return fail(
+    `no TTS venv python found — set TSUMUGU_VOICE_PYTHON or create personal/voice/.venv ` +
+      `(see personal/voice/README.md). Tried: ${candidates.join(", ")}`,
+  );
+}
+
+/** Spawn the Python worker, feeding the job over stdin; parse its sentinel-wrapped report. */
+function runVoiceWorker(python: string, job: WorkerJob): Promise<WorkerReport> {
+  return new Promise((resolveReport, reject) => {
+    // stderr is inherited so the user sees per-cue progress live during long runs.
+    const child = spawn(python, [VOICE_WORKER], { stdio: ["pipe", "pipe", "inherit"] });
+    let out = "";
+    child.stdout.on("data", (d: Buffer) => {
+      out += d.toString();
+    });
+    child.on("error", (err) => reject(new Error(`could not start TTS worker (${python}): ${err.message}`)));
+    child.on("close", (code) => {
+      const begin = out.indexOf(WORKER_REPORT_BEGIN);
+      const end = out.indexOf(WORKER_REPORT_END);
+      if (begin >= 0 && end > begin) {
+        try {
+          resolveReport(JSON.parse(out.slice(begin + WORKER_REPORT_BEGIN.length, end).trim()) as WorkerReport);
+          return;
+        } catch (e) {
+          reject(new Error(`TTS worker report parse failed: ${String(e)}`));
+          return;
+        }
+      }
+      reject(new Error(`TTS worker produced no report (exit ${code}). See worker output above.`));
+    });
+    child.stdin.write(JSON.stringify(job));
+    child.stdin.end();
+  });
+}
+
+/** Encode one wav → mp3 with ffmpeg; rejects on a non-zero exit. */
+function runFfmpeg(args: string[]): Promise<void> {
+  return new Promise((res, rej) => {
+    const child = spawn("ffmpeg", args, { stdio: ["ignore", "ignore", "inherit"] });
+    child.on("error", (err) => rej(new Error(`ffmpeg failed to start: ${err.message}`)));
+    child.on("close", (code) => (code === 0 ? res() : rej(new Error(`ffmpeg exited ${code}`))));
+  });
+}
+
+/** mp3 paths present in the audio dir, keyed by their manifest-relative path. */
+async function presentMp3s(audioAbsDir: string, audioRelDir: string): Promise<Set<string>> {
+  const present = new Set<string>();
+  if (!existsSync(audioAbsDir)) return present;
+  for (const f of await readdir(audioAbsDir)) {
+    if (f.endsWith(".mp3")) present.add(`${audioRelDir}/${f}`);
+  }
+  return present;
+}
+
+async function cmdVoiceNotes(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("voice-notes needs --in <prepared.cues.json>");
+  type CuesDoc = { cues?: VoiceCue[]; lang?: string };
+  const raw = await readJson<CuesDoc | VoiceCue[]>(inPath);
+  const cues: VoiceCue[] = Array.isArray(raw) ? raw : raw.cues ?? [];
+  if (cues.length === 0) fail(`no cues in ${inPath}`);
+  const lang = str(opts, "lang") ?? (Array.isArray(raw) ? "zh-Hant" : raw.lang ?? "zh-Hant");
+
+  const slug = deriveSlug(inPath);
+  const model = str(opts, "model") ?? DEFAULT_MODEL;
+  const voice = str(opts, "voice") ?? DEFAULT_VOICE;
+  const language = str(opts, "language") ?? DEFAULT_LANGUAGE;
+  const slowInstruct = str(opts, "slow-instruct") ?? DEFAULT_SLOW_INSTRUCT;
+  const force = flag(opts, "force");
+  const dryRun = flag(opts, "dry-run");
+
+  // Manifest sits beside the cues file; audio defaults to `audio/<slug>/` beside it.
+  const manifestDir = dirname(inPath);
+  const manifestPath = join(manifestDir, `${slug}.voice-notes.json`);
+  const outArg = str(opts, "out");
+  const audioAbsDir = outArg ? resolvePath(outArg) : join(manifestDir, "audio", slug);
+  let audioRelDir = relative(manifestDir, audioAbsDir).replace(/\\/g, "/");
+  if (!audioRelDir || audioRelDir.startsWith("..")) audioRelDir = audioAbsDir.replace(/\\/g, "/");
+
+  // Selection + plan (pure).
+  const cuesArg = list(opts, "cues").map(Number).filter((n) => Number.isInteger(n));
+  const sel: CueSelection = {};
+  if (cuesArg.length) sel.cues = cuesArg;
+  const limit = num(opts, "limit");
+  if (limit !== undefined) sel.limit = limit;
+  const selected = selectCues(cues, sel);
+  if (selected.length === 0) fail("no cues selected (check --cues / --limit; empty-text cues are skipped)");
+  const slowSet = slowSelection(cues, selected, parseSlowSpec(str(opts, "slow")));
+  const existing = await presentMp3s(audioAbsDir, audioRelDir);
+  const plans = planWork({ cues, selected, slowSet, audioRelDir, existing, force });
+
+  const naturalsToRender = plans.filter((p) => p.renderNatural).length;
+  const slowToRender = plans.filter((p) => p.renderSlow).length;
+
+  if (dryRun) {
+    console.log(`voice-notes plan (dry-run) — ${slug} [${lang}]`);
+    console.log(`  cues file   : ${inPath}`);
+    console.log(`  manifest    : ${manifestPath}`);
+    console.log(`  audio dir   : ${audioAbsDir}  (manifest-relative: ${audioRelDir})`);
+    console.log(`  engine/voice: ${model}@mlx-audio / ${voice}`);
+    console.log(`  selected    : ${selected.length} cue(s)`);
+    console.log(`  slow takes  : ${slowSet.size} (instruct: ${slowInstruct})`);
+    console.log(`  to render   : ${naturalsToRender} natural + ${slowToRender} slow`);
+    console.log(`  already done: ${selected.length - naturalsToRender} natural mp3(s) present (skipped)`);
+    console.error(`\n(dry-run — model not loaded, nothing written)`);
+    return;
+  }
+
+  // Preflight: ffmpeg + venv python before loading a 3.5 GB model.
+  if (spawnSync("ffmpeg", ["-version"], { stdio: "ignore" }).status !== 0) {
+    fail("ffmpeg not found on PATH — install it (e.g. `brew install ffmpeg`). See personal/voice/README.md.");
+  }
+  const python = resolveVoicePython();
+
+  await mkdir(audioAbsDir, { recursive: true });
+  const wavDir = join(audioAbsDir, ".wav-tmp");
+
+  let report: WorkerReport | null = null;
+  const job = buildWorkerJob(plans, { model, voice, language, slowInstruct, wavDir });
+  if (job.items.length > 0) {
+    await mkdir(wavDir, { recursive: true });
+    console.error(`Synthesizing ${job.items.length} take(s) via ${python} …`);
+    report = await runVoiceWorker(python, job);
+    // Encode every successfully-rendered wav → mp3, then drop the wav.
+    for (const item of report.items) {
+      if (!item.ok) continue;
+      // Slow takes are named `cue-NNNN.slow.wav`; match the filename suffix (not
+      // the full path, which could itself contain ".slow.").
+      const slow = /\.slow\.wav$/i.test(item.outWav);
+      const mp3Abs = join(audioAbsDir, cueFileName(item.index, slow));
+      await runFfmpeg(ffmpegArgs(item.outWav, mp3Abs));
+      await rm(item.outWav, { force: true });
+    }
+    await rm(wavDir, { recursive: true, force: true });
+  } else {
+    console.error("Nothing to render — all selected takes already exist (use --force to re-render).");
+  }
+
+  // Build manifest notes from what is actually on disk (rendered or pre-existing).
+  const notes: VoiceNote[] = [];
+  for (const p of plans) {
+    const natExists = existsSync(join(audioAbsDir, cueFileName(p.index, false)));
+    if (!natExists) continue; // a failed/absent natural take gets no note (flagged below)
+    let slowRel: string | undefined;
+    if (p.audioSlow && existsSync(join(audioAbsDir, cueFileName(p.index, true)))) slowRel = p.audioSlow;
+    notes.push(makeNote(p.index, p.audio, slowRel));
+  }
+
+  let existingManifest: VoiceNotesManifest | null = null;
+  if (existsSync(manifestPath)) {
+    try {
+      existingManifest = await readJson<VoiceNotesManifest>(manifestPath);
+    } catch {
+      existingManifest = null;
+    }
+  }
+  const manifest = buildManifest({
+    existing: existingManifest,
+    slug,
+    lang,
+    engine: `${model}@mlx-audio`,
+    voice,
+    generatedAt: new Date().toISOString(),
+    notes,
+  });
+  await writeJson(manifestPath, manifest);
+
+  // Validate: every referenced file present; durations > 0; surface render failures.
+  // Resolve each note's path against the manifest dir so preserved entries from a
+  // prior run (possibly under a different --out) are checked where they actually live.
+  const present = new Set<string>();
+  for (const n of manifest.notes) {
+    if (existsSync(join(manifestDir, n.audio))) present.add(n.audio);
+    if (n.audioSlow && existsSync(join(manifestDir, n.audioSlow))) present.add(n.audioSlow);
+  }
+  const validation = validateManifest(manifest, present);
+  const rendered = report?.items.filter((i) => i.ok) ?? [];
+  const failures = (report?.items ?? []).filter((i) => !i.ok && i.error !== "empty text");
+  const zeroDuration = rendered.filter((i) => !(i.durationSec && i.durationSec > 0));
+
+  const totalGen = rendered.reduce((s, i) => s + (i.genSec ?? 0), 0);
+  const totalAudio = rendered.reduce((s, i) => s + (i.durationSec ?? 0), 0);
+  const rtf = totalAudio > 0 ? totalGen / totalAudio : 0;
+
+  console.error(
+    [
+      "",
+      `✓ voice-notes: ${manifest.notes.length} cue(s) in manifest → ${manifestPath}`,
+      `  rendered this run: ${rendered.length} take(s) (${naturalsToRender} natural + ${slowToRender} slow)`,
+      rendered.length
+        ? `  generation: ${totalGen.toFixed(1)}s for ${totalAudio.toFixed(1)}s audio (RTF ${rtf.toFixed(2)}, avg ${(totalGen / rendered.length).toFixed(1)}s/take)`
+        : "  generation: nothing rendered (all skipped)",
+      `  audio dir: ${audioAbsDir}`,
+    ].join("\n"),
+  );
+
+  const problems: string[] = [];
+  if (!validation.ok) problems.push(`${validation.missing.length} missing file(s): ${validation.missing.slice(0, 5).join(", ")}${validation.missing.length > 5 ? " …" : ""}`);
+  if (failures.length) problems.push(`${failures.length} render failure(s): ${failures.slice(0, 3).map((f) => `cue ${f.index} (${f.error})`).join("; ")}`);
+  if (zeroDuration.length) problems.push(`${zeroDuration.length} zero-duration render(s)`);
+  if (problems.length) {
+    console.error(`\n✗ validation failed: ${problems.join(" · ")}`);
+    process.exit(1);
+  }
+}
+
 function usage(): void {
   console.log(
     [
@@ -433,6 +678,8 @@ function usage(): void {
       "  pnpm gen crossref --source migaku --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
       "  pnpm gen crossref --source migaku-db --in migaku-core.db --lang zh-Hant --from-lang zh [--apply]   (enriched: reads the real SQLite; relabels Migaku 'zh' → 'zh-Hant')",
       "  pnpm gen writeback --store ws.json --db migaku-core.db [--lang <id>] [--apply --out copy.db]   (Fork B2: dry-run by default; writes a COPY, never your live Migaku)",
+      "  pnpm gen voice-notes --in <prepared.cues.json> [--voice Serena] [--model <id>] [--out audio/<slug>/]   (local OSS batch TTS → mp3 per cue + voice-notes.json)",
+      "                    [--limit N] [--cues 73,386,647] [--slow all|over:30|cues:73,647] [--slow-instruct \"…\"] [--force] [--dry-run]",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",
@@ -462,6 +709,8 @@ async function main(): Promise<void> {
       return cmdCrossref(opts);
     case "writeback":
       return cmdWriteback(opts);
+    case "voice-notes":
+      return cmdVoiceNotes(opts);
     case "help":
     case undefined:
       return usage();

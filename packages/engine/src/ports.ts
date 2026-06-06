@@ -24,6 +24,11 @@ export interface VaultIO {
    * responsible for gating this behind the user's explicit confirm.
    */
   writeText(path: string, data: string): Promise<void>;
+  /**
+   * Read a binary file (e.g. a voice-note mp3/wav), or null if it does not
+   * exist. Optional: hosts that only serve text omit it; consumers fall back.
+   */
+  readBytes?(path: string): Promise<Uint8Array | null>;
   /** List child entry names of a directory (non-recursive). */
   list?(dir: string): Promise<string[]>;
   /** Whether a path exists. */

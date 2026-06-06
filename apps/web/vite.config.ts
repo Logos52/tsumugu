@@ -81,6 +81,19 @@ function devVault(): Plugin {
         }
         try {
           if (req.method === "GET") {
+            // Voice-note audio (and any binary asset) is served as raw bytes with
+            // an audio content-type; everything else stays UTF-8 text/JSON.
+            const audio = /\.(mp3|wav|m4a|ogg)$/i.exec(rel);
+            if (audio) {
+              const data = await readFile(full);
+              const ext = audio[1]!.toLowerCase();
+              const type =
+                ext === "mp3" ? "audio/mpeg" : ext === "m4a" ? "audio/mp4" : ext === "ogg" ? "audio/ogg" : "audio/wav";
+              res.setHeader("content-type", type);
+              res.statusCode = 200;
+              res.end(data);
+              return;
+            }
             const text = await readFile(full, "utf8");
             res.setHeader("content-type", "application/json; charset=utf-8");
             res.statusCode = 200;

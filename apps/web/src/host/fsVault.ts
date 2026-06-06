@@ -24,6 +24,7 @@ function segments(path: string): string[] {
  */
 export class MemoryVault implements VaultIO {
   private readonly files = new Map<string, string>();
+  private readonly bytes = new Map<string, Uint8Array>();
 
   private key(path: string): string {
     return segments(path).join("/");
@@ -36,6 +37,16 @@ export class MemoryVault implements VaultIO {
 
   async writeText(path: string, data: string): Promise<void> {
     this.files.set(this.key(path), data);
+  }
+
+  async readBytes(path: string): Promise<Uint8Array | null> {
+    const v = this.bytes.get(this.key(path));
+    return v === undefined ? null : v;
+  }
+
+  /** Seed binary content (tests / in-memory fixtures). */
+  writeBytes(path: string, data: Uint8Array): void {
+    this.bytes.set(this.key(path), data);
   }
 
   /** Immediate child entry names of a directory (non-recursive). */
@@ -76,7 +87,7 @@ interface FsWritable {
 }
 
 interface FsFileHandle {
-  getFile(): Promise<{ text(): Promise<string> }>;
+  getFile(): Promise<{ text(): Promise<string>; arrayBuffer(): Promise<ArrayBuffer> }>;
   createWritable(): Promise<FsWritable>;
 }
 
@@ -138,6 +149,21 @@ function vaultFromHandle(root: FsDirectoryHandle): VaultIO {
         const handle = await dir.getFileHandle(fileName);
         const file = await handle.getFile();
         return await file.text();
+      } catch (err) {
+        if (isNotFound(err)) return null;
+        throw err;
+      }
+    },
+
+    async readBytes(path: string): Promise<Uint8Array | null> {
+      const parts = segments(path);
+      const fileName = parts[parts.length - 1];
+      if (fileName === undefined) return null;
+      try {
+        const dir = await resolveDir(root, parts, false);
+        const handle = await dir.getFileHandle(fileName);
+        const file = await handle.getFile();
+        return new Uint8Array(await file.arrayBuffer());
       } catch (err) {
         if (isNotFound(err)) return null;
         throw err;

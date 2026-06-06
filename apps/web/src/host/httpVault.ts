@@ -22,6 +22,12 @@ export function createHttpVault(base = BASE): VaultIO {
       if (!r.ok) throw new Error(`vault read ${path}: ${r.status}`);
       return r.text();
     },
+    async readBytes(path: string): Promise<Uint8Array | null> {
+      const r = await fetch(url(base, path));
+      if (r.status === 404) return null;
+      if (!r.ok) throw new Error(`vault read ${path}: ${r.status}`);
+      return new Uint8Array(await r.arrayBuffer());
+    },
     async writeText(path: string, data: string): Promise<void> {
       const r = await fetch(url(base, path), {
         method: "PUT",
