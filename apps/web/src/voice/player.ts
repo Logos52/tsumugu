@@ -19,6 +19,13 @@ import { resolveAudioPath } from "./manifest.js";
 export const CHAIN_GAP_MS = 350;
 /** How many decoded cue object-URLs to keep alive. */
 export const AUDIO_LRU = 10;
+/**
+ * Reader-side slow speed (pitch-corrected via playbackRate). 0.85× is chosen by
+ * ear: gentle and uniform across cues. Generation-side "slow takes" were dropped
+ * because the TTS instruct overcorrected unpredictably (1.4–2×); this is the
+ * predictable, tunable slow path the reader uses for every cue.
+ */
+export const SLOW_PLAYBACK_RATE = 0.85;
 
 /** Which file to play and at what rate for a cue — pure, unit-tested. */
 export function selectPlayback(
@@ -26,8 +33,8 @@ export function selectPlayback(
   slow: boolean,
 ): { rel: string; rate: number } | null {
   if (!note) return null; // no voice note → caller falls back to Web Speech
-  if (slow && note.audioSlow) return { rel: note.audioSlow, rate: 1 };
-  if (slow) return { rel: note.audio, rate: 0.75 }; // browser pitch-corrects
+  if (slow && note.audioSlow) return { rel: note.audioSlow, rate: 1 }; // a real slow take, if ever provided
+  if (slow) return { rel: note.audio, rate: SLOW_PLAYBACK_RATE }; // browser pitch-corrects
   return { rel: note.audio, rate: 1 };
 }
 

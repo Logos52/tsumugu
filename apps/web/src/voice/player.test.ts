@@ -9,8 +9,8 @@ describe("selectPlayback — slow/fallback matrix", () => {
   it("slow + audioSlow → plays the slow take at rate 1", () => {
     expect(selectPlayback(withSlow, true)).toEqual({ rel: "a.slow.mp3", rate: 1 });
   });
-  it("slow + no audioSlow → plays the natural take pitch-corrected at 0.75", () => {
-    expect(selectPlayback(noSlow, true)).toEqual({ rel: "b.mp3", rate: 0.75 });
+  it("slow + no audioSlow → plays the natural take pitch-corrected at 0.85", () => {
+    expect(selectPlayback(noSlow, true)).toEqual({ rel: "b.mp3", rate: 0.85 });
   });
   it("natural → plays the natural take at rate 1", () => {
     expect(selectPlayback(withSlow, false)).toEqual({ rel: "a.mp3", rate: 1 });
