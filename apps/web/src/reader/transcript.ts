@@ -22,6 +22,10 @@ import { createYouTubePlayer, type VideoPlayer } from "./youtube.js";
 
 export interface TranscriptController {
   destroy(): void;
+  /** Toggle play/pause (Space hotkey). */
+  togglePlay(): void;
+  /** Show/hide the current line's sentence translation (`t` hotkey / toolbar). */
+  setTranslationVisible(on: boolean): void;
 }
 
 /** mm:ss for the time label. */
@@ -40,6 +44,7 @@ export function mountTranscriptSync(opts: {
   tokens: readonly PreparedToken[];
   transcript: TranscriptDoc;
   tokenEls: readonly (HTMLElement | null)[];
+  showTranslation?: boolean;
 }): TranscriptController {
   const { host, tokens, transcript, tokenEls } = opts;
   const cues = transcript.cues;
@@ -57,6 +62,10 @@ export function mountTranscriptSync(opts: {
   });
   const timeLabel = el("span", { class: CLS.metrics, text: `${fmt(0)} / ${fmt(duration)}` });
   panel.append(playerHost, el("div", { class: CLS.transport }, playBtn, scrubber, timeLabel));
+  const trEl = el("div", { class: CLS.translation });
+  let showTr = opts.showTranslation ?? false;
+  trEl.style.display = showTr ? "block" : "none";
+  panel.append(trEl);
   host.prepend(panel);
   // Layout (split vs subtitle) is applied by the reader from settings.
 
@@ -128,6 +137,7 @@ export function mountTranscriptSync(opts: {
     highlightCue(cueIndexAtTime(cues, t, times));
     if (document.activeElement !== scrubber) scrubber.value = String(t);
     timeLabel.textContent = `${fmt(t)} / ${fmt(duration)}`;
+    if (showTr) trEl.textContent = lastCue >= 0 ? (cues[lastCue]?.tr ?? "— (no translation yet)") : "";
   }
 
   function frame(now: number): void {
@@ -154,6 +164,14 @@ export function mountTranscriptSync(opts: {
       player?.destroy();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);
       panel.remove();
+    },
+    togglePlay() {
+      setPlaying(!playing);
+    },
+    setTranslationVisible(on: boolean) {
+      showTr = on;
+      trEl.style.display = on ? "block" : "none";
+      paint(currentTime());
     },
   };
 }

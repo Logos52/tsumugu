@@ -15,6 +15,8 @@ export interface TranscriptCue {
   /** "HH:MM:SS,mmm" / "HH:MM:SS.mmm" (also tolerates "MM:SS" / "SS.mmm"). */
   start: string;
   end: string;
+  /** Optional pre-baked sentence translation (revealed on demand). */
+  tr?: string;
 }
 
 /** An ingested transcript bound to the current content, with an optional video. */

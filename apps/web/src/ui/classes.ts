@@ -24,6 +24,7 @@ export const CLS = {
   player: "tsg-player",
   transport: "tsg-transport",
   scrubber: "tsg-scrubber",
+  translation: "tsg-translation", // the current line's sentence translation
 
   // hover popup
   popup: "tsg-popup",

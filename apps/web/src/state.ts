@@ -48,6 +48,8 @@ export interface AppSettings {
    * interactive subtitles burned onto the picture).
    */
   transcriptLayout: "document" | "subtitle" | "theater";
+  /** Reveal the current line's sentence translation (toggle / `t` hotkey). */
+  showTranslation: boolean;
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }
@@ -59,6 +61,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   guessFirst: false,
   hoverMode: "unknown",
   transcriptLayout: "document",
+  showTranslation: false,
   storePath: "tsumugu/word-store.json",
 };
 

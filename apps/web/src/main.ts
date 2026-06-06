@@ -108,10 +108,18 @@ function refreshStatus(): void {
 /** Persist the user-facing reader toggles so they survive a reload. */
 function persistSettings(): void {
   try {
-    const { phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout } = app.settings;
+    const { phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout, showTranslation } =
+      app.settings;
     localStorage.setItem(
       SETTINGS_KEY,
-      JSON.stringify({ phonetics, toneColoring, guessFirst, hoverMode, transcriptLayout }),
+      JSON.stringify({
+        phonetics,
+        toneColoring,
+        guessFirst,
+        hoverMode,
+        transcriptLayout,
+        showTranslation,
+      }),
     );
   } catch {
     /* storage disabled — non-fatal */
@@ -137,6 +145,8 @@ $<HTMLButtonElement>("#mode-reader")?.addEventListener("click", () => navTo("rea
 $<HTMLButtonElement>("#mode-review")?.addEventListener("click", () => navTo("review"));
 app.on("modechange", remount);
 app.on("change", refreshStatus);
+// Persist settings on any change, so live toggles + the `t` hotkey survive reload.
+app.on("change", persistSettings);
 app.on("status", (msg) => {
   if (typeof msg === "string") statusEl.textContent = msg;
 });
@@ -374,6 +384,20 @@ function buildToolbar(): void {
   );
   hover.value = app.settings.hoverMode;
 
+  const translate = el(
+    "label",
+    { class: "tsg-btn", title: "Show the current line's translation (hotkey: t)" },
+    el("input", {
+      attrs: app.settings.showTranslation ? { type: "checkbox", checked: "" } : { type: "checkbox" },
+      on: {
+        // Live (no remount, so the video doesn't reload); the reader's change
+        // listener reflects it and persistSettings saves it.
+        change: (e) => app.updateSettings({ showTranslation: (e.target as HTMLInputElement).checked }),
+      },
+    }),
+    " 譯",
+  );
+
   const theme = el(
     "label",
     { class: "tsg-btn", title: "Catppuccin Mocha (dark)" },
@@ -430,7 +454,7 @@ function buildToolbar(): void {
   // vault isn't auto-loading (e.g. the production build).
   const items = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, layout, hover, tone, guess, phonetics, theme, styleBtn);
+  items.push(exportBtn, layout, hover, translate, tone, guess, phonetics, theme, styleBtn);
   toolbarEl.append(...items);
 }
 

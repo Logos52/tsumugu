@@ -98,6 +98,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         tokens: content.tokens,
         transcript: app.transcript,
         tokenEls,
+        showTranslation: app.settings.showTranslation,
       })
     : null;
 
@@ -477,6 +478,21 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       closePopup();
       return;
     }
+    // Space pauses/plays the synced video (so you can stop to read a line).
+    if (ev.key === " " || ev.code === "Space") {
+      if (tag === "BUTTON") return; // let a focused button activate normally
+      if (transcriptCtl) {
+        ev.preventDefault();
+        transcriptCtl.togglePlay();
+      }
+      return;
+    }
+    // `t` toggles the current line's sentence translation.
+    if (ev.key === "t" || ev.key === "T") {
+      ev.preventDefault();
+      app.updateSettings({ showTranslation: !app.settings.showTranslation });
+      return;
+    }
     if (ev.key === "ArrowRight" || ev.key === "l") {
       ev.preventDefault();
       setActive(activeIndex + 1);
@@ -520,8 +536,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   document.addEventListener("keydown", onKeyDown);
   document.addEventListener("mousedown", onDocMouseDown);
 
-  // Recolor (no re-render) whenever the store changes.
-  const offChange = app.on("change", () => recolor());
+  // Recolor (no re-render) whenever the store changes; also reflect a live
+  // translation toggle (settings changes emit "change" too).
+  const offChange = app.on("change", () => {
+    recolor();
+    transcriptCtl?.setTranslationVisible(app.settings.showTranslation);
+  });
 
   // Establish an initial current word (so a grade key works before any hover).
   if (wordSpans.length > 0) {
