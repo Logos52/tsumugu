@@ -1,6 +1,6 @@
-/* Reading face: LXGW WenKai TC (霞鶩文楷), subset woff2 over CDN. Swap this for a
- * self-hosted copy in /public to stay fully offline. */
-@import url("https://cdn.jsdelivr.net/npm/@fontsource/lxgw-wenkai-tc/index.css");
+/* Reading face: LXGW WenKai TC (霞鶩文楷) — self-hosted for true offline (OFL).
+ * The 115 lazy unicode-range woff2 + their @font-face CSS live in
+ * apps/web/public/fonts and are linked from index.html (no CDN). */
 
 /*
  * Tsumugu web — app stylesheet. Catppuccin: Latte by default, Mocha under
