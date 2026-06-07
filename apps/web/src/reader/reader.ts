@@ -505,12 +505,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
 
     if (ev.key === "Escape") {
-      // Esc closes the practice bar first, then leaves shadowing, then the popup.
-      if (transcriptCtl?.isPracticeBarOpen()) {
-        ev.preventDefault();
-        transcriptCtl.practiceCloseBar();
-        return;
-      }
+      // Esc leaves shadowing first (if engaged), else dismisses the hover popup.
       if (transcriptCtl?.isShadowing()) {
         ev.preventDefault();
         transcriptCtl.toggleShadowing();
@@ -519,15 +514,10 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       closePopup();
       return;
     }
-    // While the practice bar is open it claims its drill keys (Audacity-style):
-    // L toggles the loop, [ / ] nudge the nearest region edge. Scoped so `l`
-    // stays next-word when the bar is closed.
+    // The practice bar follows the active sentence (always visible); `[` / `]`
+    // nudge the nearest loop edge. Loop itself is the 🔁 button (so `l` stays
+    // next-word). These don't collide with any existing binding.
     if (transcriptCtl?.isPracticeBarOpen()) {
-      if (ev.key === "l" || ev.key === "L") {
-        ev.preventDefault();
-        transcriptCtl.practiceToggleLoop();
-        return;
-      }
       if (ev.key === "[") {
         ev.preventDefault();
         transcriptCtl.practiceNudge(-1);

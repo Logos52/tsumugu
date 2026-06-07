@@ -7,6 +7,7 @@ vi.mock("wavesurfer.js", () => ({
     create: () => ({
       registerPlugin: <T>(p: T): T => p,
       on: () => {},
+      load: () => Promise.resolve(),
       getDuration: () => 5,
       getCurrentTime: () => 0,
       setPlaybackRate: () => {},
@@ -112,34 +113,21 @@ const activeWord = (root: HTMLElement): string | undefined =>
 const barBtn = (root: HTMLElement): HTMLButtonElement | undefined =>
   [...root.querySelectorAll<HTMLButtonElement>(`.${CLS.transport} .${CLS.btn}`)].find((b) => b.textContent === "🌊");
 
-describe("reader: L collision (practice loop vs next-word)", () => {
-  it("with the bar CLOSED, `l` advances to the next word", () => {
+describe("reader: practice bar is auto-visible and does not claim `l`", () => {
+  it("shows the bar by default (🌊 active) and `l` stays next-word", async () => {
     const root = document.createElement("div");
     const view = mountReader(root, build());
-    expect(activeWord(root)).toBe("今晚"); // initial
-    pressL();
-    expect(activeWord(root)).toBe("我們"); // next-word
-    view.unmount();
-  });
+    await tick(); // bar factory (mocked wavesurfer) resolves
 
-  it("with the bar OPEN, `l` loops the slice and does NOT advance the word", async () => {
-    const root = document.createElement("div");
-    const view = mountReader(root, build());
+    // The 🌊 toggle is active (bar visible) by default.
+    expect(barBtn(root)!.classList.contains(CLS.btnActive)).toBe(true);
+
+    // `l` advances the word even with the bar visible (loop is the 🔁 button now).
     expect(activeWord(root)).toBe("今晚");
-
-    barBtn(root)!.click(); // open the practice bar
-    await tick(); // factory (mocked wavesurfer) resolves
-
-    pressL();
-    expect(activeWord(root)).toBe("今晚"); // unchanged — `l` was claimed for loop
-    // The loop is engaged (🔁 button active).
-    const loopBtn = [...root.querySelectorAll<HTMLButtonElement>(`.${CLS.btn}`)].find((b) => b.textContent === "🔁");
-    expect(loopBtn?.classList.contains(CLS.btnActive)).toBe(true);
-
-    // Esc closes the bar; `l` returns to next-word.
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     pressL();
     expect(activeWord(root)).toBe("我們");
+    pressL();
+    expect(activeWord(root)).toBe("去");
     view.unmount();
   });
 });

@@ -71,6 +71,7 @@ function fakeBarFactory(calls: Call[], onArgs: (a: PracticeBarArgs) => void): Pr
     onArgs(args);
     let looping = false;
     const bar: PracticeBar = {
+      setCue: (i) => calls.push(["setCue", i]),
       toggleLoop: () => {
         looping = !looping;
         calls.push(["loop", looping]);
@@ -225,77 +226,66 @@ describe("transcript voice transport + shadowing wiring", () => {
   });
 });
 
-describe("transcript practice bar (M2.1) wiring", () => {
-  it("shows the 🌊 button only when a player + vault + manifest are all present", () => {
-    expect(btn(mount({ player: fakePlayer([]) }).host, "🌊")).toBeUndefined(); // no vault/manifest
-    const withAll = mount({ player: fakePlayer([]), vault: fakeVault, voiceNotes: fakeBinding() });
-    expect(btn(withAll.host, "🌊")).toBeDefined();
-    withAll.ctl.destroy();
-  });
-
-  it("opens pinned to the current cue, then closes (destroying the bar)", async () => {
+describe("transcript practice bar (M2.1/M3 auto-following) wiring", () => {
+  function mountBar() {
     const calls: Call[] = [];
     let args: PracticeBarArgs | undefined;
-    const { host, ctl } = mount({
+    const m = mount({
       player: fakePlayer([]),
       vault: fakeVault,
       voiceNotes: fakeBinding(),
       createPracticeBar: fakeBarFactory(calls, (a) => (args = a)),
     });
-    const barBtn = btn(host, "🌊")!;
+    return { ...m, calls, getArgs: () => args };
+  }
 
-    barBtn.click(); // open
-    expect(ctl.isPracticeBarOpen()).toBe(true); // set synchronously
-    expect(barBtn.classList.contains(CLS.btnActive)).toBe(true);
-    await tick(); // factory resolves
-    expect(args?.cueIndex).toBe(0); // pinned to the current cue
-    expect(host.querySelector(`.${CLS.practiceBar}`)).not.toBeNull();
-
-    barBtn.click(); // close
-    expect(ctl.isPracticeBarOpen()).toBe(false);
-    expect(barBtn.classList.contains(CLS.btnActive)).toBe(false);
-    expect(calls.at(-1)).toEqual(["destroy"]);
+  it("shows the 🌊 button only when a player + vault + manifest are all present", () => {
+    expect(btn(mount({ player: fakePlayer([]) }).host, "🌊")).toBeUndefined(); // no vault/manifest
+    const withAll = mountBar();
+    expect(btn(withAll.host, "🌊")).toBeDefined();
+    withAll.ctl.destroy();
   });
 
-  it("routes loop / nudge / speed / play to the bar; Esc-close destroys it", async () => {
-    const calls: Call[] = [];
-    const { host, ctl } = mount({
-      player: fakePlayer([]),
-      vault: fakeVault,
-      voiceNotes: fakeBinding(),
-      createPracticeBar: fakeBarFactory(calls, () => {}),
-    });
-    btn(host, "🌊")!.click();
+  it("auto-shows the bar on mount, built on the current cue", async () => {
+    const { host, ctl, getArgs } = mountBar();
+    expect(ctl.isPracticeBarOpen()).toBe(true); // visible by default
+    expect(btn(host, "🌊")!.classList.contains(CLS.btnActive)).toBe(true);
+    expect((host.querySelector(`.${CLS.practiceBar}`) as HTMLElement).style.display).toBe("block");
+    await tick(); // factory resolves
+    expect(getArgs()?.initialCue).toBe(0);
+    ctl.destroy();
+  });
+
+  it("🌊 toggles visibility (hide / show)", async () => {
+    const { host, ctl } = mountBar();
     await tick();
+    const barBtn = btn(host, "🌊")!;
+    barBtn.click(); // hide
+    expect(ctl.isPracticeBarOpen()).toBe(false);
+    expect((host.querySelector(`.${CLS.practiceBar}`) as HTMLElement).style.display).toBe("none");
+    barBtn.click(); // show
+    expect(ctl.isPracticeBarOpen()).toBe(true);
+    ctl.destroy();
+  });
 
+  it("follows the active sentence: seekToCue → bar.setCue(that cue)", async () => {
+    const { calls, ctl } = mountBar();
+    await tick(); // bar ready
+    ctl.seekToCue(1);
+    expect(calls.some((c) => c[0] === "setCue" && c[1] === 1)).toBe(true);
+    ctl.destroy();
+  });
+
+  it("routes loop / nudge / speed / play to the bar", async () => {
+    const { host, calls, ctl } = mountBar();
+    await tick();
     ctl.practiceToggleLoop();
-    expect(calls.at(-1)).toEqual(["loop", true]);
-    const loopBtn = btn(host, "🔁")!;
-    expect(loopBtn.classList.contains(CLS.btnActive)).toBe(true); // reflects bar.isLooping()
-
+    expect(calls.some((c) => c[0] === "loop")).toBe(true);
+    expect(btn(host, "🔁")!.classList.contains(CLS.btnActive)).toBe(true);
     ctl.practiceNudge(-1);
     expect(calls.at(-1)).toEqual(["nudge", -1]);
-
-    btn(host, "1×")!.click(); // speed cycle button shows the new rate
-    expect(calls.some((c) => c[0] === "speed")).toBe(true);
+    btn(host, "1×")!.click();
     expect(btn(host, "0.85×")).toBeDefined();
-
-    ctl.practiceCloseBar(); // mirrors the Esc path
-    expect(ctl.isPracticeBarOpen()).toBe(false);
-    expect(calls.at(-1)).toEqual(["destroy"]);
-  });
-
-  it("no-ops loop/nudge when the bar is closed", () => {
-    const calls: Call[] = [];
-    const { ctl } = mount({
-      player: fakePlayer([]),
-      vault: fakeVault,
-      voiceNotes: fakeBinding(),
-      createPracticeBar: fakeBarFactory(calls, () => {}),
-    });
-    ctl.practiceToggleLoop();
-    ctl.practiceNudge(1);
-    expect(calls).toEqual([]); // no bar instance → nothing happened
     ctl.destroy();
   });
 });

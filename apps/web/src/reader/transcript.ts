@@ -177,7 +177,10 @@ export function mountTranscriptSync(opts: {
   const pHint = el("span", { class: CLS.metrics, text: "drag to select · L loop · [ ] nudge edges" });
   practicePanel.style.display = "none";
   practicePanel.append(waveHost, el("div", { class: CLS.transport }, pPlay, pLoop, pSpeed, pHint));
-  pPlay.addEventListener("click", () => practiceBar?.playPause());
+  pPlay.addEventListener("click", () => {
+    pauseVideoForVoice();
+    practiceBar?.playPause();
+  });
   pLoop.addEventListener("click", () => practiceToggleLoop());
   pSpeed.addEventListener("click", () => {
     const r = practiceBar?.cycleSpeed();
@@ -259,6 +262,7 @@ export function mountTranscriptSync(opts: {
       first?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
     }
     lastCue = idx;
+    followCue(idx); // the practice bar tracks the active sentence
   }
 
   function paint(t: number): void {
@@ -313,49 +317,48 @@ export function mountTranscriptSync(opts: {
     updateVideoLoopBtn();
   }
 
-  // ── practice bar (M2.1) ───────────────────────────────────────────────────
+  // ── practice bar (M2.1 + M3: auto-following the active sentence) ───────────
+  // One wavesurfer instance, created up front when the reading has voice notes,
+  // shown by default and reloaded to whatever sentence is active (followCue).
   let practiceBar: PracticeBar | null = null;
-  let practiceOpen = false;
+  let practiceVisible = canPractice;
 
   function updateLoopBtn(): void {
     pLoop.classList.toggle(CLS.btnActive, !!practiceBar?.isLooping());
   }
 
-  async function openPracticeBar(): Promise<void> {
-    if (practiceOpen || !canPractice) return;
-    practiceOpen = true;
-    practiceBtn?.classList.add(CLS.btnActive);
+  if (canPractice) {
     practicePanel.style.display = "block";
-    pSpeed.textContent = "1×";
-    pLoop.classList.remove(CLS.btnActive);
-    clear(waveHost);
-    // Voice owns the audio: stop the video + any cue playback so they don't overlap.
-    pauseVideoForVoice();
-    voicePlayer?.stop();
-    const pinnedCue = currentCue();
-    try {
-      practiceBar = await practiceFactory({ container: waveHost, vault: vault!, binding: voiceNotes!, cueIndex: pinnedCue });
-    } catch {
-      practiceBar = null;
-    }
-    if (!practiceBar && practiceOpen) closePracticeBar(); // nothing to drill (no audio)
+    practiceBtn?.classList.add(CLS.btnActive);
+    void practiceFactory({ container: waveHost, vault: vault!, binding: voiceNotes!, initialCue: currentCue() })
+      .then((bar) => {
+        if (destroyed) {
+          bar?.destroy();
+          return;
+        }
+        practiceBar = bar;
+      })
+      .catch(() => {
+        practiceBar = null;
+      });
   }
 
-  function closePracticeBar(): void {
-    practiceOpen = false;
-    practiceBtn?.classList.remove(CLS.btnActive);
-    practicePanel.style.display = "none";
-    practiceBar?.destroy();
-    practiceBar = null;
-    clear(waveHost);
+  /** Reload the bar to the active cue (called when the highlight moves). */
+  function followCue(cueIndex: number): void {
+    if (!practiceBar || !practiceVisible || cueIndex < 0) return;
+    practiceBar.setCue(cueIndex);
+    updateLoopBtn(); // a reload clears any loop selection
   }
 
   function togglePracticeBar(): void {
-    if (practiceOpen) closePracticeBar();
-    else void openPracticeBar();
+    practiceVisible = !practiceVisible;
+    practicePanel.style.display = practiceVisible ? "block" : "none";
+    practiceBtn?.classList.toggle(CLS.btnActive, practiceVisible);
+    if (practiceVisible) followCue(currentCue());
   }
 
   function practiceToggleLoop(): void {
+    pauseVideoForVoice(); // bar audio owns the speakers while looping
     practiceBar?.toggleLoop();
     updateLoopBtn();
   }
@@ -460,7 +463,7 @@ export function mountTranscriptSync(opts: {
       if (raf) cancelAnimationFrame(raf);
       player?.destroy();
       voicePlayer?.stop();
-      closePracticeBar();
+      practiceBar?.destroy();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);
       panel.remove();
     },
@@ -487,12 +490,12 @@ export function mountTranscriptSync(opts: {
     },
     togglePracticeBar,
     isPracticeBarOpen() {
-      return practiceOpen;
+      return practiceVisible;
     },
     practiceToggleLoop,
     practiceNudge,
     practiceCloseBar() {
-      closePracticeBar();
+      if (practiceVisible) togglePracticeBar();
     },
     seekToCue,
     cueForToken,

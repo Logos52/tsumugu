@@ -1,15 +1,14 @@
 /**
- * Segment-loop practice bar (M2.1) — wavesurfer.js glue.
+ * Segment-loop practice bar (M2.1, auto-following per M3) — wavesurfer.js glue.
  *
- * Mounts an Audacity-style waveform for one cue's audio: drag to select a slice,
- * loop it (L), nudge its edges ([ / ]), and slow it (1× / 0.85× / 0.75×). The
- * pure math lives in `practiceBarLogic.ts`; this file owns the wavesurfer
- * instance + DOM. wavesurfer (BSD-3-Clause) is **dynamically imported** so it
- * only loads when the bar is first opened (kept out of the main bundle, and out
- * of every other module's import graph). Reader/host layer only — engine untouched.
+ * An always-visible waveform that FOLLOWS the active sentence: drag to select a
+ * slice, loop it (🔁), nudge edges ([ / ]), slow it (1× / 0.85× / 0.75×). One
+ * wavesurfer instance is mounted and `setCue()` reloads its audio when the active
+ * cue changes (cheap `ws.load`, per-cue object-URL cache) — no recreate. The pure
+ * math lives in `practiceBarLogic.ts`. wavesurfer (BSD-3-Clause) is dynamically
+ * imported so it only loads when a voiced reading opens. Reader/host layer only.
  *
- * Loop uses the regions plugin's media-element seek (the documented ~30 ms seam);
- * a gapless AudioBufferSourceNode path is the future upgrade.
+ * Loop uses the regions plugin's media-element seek (~30 ms seam, per PRD).
  */
 
 import type { VaultIO } from "@tsumugu/engine";
@@ -25,6 +24,8 @@ import {
 } from "./practiceBarLogic.js";
 
 export interface PracticeBar {
+  /** Reload the bar's waveform to a different cue (follow the active sentence). */
+  setCue(cueIndex: number): void;
   /** Toggle looping of the selected region (or the whole cue if none selected). */
   toggleLoop(): void;
   /** Nudge the region edge nearest the playhead: -1 = earlier, +1 = later. */
@@ -34,7 +35,7 @@ export interface PracticeBar {
   /** Play/pause the cue audio. */
   playPause(): void;
   isLooping(): boolean;
-  /** Tear down the wavesurfer instance and free the audio URL. */
+  /** Tear down the wavesurfer instance and free cached audio URLs. */
   destroy(): void;
 }
 
@@ -43,11 +44,14 @@ export interface PracticeBarArgs {
   container: HTMLElement;
   vault: VaultIO;
   binding: VoiceNotesBinding;
-  /** The cue to pin the bar to. */
-  cueIndex: number;
+  /** The cue to load first. */
+  initialCue: number;
 }
 
 export type PracticeBarFactory = (args: PracticeBarArgs) => Promise<PracticeBar | null>;
+
+/** How many decoded cue clips to keep alive. */
+const URL_LRU = 12;
 
 /** Read a CSS custom property off :root, with a fallback. */
 function cssVar(name: string, fallback: string): string {
@@ -57,21 +61,12 @@ function cssVar(name: string, fallback: string): string {
 }
 
 /**
- * Build a practice bar for `cueIndex`. Returns null when the cue has no voice
- * note or its audio can't be read (nothing to drill — the caller stays inert).
+ * Build the practice bar. Returns null only when the host can't read bytes (so
+ * nothing could ever play); an individual cue without audio just leaves the
+ * current waveform in place.
  */
-export const createPracticeBar: PracticeBarFactory = async ({ container, vault, binding, cueIndex }) => {
-  const note = binding.byCue.get(cueIndex);
-  if (!note || !vault.readBytes) return null;
-  let bytes: Uint8Array | null;
-  try {
-    bytes = await vault.readBytes(resolveAudioPath(binding.baseDir, note.audio));
-  } catch {
-    bytes = null;
-  }
-  if (!bytes) return null;
-  const part = new Uint8Array(bytes); // fresh ArrayBuffer-backed copy for Blob (see host/anki.ts)
-  const url = URL.createObjectURL(new Blob([part.buffer]));
+export const createPracticeBar: PracticeBarFactory = async ({ container, vault, binding, initialCue }) => {
+  if (!vault.readBytes) return null;
 
   // Lazy-load wavesurfer + its regions plugin only now (code-split chunk).
   const { default: WaveSurfer } = await import("wavesurfer.js");
@@ -79,7 +74,6 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
 
   const ws = WaveSurfer.create({
     container,
-    url,
     height: 64,
     waveColor: cssVar("--ctp-overlay0", "#9ca0b0"),
     progressColor: cssVar("--ctp-blue", "#1e66f5"),
@@ -91,6 +85,8 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
   let looping = false;
   let region: Region | null = null;
   let rate = 1;
+  const urlCache = new Map<number, string>(); // cueIndex → object URL (insertion-ordered LRU)
+  let loadToken = 0;
 
   // Single selection: a new drag replaces any prior region.
   regions.on("region-created", (r: Region) => {
@@ -105,7 +101,63 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
     if (looping && r === region) r.play();
   });
 
+  async function urlForCue(i: number): Promise<string | null> {
+    const hit = urlCache.get(i);
+    if (hit !== undefined) {
+      urlCache.delete(i);
+      urlCache.set(i, hit);
+      return hit;
+    }
+    const note = binding.byCue.get(i);
+    if (!note || !vault.readBytes) return null;
+    let bytes: Uint8Array | null;
+    try {
+      bytes = await vault.readBytes(resolveAudioPath(binding.baseDir, note.audio));
+    } catch {
+      return null;
+    }
+    if (!bytes) return null;
+    const part = new Uint8Array(bytes); // fresh ArrayBuffer-backed copy for Blob (see host/anki.ts)
+    const url = URL.createObjectURL(new Blob([part.buffer]));
+    urlCache.set(i, url);
+    while (urlCache.size > URL_LRU) {
+      const oldest = urlCache.keys().next().value as number | undefined;
+      if (oldest === undefined) break;
+      const u = urlCache.get(oldest);
+      urlCache.delete(oldest);
+      if (u) URL.revokeObjectURL(u);
+    }
+    return url;
+  }
+
+  async function loadCue(i: number): Promise<void> {
+    loadToken++;
+    const tk = loadToken;
+    const url = await urlForCue(i);
+    if (tk !== loadToken) return; // superseded by a newer setCue
+    if (!url) return; // this cue has no audio — keep the current waveform
+    looping = false;
+    region = null;
+    try {
+      regions.clearRegions();
+    } catch {
+      /* no-op */
+    }
+    try {
+      await ws.load(url);
+      if (tk !== loadToken) return;
+      ws.setPlaybackRate(rate, true); // keep the chosen speed across cues
+    } catch {
+      /* load races / unsupported in tests — non-fatal */
+    }
+  }
+
+  await loadCue(initialCue);
+
   return {
+    setCue(i) {
+      void loadCue(i);
+    },
     toggleLoop() {
       looping = !looping;
       if (!looping) {
@@ -141,8 +193,10 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
       return looping;
     },
     destroy() {
+      loadToken++;
       ws.destroy();
-      URL.revokeObjectURL(url);
+      for (const u of urlCache.values()) URL.revokeObjectURL(u);
+      urlCache.clear();
     },
   };
 };

@@ -134,6 +134,16 @@ one mp3 per word — same architecture as voice notes (engine untouched, no new 
 - **Not built (out of M3-lite):** BreezyVoice zhuyin-exact renders, Vietnamese word audio, hover auto-play,
   word audio in Anki.
 
+## Voice notes — auto-following practice bar (2026-06-07)
+
+UX revision from real use: the practice bar is now **always visible and follows the active sentence** instead
+of being a manual, pinned 🌊 popup. One wavesurfer instance is created up front; `setCue()` reloads its
+waveform (cheap `ws.load`, per-cue URL cache) whenever the active cue changes — click a line / `,`·`.` /
+playback all move it. 🌊 now toggles the bar's visibility. Loop moved to the **🔁 button** (+ drag-select) so
+the Audacity-`L` no longer collides with `l` = next-word; `[` / `]` still nudge the loop edges. The ▶ / 🔁
+pause the video first so audio doesn't overlap. Tests updated (`practiceBar.setCue`, auto-show, follow-on-seek,
+`l` stays next-word).
+
 ## Run it
 
 `pnpm test` · `pnpm typecheck` · `pnpm validate:phase0` · `pnpm --filter @tsumugu/web dev` (reader) · `pnpm gen help` (batch CLI).
