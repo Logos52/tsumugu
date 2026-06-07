@@ -44,6 +44,10 @@
   --tsg-border-strong: var(--ctp-border-strong);
   --tsg-accent: var(--ctp-blue);
   --tsg-accent-ink: var(--ctp-on-accent);
+  /* Hover/press surfaces — theme-adaptive (mix the overlay into the surface), so
+   * they read correctly in both Latte and Mocha instead of a hardcoded light. */
+  --tsg-hover: color-mix(in oklab, var(--ctp-overlay) 15%, var(--tsg-surface));
+  --tsg-press: color-mix(in oklab, var(--ctp-overlay) 26%, var(--tsg-surface));
   --tsg-radius: 8px;
   --tsg-radius-sm: 5px;
 
@@ -165,8 +169,12 @@ button {
 }
 
 #app-nav button:hover {
-  background: #f1efe9;
+  background: var(--tsg-hover);
   color: var(--tsg-ink);
+}
+
+#app-nav button:active {
+  transform: translateY(1px);
 }
 
 #app-nav button:focus-visible {
@@ -220,12 +228,21 @@ button {
   color: var(--tsg-ink);
   cursor: pointer;
   line-height: 1.2;
-  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+  font-weight: 500;
+  box-shadow: var(--tsg-shadow-sm);
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease,
+    box-shadow 0.12s ease, transform 0.06s ease;
 }
 
 .tsg-btn:hover {
-  background: #f1efe9;
-  border-color: var(--tsg-border-strong);
+  background: var(--tsg-hover);
+  border-color: var(--tsg-accent);
+}
+
+.tsg-btn:active {
+  background: var(--tsg-press);
+  transform: translateY(1px);
+  box-shadow: none;
 }
 
 .tsg-btn:focus-visible {
@@ -236,16 +253,16 @@ button {
 .tsg-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-.tsg-btn-active {
+/* Toggled-on controls glow softly in the accent so "engaged" reads at a glance. */
+.tsg-btn-active,
+.tsg-btn-active:hover {
   background: var(--tsg-accent);
   border-color: var(--tsg-accent);
   color: var(--tsg-accent-ink);
-}
-
-.tsg-btn-active:hover {
-  background: var(--tsg-accent);
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--tsg-accent) 35%, transparent);
 }
 
 .tsg-toolbar {
@@ -607,6 +624,9 @@ button {
 }
 .tsg-transport .tsg-btn {
   flex: 0 0 auto; /* keep their size; let the row wrap rather than squashing them */
+  min-width: 2.3rem; /* uniform emoji buttons → a tidy, even row */
+  padding: 0.35rem 0.5rem;
+  text-align: center;
 }
 .tsg-scrubber {
   flex: 1 1 8rem; /* grow, but shrink + wrap to its own line in a narrow pane */
@@ -723,6 +743,14 @@ button {
   width: 2px;
   background: var(--ctp-red, #f38ba8);
   pointer-events: none;
+}
+
+/* The reader's callout panels read as soft, consistent cards (subtle lift). */
+.tsg-translation,
+.tsg-section,
+.tsg-practice,
+.tsg-loop-strip {
+  box-shadow: var(--tsg-shadow-sm);
 }
 
 /* Video present → player beside the text (sticky left column, text scrolls). */
