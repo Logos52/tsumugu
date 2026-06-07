@@ -2,7 +2,7 @@
 import { describe, it, expect, vi } from "vitest";
 
 import { MemoryVault } from "../host/fsVault.js";
-import { createVoicePlayer } from "./player.js";
+import { createVoicePlayer, CHAIN_GAP_MS } from "./player.js";
 import { bindVoiceNotes, parseVoiceNotes, VOICE_NOTES_SCHEMA } from "./manifest.js";
 
 const cues = [{ text: "零cue" }, { text: "一cue" }, { text: "二cue" }];
@@ -82,5 +82,51 @@ describe("createVoicePlayer — blob IO + fallback", () => {
     player.playCue(0, { slow: true });
     await tick();
     expect(spy).toHaveBeenCalledWith("base/a/cue-0000.slow.mp3");
+  });
+});
+
+describe("createVoicePlayer — playFrom chain (⏩ play-through)", () => {
+  // A binding with NO notes → every take falls back to Web Speech synchronously,
+  // so the chain steps purely on the gap timer (deterministic under fake timers).
+  function chainPlayer() {
+    const m = parseVoiceNotes(
+      { schema: VOICE_NOTES_SCHEMA, lang: "zh-Hant", slug: "x", engine: "e", voice: "Serena", notes: [] },
+      cues.length,
+    )!;
+    return createVoicePlayer({ vault: new MemoryVault(), binding: bindVoiceNotes(m, "base"), cues, speak: () => {} });
+  }
+
+  it("advances cue→cue across the gap, then fires onDone past the last cue", () => {
+    vi.useFakeTimers();
+    try {
+      const advanced: number[] = [];
+      const onDone = vi.fn();
+      chainPlayer().playFrom(0, { onAdvance: (i) => advanced.push(i), onDone });
+      expect(advanced).toEqual([0]); // first cue immediately
+      vi.advanceTimersByTime(CHAIN_GAP_MS);
+      expect(advanced).toEqual([0, 1]);
+      vi.advanceTimersByTime(CHAIN_GAP_MS);
+      expect(advanced).toEqual([0, 1, 2]);
+      expect(onDone).not.toHaveBeenCalled();
+      vi.advanceTimersByTime(CHAIN_GAP_MS); // step past the last cue
+      expect(onDone).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("stop() halts the chain — no further advance", () => {
+    vi.useFakeTimers();
+    try {
+      const advanced: number[] = [];
+      const player = chainPlayer();
+      player.playFrom(0, { onAdvance: (i) => advanced.push(i) });
+      expect(advanced).toEqual([0]);
+      player.stop();
+      vi.advanceTimersByTime(CHAIN_GAP_MS * 5);
+      expect(advanced).toEqual([0]);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
