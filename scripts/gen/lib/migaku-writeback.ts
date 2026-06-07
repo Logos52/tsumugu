@@ -31,13 +31,16 @@ export type MigakuKnown = "KNOWN" | "LEARNING" | "UNKNOWN" | "IGNORED";
 /** 4-tuple key separator — an ASCII unit separator never appears in a field. */
 const SEP = String.fromCharCode(31);
 
-function tupleKey(a: SqlValue, b: SqlValue, c: SqlValue, d: SqlValue): string {
+// getAsObject() column reads are `SqlValue | undefined` under noUncheckedIndexedAccess;
+// these helpers treat nullish as "absent", so accept the wider type.
+type Cell = SqlValue | undefined;
+function tupleKey(a: Cell, b: Cell, c: Cell, d: Cell): string {
   return [a, b, c, d].map((x) => String(x ?? "")).join(SEP);
 }
-function str(v: SqlValue): string | undefined {
+function str(v: Cell): string | undefined {
   return typeof v === "string" && v.length > 0 ? v : undefined;
 }
-function num(v: SqlValue): number {
+function num(v: Cell): number {
   if (typeof v === "number" && Number.isFinite(v)) return v;
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;

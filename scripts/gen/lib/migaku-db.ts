@@ -24,20 +24,24 @@ import { mapKnownness, type ExternalVocabRecord } from "@tsumugu/engine";
 /** 4-tuple key separator — an ASCII unit separator (0x1f) never appears in a form / POS / language value. */
 const SEP = String.fromCharCode(31);
 
+// getAsObject() column reads are `SqlValue | undefined` under noUncheckedIndexedAccess;
+// these helpers already treat nullish as "absent", so accept the wider type.
+type Cell = SqlValue | undefined;
+
 /** Non-empty string, else undefined. */
-function str(v: SqlValue): string | undefined {
+function str(v: Cell): string | undefined {
   return typeof v === "string" && v.length > 0 ? v : undefined;
 }
 
 /** A SqlValue as a finite number (INTEGER columns), else 0. */
-function num(v: SqlValue): number {
+function num(v: Cell): number {
   if (typeof v === "number" && Number.isFinite(v)) return v;
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
 }
 
 /** Stable key for the (dictForm, secondary, partOfSpeech, language) 4-tuple. */
-function tupleKey(a: SqlValue, b: SqlValue, c: SqlValue, d: SqlValue): string {
+function tupleKey(a: Cell, b: Cell, c: Cell, d: Cell): string {
   return [a, b, c, d].map((x) => String(x ?? "")).join(SEP);
 }
 
