@@ -314,6 +314,16 @@ describe("transcript sentence navigation + video loop (M2.2)", () => {
     ctl.destroy();
   });
 
+  it("selectCue highlights the sentence WITHOUT moving the video", () => {
+    const { host, tokenEls, ctl } = mount({});
+    const scrubber = host.querySelector<HTMLInputElement>(`.${CLS.scrubber}`)!;
+    expect(scrubber.value).toBe("0");
+    ctl.selectCue(1);
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true); // highlight moved
+    expect(scrubber.value).toBe("0"); // …but the video clock did not seek
+    ctl.destroy();
+  });
+
   it("the 🔂 button toggles the video sentence-loop", () => {
     const { host, ctl } = mount({});
     const loopBtn = btn(host, "🔂")!;

@@ -537,11 +537,15 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         return;
       }
     }
-    // `,` / `.` step the active sentence (seek to the prev/next cue).
-    if (transcriptCtl && (ev.key === "," || ev.key === ".")) {
+    // Sentence navigation (select, no video movement): ↑ / ↓ and `,` / `.`.
+    if (transcriptCtl && (ev.key === "ArrowDown" || ev.key === ".")) {
       ev.preventDefault();
-      if (ev.key === ",") transcriptCtl.prevCue();
-      else transcriptCtl.nextCue();
+      transcriptCtl.nextCue();
+      return;
+    }
+    if (transcriptCtl && (ev.key === "ArrowUp" || ev.key === ",")) {
+      ev.preventDefault();
+      transcriptCtl.prevCue();
       return;
     }
     // Space: while shadowing, advance to the next cue (hear → repeat → Space);
@@ -610,14 +614,14 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     closePopup();
   }
 
-  /** Click a sentence (any token) → make that cue active (click-to-activate). */
+  /** Click a sentence (any token) → select that cue (no video movement). */
   function onTextClick(ev: MouseEvent): void {
     if (!transcriptCtl) return;
     const node = (ev.target as Element | null)?.closest<HTMLElement>("[data-ti]");
     const ti = node?.dataset.ti;
     if (ti === undefined) return;
     const cue = transcriptCtl.cueForToken(Number(ti));
-    if (cue >= 0) transcriptCtl.seekToCue(cue);
+    if (cue >= 0) transcriptCtl.selectCue(cue);
   }
 
   // Global so a grade key works while you're hovering with the mouse (focus is

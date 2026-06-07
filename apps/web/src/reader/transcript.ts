@@ -66,9 +66,11 @@ export interface TranscriptController {
   practiceNudge(dir: -1 | 1): void;
   /** Close the practice bar if open (Esc). */
   practiceCloseBar(): void;
-  /** Seek the clock so the given cue becomes active (click-to-activate). */
+  /** Seek the video clock so the given cue becomes active (used by 🔂). */
   seekToCue(cueIndex: number): void;
-  /** The cue index that owns a token, or -1 (for click-to-activate mapping). */
+  /** Select a sentence (highlight + voice target) WITHOUT moving the video. */
+  selectCue(cueIndex: number): void;
+  /** The cue index that owns a token, or -1 (for click-to-select mapping). */
   cueForToken(tokenIndex: number): number;
   /** Step the active sentence (`,` / `.`). */
   nextCue(): void;
@@ -217,6 +219,9 @@ export function mountTranscriptSync(opts: {
   let lastCue = -2;
   let raf = 0;
   let destroyed = false;
+  // A clicked/arrowed sentence selection that drives the highlight + voice
+  // actions WITHOUT moving the video; cleared when the video plays/scrubs.
+  let selectedCue: number | null = null;
 
   if (transcript.videoId) {
     void createYouTubePlayer(playerHost, transcript.videoId).then((p) => {
@@ -234,6 +239,7 @@ export function mountTranscriptSync(opts: {
 
   function setPlaying(on: boolean): void {
     playing = on;
+    if (on) selectedCue = null; // playing hands the highlight back to the video clock
     playBtn.textContent = on ? "⏸" : "▶";
     if (player) {
       if (on) player.play();
@@ -250,7 +256,10 @@ export function mountTranscriptSync(opts: {
   }
 
   playBtn.addEventListener("click", () => setPlaying(!playing));
-  scrubber.addEventListener("input", () => seek(Number(scrubber.value)));
+  scrubber.addEventListener("input", () => {
+    selectedCue = null; // scrubbing moves the video → drop the manual selection
+    seek(Number(scrubber.value));
+  });
 
   function highlightCue(idx: number): void {
     if (idx === lastCue) return;
@@ -277,14 +286,19 @@ export function mountTranscriptSync(opts: {
   }
 
   function paint(t: number): void {
-    // While voice playback drives the highlight, the clock yields it (so a
-    // paused video/scrubber doesn't snap the highlight back).
-    if (!voiceHighlight) highlightCue(cueIndexAtTime(cues, t, times));
+    // Highlight precedence: voice playback > a manual sentence selection (click /
+    // arrows, which do NOT move the video) > the video/scrubber clock.
+    if (!voiceHighlight) {
+      highlightCue(selectedCue !== null ? selectedCue : cueIndexAtTime(cues, t, times));
+    }
     if (document.activeElement !== scrubber) scrubber.value = String(t);
     timeLabel.textContent = `${fmt(t)} / ${fmt(duration)}`;
     if (showTr) trEl.textContent = lastCue >= 0 ? (cues[lastCue]?.tr ?? "— (no translation yet)") : "";
     if (sections.length) {
-      const si = cueIndexAtTime(sections, t, sectionTimes);
+      // The section follows the highlighted line (selection or clock), so a
+      // clicked sentence shows its own section context.
+      const focusTime = lastCue >= 0 && times[lastCue] ? times[lastCue]!.start : t;
+      const si = cueIndexAtTime(sections, focusTime, sectionTimes);
       activeSection = si;
       sectionTextEl.textContent = si >= 0 ? sections[si]!.summary : "";
       sectionTrEl.textContent = showTr && si >= 0 ? (sections[si]!.tr ?? "") : "";
@@ -292,8 +306,10 @@ export function mountTranscriptSync(opts: {
   }
 
   // ── voice notes (M1) ──────────────────────────────────────────────────────
-  // The cue under the current time (the highlighted line), clamped to 0.
+  // The line in focus for voice actions: a manual selection (click / arrows) if
+  // set, else the cue under the clock. Clamped to 0.
   function currentCue(): number {
+    if (selectedCue !== null) return selectedCue;
     const i = cueIndexAtTime(cues, currentTime(), times);
     return i >= 0 ? i : 0;
   }
@@ -301,7 +317,14 @@ export function mountTranscriptSync(opts: {
   // ── sentence navigation + video loop (M2.2) ───────────────────────────────
   let videoLooping = false;
   let loopCue = -1;
-  let activeSection = -1; // the section under the current time (for the 🔊)
+  let activeSection = -1; // the section under the focused line (for the 🔊)
+
+  /** Select a sentence (highlight + voice target) without seeking the video. */
+  function selectCue(cueIndex: number): void {
+    if (cues.length === 0) return;
+    selectedCue = Math.max(0, Math.min(cueIndex, cues.length - 1));
+    highlightCue(selectedCue);
+  }
 
   function playCurrentSectionVoice(): void {
     if (activeSection < 0) return;
@@ -333,7 +356,8 @@ export function mountTranscriptSync(opts: {
   function toggleVideoLoop(): void {
     videoLooping = !videoLooping;
     if (videoLooping) {
-      loopCue = currentCue();
+      loopCue = currentCue(); // the selected (or playing) line
+      seek(times[loopCue]!.start); // 🔂 deliberately moves the video to that line
       setPlaying(true);
     }
     updateVideoLoopBtn();
@@ -520,12 +544,13 @@ export function mountTranscriptSync(opts: {
       if (practiceVisible) togglePracticeBar();
     },
     seekToCue,
+    selectCue,
     cueForToken,
     nextCue() {
-      seekToCue(currentCue() + 1);
+      selectCue(currentCue() + 1);
     },
     prevCue() {
-      seekToCue(currentCue() - 1);
+      selectCue(currentCue() - 1);
     },
     toggleVideoLoop,
     isVideoLooping() {

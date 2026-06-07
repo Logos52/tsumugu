@@ -146,13 +146,18 @@ describe("reader: sentence navigation (M2.2)", () => {
     view.unmount();
   });
 
-  it("`,` / `.` step the active sentence", () => {
+  it("`,` / `.` and ↑ / ↓ step the active sentence", () => {
     const root = document.createElement("div");
     const view = mountReader(root, build());
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: ".", bubbles: true }));
-    expect(cueActive(root, "那裡")).toBe(true); // next cue
-    document.dispatchEvent(new KeyboardEvent("keydown", { key: ",", bubbles: true }));
-    expect(cueActive(root, "今晚")).toBe(true); // back to first
+    const key = (k: string) => document.dispatchEvent(new KeyboardEvent("keydown", { key: k, bubbles: true }));
+    key("."); // next cue
+    expect(cueActive(root, "那裡")).toBe(true);
+    key(","); // back to first
+    expect(cueActive(root, "今晚")).toBe(true);
+    key("ArrowDown"); // next cue (arrow)
+    expect(cueActive(root, "那裡")).toBe(true);
+    key("ArrowUp"); // back (arrow)
+    expect(cueActive(root, "今晚")).toBe(true);
     view.unmount();
   });
 });
