@@ -31,6 +31,7 @@ import {
   type ShadowEvent,
 } from "../voice/shadowing.js";
 import type { VoiceNotesBinding } from "../voice/manifest.js";
+import { speakersOf, type VoiceTrack, type SpeakerAssignment } from "../voice/voices.js";
 import {
   createPracticeBar as defaultPracticeBarFactory,
   type PracticeBar,
@@ -127,6 +128,12 @@ export function mountTranscriptSync(opts: {
   /** Vault + manifest for the practice bar to load cue audio (M2.1). */
   vault?: VaultIO | null;
   voiceNotes?: VoiceNotesBinding | null;
+  /** All voice tracks beside the reading; ≥2 shows a per-speaker voice picker. */
+  voiceTracks?: VoiceTrack[];
+  /** Current speaker → voice id (which option each picker shows as selected). */
+  voiceAssignment?: SpeakerAssignment;
+  /** Reassign a speaker's voice (the host recomposes + rebuilds the player). */
+  onVoiceAssign?: (speaker: string, voiceId: string) => void;
   /** Practice-bar factory (injectable for tests; defaults to the real wavesurfer one). */
   createPracticeBar?: PracticeBarFactory;
   /** Optional section-summary audio player (🔊 on the "now talking about…" line). */
@@ -235,7 +242,30 @@ export function mountTranscriptSync(opts: {
       transportChildren.push(vBar);
     }
   }
+  // Per-speaker voice picker — only when the reading has ≥2 voice tracks. A 甲/乙
+  // dialogue gets one selector per speaker (so 甲 can be the native speaker and 乙
+  // Serena, or any mix); a single-speaker reading gets one global selector.
+  // Changing a selector recomposes the binding; the host rebuilds the player.
+  let voicePickerRow: HTMLElement | null = null;
+  const vTracks = opts.voiceTracks ?? [];
+  if (vTracks.length >= 2 && opts.onVoiceAssign) {
+    const assign = opts.voiceAssignment ?? {};
+    const found = speakersOf(cues.map((c) => c.speaker));
+    const speakerKeys = found.length ? found : [""];
+    const glyph = (k: string): string => (k === "A" ? "甲" : k === "B" ? "乙" : k || "🗣");
+    voicePickerRow = el("div", { class: CLS.transport });
+    voicePickerRow.append(el("span", { class: CLS.metrics, text: "🗣" }));
+    for (const sp of speakerKeys) {
+      const sel = el("select", { class: CLS.btn, title: `Voice for ${glyph(sp)}` });
+      for (const t of vTracks) sel.append(el("option", { text: t.label, attrs: { value: t.id } }));
+      sel.value = assign[sp] ?? assign[""] ?? vTracks[0]!.id;
+      sel.addEventListener("change", () => opts.onVoiceAssign!(sp, sel.value));
+      voicePickerRow.append(el("label", { class: CLS.metrics }, speakerKeys.length > 1 ? `${glyph(sp)} ` : "", sel));
+    }
+  }
+
   panel.append(playerHost, el("div", { class: CLS.transport }, ...transportChildren));
+  if (voicePickerRow) panel.append(voicePickerRow);
 
   // ── practice bar (M2.1) — collapsible, hidden until opened ────────────────
   const practicePanel = el("div", { class: CLS.practiceBar });
@@ -621,7 +651,9 @@ export function mountTranscriptSync(opts: {
     stopVoice(); // the video owns the speakers — no Serena chain/shadowing overlap
     playOneCue = i;
     playOneArmed = false; // arm only once the (async) seek lands inside the cue
-    setPlaying(true); // clear any manual selection BEFORE seek paints the highlight
+    setPlaying(true);
+    selectedCue = i; // hold the highlight on the clicked line during the async (YouTube)
+    // seek, so a stale clock can't flash + scroll back to the previous sentence.
     seek(times[i]!.start);
   }
 
@@ -808,7 +840,10 @@ export function mountTranscriptSync(opts: {
       // the cue, then stop at its end so playback doesn't run on into the next.
       const bounds = times[playOneCue]!;
       if (!playOneArmed) {
-        if (t >= bounds.start - 0.1 && t < bounds.end) playOneArmed = true;
+        if (t >= bounds.start - 0.1 && t < bounds.end) {
+          playOneArmed = true;
+          selectedCue = null; // seek landed → hand the highlight back to the clock
+        }
         paint(t);
       } else if (shouldLoopBack(t, bounds)) {
         const stopped = playOneCue;

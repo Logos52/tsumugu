@@ -25,6 +25,12 @@ import { SAMPLES } from "./samples.js";
 import { packForLang } from "./packs/index.js";
 import { readReadingFiles, classifyReadingDocs } from "./loadReading.js";
 import { parseVoiceNotes, bindVoiceNotes, type VoiceNotesBinding } from "./voice/manifest.js";
+import {
+  defaultAssignment,
+  mergeAssignmentPref,
+  type VoiceTrack,
+  type SpeakerAssignment,
+} from "./voice/voices.js";
 import { buildVoiceNotesDeck } from "./voice/ankiDeck.js";
 import { parseWordAudio, bindWordAudio, type WordAudioBinding } from "./voice/wordAudio.js";
 import { parseSectionAudio, bindSectionAudio, type SectionAudioBinding } from "./voice/sectionAudio.js";
@@ -73,7 +79,11 @@ let devVault = false;
 // Readings discovered in the dev vault (populated on init when devVault).
 let vaultReadings: VaultReading[] = [];
 const LAST_READING_KEY = "tsg-last-reading";
+const VOICE_PREF_KEY = "tsg-voice-pref"; // global speaker→voice pref so a toggle sticks across readings
 const READING_PICKER_ID = "tsg-reading-picker";
+// Suffixed voice manifests probed beside a reading, in addition to the base
+// `.voice-notes.json`. Each becomes a track whose id IS the suffix.
+const KNOWN_VOICE_SUFFIXES = ["native"] as const;
 
 /**
  * Point the app at the right language pack for the current content so the
@@ -168,6 +178,12 @@ const navTo = (mode: "reader" | "review"): void => {
 $<HTMLButtonElement>("#mode-reader")?.addEventListener("click", () => navTo("reader"));
 $<HTMLButtonElement>("#mode-review")?.addEventListener("click", () => navTo("review"));
 app.on("modechange", remount);
+// A per-speaker voice change recomposes the binding → rebuild the player + UI,
+// and remember the choice globally so it carries to the next reading.
+app.on("voicechange", () => {
+  saveVoicePref(app.voiceAssignment);
+  remount();
+});
 app.on("change", refreshStatus);
 // Persist settings on any change, so live toggles + the `t` hotkey survive reload.
 app.on("change", persistSettings);
@@ -220,6 +236,68 @@ async function discoverVoiceNotes(
     return manifest ? bindVoiceNotes(manifest, baseDir) : null;
   } catch {
     return null;
+  }
+}
+
+/** A stable track id from a base manifest's voice label ("Serena" → "serena"). */
+function baseVoiceId(voice: string): string {
+  return voice.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "primary";
+}
+
+/**
+ * Discover ALL voice tracks beside a reading: the base `<slug>.voice-notes.json`
+ * plus any `<slug>.voice-notes.<suffix>.json` for known suffixes (e.g. `native`).
+ * Absent/invalid manifests are skipped. ≥2 tracks enables per-speaker assignment.
+ */
+async function discoverVoiceTracks(
+  vault: VaultIO,
+  readingPath: string,
+  cueCount: number,
+): Promise<VoiceTrack[]> {
+  if (cueCount === 0) return [];
+  const slugBase = readingPath.replace(/\.prepared\.json$/, "").replace(/\.json$/, "");
+  const lastSlash = slugBase.lastIndexOf("/");
+  const baseDir = lastSlash >= 0 ? slugBase.slice(0, lastSlash) : "";
+  const read = async (file: string): Promise<VoiceNotesBinding | null> => {
+    try {
+      const raw = await vault.readText(file);
+      if (!raw) return null;
+      const m = parseVoiceNotes(JSON.parse(raw), cueCount);
+      return m ? bindVoiceNotes(m, baseDir) : null;
+    } catch {
+      return null;
+    }
+  };
+  const tracks: VoiceTrack[] = [];
+  const base = await read(`${slugBase}.voice-notes.json`);
+  if (base) tracks.push({ id: baseVoiceId(base.manifest.voice), label: base.manifest.voice || "Voice", binding: base });
+  for (const suffix of KNOWN_VOICE_SUFFIXES) {
+    const b = await read(`${slugBase}.voice-notes.${suffix}.json`);
+    if (b && !tracks.some((t) => t.id === suffix)) {
+      tracks.push({ id: suffix, label: b.manifest.voice || suffix, binding: b });
+    }
+  }
+  return tracks;
+}
+
+/** Read the global speaker→voice preference (last toggle), tolerant of bad JSON. */
+function loadVoicePref(): SpeakerAssignment | null {
+  try {
+    const raw = localStorage.getItem(VOICE_PREF_KEY);
+    if (!raw) return null;
+    const o = JSON.parse(raw);
+    return o && typeof o === "object" ? (o as SpeakerAssignment) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Persist the current speaker→voice assignment so it sticks across readings. */
+function saveVoicePref(assignment: SpeakerAssignment): void {
+  try {
+    localStorage.setItem(VOICE_PREF_KEY, JSON.stringify(assignment));
+  } catch {
+    /* private mode / storage disabled — non-fatal */
   }
 }
 
@@ -287,9 +365,17 @@ async function loadVaultReading(path: string): Promise<void> {
   app.setContent(payload.content);
   syncPack();
   app.setTranscript(payload.transcript ?? null);
-  // Voice notes: a `<slug>.voice-notes.json` sidecar beside the reading. Audio
-  // paths in it resolve against the manifest's directory (this reading's dir).
-  app.setVoiceNotes(await discoverVoiceNotes(vault, path, payload.transcript?.cues.length ?? 0));
+  // Voice notes: the base `<slug>.voice-notes.json` plus any native/other tracks
+  // beside the reading. ≥2 tracks → per-speaker assignment (composed binding);
+  // 1 track → that voice for every cue. Audio resolves against the reading's dir.
+  const cueSpeakers = payload.transcript?.cues.map((c) => c.speaker) ?? [];
+  const tracks = await discoverVoiceTracks(vault, path, payload.transcript?.cues.length ?? 0);
+  if (tracks.length > 0) {
+    const assignment = mergeAssignmentPref(defaultAssignment(tracks, cueSpeakers), loadVoicePref(), tracks);
+    app.setVoiceTracks(tracks, assignment);
+  } else {
+    app.setVoiceNotes(null);
+  }
   app.setWordAudio(await discoverWordAudio(vault, path));
   app.setSectionAudio(await discoverSectionAudio(vault, path, payload.transcript?.sections?.length ?? 0));
   try {

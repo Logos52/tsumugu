@@ -25,6 +25,7 @@ import {
 
 import type { TranscriptDoc } from "./reader/sync.js";
 import type { VoiceNotesBinding } from "./voice/manifest.js";
+import { composeBinding, type VoiceTrack, type SpeakerAssignment } from "./voice/voices.js";
 import type { WordAudioBinding } from "./voice/wordAudio.js";
 import type { SectionAudioBinding } from "./voice/sectionAudio.js";
 
@@ -97,7 +98,7 @@ export interface ViewController {
  */
 export type MountView = (root: HTMLElement, app: AppState) => ViewController;
 
-type EventName = "change" | "modechange" | "status";
+type EventName = "change" | "modechange" | "status" | "voicechange";
 type Handler = (payload: unknown) => void;
 
 /** App-wide reactive state + actions. DOM-free (hosts/views render). */
@@ -107,8 +108,17 @@ export class AppState {
   content: PreparedContent | null;
   /** Optional timed transcript bound to the current content (synced-reader). */
   transcript: TranscriptDoc | null;
-  /** Optional per-cue voice notes bound to the current reading (M1 voice). */
+  /**
+   * Optional per-cue voice notes bound to the current reading (M1 voice). When
+   * the reading has >1 voice track this is the COMPOSED binding (see
+   * `voiceTracks` / `voiceAssignment` + `assignVoice`); the player consumes it
+   * the same either way.
+   */
   voiceNotes: VoiceNotesBinding | null;
+  /** All voice tracks discovered beside the reading (native, Serena, …); ≥2 enables per-speaker assignment. */
+  voiceTracks: VoiceTrack[] = [];
+  /** speaker → voice id; recomposed into `voiceNotes` by `assignVoice`. */
+  voiceAssignment: SpeakerAssignment = {};
   /** Optional per-word audio bound to the current reading (M3 hover 🔊). */
   wordAudio: WordAudioBinding | null;
   /** Optional per-section summary audio bound to the current reading. */
@@ -208,6 +218,8 @@ export class AppState {
     // re-attach via setTranscript() / setVoiceNotes() if the new reading has them.
     this.transcript = null;
     this.voiceNotes = null;
+    this.voiceTracks = [];
+    this.voiceAssignment = {};
     this.wordAudio = null;
     this.sectionAudio = null;
     this.recordContentSeen();
@@ -224,6 +236,34 @@ export class AppState {
   setVoiceNotes(voiceNotes: VoiceNotesBinding | null): void {
     this.voiceNotes = voiceNotes;
     this.emit("change");
+  }
+
+  /**
+   * Install the reading's voice tracks + initial speaker→voice assignment, and
+   * set `voiceNotes` to the composed binding. Single track → that voice for all.
+   */
+  setVoiceTracks(tracks: VoiceTrack[], assignment: SpeakerAssignment): void {
+    this.voiceTracks = tracks;
+    this.voiceAssignment = assignment;
+    this.voiceNotes = composeBinding(tracks, assignment, this.cueSpeakers());
+    this.emit("change");
+  }
+
+  /**
+   * Reassign one speaker's voice (e.g. 甲→Serena), recompose `voiceNotes`, and
+   * emit `voicechange` so the host rebuilds the player. No-op without tracks.
+   */
+  assignVoice(speaker: string, voiceId: string): void {
+    if (this.voiceTracks.length === 0) return;
+    this.voiceAssignment = { ...this.voiceAssignment, [speaker]: voiceId };
+    this.voiceNotes = composeBinding(this.voiceTracks, this.voiceAssignment, this.cueSpeakers());
+    this.emit("voicechange");
+    this.emit("change");
+  }
+
+  /** Per-cue speaker labels of the current transcript (for voice composition). */
+  private cueSpeakers(): (string | undefined)[] {
+    return this.transcript?.cues.map((c) => c.speaker) ?? [];
   }
 
   /** Bind (or clear) per-word audio for the current reading (M3 hover 🔊). */

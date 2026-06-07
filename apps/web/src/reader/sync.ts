@@ -17,6 +17,8 @@ export interface TranscriptCue {
   end: string;
   /** Optional pre-baked sentence translation (revealed on demand). */
   tr?: string;
+  /** Optional speaker label (e.g. "A"/"B" for a 甲/乙 dialogue) — drives per-speaker voice. */
+  speaker?: string;
 }
 
 /** A topical section of the transcript — a coarse time range with a summary. */
