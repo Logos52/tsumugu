@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (486 public tests; 681 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (503 public tests; 698 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -54,7 +54,7 @@ Building the Migaku-style reading layer (zhuyin ruby above, colored unknown-unde
 
 - **Agent fill step — proven end-to-end.** Filled the `why-friendship-differs` transcript skeleton (Mandarin Corner, `2idX7w0gs4k`) via a 17-agent parallel fill workflow: 660 glossary entries → full `PrebakedEntry` (gloss, zhuyin reading, pos, level, leveled Traditional explanation, source examples); `gen verify --fix` → **"✓ verified — ready to read"** (OpenCC-clean; CI 80% is the transcript's difficulty, not a gate). Findings: `gen verify --fix` OpenCC-normalizes tokens too (a source `了解`→`瞭解` then reads as unknown unless the store is s2twp-normalized); `s2twp` over-localizes a few terms (e.g. `連接詞→連線詞`).
 
-The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **486 public + 195 private tests green.**
+The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **503 public + 195 private tests green.**
 
 ## Voice notes — Phase 8 M1 (done — 2026-06-06)
 
@@ -107,6 +107,31 @@ panel's per-frame poll + `seek` (works for the YouTube IFrame and the offline sc
   The real video seek-back loop is a **manual** check (rAF + live player time).
 - **Not built (out of M2.2):** freeform A/B markers (arbitrary in/out points), full per-line clickable blocks,
   loop persistence.
+
+## Voice notes — Phase 8 M3-lite: per-word audio (done — 2026-06-07)
+
+The hover 🔊 now plays a word in the **Serena** voice instead of Web Speech, via a batch helper that renders
+one mp3 per word — same architecture as voice notes (engine untouched, no new deps, assets under `personal/`).
+
+- **`gen word-audio --in <prepared.json> [--words all|glossary]`:** pure `scripts/gen/lib/wordAudio.ts`
+  (word selection, **stable hash-named paths via the engine's `sha1Hex`** so identical words dedup across runs
+  and readings, incremental plan, manifest build/merge/validate) + `cmdWordAudio` reusing the voice-notes IO
+  (`resolveVoicePython` / `runVoiceWorker` / `runFfmpeg`). Writes `<slug>.word-audio.json`
+  (`tsumugu/word-audio@1`, word → `audio/words/<hash>.mp3`). `--dry-run`, incremental, validates. Default
+  `--words all` (every unique word); `glossary` limits to studied unknowns. `deriveSlug` now also strips
+  `.prepared.json` so the sidecar name matches the reader's discovery.
+- **Reader:** `voice/wordAudio.ts` (parse/bind/`selectWordSrc` + a small LRU player) — discovered beside the
+  reading into `AppState.wordAudio`; the hover popup 🔊 (`reader.ts`) plays the word's clip via
+  `vault.readBytes`, **falling back to Web Speech** per word (and entirely when no manifest is present). Inert
+  otherwise; cue voice / shadowing / practice bar / navigation untouched.
+- **Polyphone caveat (documented):** a word rendered out of context can mispronounce polyphones (得/行/了).
+  The zhuyin ruby + the in-context **cue** voice note stay authoritative; BreezyVoice inline-zhuyin word
+  renders are the PRD's future exact fix.
+- **Real run:** `why-friendship-differs --words all` covers **1,356 unique words** (Serena), hash-named under
+  `audio/words/` (gitignored); smoke RTF ≈ 0.94. **Tests (+17):** `wordAudio` lib (6), `voice/wordAudio`
+  parse/bind/player (8), reader popup 🔊 integration (3); `deriveSlug` `.prepared.json` case.
+- **Not built (out of M3-lite):** BreezyVoice zhuyin-exact renders, Vietnamese word audio, hover auto-play,
+  word audio in Anki.
 
 ## Run it
 

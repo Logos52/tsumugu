@@ -26,6 +26,7 @@ import { packForLang } from "./packs/index.js";
 import { readReadingFiles, classifyReadingDocs } from "./loadReading.js";
 import { parseVoiceNotes, bindVoiceNotes, type VoiceNotesBinding } from "./voice/manifest.js";
 import { buildVoiceNotesDeck } from "./voice/ankiDeck.js";
+import { parseWordAudio, bindWordAudio, type WordAudioBinding } from "./voice/wordAudio.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -212,6 +213,24 @@ async function discoverVoiceNotes(
 }
 
 /**
+ * Discover a `<slug>.word-audio.json` sidecar beside a reading (per-word Serena
+ * mp3s). Null when absent/invalid — the hover 🔊 then stays on Web Speech.
+ */
+async function discoverWordAudio(vault: VaultIO, readingPath: string): Promise<WordAudioBinding | null> {
+  const slugBase = readingPath.replace(/\.prepared\.json$/, "").replace(/\.json$/, "");
+  const lastSlash = slugBase.lastIndexOf("/");
+  const baseDir = lastSlash >= 0 ? slugBase.slice(0, lastSlash) : "";
+  try {
+    const raw = await vault.readText(`${slugBase}.word-audio.json`);
+    if (!raw) return null;
+    const manifest = parseWordAudio(JSON.parse(raw));
+    return manifest ? bindWordAudio(manifest, baseDir) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Load a reading discovered in the dev vault (its `.prepared.json` + sibling
  * `.cues.json`) and remember it, so it auto-restores on the next page-load.
  */
@@ -240,6 +259,7 @@ async function loadVaultReading(path: string): Promise<void> {
   // Voice notes: a `<slug>.voice-notes.json` sidecar beside the reading. Audio
   // paths in it resolve against the manifest's directory (this reading's dir).
   app.setVoiceNotes(await discoverVoiceNotes(vault, path, payload.transcript?.cues.length ?? 0));
+  app.setWordAudio(await discoverWordAudio(vault, path));
   try {
     localStorage.setItem(LAST_READING_KEY, path);
   } catch {

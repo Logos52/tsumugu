@@ -25,6 +25,7 @@ import {
 
 import type { TranscriptDoc } from "./reader/sync.js";
 import type { VoiceNotesBinding } from "./voice/manifest.js";
+import type { WordAudioBinding } from "./voice/wordAudio.js";
 
 /** Reader/review display preferences. */
 export interface AppSettings {
@@ -98,6 +99,8 @@ export class AppState {
   transcript: TranscriptDoc | null;
   /** Optional per-cue voice notes bound to the current reading (M1 voice). */
   voiceNotes: VoiceNotesBinding | null;
+  /** Optional per-word audio bound to the current reading (M3 hover 🔊). */
+  wordAudio: WordAudioBinding | null;
   settings: AppSettings;
   vault: VaultIO | null;
   audio: AudioPort | null;
@@ -112,6 +115,7 @@ export class AppState {
     content?: PreparedContent | null;
     transcript?: TranscriptDoc | null;
     voiceNotes?: VoiceNotesBinding | null;
+    wordAudio?: WordAudioBinding | null;
     settings?: Partial<AppSettings>;
     vault?: VaultIO | null;
     audio?: AudioPort | null;
@@ -122,6 +126,7 @@ export class AppState {
     this.content = opts.content ?? null;
     this.transcript = opts.transcript ?? null;
     this.voiceNotes = opts.voiceNotes ?? null;
+    this.wordAudio = opts.wordAudio ?? null;
     this.settings = { ...DEFAULT_SETTINGS, ...opts.settings };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
@@ -189,6 +194,7 @@ export class AppState {
     // re-attach via setTranscript() / setVoiceNotes() if the new reading has them.
     this.transcript = null;
     this.voiceNotes = null;
+    this.wordAudio = null;
     this.recordContentSeen();
     this.emit("change");
   }
@@ -202,6 +208,12 @@ export class AppState {
   /** Bind (or clear) per-cue voice notes for the current reading (M1 voice). */
   setVoiceNotes(voiceNotes: VoiceNotesBinding | null): void {
     this.voiceNotes = voiceNotes;
+    this.emit("change");
+  }
+
+  /** Bind (or clear) per-word audio for the current reading (M3 hover 🔊). */
+  setWordAudio(wordAudio: WordAudioBinding | null): void {
+    this.wordAudio = wordAudio;
     this.emit("change");
   }
 

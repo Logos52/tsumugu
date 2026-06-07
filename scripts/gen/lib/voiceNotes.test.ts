@@ -28,6 +28,9 @@ describe("deriveSlug", () => {
     expect(deriveSlug("personal/inbox/zh-Hant/why-friendship-differs.prepared.cues.json")).toBe(
       "why-friendship-differs",
     );
+    expect(deriveSlug("personal/inbox/zh-Hant/why-friendship-differs.prepared.json")).toBe(
+      "why-friendship-differs",
+    );
     expect(deriveSlug("foo.cues.json")).toBe("foo");
     expect(deriveSlug("bar.json")).toBe("bar");
   });

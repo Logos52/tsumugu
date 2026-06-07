@@ -23,6 +23,7 @@ import { el, clear } from "../ui/dom.js";
 import { CLS, toneClass } from "../ui/classes.js";
 import { mountTranscriptSync, type TranscriptController } from "./transcript.js";
 import { createVoicePlayer, type VoicePlayer } from "../voice/player.js";
+import { createWordAudioPlayer, type WordAudioPlayer } from "../voice/wordAudio.js";
 
 /** Labels shown on the grading row, in order; each maps via `hotkeyToStatus`. */
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
@@ -106,6 +107,13 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
           cues: app.transcript.cues,
           speak: (t) => app.speak(t),
         })
+      : null;
+
+  // Per-word audio (M3): play the hover 🔊 in the Serena voice when a word-audio
+  // manifest is bound; falls back to Web Speech per word. Inert otherwise.
+  const wordAudioPlayer: WordAudioPlayer | null =
+    app.wordAudio && app.vault
+      ? createWordAudioPlayer({ vault: app.vault, binding: app.wordAudio, speak: (t) => app.speak(t) })
       : null;
 
   const transcriptCtl: TranscriptController | null = app.transcript
@@ -342,7 +350,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         on: {
           click: (ev) => {
             ev.stopPropagation();
-            app.speak(word);
+            if (wordAudioPlayer) wordAudioPlayer.playWord(word);
+            else app.speak(word);
           },
         },
       }),
@@ -639,6 +648,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       offChange();
       transcriptCtl?.destroy();
       voicePlayer?.destroy();
+      wordAudioPlayer?.destroy();
       closePopup();
       clear(root);
     },

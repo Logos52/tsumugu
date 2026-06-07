@@ -41,7 +41,7 @@ import {
 } from "./lib/crossref.js";
 import { readMigakuDb } from "./lib/migaku-db.js";
 import { writeBack } from "./lib/migaku-writeback.js";
-import { resolve as resolvePath, dirname, join, relative } from "node:path";
+import { resolve as resolvePath, dirname, join, relative, basename } from "node:path";
 import {
   deriveSlug,
   selectCues,
@@ -67,6 +67,15 @@ import {
   type WorkerReport,
   type CueSelection,
 } from "./lib/voiceNotes.js";
+import {
+  selectWords as selectAudioWords,
+  planWords,
+  buildWordManifest,
+  validateWordManifest,
+  WORD_AUDIO_DIR,
+  type WordSelectMode,
+  type WordAudioManifest,
+} from "./lib/wordAudio.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -657,6 +666,135 @@ async function cmdVoiceNotes(opts: Record<string, string | boolean>): Promise<vo
   }
 }
 
+async function cmdWordAudio(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("word-audio needs --in <prepared.json>");
+  let content;
+  try {
+    content = parsePreparedContent(await readText(inPath));
+  } catch (e) {
+    return fail(`invalid prepared content: ${String(e)}`);
+  }
+  const lang = str(opts, "lang") ?? content.lang;
+  const slug = deriveSlug(inPath);
+  const model = str(opts, "model") ?? DEFAULT_MODEL;
+  const voice = str(opts, "voice") ?? DEFAULT_VOICE;
+  const language = str(opts, "language") ?? DEFAULT_LANGUAGE;
+  const mode = (str(opts, "words") ?? "all") as WordSelectMode;
+  if (mode !== "all" && mode !== "glossary") fail("--words must be all|glossary");
+  const force = flag(opts, "force");
+  const dryRun = flag(opts, "dry-run");
+
+  const manifestDir = dirname(inPath);
+  const manifestPath = join(manifestDir, `${slug}.word-audio.json`);
+  const outArg = str(opts, "out");
+  const audioAbsDir = outArg ? resolvePath(outArg) : join(manifestDir, WORD_AUDIO_DIR);
+  let audioRelDir = relative(manifestDir, audioAbsDir).replace(/\\/g, "/");
+  if (!audioRelDir || audioRelDir.startsWith("..")) audioRelDir = audioAbsDir.replace(/\\/g, "/");
+
+  let words = selectAudioWords(content, mode);
+  const limit = num(opts, "limit");
+  if (limit !== undefined) words = words.slice(0, Math.max(0, limit));
+  if (words.length === 0) fail("no words selected (empty reading / glossary?)");
+
+  const existing = await presentMp3s(audioAbsDir, audioRelDir);
+  const plans = planWords(words, audioRelDir, existing, force);
+  const toRender = plans.filter((p) => p.render);
+
+  if (dryRun) {
+    console.log(`word-audio plan (dry-run) — ${slug} [${lang}], --words ${mode}`);
+    console.log(`  prepared : ${inPath}`);
+    console.log(`  manifest : ${manifestPath}`);
+    console.log(`  audio dir: ${audioAbsDir}  (manifest-relative: ${audioRelDir})`);
+    console.log(`  voice    : ${model}@mlx-audio / ${voice}`);
+    console.log(`  words    : ${words.length} selected`);
+    console.log(`  to render: ${toRender.length}  (skipping ${words.length - toRender.length} already present)`);
+    console.error(`\n(dry-run — model not loaded, nothing written)`);
+    return;
+  }
+
+  if (spawnSync("ffmpeg", ["-version"], { stdio: "ignore" }).status !== 0) {
+    fail("ffmpeg not found on PATH — install it (e.g. `brew install ffmpeg`). See personal/voice/README.md.");
+  }
+  const python = resolveVoicePython();
+  await mkdir(audioAbsDir, { recursive: true });
+  const wavDir = join(audioAbsDir, ".wav-tmp");
+
+  let report: WorkerReport | null = null;
+  if (toRender.length > 0) {
+    await mkdir(wavDir, { recursive: true });
+    const items = toRender.map((p, i) => ({
+      index: i,
+      text: p.word,
+      instruct: null,
+      outWav: join(wavDir, basename(p.audio).replace(/\.mp3$/, ".wav")),
+    }));
+    console.error(`Synthesizing ${items.length} word(s) via ${python} …`);
+    report = await runVoiceWorker(python, { model, voice, language, items });
+    for (const item of report.items) {
+      if (!item.ok) continue;
+      const mp3Abs = join(audioAbsDir, basename(item.outWav).replace(/\.wav$/, ".mp3"));
+      await runFfmpeg(ffmpegArgs(item.outWav, mp3Abs));
+      await rm(item.outWav, { force: true });
+    }
+    await rm(wavDir, { recursive: true, force: true });
+  } else {
+    console.error("Nothing to render — all selected words already exist (use --force to re-render).");
+  }
+
+  // Manifest from what is actually on disk (rendered or pre-existing).
+  const wordsMap: Record<string, string> = {};
+  for (const p of plans) {
+    if (existsSync(join(manifestDir, p.audio))) wordsMap[p.word] = p.audio;
+  }
+  let existingManifest: WordAudioManifest | null = null;
+  if (existsSync(manifestPath)) {
+    try {
+      existingManifest = await readJson<WordAudioManifest>(manifestPath);
+    } catch {
+      existingManifest = null;
+    }
+  }
+  const manifest = buildWordManifest({
+    existing: existingManifest,
+    lang,
+    voice,
+    engine: `${model}@mlx-audio`,
+    generatedAt: new Date().toISOString(),
+    words: wordsMap,
+  });
+  await writeJson(manifestPath, manifest);
+
+  const present = new Set<string>();
+  for (const p of Object.values(manifest.words)) {
+    if (existsSync(join(manifestDir, p))) present.add(p);
+  }
+  const validation = validateWordManifest(manifest, present);
+  const rendered = report?.items.filter((i) => i.ok) ?? [];
+  const failures = (report?.items ?? []).filter((i) => !i.ok && i.error !== "empty text");
+  const totalGen = rendered.reduce((s, i) => s + (i.genSec ?? 0), 0);
+  const totalAudio = rendered.reduce((s, i) => s + (i.durationSec ?? 0), 0);
+  const rtf = totalAudio > 0 ? totalGen / totalAudio : 0;
+
+  console.error(
+    [
+      "",
+      `✓ word-audio: ${Object.keys(manifest.words).length} word(s) in manifest → ${manifestPath}`,
+      `  rendered this run: ${rendered.length}`,
+      rendered.length
+        ? `  generation: ${totalGen.toFixed(1)}s for ${totalAudio.toFixed(1)}s audio (RTF ${rtf.toFixed(2)})`
+        : "  generation: nothing rendered (all skipped)",
+      `  audio dir: ${audioAbsDir}`,
+    ].join("\n"),
+  );
+  const problems: string[] = [];
+  if (!validation.ok) problems.push(`${validation.missing.length} missing file(s)`);
+  if (failures.length) problems.push(`${failures.length} render failure(s): ${failures.slice(0, 3).map((f) => `${f.error}`).join("; ")}`);
+  if (problems.length) {
+    console.error(`\n✗ validation failed: ${problems.join(" · ")}`);
+    process.exit(1);
+  }
+}
+
 function usage(): void {
   console.log(
     [
@@ -680,6 +818,8 @@ function usage(): void {
       "  pnpm gen writeback --store ws.json --db migaku-core.db [--lang <id>] [--apply --out copy.db]   (Fork B2: dry-run by default; writes a COPY, never your live Migaku)",
       "  pnpm gen voice-notes --in <prepared.cues.json> [--voice Serena] [--model <id>] [--out audio/<slug>/]   (local OSS batch TTS → mp3 per cue + voice-notes.json)",
       "                    [--limit N] [--cues 73,386,647] [--slow all|over:30|cues:73,647] [--slow-instruct \"…\"] [--force] [--dry-run]",
+      "  pnpm gen word-audio --in <prepared.json> [--words all|glossary] [--voice Serena] [--model <id>] [--out audio/words/]   (per-word Serena mp3 for hover 🔊)",
+      "                    [--limit N] [--force] [--dry-run]",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",
@@ -711,6 +851,8 @@ async function main(): Promise<void> {
       return cmdWriteback(opts);
     case "voice-notes":
       return cmdVoiceNotes(opts);
+    case "word-audio":
+      return cmdWordAudio(opts);
     case "help":
     case undefined:
       return usage();

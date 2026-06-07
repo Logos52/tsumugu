@@ -47,11 +47,12 @@ export const MP3_BITRATE = "96k";
 
 // ── slug + file naming ───────────────────────────────────────────────────────
 
-/** Strip the cues-sidecar suffixes from a basename to get the reading slug. */
-export function deriveSlug(cuesFileName: string): string {
-  const base = cuesFileName.replace(/.*[/\\]/, "");
+/** Strip the prepared/cues sidecar suffixes from a path to get the reading slug. */
+export function deriveSlug(fileName: string): string {
+  const base = fileName.replace(/.*[/\\]/, "");
   return base
     .replace(/\.prepared\.cues\.json$/i, "")
+    .replace(/\.prepared\.json$/i, "")
     .replace(/\.cues\.json$/i, "")
     .replace(/\.json$/i, "");
 }
