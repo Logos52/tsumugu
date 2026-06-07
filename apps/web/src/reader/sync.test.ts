@@ -5,6 +5,7 @@ import {
   parseTimecode,
   cueIndexAtTime,
   alignCuesToTokens,
+  shouldLoopBack,
   type TranscriptCue,
 } from "./sync.js";
 
@@ -99,5 +100,17 @@ describe("alignCuesToTokens", () => {
     const ranges = alignCuesToTokens(tokens, cues);
     expect(ranges[0]).toEqual({ cueIndex: 0, startToken: 0, endToken: 1 });
     expect(ranges[1]).toEqual({ cueIndex: 1, startToken: 1, endToken: 1 });
+  });
+});
+
+describe("shouldLoopBack", () => {
+  const b = { start: 2, end: 6 };
+  it("is true once the clock reaches/passes the region end", () => {
+    expect(shouldLoopBack(6, b)).toBe(true);
+    expect(shouldLoopBack(6.5, b)).toBe(true);
+  });
+  it("is false before the end", () => {
+    expect(shouldLoopBack(5.9, b)).toBe(false);
+    expect(shouldLoopBack(2, b)).toBe(false);
   });
 });

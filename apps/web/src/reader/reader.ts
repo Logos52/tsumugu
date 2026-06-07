@@ -76,11 +76,13 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   for (const token of content.tokens) {
     if (!token.isWord) {
       const punct = renderPunct(token.text);
+      punct.dataset.ti = String(tokenEls.length); // token index → cue (click-to-activate)
       text.append(punct);
       tokenEls.push(punct);
       continue;
     }
     const span = renderWord(token);
+    span.dataset.ti = String(tokenEls.length);
     wordSpans.push({ word: token.text, span });
     text.append(span);
     tokenEls.push(span);
@@ -528,6 +530,13 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         return;
       }
     }
+    // `,` / `.` step the active sentence (seek to the prev/next cue).
+    if (transcriptCtl && (ev.key === "," || ev.key === ".")) {
+      ev.preventDefault();
+      if (ev.key === ",") transcriptCtl.prevCue();
+      else transcriptCtl.nextCue();
+      return;
+    }
     // Space: while shadowing, advance to the next cue (hear → repeat → Space);
     // otherwise it pauses/plays the synced video (so you can stop to read a line).
     if (ev.key === " " || ev.code === "Space") {
@@ -594,10 +603,21 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     closePopup();
   }
 
+  /** Click a sentence (any token) → make that cue active (click-to-activate). */
+  function onTextClick(ev: MouseEvent): void {
+    if (!transcriptCtl) return;
+    const node = (ev.target as Element | null)?.closest<HTMLElement>("[data-ti]");
+    const ti = node?.dataset.ti;
+    if (ti === undefined) return;
+    const cue = transcriptCtl.cueForToken(Number(ti));
+    if (cue >= 0) transcriptCtl.seekToCue(cue);
+  }
+
   // Global so a grade key works while you're hovering with the mouse (focus is
   // on <body>, not the reader, so a root-level listener would never fire).
   document.addEventListener("keydown", onKeyDown);
   document.addEventListener("mousedown", onDocMouseDown);
+  text.addEventListener("click", onTextClick);
 
   // Recolor (no re-render) whenever the store changes; also reflect a live
   // translation toggle (settings changes emit "change" too).

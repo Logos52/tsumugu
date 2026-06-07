@@ -299,3 +299,41 @@ describe("transcript practice bar (M2.1) wiring", () => {
     ctl.destroy();
   });
 });
+
+describe("transcript sentence navigation + video loop (M2.2)", () => {
+  it("cueForToken maps token indices to their owning cue (or -1)", () => {
+    const { ctl } = mount({}); // nav works without voice
+    expect(ctl.cueForToken(0)).toBe(0);
+    expect(ctl.cueForToken(3)).toBe(0);
+    expect(ctl.cueForToken(4)).toBe(1);
+    expect(ctl.cueForToken(7)).toBe(1);
+    expect(ctl.cueForToken(99)).toBe(-1);
+    ctl.destroy();
+  });
+
+  it("seekToCue activates that cue's tokens; prevCue/nextCue step", () => {
+    const { tokenEls, ctl } = mount({});
+    ctl.seekToCue(1);
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true);
+    expect(tokenEls[0]!.classList.contains(CLS.cueActive)).toBe(false);
+    ctl.prevCue();
+    expect(tokenEls[0]!.classList.contains(CLS.cueActive)).toBe(true);
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(false);
+    ctl.nextCue();
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true);
+    ctl.destroy();
+  });
+
+  it("the 🔂 button toggles the video sentence-loop", () => {
+    const { host, ctl } = mount({});
+    const loopBtn = btn(host, "🔂")!;
+    expect(ctl.isVideoLooping()).toBe(false);
+    loopBtn.click();
+    expect(ctl.isVideoLooping()).toBe(true);
+    expect(loopBtn.classList.contains(CLS.btnActive)).toBe(true);
+    loopBtn.click();
+    expect(ctl.isVideoLooping()).toBe(false);
+    expect(loopBtn.classList.contains(CLS.btnActive)).toBe(false);
+    ctl.destroy();
+  });
+});

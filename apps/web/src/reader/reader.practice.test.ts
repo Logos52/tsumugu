@@ -143,3 +143,28 @@ describe("reader: L collision (practice loop vs next-word)", () => {
     view.unmount();
   });
 });
+
+const cueActive = (root: HTMLElement, word: string): boolean =>
+  root.querySelector<HTMLElement>(`[data-word="${word}"]`)?.classList.contains(CLS.cueActive) ?? false;
+
+describe("reader: sentence navigation (M2.2)", () => {
+  it("clicking a sentence's token makes that cue active", () => {
+    const root = document.createElement("div");
+    const view = mountReader(root, build());
+    // 那裡 is in cue 1 (token index 4); click it.
+    root.querySelector<HTMLElement>('[data-ti="4"]')!.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(cueActive(root, "那裡")).toBe(true);
+    expect(cueActive(root, "今晚")).toBe(false);
+    view.unmount();
+  });
+
+  it("`,` / `.` step the active sentence", () => {
+    const root = document.createElement("div");
+    const view = mountReader(root, build());
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: ".", bubbles: true }));
+    expect(cueActive(root, "那裡")).toBe(true); // next cue
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: ",", bubbles: true }));
+    expect(cueActive(root, "今晚")).toBe(true); // back to first
+    view.unmount();
+  });
+});

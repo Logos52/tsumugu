@@ -73,6 +73,14 @@ export function cueTimes(
 }
 
 /**
+ * Whether the video/clock has passed the loop region's end and should seek back
+ * to its start (the A/B "loop this sentence" check). Pure.
+ */
+export function shouldLoopBack(t: number, bounds: { start: number; end: number }): boolean {
+  return t >= bounds.end;
+}
+
+/**
  * Index of the cue active at `seconds` (`start ≤ t < end`), or -1 if none.
  * Scans in order and returns the first match; cues are expected non-overlapping.
  * Pass a precomputed {@link cueTimes} array as `times` to avoid re-parsing on a

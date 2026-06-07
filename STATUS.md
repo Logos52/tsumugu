@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (479 public tests; 674 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (486 public tests; 681 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -54,7 +54,7 @@ Building the Migaku-style reading layer (zhuyin ruby above, colored unknown-unde
 
 - **Agent fill step — proven end-to-end.** Filled the `why-friendship-differs` transcript skeleton (Mandarin Corner, `2idX7w0gs4k`) via a 17-agent parallel fill workflow: 660 glossary entries → full `PrebakedEntry` (gloss, zhuyin reading, pos, level, leveled Traditional explanation, source examples); `gen verify --fix` → **"✓ verified — ready to read"** (OpenCC-clean; CI 80% is the transcript's difficulty, not a gate). Findings: `gen verify --fix` OpenCC-normalizes tokens too (a source `了解`→`瞭解` then reads as unknown unless the store is s2twp-normalized); `s2twp` over-localizes a few terms (e.g. `連接詞→連線詞`).
 
-The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **479 public + 195 private tests green.**
+The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **486 public + 195 private tests green.**
 
 ## Voice notes — Phase 8 M1 (done — 2026-06-06)
 
@@ -88,6 +88,25 @@ drag-select a slice, loop it (L) and slow it, to drill shadowing in-context. Eng
   mocked). The real waveform render + loop seam is a **manual** check (wavesurfer needs Web Audio/canvas).
 - **Not built (out of M2.1):** loop-region persistence, gapless `AudioBufferSourceNode`, other M2 items
   (read+explain, tr/commentary voices, multi-voice).
+
+## Voice notes — Phase 8 M2.2 (done — 2026-06-07)
+
+Reader ergonomics from real use: easier sentence navigation + a video A/B loop. No new deps; reuses the
+panel's per-frame poll + `seek` (works for the YouTube IFrame and the offline scrubber alike).
+
+- **Click-to-activate:** every token carries `data-ti` (token index); a click on a line maps to its cue
+  (`cueForToken` over the existing `ranges`) and seeks there — so the clicked sentence becomes active and the
+  target for 🔊 / 🌊 / 跟讀. Hover/grading untouched (grade buttons live in the popup, not the text).
+- **Cue-step keys:** `,` = previous sentence, `.` = next sentence (`prevCue`/`nextCue` → `seekToCue`). No
+  collision with the existing bindings.
+- **Video "loop this sentence":** a 🔂 transport toggle loops the current cue's `[start, end]` on the
+  video/scrubber via `frame()` + pure `shouldLoopBack(t, bounds)`; navigating (click / `,` `.`) re-pins the
+  loop to the new line. Complements the practice bar (which loops the TTS audio).
+- **Tests (+7):** `shouldLoopBack` (2, `sync.test.ts`); `cueForToken` / `seekToCue` / `prev`·`nextCue` /
+  🔂-toggle (3, `transcript.voice.test.ts`); click-to-activate + `,`·`.` integration (2, `reader.practice.test.ts`).
+  The real video seek-back loop is a **manual** check (rAF + live player time).
+- **Not built (out of M2.2):** freeform A/B markers (arbitrary in/out points), full per-line clickable blocks,
+  loop persistence.
 
 ## Run it
 

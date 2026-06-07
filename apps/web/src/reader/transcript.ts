@@ -16,6 +16,7 @@ import {
   alignCuesToTokens,
   cueIndexAtTime,
   cueTimes,
+  shouldLoopBack,
   type TranscriptDoc,
 } from "./sync.js";
 import { createYouTubePlayer, type VideoPlayer } from "./youtube.js";
@@ -64,6 +65,17 @@ export interface TranscriptController {
   practiceNudge(dir: -1 | 1): void;
   /** Close the practice bar if open (Esc). */
   practiceCloseBar(): void;
+  /** Seek the clock so the given cue becomes active (click-to-activate). */
+  seekToCue(cueIndex: number): void;
+  /** The cue index that owns a token, or -1 (for click-to-activate mapping). */
+  cueForToken(tokenIndex: number): number;
+  /** Step the active sentence (`,` / `.`). */
+  nextCue(): void;
+  prevCue(): void;
+  /** Toggle "loop this sentence" on the video/scrubber (🔂). */
+  toggleVideoLoop(): void;
+  /** Whether the video sentence-loop is engaged. */
+  isVideoLooping(): boolean;
 }
 
 /** mm:ss for the time label. */
@@ -125,7 +137,10 @@ export function mountTranscriptSync(opts: {
   let shadow: ShadowState = SHADOW_IDLE;
   let shadowBtn: HTMLButtonElement | null = null;
   let practiceBtn: HTMLButtonElement | null = null;
-  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel];
+  // Loop the current sentence on the video/scrubber (works without voice notes).
+  const videoLoopBtn = el("button", { class: CLS.btn, type: "button", text: "🔂", title: "Loop this sentence on the video" });
+  videoLoopBtn.addEventListener("click", () => toggleVideoLoop());
+  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel, videoLoopBtn];
   if (voicePlayer) {
     const vPlay = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this line's voice note" });
     const vFrom = el("button", { class: CLS.btn, type: "button", text: "⏩", title: "Play voice notes from here" });
@@ -213,13 +228,15 @@ export function mountTranscriptSync(opts: {
     lastFrameMs = null;
   }
 
-  playBtn.addEventListener("click", () => setPlaying(!playing));
-  scrubber.addEventListener("input", () => {
-    const t = Number(scrubber.value);
+  // Seek the active time source (YouTube IFrame or the offline clock) + repaint.
+  function seek(t: number): void {
     if (player) player.seekTo(t);
     else localTime = t;
     paint(t);
-  });
+  }
+
+  playBtn.addEventListener("click", () => setPlaying(!playing));
+  scrubber.addEventListener("input", () => seek(Number(scrubber.value)));
 
   function highlightCue(idx: number): void {
     if (idx === lastCue) return;
@@ -262,6 +279,38 @@ export function mountTranscriptSync(opts: {
   function currentCue(): number {
     const i = cueIndexAtTime(cues, currentTime(), times);
     return i >= 0 ? i : 0;
+  }
+
+  // ── sentence navigation + video loop (M2.2) ───────────────────────────────
+  let videoLooping = false;
+  let loopCue = -1;
+
+  function cueForToken(tokenIndex: number): number {
+    for (let c = 0; c < ranges.length; c++) {
+      const r = ranges[c]!;
+      if (tokenIndex >= r.startToken && tokenIndex < r.endToken) return c;
+    }
+    return -1;
+  }
+
+  function seekToCue(cueIndex: number): void {
+    if (cues.length === 0) return;
+    const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
+    seek(times[i]!.start);
+    if (videoLooping) loopCue = i; // navigating re-pins the loop to the new line
+  }
+
+  function updateVideoLoopBtn(): void {
+    videoLoopBtn.classList.toggle(CLS.btnActive, videoLooping);
+  }
+
+  function toggleVideoLoop(): void {
+    videoLooping = !videoLooping;
+    if (videoLooping) {
+      loopCue = currentCue();
+      setPlaying(true);
+    }
+    updateVideoLoopBtn();
   }
 
   // ── practice bar (M2.1) ───────────────────────────────────────────────────
@@ -394,7 +443,13 @@ export function mountTranscriptSync(opts: {
       }
       lastFrameMs = now;
     }
-    paint(currentTime());
+    const t = currentTime();
+    // Video A/B loop: when the clock passes the pinned sentence's end, seek back.
+    if (videoLooping && loopCue >= 0 && loopCue < times.length && shouldLoopBack(t, times[loopCue]!)) {
+      seek(times[loopCue]!.start);
+    } else {
+      paint(t);
+    }
     raf = schedule(frame);
   }
   raf = schedule(frame);
@@ -438,6 +493,18 @@ export function mountTranscriptSync(opts: {
     practiceNudge,
     practiceCloseBar() {
       closePracticeBar();
+    },
+    seekToCue,
+    cueForToken,
+    nextCue() {
+      seekToCue(currentCue() + 1);
+    },
+    prevCue() {
+      seekToCue(currentCue() - 1);
+    },
+    toggleVideoLoop,
+    isVideoLooping() {
+      return videoLooping;
     },
   };
 }
