@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+<defs>
+  <linearGradient id="tri" x1="8%" y1="0%" x2="92%" y2="100%">
+    <stop offset="0%"  stop-color="#A8DCFF"/>
+    <stop offset="34%" stop-color="#74C0FC"/>
+    <stop offset="66%" stop-color="#8B5CF6"/>
+    <stop offset="100%" stop-color="#F2A7D5"/>
+  </linearGradient>
+  <linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#2b2358"/>
+    <stop offset="100%" stop-color="#171833"/>
+  </linearGradient>
+  <radialGradient id="halo" cx="50%" cy="46%" r="55%">
+    <stop offset="0%"  stop-color="#F6C6E6" stop-opacity="0.18"/>
+    <stop offset="55%" stop-color="#A8DCFF" stop-opacity="0.12"/>
+    <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect x="8" y="8" width="224" height="224" rx="54" fill="url(#badge)"/>
+<circle cx="120" cy="104" r="92" fill="url(#halo)"/>
+<g transform="translate(6,8)">
+  <path d="M 64 78 C 96 56, 158 58, 170 92 C 178 116, 156 132, 132 138 C 96 148, 70 132, 78 104 C 83 86, 104 80, 116 92 C 124 100, 121 112, 112 114" fill="none" stroke="url(#tri)" stroke-width="20"
+        stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 64 78 C 96 56, 158 58, 170 92 C 178 116, 156 132, 132 138 C 96 148, 70 132, 78 104 C 83 86, 104 80, 116 92 C 124 100, 121 112, 112 114" fill="none" stroke="#F6C6E6" stroke-width="3.6"
+        stroke-linecap="round" opacity="0.55" stroke-dasharray="2 12"/>
+</g>
+</svg>

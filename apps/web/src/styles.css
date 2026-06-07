@@ -145,12 +145,38 @@ button {
   box-shadow: var(--tsg-shadow-sm);
 }
 
+#app-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+#app-logo {
+  width: 30px;
+  height: 30px;
+  display: block;
+  border-radius: 9px;
+  box-shadow: var(--tsg-shadow-sm);
+}
+
 #app-header h1 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   white-space: nowrap;
+}
+
+/* The 紡 mark in the wordmark: brush face + the logo's blue→purple→pink gradient
+ * (a deliberate lockup with the badge). Falls back to ink if clip is unsupported. */
+.tsg-brand-char {
+  font-family: var(--tsg-font-read);
+  font-size: 1.25em;
+  font-weight: 700;
+  background: linear-gradient(135deg, #74c0fc 0%, #8b5cf6 58%, #f2a7d5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #app-nav {
@@ -347,10 +373,13 @@ button {
   max-width: var(--tsg-reading-width);
   margin: 0 auto;
   font-family: var(--tsg-font-read);
-  font-size: 1.4rem;
+  font-size: 1.45rem;
   line-height: 2;
+  letter-spacing: 0.015em; /* a little air between CJK glyphs (WenKai brush face) */
   color: var(--tsg-ink);
   word-break: break-word;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .tsg-token {
@@ -448,9 +477,21 @@ button {
 
 /* ── popup (hover card) ───────────────────────────────────────────────────── */
 
+@keyframes tsg-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .tsg-popup {
   position: absolute;
   z-index: 1000;
+  animation: tsg-pop-in 0.11s ease-out;
   /* A real width: the card is an absolutely-positioned child of the inline word
    * span, so without this it shrink-to-fits to a sliver and every line wraps. */
   width: 20rem;
@@ -510,10 +551,10 @@ button {
   margin-top: 0.5rem;
   padding: 0.4rem 0.55rem;
   border-radius: var(--tsg-radius-sm);
-  background: hsl(210 60% 96%);
-  border: 1px solid hsl(210 50% 88%);
+  background: color-mix(in oklab, var(--ctp-blue) 8%, var(--tsg-surface));
+  border: 1px solid color-mix(in oklab, var(--ctp-blue) 22%, var(--tsg-border));
   font-size: 0.85rem;
-  color: hsl(210 40% 28%);
+  color: var(--tsg-ink-muted);
 }
 
 .tsg-popup-grades {
@@ -521,6 +562,8 @@ button {
   gap: 0.35rem;
   flex-wrap: wrap;
   margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--tsg-border);
 }
 
 /* Grade buttons read as a learning gradient: 1 (red, most unknown) → 4 (teal,
@@ -631,7 +674,46 @@ button {
 .tsg-scrubber {
   flex: 1 1 8rem; /* grow, but shrink + wrap to its own line in a narrow pane */
   min-width: 6rem;
-  accent-color: var(--tsg-accent);
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--tsg-border);
+  cursor: pointer;
+}
+.tsg-scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--tsg-accent);
+  border: 2px solid var(--tsg-surface);
+  box-shadow: var(--tsg-shadow-sm);
+  cursor: grab;
+  transition: transform 0.1s ease;
+}
+.tsg-scrubber::-webkit-slider-thumb:active {
+  transform: scale(1.18);
+  cursor: grabbing;
+}
+.tsg-scrubber::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--tsg-border);
+}
+.tsg-scrubber::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--tsg-surface);
+  border-radius: 50%;
+  background: var(--tsg-accent);
+  box-shadow: var(--tsg-shadow-sm);
+  cursor: grab;
+}
+.tsg-scrubber:focus-visible {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 3px;
 }
 /* The current line's sentence translation (toggle / `t`). */
 .tsg-translation {

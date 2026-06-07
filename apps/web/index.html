@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <title>Tsumugu — reader</title>
     <!-- Apply the saved Catppuccin variant before paint to avoid a flash. -->
     <script>
@@ -15,7 +16,10 @@
   </head>
   <body>
     <header id="app-header">
-      <h1>紡 Tsumugu</h1>
+      <div id="app-brand">
+        <img id="app-logo" src="/logo.svg" alt="" width="30" height="30" />
+        <h1><span class="tsg-brand-char">紡</span> Tsumugu</h1>
+      </div>
       <nav id="app-nav">
         <button id="mode-reader" type="button">Read</button>
         <button id="mode-review" type="button">Review</button>
