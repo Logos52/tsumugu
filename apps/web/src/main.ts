@@ -37,9 +37,19 @@ const firstSample = SAMPLES[0]!;
 // Reader toggles persist across reloads (reads off raw, but better than resetting
 // zhuyin/tones/guess-first every page-load given how often dev reloads).
 const SETTINGS_KEY = "tsg-settings";
+// One-time migration: the hover default changed from "unknown" to "shift". A
+// value persisted before that change would otherwise keep popping the card on
+// every word, so drop the stored hoverMode once and let the new default apply.
+const HOVER_SHIFT_MIGRATION_KEY = "tsg-hover-shift-default";
 const persistedSettings: Partial<AppSettings> = (() => {
   try {
-    return JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}") as Partial<AppSettings>;
+    const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}") as Partial<AppSettings>;
+    if (!localStorage.getItem(HOVER_SHIFT_MIGRATION_KEY)) {
+      delete raw.hoverMode; // fall back to the new "shift" default
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(raw)); // persist the cleaned value
+      localStorage.setItem(HOVER_SHIFT_MIGRATION_KEY, "1");
+    }
+    return raw;
   } catch {
     return {};
   }
