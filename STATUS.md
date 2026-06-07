@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (532 public tests; 727 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (536 public tests; 731 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -225,6 +225,22 @@ recolor in place (a shared `recolorSpan` now covers both body + summary spans); 
 segmentation when the section changes; segmentation failure falls back to plain text. Engine untouched (the
 segmenter is the already-loaded client-side pack). **Tests (+1):** `renderSummary` wiring on section change
 (`transcript.section.test.ts`); the per-word hover/grade path is the body renderer, already covered.
+
+## Voice notes — A/B video loop strip (2026-06-07)
+
+A 🆎 transport toggle opens a collapsible **A/B loop strip** for the video — the study tool behind the
+"drag-to-select waveform" ask. A true amplitude waveform of YouTube audio is impossible (the sanctioned IFrame
+embed exposes no audio samples), so the strip is a **timeline** driven only by the player clock:
+
+- A track spanning the transcript duration with a **sentence tick per cue**; drag the A / B handles (or click the
+  track to grab the nearer edge) to set the loop. Handles **snap to cue boundaries** (`snapToBoundary`), so even
+  a long video is select-by-sentence with no zoom needed (zoom deferred per decision).
+- A 🔁 loops the video between A and B (highest precedence in the frame loop; mutually exclusive with the 🔂
+  sentence-loop and the click one-shot). A red playhead tracks the current position while open.
+- Pure, tested timeline math in `sync.ts` (`timelineTime`, `snapToBoundary`); the drag itself is layout-driven
+  (`getBoundingClientRect`) → manual-verified, mirroring the splitter.
+- **Tests (+4):** `timelineTime`, `snapToBoundary` (`sync.test.ts`); 🆎 opens the strip + ticks + default region
+  (`transcript.voice.test.ts`). No new deps; engine untouched.
 
 ## Run it
 

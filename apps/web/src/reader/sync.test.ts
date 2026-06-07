@@ -6,6 +6,8 @@ import {
   cueIndexAtTime,
   alignCuesToTokens,
   shouldLoopBack,
+  timelineTime,
+  snapToBoundary,
   type TranscriptCue,
 } from "./sync.js";
 
@@ -112,5 +114,30 @@ describe("shouldLoopBack", () => {
   it("is false before the end", () => {
     expect(shouldLoopBack(5.9, b)).toBe(false);
     expect(shouldLoopBack(2, b)).toBe(false);
+  });
+});
+
+describe("timelineTime", () => {
+  it("maps pointer x to a clamped time over the duration", () => {
+    expect(timelineTime(50, 0, 100, 60)).toBeCloseTo(30, 5); // halfway → 30s
+    expect(timelineTime(0, 0, 100, 60)).toBe(0);
+    expect(timelineTime(100, 0, 100, 60)).toBeCloseTo(60, 5);
+    expect(timelineTime(-20, 0, 100, 60)).toBe(0); // clamp low
+    expect(timelineTime(999, 0, 100, 60)).toBeCloseTo(60, 5); // clamp high
+    expect(timelineTime(120, 20, 100, 60)).toBeCloseTo(60, 5); // offset by left
+    expect(timelineTime(50, 0, 0, 60)).toBe(0); // no layout → 0
+  });
+});
+
+describe("snapToBoundary", () => {
+  const bounds = [0, 3, 6, 9];
+  it("snaps to the nearest cue boundary", () => {
+    expect(snapToBoundary(2.6, bounds)).toBe(3);
+    expect(snapToBoundary(4, bounds)).toBe(3); // tie-ish → first-seen nearest
+    expect(snapToBoundary(8.9, bounds)).toBe(9);
+    expect(snapToBoundary(-5, bounds)).toBe(0);
+  });
+  it("returns the input when there are no boundaries", () => {
+    expect(snapToBoundary(4.2, [])).toBe(4.2);
   });
 });

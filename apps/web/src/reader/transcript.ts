@@ -17,6 +17,8 @@ import {
   cueIndexAtTime,
   cueTimes,
   shouldLoopBack,
+  timelineTime,
+  snapToBoundary,
   type TranscriptDoc,
 } from "./sync.js";
 import { createYouTubePlayer, type VideoPlayer } from "./youtube.js";
@@ -89,6 +91,10 @@ export interface TranscriptController {
   toggleVideoLoop(): void;
   /** Whether the video sentence-loop is engaged. */
   isVideoLooping(): boolean;
+  /** Open/close the A/B video-loop strip (🆎). */
+  toggleLoopStrip(): void;
+  /** Whether the A/B loop strip is open. */
+  isLoopStripOpen(): boolean;
 }
 
 /** mm:ss for the time label. */
@@ -172,14 +178,33 @@ export function mountTranscriptSync(opts: {
   // like the video's play/pause; `chaining` lights the button while it runs.
   let voiceFromBtn: HTMLButtonElement | null = null;
   let chaining = false;
+  // A/B video loop strip (🆎): a timeline whose handles snap to sentence edges.
+  // Loops the video between [loopRegion.start, loopRegion.end].
+  let loopStripBtn: HTMLButtonElement | null = null;
+  let regionPanel: HTMLElement | null = null;
+  let loopTrack: HTMLElement | null = null;
+  let loopFill: HTMLElement | null = null;
+  let regionHandleA: HTMLElement | null = null;
+  let regionHandleB: HTMLElement | null = null;
+  let loopPlayhead: HTMLElement | null = null;
+  let regionLoopBtn: HTMLButtonElement | null = null;
+  let loopStripOpen = false;
+  let loopRegion: { start: number; end: number } | null = null;
+  let regionLooping = false;
+  let regionDragEdge: "start" | "end" | null = null;
+  // Sentence boundaries (cue starts + ends) the A/B handles snap to.
+  const loopBoundaries = [...new Set(times.flatMap((tt) => [tt.start, tt.end]))].sort((a, b) => a - b);
   // Loop the current sentence on the video/scrubber (works without voice notes).
   const videoLoopBtn = el("button", { class: CLS.btn, type: "button", text: "🔂", title: "Loop this sentence on the video" });
   videoLoopBtn.addEventListener("click", () => toggleVideoLoop());
+  // A/B video loop strip: drag a range (snaps to sentences) and loop the video.
+  loopStripBtn = el("button", { class: CLS.btn, type: "button", text: "🆎", title: "Video A/B loop — drag a range (snaps to sentences)" });
+  loopStripBtn.addEventListener("click", () => toggleLoopStrip());
   // Reveal the English translation (off by default); mirrors the toolbar 譯 + `t`,
   // surfaced right in the reader transport where the eye already is.
   const trBtn = el("button", { class: CLS.btn, type: "button", text: "譯", title: "Show English translation" });
   trBtn.addEventListener("click", () => opts.onToggleTranslation?.());
-  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel, videoLoopBtn, trBtn];
+  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel, videoLoopBtn, loopStripBtn, trBtn];
   if (voicePlayer) {
     const vPlay = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this line's voice note" });
     const vFrom = el("button", { class: CLS.btn, type: "button", text: "⏩", title: "Play through every line in Serena's voice (click again to stop)" });
@@ -231,6 +256,32 @@ export function mountTranscriptSync(opts: {
     if (r) pSpeed.textContent = `${r}×`;
   });
   panel.append(practicePanel);
+
+  // ── A/B video loop strip (🆎) — collapsible; handles snap to sentences ──────
+  regionPanel = el("div", { class: CLS.loopStrip });
+  loopTrack = el("div", { class: CLS.loopTrack });
+  loopFill = el("div", { class: CLS.loopFill });
+  regionHandleA = el("div", { class: CLS.loopHandle, attrs: { "data-edge": "start", title: "Loop start (drag)" } });
+  regionHandleB = el("div", { class: CLS.loopHandle, attrs: { "data-edge": "end", title: "Loop end (drag)" } });
+  loopPlayhead = el("div", { class: CLS.loopPlayhead });
+  for (const tt of times) {
+    const tick = el("div", { class: CLS.loopTick });
+    tick.style.left = `${pctOf(tt.start)}%`;
+    loopTrack.append(tick);
+  }
+  loopTrack.append(loopFill, regionHandleA, regionHandleB, loopPlayhead);
+  regionLoopBtn = el("button", { class: CLS.btn, type: "button", text: "🔁", title: "Loop the A/B selection" });
+  regionLoopBtn.addEventListener("click", () => toggleRegionLoop());
+  regionPanel.style.display = "none";
+  regionPanel.append(
+    loopTrack,
+    el("div", { class: CLS.transport }, regionLoopBtn, el("span", { class: CLS.metrics, text: "drag the ends · snaps to sentences" })),
+  );
+  regionHandleA.addEventListener("mousedown", startRegionDrag("start"));
+  regionHandleB.addEventListener("mousedown", startRegionDrag("end"));
+  loopTrack.addEventListener("mousedown", onTrackMouseDown);
+  panel.append(regionPanel);
+
   // "Now talking about…" — the active section's summary (in the reading's
   // language), with a 🔊 to hear it and an English line under the 譯 toggle.
   const sectionPlayer = opts.sectionPlayer ?? null;
@@ -360,6 +411,7 @@ export function mountTranscriptSync(opts: {
       }
       sectionTrEl.textContent = showTr && si >= 0 ? (sections[si]!.tr ?? "") : "";
     }
+    if (loopStripOpen && loopPlayhead) loopPlayhead.style.left = `${pctOf(t)}%`;
   }
 
   // ── voice notes (M1) ──────────────────────────────────────────────────────
@@ -369,6 +421,112 @@ export function mountTranscriptSync(opts: {
     if (selectedCue !== null) return selectedCue;
     const i = cueIndexAtTime(cues, currentTime(), times);
     return i >= 0 ? i : 0;
+  }
+
+  // ── A/B video loop strip (🆎) ──────────────────────────────────────────────
+  /** A time as a 0–100% position along the strip. */
+  function pctOf(t: number): number {
+    return duration > 0 ? Math.max(0, Math.min(100, (t / duration) * 100)) : 0;
+  }
+
+  /** Position the region fill + handles from loopRegion. */
+  function renderRegion(): void {
+    const show = !!loopRegion && duration > 0;
+    for (const e of [loopFill, regionHandleA, regionHandleB]) if (e) e.style.display = show ? "block" : "none";
+    if (!show || !loopRegion) return;
+    const a = pctOf(loopRegion.start);
+    const b = pctOf(loopRegion.end);
+    if (loopFill) {
+      loopFill.style.left = `${a}%`;
+      loopFill.style.width = `${Math.max(0, b - a)}%`;
+    }
+    if (regionHandleA) regionHandleA.style.left = `${a}%`;
+    if (regionHandleB) regionHandleB.style.left = `${b}%`;
+  }
+
+  /** Default the region to the current sentence when none is set yet. */
+  function ensureRegion(): void {
+    if (loopRegion) return;
+    const i = currentCue();
+    if (times[i]) loopRegion = { start: times[i]!.start, end: times[i]!.end };
+  }
+
+  function toggleLoopStrip(): void {
+    loopStripOpen = !loopStripOpen;
+    if (regionPanel) regionPanel.style.display = loopStripOpen ? "block" : "none";
+    loopStripBtn?.classList.toggle(CLS.btnActive, loopStripOpen);
+    if (loopStripOpen) {
+      ensureRegion();
+      renderRegion();
+    }
+  }
+
+  function updateRegionLoopBtn(): void {
+    regionLoopBtn?.classList.toggle(CLS.btnActive, regionLooping);
+  }
+
+  function toggleRegionLoop(): void {
+    ensureRegion();
+    regionLooping = !regionLooping;
+    updateRegionLoopBtn();
+    if (regionLooping && loopRegion) {
+      videoLooping = false; // mutually exclusive with the 🔂 sentence-loop
+      updateVideoLoopBtn();
+      playOneCue = -1;
+      playOneArmed = false;
+      setPlaying(true);
+      seek(loopRegion.start);
+    }
+  }
+
+  /** Move one edge to a (snapped) time, keeping start ≤ end. */
+  function setRegionEdge(edge: "start" | "end", t: number): void {
+    if (!loopRegion) loopRegion = { start: t, end: t };
+    const s = snapToBoundary(t, loopBoundaries);
+    loopRegion =
+      edge === "start"
+        ? { start: Math.min(s, loopRegion.end), end: loopRegion.end }
+        : { start: loopRegion.start, end: Math.max(s, loopRegion.start) };
+    renderRegion();
+  }
+
+  function onRegionMove(ev: MouseEvent): void {
+    if (!regionDragEdge || !loopTrack) return;
+    const rect = loopTrack.getBoundingClientRect();
+    setRegionEdge(regionDragEdge, timelineTime(ev.clientX, rect.left, rect.width, duration));
+  }
+
+  function onRegionUp(): void {
+    regionDragEdge = null;
+    document.removeEventListener("mousemove", onRegionMove);
+    document.removeEventListener("mouseup", onRegionUp);
+  }
+
+  function beginRegionDrag(edge: "start" | "end"): void {
+    regionDragEdge = edge;
+    document.addEventListener("mousemove", onRegionMove);
+    document.addEventListener("mouseup", onRegionUp);
+  }
+
+  function startRegionDrag(edge: "start" | "end") {
+    return (ev: MouseEvent): void => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      beginRegionDrag(edge);
+    };
+  }
+
+  /** Click on the track body → grab the nearer edge and drag it. */
+  function onTrackMouseDown(ev: MouseEvent): void {
+    if (ev.target === regionHandleA || ev.target === regionHandleB || !loopTrack) return;
+    ev.preventDefault();
+    const rect = loopTrack.getBoundingClientRect();
+    const t = timelineTime(ev.clientX, rect.left, rect.width, duration);
+    ensureRegion();
+    if (!loopRegion) return;
+    const edge: "start" | "end" = Math.abs(t - loopRegion.start) <= Math.abs(t - loopRegion.end) ? "start" : "end";
+    setRegionEdge(edge, t);
+    beginRegionDrag(edge);
   }
 
   // ── sentence navigation + video loop (M2.2) ───────────────────────────────
@@ -639,8 +797,11 @@ export function mountTranscriptSync(opts: {
       lastFrameMs = now;
     }
     const t = currentTime();
-    // Video A/B loop: when the clock passes the pinned sentence's end, seek back.
-    if (videoLooping && loopCue >= 0 && loopCue < times.length && shouldLoopBack(t, times[loopCue]!)) {
+    // A/B region loop (🆎) takes precedence: seek back to A when the clock passes B.
+    if (regionLooping && loopRegion && shouldLoopBack(t, loopRegion)) {
+      seek(loopRegion.start);
+    } else if (videoLooping && loopCue >= 0 && loopCue < times.length && shouldLoopBack(t, times[loopCue]!)) {
+      // Video A/B loop: when the clock passes the pinned sentence's end, seek back.
       seek(times[loopCue]!.start);
     } else if (playing && playOneCue >= 0 && playOneCue < times.length) {
       // One-shot sentence play (clicked a word): wait for the seek to land inside
@@ -668,6 +829,8 @@ export function mountTranscriptSync(opts: {
     destroy() {
       destroyed = true;
       if (raf) cancelAnimationFrame(raf);
+      document.removeEventListener("mousemove", onRegionMove); // in case a drag is mid-flight
+      document.removeEventListener("mouseup", onRegionUp);
       player?.destroy();
       voicePlayer?.stop();
       practiceBar?.destroy();
@@ -726,6 +889,10 @@ export function mountTranscriptSync(opts: {
     toggleVideoLoop,
     isVideoLooping() {
       return videoLooping;
+    },
+    toggleLoopStrip,
+    isLoopStripOpen() {
+      return loopStripOpen;
     },
   };
 }

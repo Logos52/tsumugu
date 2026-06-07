@@ -393,6 +393,20 @@ describe("transcript sentence navigation + video loop (M2.2)", () => {
     ctl.destroy();
   });
 
+  it("🆎 opens the A/B loop strip and defaults a region to the current line", () => {
+    const { host, ctl } = mount({});
+    expect(btn(host, "🆎")).toBeDefined();
+    expect(ctl.isLoopStripOpen()).toBe(false);
+    const strip = host.querySelector<HTMLElement>(`.${CLS.loopStrip}`)!;
+    expect(strip.style.display).toBe("none");
+    expect(host.querySelectorAll(`.${CLS.loopTick}`).length).toBe(2); // one per cue start
+    btn(host, "🆎")!.click();
+    expect(ctl.isLoopStripOpen()).toBe(true);
+    expect(strip.style.display).toBe("block");
+    expect((host.querySelector(`.${CLS.loopFill}`) as HTMLElement).style.display).toBe("block"); // region shown
+    ctl.destroy();
+  });
+
   it("selectCue highlights the sentence WITHOUT moving the video", () => {
     const { host, tokenEls, ctl } = mount({});
     const scrubber = host.querySelector<HTMLInputElement>(`.${CLS.scrubber}`)!;

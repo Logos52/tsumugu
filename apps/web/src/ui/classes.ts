@@ -29,6 +29,12 @@ export const CLS = {
   sectionTr: "tsg-section-tr", // the section summary's translation (譯 toggle)
   practiceBar: "tsg-practice", // segment-loop practice bar container (M2.1)
   practiceWave: "tsg-practice-wave", // wavesurfer waveform host
+  loopStrip: "tsg-loop-strip", // A/B video loop strip container (🆎)
+  loopTrack: "tsg-loop-track", // the strip's timeline track
+  loopTick: "tsg-loop-tick", // a sentence-boundary mark on the track
+  loopFill: "tsg-loop-fill", // the selected A→B region
+  loopHandle: "tsg-loop-handle", // a draggable A or B edge
+  loopPlayhead: "tsg-loop-playhead", // current playback position on the track
 
   // hover popup
   popup: "tsg-popup",

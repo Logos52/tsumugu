@@ -671,6 +671,60 @@ button {
   min-height: 64px;
 }
 
+/* A/B video loop strip (🆎) — a sentence-snapping timeline, no amplitude data. */
+.tsg-loop-strip {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: var(--tsg-radius-sm);
+  background: color-mix(in oklab, var(--ctp-green) 7%, var(--tsg-surface));
+  border-left: 3px solid var(--ctp-green);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tsg-loop-track {
+  position: relative;
+  height: 30px;
+  border-radius: var(--tsg-radius-sm);
+  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 18%, var(--tsg-surface));
+  cursor: pointer;
+  overflow: hidden;
+}
+.tsg-loop-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 45%, transparent);
+  pointer-events: none;
+}
+.tsg-loop-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: color-mix(in oklab, var(--tsg-accent) 32%, transparent);
+  pointer-events: none;
+}
+.tsg-loop-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  transform: translateX(-50%);
+  background: var(--tsg-accent);
+  border-radius: 3px;
+  cursor: col-resize;
+  touch-action: none;
+}
+.tsg-loop-playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--ctp-red, #f38ba8);
+  pointer-events: none;
+}
+
 /* Video present → player beside the text (sticky left column, text scrolls). */
 .tsg-reader-split {
   display: flex;

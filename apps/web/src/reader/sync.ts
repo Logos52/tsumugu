@@ -83,6 +83,34 @@ export function shouldLoopBack(t: number, bounds: { start: number; end: number }
 }
 
 /**
+ * Map a pointer x (px) over a timeline element to a time in seconds. Pure; the
+ * A/B loop strip uses it. Clamps to [0, duration]. Returns 0 with no layout.
+ */
+export function timelineTime(clientX: number, left: number, width: number, duration: number): number {
+  if (width <= 0) return 0;
+  const f = Math.max(0, Math.min(1, (clientX - left) / width));
+  return f * Math.max(0, duration);
+}
+
+/**
+ * Snap a time to the nearest boundary (cue start/end), so the A/B loop locks to
+ * sentence edges regardless of how precisely you drag. Pure. `t` unchanged when
+ * there are no boundaries.
+ */
+export function snapToBoundary(t: number, boundaries: readonly number[]): number {
+  let best: number | null = null;
+  let bestDist = Infinity;
+  for (const b of boundaries) {
+    const d = Math.abs(t - b);
+    if (d < bestDist) {
+      best = b;
+      bestDist = d;
+    }
+  }
+  return best ?? t;
+}
+
+/**
  * Index of the cue active at `seconds` (`start ≤ t < end`), or -1 if none.
  * Scans in order and returns the first match; cues are expected non-overlapping.
  * Pass a precomputed {@link cueTimes} array as `times` to avoid re-parsing on a
