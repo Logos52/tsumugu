@@ -343,6 +343,17 @@ describe("transcript sentence navigation + video loop (M2.2)", () => {
     ctl.destroy();
   });
 
+  it("playCueInVideo seeks to the sentence's start and plays it", () => {
+    const { host, tokenEls, ctl } = mount({});
+    const scrubber = host.querySelector<HTMLInputElement>(`.${CLS.scrubber}`)!;
+    ctl.playCueInVideo(1);
+    expect(scrubber.value).toBe("3"); // moved to cue 1's start (3s)
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true); // cue 1 highlighted
+    expect(tokenEls[0]!.classList.contains(CLS.cueActive)).toBe(false);
+    expect(btn(host, "⏸")).toBeDefined(); // …and it is playing (▶ flipped to ⏸)
+    ctl.destroy();
+  });
+
   it("selectCue highlights the sentence WITHOUT moving the video", () => {
     const { host, tokenEls, ctl } = mount({});
     const scrubber = host.querySelector<HTMLInputElement>(`.${CLS.scrubber}`)!;

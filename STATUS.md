@@ -173,10 +173,12 @@ monolingual target-language text. Fixed for immersion: summaries now read in **�
 A UX pass from real study use, making "play it / loop it" reachable everywhere in the reader. No new deps;
 engine untouched.
 
-- **Click a sentence → the video jumps to its start** (`reader.ts onTextClick` → `seekToCue`, reversing the
-  earlier select-only behavior). When paused, the clicked line also becomes the active line immediately (no
-  async-seek flicker); when playing, the highlight keeps following the clock from the new position. `↑`/`↓` and
-  `,`/`.` still *select* a line without moving the video (preview), and `selectCue` stays for that.
+- **Click a sentence → play just that one sentence in the video, then stop** (`reader.ts onTextClick` →
+  `playCueInVideo`). It seeks to the cue's start, plays, and stops at the cue's end (reusing `shouldLoopBack`
+  for the boundary) so playback never runs on into the next line; the just-played line stays highlighted. The
+  stop is armed only once the (async YouTube) seek lands inside the cue, so a stale pre-seek clock can't trip it
+  early. The **▶ button alone plays the whole video through** — manual play / scrub / 🔂 all clear the one-shot.
+  `↑`/`↓` and `,`/`.` still *select* a line without moving the video (preview), via `selectCue`.
 - **⏩ is now a play-through toggle** — one press plays every line consecutively in **Serena**'s voice
   (highlight follows), a second press stops, and the button lights while it runs (mirrors the video's
   play/pause). Interrupting with 🔊 (single cue) or 跟讀 (shadowing) clears the lamp honestly.
@@ -186,8 +188,9 @@ engine untouched.
   active section's clip on a continuous A/B loop (`sectionAudio` player gained `{ loop }` + `stop()`); 🔊 plays
   it once and cancels the loop. (Whole-clip loop; sub-region A/B on commentary, like the 🌊 practice bar does
   for sentences, remains a possible follow-up.)
-- **Tests (+4):** ⏩ play/stop toggle + lamp, the 譯 transport button, the section 🔄 loop wiring
-  (`transcript.voice` / `transcript.section`), and `sectionAudio` loop+`stop()`.
+- **Tests (+5):** ⏩ play/stop toggle + lamp, the 譯 transport button, the section 🔄 loop wiring
+  (`transcript.voice` / `transcript.section`), `sectionAudio` loop+`stop()`, and `playCueInVideo` (seek-to-start
+  + play); the click-integration test in `reader.practice.test.ts` already covers click → one-shot highlight.
 
 ## Run it
 

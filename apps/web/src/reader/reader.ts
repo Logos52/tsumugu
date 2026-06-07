@@ -616,14 +616,14 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     closePopup();
   }
 
-  /** Click a sentence (any token) → move the video to that sentence's start. */
+  /** Click a sentence (any token) → play just that one sentence in the video. */
   function onTextClick(ev: MouseEvent): void {
     if (!transcriptCtl) return;
     const node = (ev.target as Element | null)?.closest<HTMLElement>("[data-ti]");
     const ti = node?.dataset.ti;
     if (ti === undefined) return;
     const cue = transcriptCtl.cueForToken(Number(ti));
-    if (cue >= 0) transcriptCtl.seekToCue(cue);
+    if (cue >= 0) transcriptCtl.playCueInVideo(cue);
   }
 
   // Global so a grade key works while you're hovering with the mouse (focus is

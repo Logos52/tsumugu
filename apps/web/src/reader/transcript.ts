@@ -68,6 +68,8 @@ export interface TranscriptController {
   practiceCloseBar(): void;
   /** Seek the video clock so the given cue becomes active (used by 🔂). */
   seekToCue(cueIndex: number): void;
+  /** Play ONE sentence in the video from its start, stopping at its end (click). */
+  playCueInVideo(cueIndex: number): void;
   /** Select a sentence (highlight + voice target) WITHOUT moving the video. */
   selectCue(cueIndex: number): void;
   /** The cue index that owns a token, or -1 (for click-to-select mapping). */
@@ -236,6 +238,10 @@ export function mountTranscriptSync(opts: {
   // A clicked/arrowed sentence selection that drives the highlight + voice
   // actions WITHOUT moving the video; cleared when the video plays/scrubs.
   let selectedCue: number | null = null;
+  // Click-to-play-one-sentence: when playOneCue ≥ 0, the video stops at that
+  // cue's end instead of running on. The ▶ button alone plays the whole video.
+  let playOneCue = -1;
+  let playOneArmed = false; // true once the (async) seek has landed inside the cue
 
   if (transcript.videoId) {
     void createYouTubePlayer(playerHost, transcript.videoId).then((p) => {
@@ -254,6 +260,11 @@ export function mountTranscriptSync(opts: {
   function setPlaying(on: boolean): void {
     playing = on;
     if (on) selectedCue = null; // playing hands the highlight back to the video clock
+    else {
+      // Any pause ends a one-shot sentence play; the ▶ button then plays through.
+      playOneCue = -1;
+      playOneArmed = false;
+    }
     playBtn.textContent = on ? "⏸" : "▶";
     if (player) {
       if (on) player.play();
@@ -272,6 +283,8 @@ export function mountTranscriptSync(opts: {
   playBtn.addEventListener("click", () => setPlaying(!playing));
   scrubber.addEventListener("input", () => {
     selectedCue = null; // scrubbing moves the video → drop the manual selection
+    playOneCue = -1; // …and cancels a one-shot sentence play
+    playOneArmed = false;
     seek(Number(scrubber.value));
   });
 
@@ -388,12 +401,28 @@ export function mountTranscriptSync(opts: {
   function seekToCue(cueIndex: number): void {
     if (cues.length === 0) return;
     const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
-    // Clicking a sentence moves the video there. When paused, also make it the
-    // active line immediately (no async-seek flicker); when playing, hand the
-    // highlight to the clock so it keeps following from the new position.
+    // Move the video there. When paused, also make it the active line immediately
+    // (no async-seek flicker); when playing, hand the highlight to the clock so it
+    // keeps following from the new position.
     selectedCue = playing ? null : i;
     seek(times[i]!.start);
     if (videoLooping) loopCue = i; // navigating re-pins the loop to the new line
+  }
+
+  /**
+   * Play ONE sentence in the video: seek to its start, play, and stop at its end
+   * (clicking a word). The clock owns the highlight while it plays; the just-
+   * played line stays highlighted when it stops. Distinct from the ▶ button,
+   * which plays the whole video through.
+   */
+  function playCueInVideo(cueIndex: number): void {
+    if (cues.length === 0) return;
+    const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
+    stopVoice(); // the video owns the speakers — no Serena chain/shadowing overlap
+    playOneCue = i;
+    playOneArmed = false; // arm only once the (async) seek lands inside the cue
+    seek(times[i]!.start);
+    setPlaying(true);
   }
 
   function updateVideoLoopBtn(): void {
@@ -402,6 +431,8 @@ export function mountTranscriptSync(opts: {
 
   function toggleVideoLoop(): void {
     videoLooping = !videoLooping;
+    playOneCue = -1; // loop and one-shot sentence-play are mutually exclusive
+    playOneArmed = false;
     if (videoLooping) {
       loopCue = currentCue(); // the selected (or playing) line
       seek(times[loopCue]!.start); // 🔂 deliberately moves the video to that line
@@ -558,6 +589,21 @@ export function mountTranscriptSync(opts: {
     // Video A/B loop: when the clock passes the pinned sentence's end, seek back.
     if (videoLooping && loopCue >= 0 && loopCue < times.length && shouldLoopBack(t, times[loopCue]!)) {
       seek(times[loopCue]!.start);
+    } else if (playing && playOneCue >= 0 && playOneCue < times.length) {
+      // One-shot sentence play (clicked a word): wait for the seek to land inside
+      // the cue, then stop at its end so playback doesn't run on into the next.
+      const bounds = times[playOneCue]!;
+      if (!playOneArmed) {
+        if (t >= bounds.start - 0.1 && t < bounds.end) playOneArmed = true;
+        paint(t);
+      } else if (shouldLoopBack(t, bounds)) {
+        const stopped = playOneCue;
+        setPlaying(false); // stop at the sentence end (clears playOne*)
+        selectedCue = stopped; // keep the just-played line highlighted
+        paint(currentTime());
+      } else {
+        paint(t);
+      }
     } else {
       paint(t);
     }
@@ -607,6 +653,7 @@ export function mountTranscriptSync(opts: {
       if (practiceVisible) togglePracticeBar();
     },
     seekToCue,
+    playCueInVideo,
     selectCue,
     cueForToken,
     nextCue() {
