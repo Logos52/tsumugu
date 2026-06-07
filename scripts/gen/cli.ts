@@ -72,6 +72,7 @@ import {
   planWords,
   buildWordManifest,
   validateWordManifest,
+  maxWordDurationSec,
   WORD_AUDIO_DIR,
   type WordSelectMode,
   type WordAudioManifest,
@@ -728,23 +729,53 @@ async function cmdWordAudio(opts: Record<string, string | boolean>): Promise<voi
   await mkdir(audioAbsDir, { recursive: true });
   const wavDir = join(audioAbsDir, ".wav-tmp");
 
-  let report: WorkerReport | null = null;
+  // Render with a duration-sanity retry: a bare single word can make the TTS
+  // hallucinate a runaway clip (e.g. 我 → 6 s). Such takes are re-rolled (each
+  // generation is independent) up to a few times before giving up on a word.
+  const rendered: WorkerReport["items"] = [];
+  const skipped: string[] = []; // accepted but still over-long after all retries
+  const failedWords: string[] = []; // worker errored on every attempt
+  const MAX_ATTEMPTS = 4;
   if (toRender.length > 0) {
     await mkdir(wavDir, { recursive: true });
-    const items = toRender.map((p, i) => ({
-      index: i,
-      text: p.word,
-      instruct: null,
-      outWav: join(wavDir, basename(p.audio).replace(/\.mp3$/, ".wav")),
+    let pending = toRender.map((p) => ({
+      word: p.word,
+      audio: p.audio,
+      wav: join(wavDir, basename(p.audio).replace(/\.mp3$/, ".wav")),
     }));
-    console.error(`Synthesizing ${items.length} word(s) via ${python} …`);
-    report = await runVoiceWorker(python, { model, voice, language, items });
-    for (const item of report.items) {
-      if (!item.ok) continue;
-      const mp3Abs = join(audioAbsDir, basename(item.outWav).replace(/\.wav$/, ".mp3"));
-      await runFfmpeg(ffmpegArgs(item.outWav, mp3Abs));
-      await rm(item.outWav, { force: true });
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS && pending.length > 0; attempt++) {
+      console.error(
+        `Synthesizing ${pending.length} word(s) via ${python}${attempt > 1 ? ` (retry ${attempt - 1} — over-long takes)` : ""} …`,
+      );
+      const rep = await runVoiceWorker(python, {
+        model,
+        voice,
+        language,
+        items: pending.map((p, i) => ({ index: i, text: p.word, instruct: null, outWav: p.wav })),
+      });
+      const byWav = new Map(rep.items.map((it) => [it.outWav, it]));
+      const stillBad: typeof pending = [];
+      for (const p of pending) {
+        const it = byWav.get(p.wav);
+        if (!it || !it.ok) {
+          stillBad.push(p);
+          continue;
+        }
+        const tooLong = (it.durationSec ?? Infinity) > maxWordDurationSec([...p.word].length);
+        if (tooLong && attempt < MAX_ATTEMPTS) {
+          await rm(p.wav, { force: true }); // re-roll this word next attempt
+          stillBad.push(p);
+          continue;
+        }
+        const mp3Abs = join(audioAbsDir, basename(p.audio));
+        await runFfmpeg(ffmpegArgs(p.wav, mp3Abs));
+        await rm(p.wav, { force: true });
+        rendered.push(it);
+        if (tooLong) skipped.push(p.word); // accepted the last take, but it's still long
+      }
+      pending = stillBad;
     }
+    for (const p of pending) failedWords.push(p.word); // worker errored on every attempt
     await rm(wavDir, { recursive: true, force: true });
   } else {
     console.error("Nothing to render — all selected words already exist (use --force to re-render).");
@@ -778,8 +809,6 @@ async function cmdWordAudio(opts: Record<string, string | boolean>): Promise<voi
     if (existsSync(join(manifestDir, p))) present.add(p);
   }
   const validation = validateWordManifest(manifest, present);
-  const rendered = report?.items.filter((i) => i.ok) ?? [];
-  const failures = (report?.items ?? []).filter((i) => !i.ok && i.error !== "empty text");
   const totalGen = rendered.reduce((s, i) => s + (i.genSec ?? 0), 0);
   const totalAudio = rendered.reduce((s, i) => s + (i.durationSec ?? 0), 0);
   const rtf = totalAudio > 0 ? totalGen / totalAudio : 0;
@@ -792,12 +821,13 @@ async function cmdWordAudio(opts: Record<string, string | boolean>): Promise<voi
       rendered.length
         ? `  generation: ${totalGen.toFixed(1)}s for ${totalAudio.toFixed(1)}s audio (RTF ${rtf.toFixed(2)})`
         : "  generation: nothing rendered (all skipped)",
+      skipped.length ? `  ⚠ ${skipped.length} word(s) still over-long after ${MAX_ATTEMPTS} attempts: ${skipped.slice(0, 8).join(" ")}` : "",
       `  audio dir: ${audioAbsDir}`,
-    ].join("\n"),
+    ].filter(Boolean).join("\n"),
   );
   const problems: string[] = [];
   if (!validation.ok) problems.push(`${validation.missing.length} missing file(s)`);
-  if (failures.length) problems.push(`${failures.length} render failure(s): ${failures.slice(0, 3).map((f) => `${f.error}`).join("; ")}`);
+  if (failedWords.length) problems.push(`${failedWords.length} render failure(s): ${failedWords.slice(0, 5).join(" ")}`);
   if (problems.length) {
     console.error(`\n✗ validation failed: ${problems.join(" · ")}`);
     process.exit(1);

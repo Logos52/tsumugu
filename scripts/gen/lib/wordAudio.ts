@@ -62,6 +62,15 @@ export function wordAudioPath(word: string, audioRelDir: string = WORD_AUDIO_DIR
   return `${audioRelDir.replace(/\/+$/, "")}/${sha1Hex(word).slice(0, 16)}.mp3`;
 }
 
+/**
+ * Plausible upper bound (seconds) for a word's clip. A bare single word can make
+ * the TTS hallucinate a runaway utterance (e.g. 我 → 6 s); anything longer than
+ * this for the character count is treated as a bad take and re-rendered.
+ */
+export function maxWordDurationSec(charCount: number): number {
+  return 2.0 + 0.7 * charCount;
+}
+
 export interface WordPlanItem {
   word: string;
   /** mp3 path relative to the manifest dir. */

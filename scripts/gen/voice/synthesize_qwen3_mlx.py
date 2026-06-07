@@ -69,6 +69,9 @@ def main() -> int:
     model_id = job.get("model") or "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16"
     voice = job.get("voice") or "Serena"
     language = job.get("language") or "Chinese"
+    # Optional sampling temperature (default 0.9). Lower = steadier, fewer runaway
+    # hallucinations on short single-word inputs.
+    temperature = job.get("temperature")
     items = job["items"]
 
     # Import heavy deps lazily so a `--help` / arg error never pays the cost, and
@@ -102,14 +105,10 @@ def main() -> int:
             continue
         try:
             t0 = time.perf_counter()
-            chunks = list(
-                model.generate_custom_voice(
-                    text=text,
-                    speaker=voice,
-                    language=language,
-                    instruct=instruct,
-                )
-            )
+            kwargs = dict(text=text, speaker=voice, language=language, instruct=instruct)
+            if temperature is not None:
+                kwargs["temperature"] = float(temperature)
+            chunks = list(model.generate_custom_voice(**kwargs))
             gen_sec = time.perf_counter() - t0
             audio = np.concatenate([np.asarray(c.audio) for c in chunks])
             sr = getattr(chunks[0], "sample_rate", 24000)

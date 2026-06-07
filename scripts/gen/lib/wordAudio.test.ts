@@ -6,6 +6,7 @@ import {
   planWords,
   buildWordManifest,
   validateWordManifest,
+  maxWordDurationSec,
   WORD_AUDIO_SCHEMA,
   WORD_AUDIO_DIR,
   type WordAudioManifest,
@@ -40,6 +41,15 @@ describe("wordAudioPath", () => {
     expect(a.startsWith(`${WORD_AUDIO_DIR}/`)).toBe(true);
     expect(a.endsWith(".mp3")).toBe(true);
     expect(wordAudioPath("世界")).not.toBe(a); // distinct words → distinct files
+  });
+});
+
+describe("maxWordDurationSec", () => {
+  it("grows with length and flags clear runaways (我 → 6s is way over the 1-char cap)", () => {
+    expect(maxWordDurationSec(1)).toBeCloseTo(2.7, 5);
+    expect(maxWordDurationSec(2)).toBeCloseTo(3.4, 5);
+    expect(6.0 > maxWordDurationSec(1)).toBe(true); // a 6s single-char clip is rejected
+    expect(0.8 > maxWordDurationSec(1)).toBe(false); // a normal 0.8s clip is fine
   });
 });
 
