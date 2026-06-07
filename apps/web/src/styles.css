@@ -1115,3 +1115,48 @@ html {
     scroll-behavior: auto;
   }
 }
+
+/* Keyboard focus on a word (arrow / tab nav) gets a clear ring. */
+.tsg-token:focus-visible {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 1px;
+}
+
+/* A colored top edge gives the review flashcard a bit more presence. */
+.tsg-card {
+  border-top: 3px solid var(--tsg-accent);
+}
+
+/* ── print: a clean reading sheet (drop chrome, player, highlights) ────────── */
+@media print {
+  #app-header,
+  #app-status,
+  .tsg-transcript,
+  .tsg-popup {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  #app-root {
+    padding: 0;
+  }
+  .tsg-reader-text {
+    max-width: none;
+    margin: 0;
+    font-size: 12pt;
+    line-height: 1.9;
+    letter-spacing: 0;
+    color: #000;
+  }
+  /* B&W-friendly: drop status fills / underlines / active states. */
+  .tsg-reader-text [class*="tsg-status-"],
+  .tsg-cue-active {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .tsg-active {
+    outline: none !important;
+  }
+}
