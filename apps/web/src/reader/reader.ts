@@ -24,6 +24,7 @@ import { CLS, toneClass } from "../ui/classes.js";
 import { mountTranscriptSync, type TranscriptController } from "./transcript.js";
 import { createVoicePlayer, type VoicePlayer } from "../voice/player.js";
 import { createWordAudioPlayer, type WordAudioPlayer } from "../voice/wordAudio.js";
+import { createSectionAudioPlayer, type SectionAudioPlayer } from "../voice/sectionAudio.js";
 
 /** Labels shown on the grading row, in order; each maps via `hotkeyToStatus`. */
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
@@ -116,6 +117,11 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       ? createWordAudioPlayer({ vault: app.vault, binding: app.wordAudio, speak: (t) => app.speak(t) })
       : null;
 
+  const sectionAudioPlayer: SectionAudioPlayer | null =
+    app.transcript && app.sectionAudio && app.vault
+      ? createSectionAudioPlayer({ vault: app.vault, binding: app.sectionAudio, speak: (t) => app.speak(t) })
+      : null;
+
   const transcriptCtl: TranscriptController | null = app.transcript
     ? mountTranscriptSync({
         host: container,
@@ -128,6 +134,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         onSlowToggle: (slow) => app.updateSettings({ voiceSlow: slow }),
         vault: app.vault,
         voiceNotes: app.voiceNotes,
+        sectionPlayer: sectionAudioPlayer,
+        speak: (t) => app.speak(t),
       })
     : null;
 
@@ -639,6 +647,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       transcriptCtl?.destroy();
       voicePlayer?.destroy();
       wordAudioPlayer?.destroy();
+      sectionAudioPlayer?.destroy();
       closePopup();
       clear(root);
     },

@@ -27,6 +27,7 @@ import { readReadingFiles, classifyReadingDocs } from "./loadReading.js";
 import { parseVoiceNotes, bindVoiceNotes, type VoiceNotesBinding } from "./voice/manifest.js";
 import { buildVoiceNotesDeck } from "./voice/ankiDeck.js";
 import { parseWordAudio, bindWordAudio, type WordAudioBinding } from "./voice/wordAudio.js";
+import { parseSectionAudio, bindSectionAudio, type SectionAudioBinding } from "./voice/sectionAudio.js";
 
 const $ = <T extends HTMLElement>(sel: string): T | null =>
   document.querySelector<T>(sel);
@@ -230,6 +231,26 @@ async function discoverWordAudio(vault: VaultIO, readingPath: string): Promise<W
   }
 }
 
+/** Discover a `<slug>.section-audio.json` sidecar (per-section summary audio). */
+async function discoverSectionAudio(
+  vault: VaultIO,
+  readingPath: string,
+  sectionCount: number,
+): Promise<SectionAudioBinding | null> {
+  if (sectionCount === 0) return null;
+  const slugBase = readingPath.replace(/\.prepared\.json$/, "").replace(/\.json$/, "");
+  const lastSlash = slugBase.lastIndexOf("/");
+  const baseDir = lastSlash >= 0 ? slugBase.slice(0, lastSlash) : "";
+  try {
+    const raw = await vault.readText(`${slugBase}.section-audio.json`);
+    if (!raw) return null;
+    const manifest = parseSectionAudio(JSON.parse(raw), sectionCount);
+    return manifest ? bindSectionAudio(manifest, baseDir) : null;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Load a reading discovered in the dev vault (its `.prepared.json` + sibling
  * `.cues.json`) and remember it, so it auto-restores on the next page-load.
@@ -260,6 +281,7 @@ async function loadVaultReading(path: string): Promise<void> {
   // paths in it resolve against the manifest's directory (this reading's dir).
   app.setVoiceNotes(await discoverVoiceNotes(vault, path, payload.transcript?.cues.length ?? 0));
   app.setWordAudio(await discoverWordAudio(vault, path));
+  app.setSectionAudio(await discoverSectionAudio(vault, path, payload.transcript?.sections?.length ?? 0));
   try {
     localStorage.setItem(LAST_READING_KEY, path);
   } catch {

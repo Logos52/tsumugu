@@ -76,6 +76,15 @@ import {
   type WordSelectMode,
   type WordAudioManifest,
 } from "./lib/wordAudio.js";
+import {
+  selectSections,
+  planSections,
+  buildSectionManifest,
+  validateSectionManifest,
+  SECTION_AUDIO_DIR,
+  type SectionAudioNote,
+  type SectionAudioManifest,
+} from "./lib/sectionAudio.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -795,6 +804,115 @@ async function cmdWordAudio(opts: Record<string, string | boolean>): Promise<voi
   }
 }
 
+async function cmdSectionAudio(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("section-audio needs --in <…cues.json>");
+  type CuesDoc = { sections?: { summary?: string }[]; lang?: string };
+  const raw = await readJson<CuesDoc>(inPath);
+  const sections = raw.sections ?? [];
+  if (sections.length === 0) fail(`no sections in ${inPath} (run the transcript commentary fill first)`);
+  const lang = str(opts, "lang") ?? raw.lang ?? "zh-Hant";
+  const slug = deriveSlug(inPath);
+  const model = str(opts, "model") ?? DEFAULT_MODEL;
+  const voice = str(opts, "voice") ?? DEFAULT_VOICE;
+  const language = str(opts, "language") ?? DEFAULT_LANGUAGE;
+  const force = flag(opts, "force");
+  const dryRun = flag(opts, "dry-run");
+
+  const manifestDir = dirname(inPath);
+  const manifestPath = join(manifestDir, `${slug}.section-audio.json`);
+  const outArg = str(opts, "out");
+  const audioAbsDir = outArg ? resolvePath(outArg) : join(manifestDir, SECTION_AUDIO_DIR);
+  let audioRelDir = relative(manifestDir, audioAbsDir).replace(/\\/g, "/");
+  if (!audioRelDir || audioRelDir.startsWith("..")) audioRelDir = audioAbsDir.replace(/\\/g, "/");
+
+  let indices = selectSections(sections);
+  const limit = num(opts, "limit");
+  if (limit !== undefined) indices = indices.slice(0, Math.max(0, limit));
+  if (indices.length === 0) fail("no sections with a summary to render");
+
+  const existing = await presentMp3s(audioAbsDir, audioRelDir);
+  const plans = planSections(sections, indices, audioRelDir, existing, force);
+  const toRender = plans.filter((p) => p.render);
+
+  if (dryRun) {
+    console.log(`section-audio plan (dry-run) — ${slug} [${lang}]`);
+    console.log(`  manifest : ${manifestPath}`);
+    console.log(`  audio dir: ${audioAbsDir}  (manifest-relative: ${audioRelDir})`);
+    console.log(`  sections : ${indices.length} with a summary`);
+    console.log(`  to render: ${toRender.length}  (skipping ${indices.length - toRender.length} present)`);
+    console.error(`\n(dry-run — model not loaded, nothing written)`);
+    return;
+  }
+
+  if (spawnSync("ffmpeg", ["-version"], { stdio: "ignore" }).status !== 0) {
+    fail("ffmpeg not found on PATH — install it (e.g. `brew install ffmpeg`). See personal/voice/README.md.");
+  }
+  const python = resolveVoicePython();
+  await mkdir(audioAbsDir, { recursive: true });
+  const wavDir = join(audioAbsDir, ".wav-tmp");
+
+  let report: WorkerReport | null = null;
+  if (toRender.length > 0) {
+    await mkdir(wavDir, { recursive: true });
+    const items = toRender.map((p) => ({
+      index: p.index,
+      text: p.text,
+      instruct: null,
+      outWav: join(wavDir, basename(p.audio).replace(/\.mp3$/, ".wav")),
+    }));
+    console.error(`Synthesizing ${items.length} section summary clip(s) via ${python} …`);
+    report = await runVoiceWorker(python, { model, voice, language, items });
+    for (const item of report.items) {
+      if (!item.ok) continue;
+      const mp3Abs = join(audioAbsDir, basename(item.outWav).replace(/\.wav$/, ".mp3"));
+      await runFfmpeg(ffmpegArgs(item.outWav, mp3Abs));
+      await rm(item.outWav, { force: true });
+    }
+    await rm(wavDir, { recursive: true, force: true });
+  } else {
+    console.error("Nothing to render — all section summaries already exist (use --force).");
+  }
+
+  const notes: SectionAudioNote[] = [];
+  for (const p of plans) {
+    if (existsSync(join(manifestDir, p.audio))) notes.push({ sectionIndex: p.index, audio: p.audio });
+  }
+  let existingManifest: SectionAudioManifest | null = null;
+  if (existsSync(manifestPath)) {
+    try {
+      existingManifest = await readJson<SectionAudioManifest>(manifestPath);
+    } catch {
+      existingManifest = null;
+    }
+  }
+  const manifest = buildSectionManifest({
+    existing: existingManifest,
+    lang,
+    voice,
+    engine: `${model}@mlx-audio`,
+    generatedAt: new Date().toISOString(),
+    notes,
+  });
+  await writeJson(manifestPath, manifest);
+
+  const present = new Set<string>();
+  for (const n of manifest.notes) if (existsSync(join(manifestDir, n.audio))) present.add(n.audio);
+  const validation = validateSectionManifest(manifest, present);
+  const rendered = report?.items.filter((i) => i.ok) ?? [];
+  const failures = (report?.items ?? []).filter((i) => !i.ok && i.error !== "empty text");
+
+  console.error(
+    `\n✓ section-audio: ${manifest.notes.length} summary clip(s) → ${manifestPath}\n  rendered this run: ${rendered.length}  ·  audio dir: ${audioAbsDir}`,
+  );
+  const problems: string[] = [];
+  if (!validation.ok) problems.push(`${validation.missing.length} missing file(s)`);
+  if (failures.length) problems.push(`${failures.length} render failure(s)`);
+  if (problems.length) {
+    console.error(`\n✗ validation failed: ${problems.join(" · ")}`);
+    process.exit(1);
+  }
+}
+
 function usage(): void {
   console.log(
     [
@@ -819,6 +937,8 @@ function usage(): void {
       "  pnpm gen voice-notes --in <prepared.cues.json> [--voice Serena] [--model <id>] [--out audio/<slug>/]   (local OSS batch TTS → mp3 per cue + voice-notes.json)",
       "                    [--limit N] [--cues 73,386,647] [--slow all|over:30|cues:73,647] [--slow-instruct \"…\"] [--force] [--dry-run]",
       "  pnpm gen word-audio --in <prepared.json> [--words all|glossary] [--voice Serena] [--model <id>] [--out audio/words/]   (per-word Serena mp3 for hover 🔊)",
+      "                    [--limit N] [--force] [--dry-run]",
+      "  pnpm gen section-audio --in <…cues.json> [--voice Serena] [--model <id>] [--out audio/sections/]   (Serena mp3 per section summary)",
       "                    [--limit N] [--force] [--dry-run]",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
@@ -853,6 +973,8 @@ async function main(): Promise<void> {
       return cmdVoiceNotes(opts);
     case "word-audio":
       return cmdWordAudio(opts);
+    case "section-audio":
+      return cmdSectionAudio(opts);
     case "help":
     case undefined:
       return usage();

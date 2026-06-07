@@ -26,6 +26,7 @@ import {
 import type { TranscriptDoc } from "./reader/sync.js";
 import type { VoiceNotesBinding } from "./voice/manifest.js";
 import type { WordAudioBinding } from "./voice/wordAudio.js";
+import type { SectionAudioBinding } from "./voice/sectionAudio.js";
 
 /** Reader/review display preferences. */
 export interface AppSettings {
@@ -101,6 +102,8 @@ export class AppState {
   voiceNotes: VoiceNotesBinding | null;
   /** Optional per-word audio bound to the current reading (M3 hover 🔊). */
   wordAudio: WordAudioBinding | null;
+  /** Optional per-section summary audio bound to the current reading. */
+  sectionAudio: SectionAudioBinding | null;
   settings: AppSettings;
   vault: VaultIO | null;
   audio: AudioPort | null;
@@ -116,6 +119,7 @@ export class AppState {
     transcript?: TranscriptDoc | null;
     voiceNotes?: VoiceNotesBinding | null;
     wordAudio?: WordAudioBinding | null;
+    sectionAudio?: SectionAudioBinding | null;
     settings?: Partial<AppSettings>;
     vault?: VaultIO | null;
     audio?: AudioPort | null;
@@ -127,6 +131,7 @@ export class AppState {
     this.transcript = opts.transcript ?? null;
     this.voiceNotes = opts.voiceNotes ?? null;
     this.wordAudio = opts.wordAudio ?? null;
+    this.sectionAudio = opts.sectionAudio ?? null;
     this.settings = { ...DEFAULT_SETTINGS, ...opts.settings };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
@@ -195,6 +200,7 @@ export class AppState {
     this.transcript = null;
     this.voiceNotes = null;
     this.wordAudio = null;
+    this.sectionAudio = null;
     this.recordContentSeen();
     this.emit("change");
   }
@@ -214,6 +220,12 @@ export class AppState {
   /** Bind (or clear) per-word audio for the current reading (M3 hover 🔊). */
   setWordAudio(wordAudio: WordAudioBinding | null): void {
     this.wordAudio = wordAudio;
+    this.emit("change");
+  }
+
+  /** Bind (or clear) section-summary audio for the current reading. */
+  setSectionAudio(sectionAudio: SectionAudioBinding | null): void {
+    this.sectionAudio = sectionAudio;
     this.emit("change");
   }
 

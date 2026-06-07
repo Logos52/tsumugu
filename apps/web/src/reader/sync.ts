@@ -24,8 +24,10 @@ export interface TranscriptSection {
   start: string;
   end: string;
   title?: string;
-  /** A short "what's being talked about here" summary. */
+  /** A short "what's being talked about here" summary (in the reading's language). */
   summary: string;
+  /** Optional translation of the summary (revealed on the `譯` toggle). */
+  tr?: string;
 }
 
 /** An ingested transcript bound to the current content, with an optional video. */

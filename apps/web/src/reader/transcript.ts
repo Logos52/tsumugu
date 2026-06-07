@@ -34,6 +34,7 @@ import {
   type PracticeBar,
   type PracticeBarFactory,
 } from "../voice/practiceBar.js";
+import type { SectionAudioPlayer } from "../voice/sectionAudio.js";
 
 export interface TranscriptController {
   destroy(): void;
@@ -106,6 +107,10 @@ export function mountTranscriptSync(opts: {
   voiceNotes?: VoiceNotesBinding | null;
   /** Practice-bar factory (injectable for tests; defaults to the real wavesurfer one). */
   createPracticeBar?: PracticeBarFactory;
+  /** Optional section-summary audio player (🔊 on the "now talking about…" line). */
+  sectionPlayer?: SectionAudioPlayer | null;
+  /** Web Speech fallback (for the section 🔊 when no audio clip exists). */
+  speak?: (text: string) => void;
 }): TranscriptController {
   const { host, tokens, transcript, tokenEls } = opts;
   const voicePlayer = opts.player ?? null;
@@ -187,8 +192,14 @@ export function mountTranscriptSync(opts: {
     if (r) pSpeed.textContent = `${r}×`;
   });
   panel.append(practicePanel);
-  // "Now talking about…" — the active section's summary (shown when present).
-  const sectionEl = el("div", { class: CLS.section });
+  // "Now talking about…" — the active section's summary (in the reading's
+  // language), with a 🔊 to hear it and an English line under the 譯 toggle.
+  const sectionPlayer = opts.sectionPlayer ?? null;
+  const sectionPlayBtn = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this section's summary" });
+  const sectionTextEl = el("span");
+  const sectionTrEl = el("div", { class: CLS.sectionTr });
+  sectionPlayBtn.addEventListener("click", () => playCurrentSectionVoice());
+  const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionTextEl, sectionTrEl);
   if (sections.length === 0) sectionEl.style.display = "none";
   panel.append(sectionEl);
   const trEl = el("div", { class: CLS.translation });
@@ -274,7 +285,9 @@ export function mountTranscriptSync(opts: {
     if (showTr) trEl.textContent = lastCue >= 0 ? (cues[lastCue]?.tr ?? "— (no translation yet)") : "";
     if (sections.length) {
       const si = cueIndexAtTime(sections, t, sectionTimes);
-      sectionEl.textContent = si >= 0 ? sections[si]!.summary : "";
+      activeSection = si;
+      sectionTextEl.textContent = si >= 0 ? sections[si]!.summary : "";
+      sectionTrEl.textContent = showTr && si >= 0 ? (sections[si]!.tr ?? "") : "";
     }
   }
 
@@ -288,6 +301,15 @@ export function mountTranscriptSync(opts: {
   // ── sentence navigation + video loop (M2.2) ───────────────────────────────
   let videoLooping = false;
   let loopCue = -1;
+  let activeSection = -1; // the section under the current time (for the 🔊)
+
+  function playCurrentSectionVoice(): void {
+    if (activeSection < 0) return;
+    pauseVideoForVoice();
+    const summary = sections[activeSection]?.summary ?? "";
+    if (sectionPlayer) sectionPlayer.playSection(activeSection, summary);
+    else if (summary) opts.speak?.(summary);
+  }
 
   function cueForToken(tokenIndex: number): number {
     for (let c = 0; c < ranges.length; c++) {

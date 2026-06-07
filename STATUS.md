@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (503 public tests; 698 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (519 public tests; 714 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -54,7 +54,7 @@ Building the Migaku-style reading layer (zhuyin ruby above, colored unknown-unde
 
 - **Agent fill step — proven end-to-end.** Filled the `why-friendship-differs` transcript skeleton (Mandarin Corner, `2idX7w0gs4k`) via a 17-agent parallel fill workflow: 660 glossary entries → full `PrebakedEntry` (gloss, zhuyin reading, pos, level, leveled Traditional explanation, source examples); `gen verify --fix` → **"✓ verified — ready to read"** (OpenCC-clean; CI 80% is the transcript's difficulty, not a gate). Findings: `gen verify --fix` OpenCC-normalizes tokens too (a source `了解`→`瞭解` then reads as unknown unless the store is s2twp-normalized); `s2twp` over-localizes a few terms (e.g. `連接詞→連線詞`).
 
-The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **503 public + 195 private tests green.**
+The Migaku-style reading layer + two-way sync arc is **complete** (the brief's three surfaces + bidirectional Migaku sync), now with a usable local reading experience on top. **519 public + 195 private tests green.**
 
 ## Voice notes — Phase 8 M1 (done — 2026-06-06)
 
@@ -143,6 +143,24 @@ playback all move it. 🌊 now toggles the bar's visibility. Loop moved to the *
 the Audacity-`L` no longer collides with `l` = next-word; `[` / `]` still nudge the loop edges. The ▶ / 🔁
 pause the video first so audio doesn't overlap. Tests updated (`practiceBar.setCue`, auto-show, follow-on-seek,
 `l` stays next-word).
+
+## Section summaries in the target language + summary audio (2026-06-07)
+
+The "now talking about…" section summaries were filled in English; the commentary prompt actually wants
+monolingual target-language text. Fixed for immersion: summaries now read in **繁體中文**, with English on the
+**譯** toggle, and each playable in **Serena**.
+
+- **Content:** the 18 `sections[]` in `why-friendship-differs.prepared.cues.json` rewritten — `summary` →
+  leveled Traditional Chinese (OpenCC-checked; the only s2twp hits were its own over-localizations
+  攀岩→攀巖 / 對象→物件, kept as authored), English preserved as `tr`. `TranscriptSection.tr?` added (`sync.ts`).
+- **Reader:** the section line shows the Chinese `summary` + a 🔊; when **譯** is on it also shows the English
+  `tr` (`.tsg-section-tr`). The 🔊 plays the active section's summary via a `voice/sectionAudio.ts` player
+  (blob+LRU, Web-Speech fallback), discovered into `AppState.sectionAudio` (`main.ts`).
+- **Generation:** `gen section-audio --in <…cues.json>` (`scripts/gen/lib/sectionAudio.ts` + the shared
+  worker) → `<slug>.section-audio.json` (`tsumugu/section-audio@1`, sectionIndex → mp3). Real run: **18
+  summary clips** (Serena), under gitignored `audio/sections/`.
+- **Tests (+16):** `sectionAudio` lib (5), `voice/sectionAudio` parse/bind/player (7), section UI + 譯 + 🔊
+  (4). No new deps; engine untouched.
 
 ## Run it
 

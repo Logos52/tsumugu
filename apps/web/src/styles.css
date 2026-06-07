@@ -635,6 +635,15 @@ button {
 .tsg-section:empty {
   display: none;
 }
+/* English translation of the section summary (shown under the 譯 toggle). */
+.tsg-section-tr {
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+  color: var(--tsg-ink-soft, var(--ctp-subtext));
+}
+.tsg-section-tr:empty {
+  display: none;
+}
 /* Tokens of the cue currently playing — distinct from status/tone color. */
 .tsg-cue-active {
   background: color-mix(in oklab, var(--ctp-blue) 16%, var(--tsg-surface));
