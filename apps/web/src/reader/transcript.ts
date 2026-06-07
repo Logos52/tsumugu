@@ -242,12 +242,13 @@ export function mountTranscriptSync(opts: {
   sectionLoopBtn.addEventListener("click", () => toggleSectionLoop());
   const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionLoopBtn, sectionTextEl, sectionTrEl);
   if (sections.length === 0) sectionEl.style.display = "none";
-  panel.append(sectionEl);
   const trEl = el("div", { class: CLS.translation });
   let showTr = opts.showTranslation ?? false;
   trEl.style.display = showTr ? "block" : "none";
   trBtn.classList.toggle(CLS.btnActive, showTr);
-  panel.append(trEl);
+  // Order under the player: Serena practice bar → this line's English translation
+  // → (very bottom) the section summary.
+  panel.append(trEl, sectionEl);
   host.prepend(panel);
   // Layout (split vs subtitle) is applied by the reader from settings.
 
