@@ -19,6 +19,7 @@ A single JSON file conforming to **`tsumugu/prepared-content@1`** (see `packages
 4. **[zh-Hant] OpenCC guard.** Output MUST be Traditional. After drafting, normalize Simplified→Traditional (OpenCC) and re-check. Never emit Simplified (发展→發展, 热闹→熱鬧, 国家→國家…).
 5. **[vi] Bridge.** For Sino-Vietnamese words, include a `bridge` box in the `PrebakedEntry` (Hanzi etymon + Hán-Việt reading + morpheme breakdown), `confidence` flagged, `corrected:false`. Seed from the user's known Hanzi when possible.
 6. **Ground, don't fabricate.** Base glosses/levels on the dictionary + leveling data. Mark uncertain etymology/bridge with low `confidence`. Do not invent readings.
+7. **Mis-segmented tokens — no jargon.** Prefer correct word boundaries so non-words don't become tokens (don't glue 然後+他 → 然後他, or split 裡面 → 面+來). If one slips through, do NOT tag the `gloss` with reader-facing jargon like "(segmentation artifact)": set `gloss` to the plain meaning or a short two-word breakdown (e.g. `'then' + 'we'`, or `""` if none), and use the target-language `explanation` to note briefly that it is two words run together / a split fragment (e.g. 斷詞把「然後」和「他」連在一起了).
 
 ## Output
 Write to the path the script gives you (typically `Inbox/<lang>/<slug>.prepared.json`). Then hand off to **`verify.md`** for the re-score + OpenCC pass before the user reads it.
