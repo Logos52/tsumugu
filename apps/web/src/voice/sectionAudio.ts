@@ -68,7 +68,9 @@ export function selectSectionSrc(binding: SectionAudioBinding, sectionIndex: num
 
 export interface SectionAudioPlayer {
   /** Play a section's summary clip; `fallbackText` is spoken if there's no clip. */
-  playSection(sectionIndex: number, fallbackText: string): void;
+  playSection(sectionIndex: number, fallbackText: string, opts?: { loop?: boolean }): void;
+  /** Stop playback and clear any loop (the 🔄 commentary loop's off switch). */
+  stop(): void;
   destroy(): void;
 }
 
@@ -121,9 +123,10 @@ export function createSectionAudioPlayer(deps: {
   }
 
   return {
-    playSection(sectionIndex, fallbackText) {
+    playSection(sectionIndex, fallbackText, opts) {
       token++;
       const tk = token;
+      const loop = !!opts?.loop;
       const src = selectSectionSrc(binding, sectionIndex);
       if (!src) {
         fallback(fallbackText);
@@ -136,14 +139,21 @@ export function createSectionAudioPlayer(deps: {
           return;
         }
         audio.src = url;
+        audio.loop = loop;
         audio.playbackRate = 1;
         void audio.play().catch(() => {
           if (tk === token) fallback(fallbackText);
         });
       });
     },
+    stop() {
+      token++;
+      audio.loop = false;
+      audio.pause();
+    },
     destroy() {
       token++;
+      audio.loop = false;
       audio.pause();
       for (const u of cache.values()) URL.revokeObjectURL(u);
       cache.clear();

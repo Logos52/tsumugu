@@ -96,6 +96,7 @@ function mount(opts: {
   vault?: VaultIO | null;
   voiceNotes?: VoiceNotesBinding | null;
   createPracticeBar?: PracticeBarFactory;
+  onToggleTranslation?: () => void;
 }) {
   const host = document.createElement("div");
   const tokenEls = tokens.map(() => document.createElement("span"));
@@ -110,6 +111,7 @@ function mount(opts: {
     ...(opts.vault !== undefined ? { vault: opts.vault } : {}),
     ...(opts.voiceNotes !== undefined ? { voiceNotes: opts.voiceNotes } : {}),
     ...(opts.createPracticeBar ? { createPracticeBar: opts.createPracticeBar } : {}),
+    ...(opts.onToggleTranslation ? { onToggleTranslation: opts.onToggleTranslation } : {}),
   });
   return { host, tokenEls, ctl };
 }
@@ -154,6 +156,33 @@ describe("transcript voice transport + shadowing wiring", () => {
     expect(calls[1]![0]).toBe("playFrom");
     expect(calls[1]![1]).toBe(0);
     expect(calls.some((c) => c[0] === "stop")).toBe(true);
+    ctl.destroy();
+  });
+
+  it("⏩ doubles as its own stop: play-through, then a second click stops it", () => {
+    const calls: Call[] = [];
+    const { host, ctl } = mount({ player: fakePlayer(calls) });
+    const from = btn(host, "⏩")!;
+    from.click(); // start the play-through (the fake never fires onDone)
+    expect(calls.at(-1)![0]).toBe("playFrom");
+    expect(from.classList.contains(CLS.btnActive)).toBe(true);
+    from.click(); // already chaining → stops
+    expect(calls.some((c) => c[0] === "stop")).toBe(true);
+    expect(from.classList.contains(CLS.btnActive)).toBe(false);
+    ctl.destroy();
+  });
+
+  it("the 譯 transport button fires onToggleTranslation and reflects translation state", () => {
+    const flips: number[] = [];
+    const { host, ctl } = mount({ onToggleTranslation: () => flips.push(1) });
+    const t = btn(host, "譯")!;
+    expect(t.classList.contains(CLS.btnActive)).toBe(false); // hidden by default
+    t.click();
+    expect(flips.length).toBe(1); // the host owns the setting; we just request a flip
+    ctl.setTranslationVisible(true); // host echoes the new setting back
+    expect(t.classList.contains(CLS.btnActive)).toBe(true);
+    ctl.setTranslationVisible(false);
+    expect(t.classList.contains(CLS.btnActive)).toBe(false);
     ctl.destroy();
   });
 

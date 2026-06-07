@@ -43,6 +43,8 @@ const sectionText = (host: HTMLElement): string => host.querySelector(`.${CLS.se
 const sectionTr = (host: HTMLElement): string => host.querySelector(`.${CLS.sectionTr}`)!.textContent ?? "";
 const sectionPlayBtn = (host: HTMLElement): HTMLButtonElement =>
   [...host.querySelectorAll<HTMLButtonElement>(`.${CLS.section} .${CLS.btn}`)].find((b) => b.textContent === "🔊")!;
+const sectionLoopBtn = (host: HTMLElement): HTMLButtonElement =>
+  [...host.querySelectorAll<HTMLButtonElement>(`.${CLS.section} .${CLS.btn}`)].find((b) => b.textContent === "🔄")!;
 
 describe("transcript section summaries (zh-Hant) + 🔊", () => {
   it("shows the active section's summary in the reading's language", () => {
@@ -69,12 +71,35 @@ describe("transcript section summaries (zh-Hant) + 🔊", () => {
     const calls: Array<[number, string]> = [];
     const fakePlayer: SectionAudioPlayer = {
       playSection: (i, fb) => calls.push([i, fb]),
+      stop: () => {},
       destroy: () => {},
     };
     const { host, ctl } = mount({ sectionPlayer: fakePlayer });
     scrub(host, 4); // section 1 active
     sectionPlayBtn(host).click();
     expect(calls).toEqual([[1, "第二段摘要"]]);
+    ctl.destroy();
+  });
+
+  it("the section 🔄 loops the active commentary clip, and toggles off → stop()", () => {
+    const calls: Array<[number, string, { loop?: boolean } | undefined]> = [];
+    let stops = 0;
+    const fakePlayer: SectionAudioPlayer = {
+      playSection: (i, fb, o) => calls.push([i, fb, o]),
+      stop: () => {
+        stops++;
+      },
+      destroy: () => {},
+    };
+    const { host, ctl } = mount({ sectionPlayer: fakePlayer });
+    scrub(host, 4); // section 1 active
+    const loop = sectionLoopBtn(host);
+    loop.click(); // start the loop
+    expect(calls.at(-1)).toEqual([1, "第二段摘要", { loop: true }]);
+    expect(loop.classList.contains(CLS.btnActive)).toBe(true);
+    loop.click(); // stop it
+    expect(stops).toBe(1);
+    expect(loop.classList.contains(CLS.btnActive)).toBe(false);
     ctl.destroy();
   });
 

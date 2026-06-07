@@ -113,6 +113,8 @@ export function mountTranscriptSync(opts: {
   sectionPlayer?: SectionAudioPlayer | null;
   /** Web Speech fallback (for the section 🔊 when no audio clip exists). */
   speak?: (text: string) => void;
+  /** Flip the shared "show English translation" setting (the 譯 transport button). */
+  onToggleTranslation?: () => void;
 }): TranscriptController {
   const { host, tokens, transcript, tokenEls } = opts;
   const voicePlayer = opts.player ?? null;
@@ -144,20 +146,29 @@ export function mountTranscriptSync(opts: {
   let shadow: ShadowState = SHADOW_IDLE;
   let shadowBtn: HTMLButtonElement | null = null;
   let practiceBtn: HTMLButtonElement | null = null;
+  // The ⏩ play-through (every line in Serena's voice) doubles as its own stop,
+  // like the video's play/pause; `chaining` lights the button while it runs.
+  let voiceFromBtn: HTMLButtonElement | null = null;
+  let chaining = false;
   // Loop the current sentence on the video/scrubber (works without voice notes).
   const videoLoopBtn = el("button", { class: CLS.btn, type: "button", text: "🔂", title: "Loop this sentence on the video" });
   videoLoopBtn.addEventListener("click", () => toggleVideoLoop());
-  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel, videoLoopBtn];
+  // Reveal the English translation (off by default); mirrors the toolbar 譯 + `t`,
+  // surfaced right in the reader transport where the eye already is.
+  const trBtn = el("button", { class: CLS.btn, type: "button", text: "譯", title: "Show English translation" });
+  trBtn.addEventListener("click", () => opts.onToggleTranslation?.());
+  const transportChildren: (HTMLElement | null)[] = [playBtn, scrubber, timeLabel, videoLoopBtn, trBtn];
   if (voicePlayer) {
     const vPlay = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this line's voice note" });
-    const vFrom = el("button", { class: CLS.btn, type: "button", text: "⏩", title: "Play voice notes from here" });
+    const vFrom = el("button", { class: CLS.btn, type: "button", text: "⏩", title: "Play through every line in Serena's voice (click again to stop)" });
+    voiceFromBtn = vFrom;
     const vStop = el("button", { class: CLS.btn, type: "button", text: "⏹", title: "Stop voice" });
     const vSlow = el("button", { class: CLS.btn, type: "button", text: "🐢", title: "Slow voice (slow take, else 0.85×)" });
     if (slow) vSlow.classList.add(CLS.btnActive);
     const vShadow = el("button", { class: CLS.btn, type: "button", text: "跟讀", title: "Shadowing: hear → repeat → Space to advance (Esc exits)" });
     shadowBtn = vShadow;
     vPlay.addEventListener("click", () => playCurrentCueVoice());
-    vFrom.addEventListener("click", () => playFromCurrentVoice());
+    vFrom.addEventListener("click", () => (chaining ? stopVoice() : playFromCurrentVoice()));
     vStop.addEventListener("click", () => stopVoice());
     vSlow.addEventListener("click", () => {
       slow = !slow;
@@ -198,15 +209,18 @@ export function mountTranscriptSync(opts: {
   // language), with a 🔊 to hear it and an English line under the 譯 toggle.
   const sectionPlayer = opts.sectionPlayer ?? null;
   const sectionPlayBtn = el("button", { class: CLS.btn, type: "button", text: "🔊", title: "Play this section's summary" });
+  const sectionLoopBtn = el("button", { class: CLS.btn, type: "button", text: "🔄", title: "Loop this section's commentary (click again to stop)" });
   const sectionTextEl = el("span");
   const sectionTrEl = el("div", { class: CLS.sectionTr });
   sectionPlayBtn.addEventListener("click", () => playCurrentSectionVoice());
-  const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionTextEl, sectionTrEl);
+  sectionLoopBtn.addEventListener("click", () => toggleSectionLoop());
+  const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionLoopBtn, sectionTextEl, sectionTrEl);
   if (sections.length === 0) sectionEl.style.display = "none";
   panel.append(sectionEl);
   const trEl = el("div", { class: CLS.translation });
   let showTr = opts.showTranslation ?? false;
   trEl.style.display = showTr ? "block" : "none";
+  trBtn.classList.toggle(CLS.btnActive, showTr);
   panel.append(trEl);
   host.prepend(panel);
   // Layout (split vs subtitle) is applied by the reader from settings.
@@ -318,6 +332,7 @@ export function mountTranscriptSync(opts: {
   let videoLooping = false;
   let loopCue = -1;
   let activeSection = -1; // the section under the focused line (for the 🔊)
+  let sectionLooping = false; // the 🔄 commentary loop is running
 
   /** Select a sentence (highlight + voice target) without seeking the video. */
   function selectCue(cueIndex: number): void {
@@ -326,12 +341,40 @@ export function mountTranscriptSync(opts: {
     highlightCue(selectedCue);
   }
 
+  function updateSectionLoopBtn(): void {
+    sectionLoopBtn.classList.toggle(CLS.btnActive, sectionLooping);
+  }
+
   function playCurrentSectionVoice(): void {
     if (activeSection < 0) return;
+    if (sectionLooping) {
+      // 🔊 is "play once" — a fresh single play cancels any running loop.
+      sectionLooping = false;
+      updateSectionLoopBtn();
+    }
     pauseVideoForVoice();
     const summary = sections[activeSection]?.summary ?? "";
     if (sectionPlayer) sectionPlayer.playSection(activeSection, summary);
     else if (summary) opts.speak?.(summary);
+  }
+
+  /** Loop the active section's commentary clip on repeat (A/B on one utterance). */
+  function toggleSectionLoop(): void {
+    sectionLooping = !sectionLooping;
+    updateSectionLoopBtn();
+    if (!sectionLooping) {
+      sectionPlayer?.stop();
+      return;
+    }
+    if (activeSection < 0) {
+      sectionLooping = false;
+      updateSectionLoopBtn();
+      return;
+    }
+    pauseVideoForVoice();
+    const summary = sections[activeSection]?.summary ?? "";
+    if (sectionPlayer) sectionPlayer.playSection(activeSection, summary, { loop: true });
+    else if (summary) opts.speak?.(summary); // Web Speech can't loop — speaks once
   }
 
   function cueForToken(tokenIndex: number): number {
@@ -345,6 +388,10 @@ export function mountTranscriptSync(opts: {
   function seekToCue(cueIndex: number): void {
     if (cues.length === 0) return;
     const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
+    // Clicking a sentence moves the video there. When paused, also make it the
+    // active line immediately (no async-seek flicker); when playing, hand the
+    // highlight to the clock so it keeps following from the new position.
+    selectedCue = playing ? null : i;
     seek(times[i]!.start);
     if (videoLooping) loopCue = i; // navigating re-pins the loop to the new line
   }
@@ -417,6 +464,10 @@ export function mountTranscriptSync(opts: {
     shadowBtn?.classList.toggle(CLS.btnActive, shadowActive(shadow));
   }
 
+  function updateVoiceFromBtn(): void {
+    voiceFromBtn?.classList.toggle(CLS.btnActive, chaining);
+  }
+
   // Apply a shadowing event and map the resulting state to effects.
   function dispatchShadow(ev: ShadowEvent): void {
     const prev = shadow;
@@ -443,8 +494,11 @@ export function mountTranscriptSync(opts: {
     if (shadowActive(shadow)) dispatchShadow({ type: "exit" });
     pauseVideoForVoice();
     // A single cue plays the already-highlighted (clock) cue, so hand the
-    // highlight back to the clock — also clears a leftover playFrom suppression.
+    // highlight back to the clock — also clears a leftover playFrom suppression
+    // and the ⏩ play-through lamp (playCue halts any running chain).
     voiceHighlight = false;
+    chaining = false;
+    updateVoiceFromBtn();
     voicePlayer.playCue(currentCue(), { slow });
   }
 
@@ -453,11 +507,15 @@ export function mountTranscriptSync(opts: {
     if (shadowActive(shadow)) dispatchShadow({ type: "exit" });
     pauseVideoForVoice();
     voiceHighlight = true;
+    chaining = true;
+    updateVoiceFromBtn();
     voicePlayer.playFrom(currentCue(), {
       slow,
       onAdvance: (i) => highlightCue(i),
       onDone: () => {
         voiceHighlight = false;
+        chaining = false;
+        updateVoiceFromBtn();
       },
     });
   }
@@ -465,6 +523,8 @@ export function mountTranscriptSync(opts: {
   function stopVoice(): void {
     voicePlayer?.stop();
     voiceHighlight = false;
+    chaining = false;
+    updateVoiceFromBtn();
     if (shadowActive(shadow)) {
       shadow = SHADOW_IDLE;
       updateShadowBtn();
@@ -476,6 +536,8 @@ export function mountTranscriptSync(opts: {
       dispatchShadow({ type: "exit" });
     } else {
       pauseVideoForVoice();
+      chaining = false; // shadowing claims the audio; the ⏩ chain (if any) is over
+      updateVoiceFromBtn();
       dispatchShadow({ type: "start", cue: currentCue() });
     }
   }
@@ -519,6 +581,7 @@ export function mountTranscriptSync(opts: {
     setTranslationVisible(on: boolean) {
       showTr = on;
       trEl.style.display = on ? "block" : "none";
+      trBtn.classList.toggle(CLS.btnActive, on);
       paint(currentTime());
     },
     playCurrentCueVoice,

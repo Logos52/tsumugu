@@ -136,6 +136,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         voiceNotes: app.voiceNotes,
         sectionPlayer: sectionAudioPlayer,
         speak: (t) => app.speak(t),
+        onToggleTranslation: () =>
+          app.updateSettings({ showTranslation: !app.settings.showTranslation }),
       })
     : null;
 
@@ -614,14 +616,14 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     closePopup();
   }
 
-  /** Click a sentence (any token) → select that cue (no video movement). */
+  /** Click a sentence (any token) → move the video to that sentence's start. */
   function onTextClick(ev: MouseEvent): void {
     if (!transcriptCtl) return;
     const node = (ev.target as Element | null)?.closest<HTMLElement>("[data-ti]");
     const ti = node?.dataset.ti;
     if (ti === undefined) return;
     const cue = transcriptCtl.cueForToken(Number(ti));
-    if (cue >= 0) transcriptCtl.selectCue(cue);
+    if (cue >= 0) transcriptCtl.seekToCue(cue);
   }
 
   // Global so a grade key works while you're hovering with the mouse (focus is

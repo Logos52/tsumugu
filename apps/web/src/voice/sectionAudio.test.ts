@@ -76,4 +76,14 @@ describe("createSectionAudioPlayer", () => {
     await tick();
     expect(spoken).toEqual(["丙的摘要"]);
   });
+
+  it("loops the clip when opts.loop is set, and stop() pauses it", async () => {
+    const { player } = setup();
+    const pause = vi.spyOn(HTMLMediaElement.prototype, "pause");
+    player.playSection(0, "甲", { loop: true }); // exercises the loop path
+    await tick();
+    player.stop();
+    expect(pause).toHaveBeenCalled();
+    pause.mockRestore();
+  });
 });
