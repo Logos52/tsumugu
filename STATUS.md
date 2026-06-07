@@ -127,8 +127,9 @@ one mp3 per word — same architecture as voice notes (engine untouched, no new 
 - **Polyphone caveat (documented):** a word rendered out of context can mispronounce polyphones (得/行/了).
   The zhuyin ruby + the in-context **cue** voice note stay authoritative; BreezyVoice inline-zhuyin word
   renders are the PRD's future exact fix.
-- **Real run:** `why-friendship-differs --words all` covers **1,356 unique words** (Serena), hash-named under
-  `audio/words/` (gitignored); smoke RTF ≈ 0.94. **Tests (+17):** `wordAudio` lib (6), `voice/wordAudio`
+- **Real run:** `why-friendship-differs --words all` rendered **1,356 unique words** (Serena), **RTF 0.83,
+  ~20 min, 21 MB** hash-named under `audio/words/` (gitignored); re-run is idempotent (0 to render).
+  **Tests (+17):** `wordAudio` lib (6), `voice/wordAudio`
   parse/bind/player (8), reader popup 🔊 integration (3); `deriveSlug` `.prepared.json` case.
 - **Not built (out of M3-lite):** BreezyVoice zhuyin-exact renders, Vietnamese word audio, hover auto-play,
   word audio in Anki.
