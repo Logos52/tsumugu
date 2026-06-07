@@ -97,6 +97,8 @@ function mount(opts: {
   voiceNotes?: VoiceNotesBinding | null;
   createPracticeBar?: PracticeBarFactory;
   onToggleTranslation?: () => void;
+  serenaOnClick?: boolean;
+  onSerenaToggle?: (on: boolean) => void;
 }) {
   const host = document.createElement("div");
   const tokenEls = tokens.map(() => document.createElement("span"));
@@ -112,6 +114,8 @@ function mount(opts: {
     ...(opts.voiceNotes !== undefined ? { voiceNotes: opts.voiceNotes } : {}),
     ...(opts.createPracticeBar ? { createPracticeBar: opts.createPracticeBar } : {}),
     ...(opts.onToggleTranslation ? { onToggleTranslation: opts.onToggleTranslation } : {}),
+    ...(opts.serenaOnClick !== undefined ? { serenaOnClick: opts.serenaOnClick } : {}),
+    ...(opts.onSerenaToggle ? { onSerenaToggle: opts.onSerenaToggle } : {}),
   });
   return { host, tokenEls, ctl };
 }
@@ -351,6 +355,41 @@ describe("transcript sentence navigation + video loop (M2.2)", () => {
     expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true); // cue 1 highlighted
     expect(tokenEls[0]!.classList.contains(CLS.cueActive)).toBe(false);
     expect(btn(host, "⏸")).toBeDefined(); // …and it is playing (▶ flipped to ⏸)
+    ctl.destroy();
+  });
+
+  it("🎙️ Serena source: a click plays the cue's voice and parks the video (no play)", () => {
+    const calls: Call[] = [];
+    const { host, ctl } = mount({ player: fakePlayer(calls), serenaOnClick: true });
+    expect(ctl.isSerenaSource()).toBe(true);
+    expect(btn(host, "🎙️")!.classList.contains(CLS.btnActive)).toBe(true);
+    const scrubber = host.querySelector<HTMLInputElement>(`.${CLS.scrubber}`)!;
+    ctl.playCueInVideo(1);
+    expect(calls.some((c) => c[0] === "playCue" && c[1] === 1)).toBe(true); // Serena spoke
+    expect(scrubber.value).toBe("3"); // video parked at the line start
+    expect(btn(host, "⏸")).toBeUndefined(); // …but the video is NOT playing
+    ctl.destroy();
+  });
+
+  it("🎙️ toggle flips the source and persists via onSerenaToggle", () => {
+    const flips: boolean[] = [];
+    const { host, ctl } = mount({ player: fakePlayer([]), onSerenaToggle: (on) => flips.push(on) });
+    expect(ctl.isSerenaSource()).toBe(false);
+    btn(host, "🎙️")!.click();
+    expect(ctl.isSerenaSource()).toBe(true);
+    expect(flips).toEqual([true]);
+    ctl.destroy();
+  });
+
+  it("playCurrentSentence + nextCue play the targeted line (video one-shot)", () => {
+    const { tokenEls, ctl } = mount({});
+    ctl.selectCue(0);
+    ctl.playCurrentSentence();
+    expect(ctl.isPlaying()).toBe(true);
+    expect(tokenEls[0]!.classList.contains(CLS.cueActive)).toBe(true);
+    ctl.nextCue(); // steps to cue 1 AND plays it
+    expect(tokenEls[4]!.classList.contains(CLS.cueActive)).toBe(true);
+    expect(ctl.isPlaying()).toBe(true);
     ctl.destroy();
   });
 

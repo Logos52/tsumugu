@@ -30,6 +30,15 @@ import { createSectionAudioPlayer, type SectionAudioPlayer } from "../voice/sect
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
 
 /**
+ * Pointer x → the left (video) pane's fraction of the split, clamped to 20–80%
+ * so neither pane can be dragged shut. Pure (the splitter drag uses it).
+ */
+export function clampSplitFraction(clientX: number, left: number, width: number): number {
+  if (width <= 0) return 0.5;
+  return Math.max(0.2, Math.min(0.8, (clientX - left) / width));
+}
+
+/**
  * Mount the reader into `root`. Returns a controller whose `unmount()` removes
  * the keydown handler, the change subscription, and any open popup, then clears
  * `root`.
@@ -59,6 +68,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // 1–4/K/X always targets the word you're actually looking at.
   let currentWord: string | null = null;
   let activeSpan: HTMLElement | null = null;
+  // The cue under the word you're hovering / focused on, so Space plays the
+  // sentence your mouse is on (-1 until the first word is hovered/focused).
+  let hoveredCue = -1;
   let popup: HTMLElement | null = null;
   // Monotonic token so a slow dictionaryProvider for a closed/replaced popup
   // never paints stale content.
@@ -132,6 +144,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         player: voicePlayer,
         voiceSlow: app.settings.voiceSlow,
         onSlowToggle: (slow) => app.updateSettings({ voiceSlow: slow }),
+        serenaOnClick: app.settings.serenaOnClick,
+        onSerenaToggle: (on) => app.updateSettings({ serenaOnClick: on }),
         vault: app.vault,
         voiceNotes: app.voiceNotes,
         sectionPlayer: sectionAudioPlayer,
@@ -159,7 +173,35 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       text.classList.add("tsg-subtitle-layout");
     } else if (hasVideo) {
       container.classList.add("tsg-reader-split");
+      mountSplitter(container, text);
     }
+  }
+
+  /** Drag-divider between the video pane and the text pane; resizes both. */
+  function mountSplitter(host: HTMLElement, textEl: HTMLElement): void {
+    const splitter = el("div", { class: "tsg-splitter", attrs: { title: "Drag to resize the panes" } });
+    host.insertBefore(splitter, textEl);
+    let dragging = false;
+    const onMove = (e: MouseEvent): void => {
+      if (!dragging) return;
+      const rect = host.getBoundingClientRect();
+      const f = clampSplitFraction(e.clientX, rect.left, rect.width);
+      host.style.setProperty("--tsg-split", String(f));
+      host.style.setProperty("--tsg-split-r", String(1 - f));
+    };
+    const onUp = (): void => {
+      dragging = false;
+      splitter.classList.remove("tsg-dragging");
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onUp);
+    };
+    splitter.addEventListener("mousedown", (e) => {
+      dragging = true;
+      e.preventDefault();
+      splitter.classList.add("tsg-dragging");
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    });
   }
 
   /**
@@ -212,7 +254,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     });
     span.addEventListener("focus", () => {
       setCurrent(word, span);
-      openPopup(word, span);
+      // In shift mode the card stays quiet on plain focus (e.g. a click, which
+      // plays the sentence) — keyboard word-nav still opens it via setActive.
+      if (app.settings.hoverMode !== "shift") openPopup(word, span);
     });
     return span;
   }
@@ -483,6 +527,11 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (activeSpan && activeSpan !== span) activeSpan.classList.remove(CLS.active);
     activeSpan = span;
     span.classList.add(CLS.active);
+    // Track the sentence this word belongs to so Space plays the hovered line.
+    if (transcriptCtl) {
+      const ti = Number(span.dataset.ti);
+      if (Number.isInteger(ti)) hoveredCue = transcriptCtl.cueForToken(ti);
+    }
   }
 
   function setActive(index: number): void {
@@ -539,7 +588,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         return;
       }
     }
-    // Sentence navigation (select, no video movement): ↑ / ↓ and `,` / `.`.
+    // Sentence navigation: ↑ / ↓ and `,` / `.` move to a line and play it (in
+    // the selected source — video or Serena). Space replays / pauses it.
     if (transcriptCtl && (ev.key === "ArrowDown" || ev.key === ".")) {
       ev.preventDefault();
       transcriptCtl.nextCue();
@@ -568,7 +618,11 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       }
       if (transcriptCtl) {
         ev.preventDefault();
-        transcriptCtl.togglePlay();
+        // Space plays the sentence you're hovering / focused on; while something
+        // is playing it pauses instead, so it still works during a watch.
+        if (transcriptCtl.isPlaying()) transcriptCtl.togglePlay();
+        else if (hoveredCue >= 0) transcriptCtl.playCueInVideo(hoveredCue);
+        else transcriptCtl.playCurrentSentence();
       }
       return;
     }
@@ -576,6 +630,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     if (ev.key === "t" || ev.key === "T") {
       ev.preventDefault();
       app.updateSettings({ showTranslation: !app.settings.showTranslation });
+      return;
+    }
+    // `v` flips the click/Space audio source: video clip ↔ Serena's voice.
+    if ((ev.key === "v" || ev.key === "V") && transcriptCtl) {
+      ev.preventDefault();
+      transcriptCtl.toggleSerenaSource();
       return;
     }
     if (ev.key === "ArrowRight" || ev.key === "l") {

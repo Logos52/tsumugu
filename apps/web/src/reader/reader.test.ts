@@ -10,7 +10,18 @@ import {
 
 import { AppState, type AppSettings } from "../state.js";
 import { CLS } from "../ui/classes.js";
-import { mountReader } from "./reader.js";
+import { mountReader, clampSplitFraction } from "./reader.js";
+
+describe("clampSplitFraction", () => {
+  it("maps pointer x to a 20–80% fraction of the container", () => {
+    expect(clampSplitFraction(50, 0, 100)).toBeCloseTo(0.5, 5);
+    expect(clampSplitFraction(70, 0, 100)).toBeCloseTo(0.7, 5);
+    expect(clampSplitFraction(5, 0, 100)).toBe(0.2); // clamped low
+    expect(clampSplitFraction(95, 0, 100)).toBe(0.8); // clamped high
+    expect(clampSplitFraction(120, 20, 100)).toBeCloseTo(0.8, 5); // offset by container left
+    expect(clampSplitFraction(0, 0, 0)).toBe(0.5); // no layout → safe midpoint
+  });
+});
 
 // ── fixtures ─────────────────────────────────────────────────────────────────
 
@@ -61,7 +72,10 @@ function buildApp(settings?: Partial<AppSettings>): AppState {
     pack: fakePack(),
     content: fixtureContent(),
     store: new WordStore(),
-    settings,
+    // Default the fixture to "all" so plain mouseenter opens the card (these
+    // tests exercise popup content/grading). The product default is "shift";
+    // its gating is covered by its own test below.
+    settings: { hoverMode: "all", ...settings },
   });
 }
 
@@ -229,6 +243,18 @@ describe("mountReader", () => {
     expect(popup?.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("hello");
     expect(popup?.querySelector(`.${CLS.popupReading}`)?.textContent).toBe("nǐ hǎo");
 
+    view.unmount();
+  });
+
+  it("shift mode (the default) keeps the card closed on plain hover, opens on shift-hover", () => {
+    const app = buildApp({ hoverMode: "shift" });
+    const root = document.createElement("div");
+    const view = mountReader(root, app);
+    const span = wordSpan(root, "你好");
+    span.dispatchEvent(new MouseEvent("mouseenter")); // no shift → quiet
+    expect(root.querySelector(`.${CLS.popup}`)).toBeNull();
+    span.dispatchEvent(new MouseEvent("mouseenter", { shiftKey: true })); // shift → opens
+    expect(root.querySelector(`.${CLS.popup}`)).not.toBeNull();
     view.unmount();
   });
 

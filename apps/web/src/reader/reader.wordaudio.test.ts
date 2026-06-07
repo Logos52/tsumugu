@@ -34,7 +34,13 @@ const WORD_PATH = "audio/words/jinwan.mp3";
 function build(withWordAudio: boolean): AppState {
   const vault = new MemoryVault();
   vault.writeBytes(`base/${WORD_PATH}`, new Uint8Array([1, 2, 3]));
-  const app = new AppState({ pack: fakePack(), content: content(), store: new WordStore(), vault });
+  const app = new AppState({
+    pack: fakePack(),
+    content: content(),
+    store: new WordStore(),
+    vault,
+    settings: { hoverMode: "all" }, // focus opens the card (product default is "shift")
+  });
   if (withWordAudio) {
     const m = parseWordAudio({
       schema: WORD_AUDIO_SCHEMA,

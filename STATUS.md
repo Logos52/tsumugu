@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (525 public tests; 720 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (531 public tests; 726 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -191,6 +191,29 @@ engine untouched.
 - **Tests (+5):** ⏩ play/stop toggle + lamp, the 譯 transport button, the section 🔄 loop wiring
   (`transcript.voice` / `transcript.section`), `sectionAudio` loop+`stop()`, and `playCueInVideo` (seek-to-start
   + play); the click-integration test in `reader.practice.test.ts` already covers click → one-shot highlight.
+
+## Voice notes — study-flow controls (2026-06-07)
+
+A second UX pass from live study, tightening the keyboard/mouse loop and the audio sources.
+
+- **Quiet hover by default.** `settings.hoverMode` now defaults to **`shift`** (Migaku-style): moving the mouse
+  no longer pops a card on every word; the card opens on **Shift-hover** or keyboard word-nav (`←`/`→`). Plain
+  focus (e.g. a click, which plays the sentence) stays quiet in shift mode. The toolbar dropdown still offers
+  `unknown` / `all` / `⇧shift`.
+- **🎙️ audio-source toggle (`v`).** A transport toggle (persisted `settings.serenaOnClick`) flips what clicking
+  a sentence / Space / ↑↓ plays: the **video clip** (default) or **Serena's voice** for that line with the video
+  **parked, paused** on its first frame. Seek-then-pause-last so YouTube's `seekTo` can't resume the video over
+  Serena (only one source ever plays).
+- **↑/↓ + `,`/`.` auto-play the sentence** they move to (in the selected source); **Space plays the sentence you
+  are hovering / focused on** (and pauses instead while something is playing, so it still works mid-watch). The
+  click handler and these share one `playCueInVideo` primitive (one-shot: seek → play → stop at the cue end).
+- **Transport wraps** (`flex-wrap`) so the grown button row no longer overflows the video pane into the text.
+- **Draggable pane splitter.** A `.tsg-splitter` between the video and text panes in the split layout resizes
+  both (CSS `--tsg-split` / `--tsg-split-r`, clamped 20–80% by the pure `clampSplitFraction`); hidden in the
+  stacked mobile layout.
+- **Tests (+10):** Serena source play/park + toggle persist, playCurrentSentence/nextCue play-on-move, the
+  shift-hover gate, `clampSplitFraction`, `playCueInVideo` (seek+play). DOM splitter drag + YT seek-resume are
+  layout/runtime-dependent → manual-verified.
 
 ## Run it
 

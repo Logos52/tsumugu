@@ -57,6 +57,12 @@ export interface AppSettings {
   voiceNotesEnabled: boolean;
   /** Prefer slow voice playback (slow take when present, else 0.75×). */
   voiceSlow: boolean;
+  /**
+   * What clicking a sentence (or Space) plays: the video clip (`false`, default)
+   * or Serena's voice for that line with the video parked on its first frame
+   * (`true`). The 🎙️ transport toggle / `v` hotkey flips it.
+   */
+  serenaOnClick: boolean;
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
 }
@@ -66,11 +72,14 @@ export const DEFAULT_SETTINGS: AppSettings = {
   toneColoring: false,
   phonetics: false,
   guessFirst: false,
-  hoverMode: "unknown",
+  // Quiet by default — the card opens on Shift-hover (or keyboard word-nav),
+  // Migaku-style, so moving the mouse doesn't pop a card on every word.
+  hoverMode: "shift",
   transcriptLayout: "document",
   showTranslation: false,
   voiceNotesEnabled: true,
   voiceSlow: false,
+  serenaOnClick: false,
   storePath: "tsumugu/word-store.json",
 };
 

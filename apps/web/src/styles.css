@@ -602,10 +602,15 @@ button {
 .tsg-transport {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  flex-wrap: wrap; /* buttons wrap onto a new line instead of overflowing the pane */
+  gap: 0.4rem 0.5rem;
+}
+.tsg-transport .tsg-btn {
+  flex: 0 0 auto; /* keep their size; let the row wrap rather than squashing them */
 }
 .tsg-scrubber {
-  flex: 1;
+  flex: 1 1 8rem; /* grow, but shrink + wrap to its own line in a narrow pane */
+  min-width: 6rem;
   accent-color: var(--tsg-accent);
 }
 /* The current line's sentence translation (toggle / `t`). */
@@ -670,21 +675,36 @@ button {
 .tsg-reader-split {
   display: flex;
   flex-direction: row;
-  gap: 1.5rem;
+  gap: 0.75rem;
   align-items: flex-start;
 }
 .tsg-reader-split .tsg-transcript {
   position: sticky;
   top: 1rem;
-  flex: 2 1 0; /* video ≈ 2/3 of the width */
+  flex: var(--tsg-split, 2) 1 0; /* video pane (drag the splitter to resize) */
   min-width: 0;
   margin: 0;
 }
 .tsg-reader-split .tsg-reader-text {
-  flex: 1 1 0; /* transcript ≈ 1/3 */
+  flex: var(--tsg-split-r, 1) 1 0; /* transcript text pane */
   min-width: 0;
   max-width: none;
   margin: 0;
+}
+/* Draggable divider between the two panes. */
+.tsg-splitter {
+  flex: 0 0 6px;
+  align-self: stretch;
+  min-height: 4rem;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 35%, transparent);
+  cursor: col-resize;
+  touch-action: none;
+  transition: background 0.15s ease;
+}
+.tsg-splitter:hover,
+.tsg-splitter.tsg-dragging {
+  background: var(--tsg-accent);
 }
 @media (max-width: 760px) {
   .tsg-reader-split {
@@ -694,6 +714,9 @@ button {
     position: static;
     flex-basis: auto;
     width: 100%;
+  }
+  .tsg-splitter {
+    display: none; /* stacked layout — no horizontal resize */
   }
 }
 

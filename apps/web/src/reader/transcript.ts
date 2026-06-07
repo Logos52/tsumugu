@@ -38,8 +38,16 @@ import type { SectionAudioPlayer } from "../voice/sectionAudio.js";
 
 export interface TranscriptController {
   destroy(): void;
-  /** Toggle play/pause (Space hotkey). */
+  /** Toggle play/pause. */
   togglePlay(): void;
+  /** Whether the video/clock is currently playing. */
+  isPlaying(): boolean;
+  /** Play the current highlighted sentence (Space): one-shot, honoring 🎙️. */
+  playCurrentSentence(): void;
+  /** Flip the click/Space audio source: video clip ↔ Serena's voice (`v`). */
+  toggleSerenaSource(): void;
+  /** Whether clicking/Space plays Serena instead of the video. */
+  isSerenaSource(): boolean;
   /** Show/hide the current line's sentence translation (`t` hotkey / toolbar). */
   setTranslationVisible(on: boolean): void;
   /** Play the current cue's voice note (no-op without a voice player). */
@@ -74,7 +82,7 @@ export interface TranscriptController {
   selectCue(cueIndex: number): void;
   /** The cue index that owns a token, or -1 (for click-to-select mapping). */
   cueForToken(tokenIndex: number): number;
-  /** Step the active sentence (`,` / `.`). */
+  /** Step to the next/prev sentence and play it (↑ / ↓ / `,` / `.`), honoring 🎙️. */
   nextCue(): void;
   prevCue(): void;
   /** Toggle "loop this sentence" on the video/scrubber (🔂). */
@@ -106,6 +114,10 @@ export function mountTranscriptSync(opts: {
   voiceSlow?: boolean;
   /** Called when the slow toggle flips, so the host can persist it. */
   onSlowToggle?: (slow: boolean) => void;
+  /** Initial "click plays Serena, parks the video" preference (persisted). */
+  serenaOnClick?: boolean;
+  /** Called when the 🎙️ source toggle flips, so the host can persist it. */
+  onSerenaToggle?: (on: boolean) => void;
   /** Vault + manifest for the practice bar to load cue audio (M2.1). */
   vault?: VaultIO | null;
   voiceNotes?: VoiceNotesBinding | null;
@@ -144,6 +156,8 @@ export function mountTranscriptSync(opts: {
   // Voice transport (only when a voice player is bound). Drives playback through
   // the shared cue highlight; shadowing claims Space (handled in reader.ts).
   let slow = opts.voiceSlow ?? false;
+  let serenaSource = opts.serenaOnClick ?? false; // click/Space plays Serena, not the video
+  let serenaBtn: HTMLButtonElement | null = null;
   let voiceHighlight = false; // when true, voice playback owns the highlight (not the clock)
   let shadow: ShadowState = SHADOW_IDLE;
   let shadowBtn: HTMLButtonElement | null = null;
@@ -178,7 +192,11 @@ export function mountTranscriptSync(opts: {
       opts.onSlowToggle?.(slow);
     });
     vShadow.addEventListener("click", () => toggleShadowing());
-    transportChildren.push(vPlay, vFrom, vStop, vSlow, vShadow);
+    const vSrc = el("button", { class: CLS.btn, type: "button", text: "🎙️", title: "Click / Space plays Serena's voice and parks the video on the line (v)" });
+    serenaBtn = vSrc;
+    if (serenaSource) vSrc.classList.add(CLS.btnActive);
+    vSrc.addEventListener("click", () => toggleSerenaSource());
+    transportChildren.push(vPlay, vFrom, vStop, vSlow, vShadow, vSrc);
     if (canPractice) {
       const vBar = el("button", { class: CLS.btn, type: "button", text: "🌊", title: "Practice bar: loop a slice of this line (L), nudge edges ([ ]), slow it" });
       practiceBtn = vBar;
@@ -418,11 +436,33 @@ export function mountTranscriptSync(opts: {
   function playCueInVideo(cueIndex: number): void {
     if (cues.length === 0) return;
     const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
+    if (serenaSource && voicePlayer) {
+      // Serena mode: park the video on the line's first frame and play the TTS
+      // take instead. Seek first, then pause LAST — YouTube's seekTo can resume a
+      // paused player, so pausing after the seek guarantees only Serena is heard.
+      stopVoice(); // halt any chain/shadowing first
+      selectedCue = i; // keep the line highlighted while Serena speaks
+      seek(times[i]!.start);
+      setPlaying(false); // pause AFTER the seek (also clears the one-shot)
+      voicePlayer.playCue(i, { slow });
+      return;
+    }
     stopVoice(); // the video owns the speakers — no Serena chain/shadowing overlap
     playOneCue = i;
     playOneArmed = false; // arm only once the (async) seek lands inside the cue
+    setPlaying(true); // clear any manual selection BEFORE seek paints the highlight
     seek(times[i]!.start);
-    setPlaying(true);
+  }
+
+  /** Play whatever sentence is highlighted now (Space): one-shot, honoring 🎙️. */
+  function playCurrentSentence(): void {
+    playCueInVideo(currentCue());
+  }
+
+  function toggleSerenaSource(): void {
+    serenaSource = !serenaSource;
+    serenaBtn?.classList.toggle(CLS.btnActive, serenaSource);
+    opts.onSerenaToggle?.(serenaSource);
   }
 
   function updateVideoLoopBtn(): void {
@@ -624,6 +664,14 @@ export function mountTranscriptSync(opts: {
     togglePlay() {
       setPlaying(!playing);
     },
+    isPlaying() {
+      return playing;
+    },
+    playCurrentSentence,
+    toggleSerenaSource,
+    isSerenaSource() {
+      return serenaSource;
+    },
     setTranslationVisible(on: boolean) {
       showTr = on;
       trEl.style.display = on ? "block" : "none";
@@ -657,10 +705,10 @@ export function mountTranscriptSync(opts: {
     selectCue,
     cueForToken,
     nextCue() {
-      selectCue(currentCue() + 1);
+      playCueInVideo(currentCue() + 1);
     },
     prevCue() {
-      selectCue(currentCue() - 1);
+      playCueInVideo(currentCue() - 1);
     },
     toggleVideoLoop,
     isVideoLooping() {
