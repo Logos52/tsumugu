@@ -948,3 +948,80 @@ button {
 .tsg-reader-theater .tsg-ruby rt {
   color: rgba(255, 255, 255, 0.85);
 }
+
+/* ── form controls (toolbar selects + checkbox toggles) ───────────────────── */
+/* Selects styled as buttons drop the native arrow for a chevron that matches. */
+select.tsg-btn {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: 1.7rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5l4 4 4-4' fill='none' stroke='%238c8fa1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.55rem center;
+  background-size: 0.72rem;
+}
+/* Checkbox toggles inside .tsg-btn labels: accent the box + line it up. */
+label.tsg-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.tsg-btn input[type="checkbox"] {
+  accent-color: var(--tsg-accent);
+  width: 0.95rem;
+  height: 0.95rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* ── empty state — a branded, centered placeholder ────────────────────────── */
+.tsg-reader > p {
+  max-width: 30rem;
+  margin: 4.5rem auto;
+  text-align: center;
+  color: var(--tsg-ink-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+.tsg-reader > p::before {
+  content: "紡";
+  display: block;
+  font-family: var(--tsg-font-read);
+  font-size: 3.25rem;
+  margin-bottom: 0.6rem;
+  background: linear-gradient(135deg, #74c0fc 0%, #8b5cf6 58%, #f2a7d5 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── review flashcard ─────────────────────────────────────────────────────── */
+.tsg-card-term {
+  letter-spacing: 0.02em;
+}
+.tsg-card-back {
+  font-family: var(--tsg-font-read);
+}
+
+/* ── global niceties ──────────────────────────────────────────────────────── */
+::selection {
+  background: color-mix(in oklab, var(--tsg-accent) 28%, transparent);
+}
+html {
+  scroll-behavior: smooth; /* programmatic scrolls (cue-follow) glide; wheel stays native */
+}
+* {
+  scrollbar-color: var(--tsg-border-strong) transparent; /* Firefox */
+}
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--tsg-border-strong);
+  border-radius: 999px;
+  border: 3px solid var(--tsg-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tsg-ink-faint);
+}
