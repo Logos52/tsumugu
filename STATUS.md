@@ -1,6 +1,6 @@
 # Build status
 
-Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (531 public tests; 726 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
+Snapshot of what's implemented and validated. Intent lives in [`PRD.md`](./PRD.md); this tracks *reality*. Verified by `pnpm test` (532 public tests; 727 incl. the private packs), five typecheck passes, `pnpm validate:phase0` (14 e2e checks), and `pnpm --filter @tsumugu/web build`.
 
 ## PRD §2 success-criteria coverage (audited)
 
@@ -214,6 +214,17 @@ A second UX pass from live study, tightening the keyboard/mouse loop and the aud
 - **Tests (+10):** Serena source play/park + toggle persist, playCurrentSentence/nextCue play-on-move, the
   shift-hover gate, `clampSplitFraction`, `playCueInVideo` (seek+play). DOM splitter drag + YT seek-resume are
   layout/runtime-dependent → manual-verified.
+
+## Voice notes — hoverable section summary (2026-06-07)
+
+The Chinese section summary ("now talking about…") is now **hoverable + gradable just like the body text**.
+`transcript.ts` renders the summary through an injected `renderSummary` callback; the reader supplies
+`renderSummaryInto`, which segments the string with the pack's segmenter and renders each word via the SAME
+`renderWord` (status color, Shift-hover card, click-to-grade, zhuyin/tone when prebaked). Graded summary words
+recolor in place (a shared `recolorSpan` now covers both body + summary spans); a seq guard drops a stale async
+segmentation when the section changes; segmentation failure falls back to plain text. Engine untouched (the
+segmenter is the already-loaded client-side pack). **Tests (+1):** `renderSummary` wiring on section change
+(`transcript.section.test.ts`); the per-word hover/grade path is the body renderer, already covered.
 
 ## Run it
 

@@ -28,7 +28,11 @@ const transcript: TranscriptDoc = {
   ],
 };
 
-function mount(extra: { sectionPlayer?: SectionAudioPlayer | null; speak?: (t: string) => void }) {
+function mount(extra: {
+  sectionPlayer?: SectionAudioPlayer | null;
+  speak?: (t: string) => void;
+  renderSummary?: (container: HTMLElement, text: string) => void;
+}) {
   const host = document.createElement("div");
   const tokenEls = tokens.map(() => document.createElement("span"));
   const ctl = mountTranscriptSync({ host, tokens, transcript, tokenEls, ...extra });
@@ -100,6 +104,24 @@ describe("transcript section summaries (zh-Hant) + 🔊", () => {
     loop.click(); // stop it
     expect(stops).toBe(1);
     expect(loop.classList.contains(CLS.btnActive)).toBe(false);
+    ctl.destroy();
+  });
+
+  it("renders the summary via renderSummary (hoverable words) on section change", () => {
+    const calls: string[] = [];
+    const { host, ctl } = mount({
+      // The reader supplies this to render hoverable word spans; here we just
+      // record + mirror the text so the section line still reads correctly.
+      renderSummary: (container, text) => {
+        container.textContent = text;
+        calls.push(text);
+      },
+    });
+    scrub(host, 1); // section 0
+    expect(calls.at(-1)).toBe("第一段摘要");
+    expect(sectionText(host)).toBe("第一段摘要");
+    scrub(host, 4); // section 1
+    expect(calls.at(-1)).toBe("第二段摘要");
     ctl.destroy();
   });
 

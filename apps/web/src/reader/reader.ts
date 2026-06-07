@@ -62,6 +62,10 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // The word spans we render, paired with their surface form, in document
   // order. Used for keyboard navigation and in-place recoloring.
   const wordSpans: { word: string; span: HTMLSpanElement }[] = [];
+  // Hoverable word spans rendered into the section-summary line (rebuilt when the
+  // active section changes); recolored alongside the body on grade.
+  let summaryWordSpans: { word: string; span: HTMLSpanElement }[] = [];
+  let summarySeq = 0; // guards async segmentation against rapid section changes
 
   let activeIndex = 0;
   // The word the keyboard grades / flags: set by hover OR arrow-nav, so pressing
@@ -150,6 +154,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
         voiceNotes: app.voiceNotes,
         sectionPlayer: sectionAudioPlayer,
         speak: (t) => app.speak(t),
+        renderSummary: (container, t) => renderSummaryInto(container, t),
         onToggleTranslation: () =>
           app.updateSettings({ showTranslation: !app.settings.showTranslation }),
       })
@@ -336,15 +341,51 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     }
   }
 
+  /** Re-read a span's status and swap its color / flagged class in place. */
+  function recolorSpan(word: string, span: HTMLElement): void {
+    const cls = statusColorClass(app.getStatus(word));
+    for (const c of [...span.classList]) {
+      if (c.startsWith("tsg-status-")) span.classList.remove(c);
+    }
+    span.classList.add(cls);
+    span.classList.toggle(CLS.flagged, !!app.getEntry(word)?.flagged);
+  }
+
   /** Re-read every word's status and swap its color class (no re-render). */
   function recolor(): void {
-    for (const { word, span } of wordSpans) {
-      const cls = statusColorClass(app.getStatus(word));
-      for (const c of [...span.classList]) {
-        if (c.startsWith("tsg-status-")) span.classList.remove(c);
+    for (const { word, span } of wordSpans) recolorSpan(word, span);
+    for (const { word, span } of summaryWordSpans) recolorSpan(word, span); // section summary
+  }
+
+  /**
+   * Render a string (a section summary) into `container` as hoverable, gradable
+   * word spans — the same machinery as the body text — so the Chinese summary
+   * gets the same hover card / grading as the transcript. Segments via the pack;
+   * a seq guard drops a stale async segmentation if the section changed again.
+   */
+  function renderSummaryInto(container: HTMLElement, text: string): void {
+    const seq = ++summarySeq;
+    clear(container);
+    summaryWordSpans = [];
+    if (!text) return;
+    const apply = (tokens: readonly { text: string; isWord: boolean }[]): void => {
+      if (seq !== summarySeq) return; // a newer summary superseded this one
+      for (const tk of tokens) {
+        if (!tk.isWord) {
+          container.append(renderPunct(tk.text));
+          continue;
+        }
+        const span = renderWord({ text: tk.text, isWord: true });
+        summaryWordSpans.push({ word: tk.text, span });
+        container.append(span);
       }
-      span.classList.add(cls);
-      span.classList.toggle(CLS.flagged, !!app.getEntry(word)?.flagged);
+    };
+    try {
+      const toks = app.pack.segmenter(text);
+      if (toks instanceof Promise) void toks.then(apply).catch(() => container.replaceChildren(text));
+      else apply(toks);
+    } catch {
+      container.textContent = text; // segmentation failed → plain text, still readable
     }
   }
 

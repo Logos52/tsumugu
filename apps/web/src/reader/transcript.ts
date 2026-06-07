@@ -127,6 +127,12 @@ export function mountTranscriptSync(opts: {
   sectionPlayer?: SectionAudioPlayer | null;
   /** Web Speech fallback (for the section 🔊 when no audio clip exists). */
   speak?: (text: string) => void;
+  /**
+   * Render the section summary into its container as hoverable words (the reader
+   * supplies this so the Chinese summary gets the same hover card as the body).
+   * Falls back to plain text when absent.
+   */
+  renderSummary?: (container: HTMLElement, text: string) => void;
   /** Flip the shared "show English translation" setting (the 譯 transport button). */
   onToggleTranslation?: () => void;
 }): TranscriptController {
@@ -345,7 +351,12 @@ export function mountTranscriptSync(opts: {
       const focusTime = lastCue >= 0 && times[lastCue] ? times[lastCue]!.start : t;
       const si = cueIndexAtTime(sections, focusTime, sectionTimes);
       activeSection = si;
-      sectionTextEl.textContent = si >= 0 ? sections[si]!.summary : "";
+      const summary = si >= 0 ? sections[si]!.summary : "";
+      if (summary !== lastSummaryText) {
+        lastSummaryText = summary;
+        if (opts.renderSummary) opts.renderSummary(sectionTextEl, summary);
+        else sectionTextEl.textContent = summary;
+      }
       sectionTrEl.textContent = showTr && si >= 0 ? (sections[si]!.tr ?? "") : "";
     }
   }
@@ -364,6 +375,7 @@ export function mountTranscriptSync(opts: {
   let loopCue = -1;
   let activeSection = -1; // the section under the focused line (for the 🔊)
   let sectionLooping = false; // the 🔄 commentary loop is running
+  let lastSummaryText: string | null = null; // re-render summary words only on change
 
   /** Select a sentence (highlight + voice target) without seeking the video. */
   function selectCue(cueIndex: number): void {
