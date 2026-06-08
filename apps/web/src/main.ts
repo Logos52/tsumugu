@@ -66,6 +66,7 @@ const app = new AppState({
   audio: createWebAudio(),
   vault: new MemoryVault(), // in-session persistence until a real folder is granted
   content: firstSample.content,
+  transcript: firstSample.transcript ?? null, // mount the synced transcript on load
   settings: persistedSettings,
 });
 
