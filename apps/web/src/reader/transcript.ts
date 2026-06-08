@@ -162,6 +162,10 @@ export function mountTranscriptSync(opts: {
   const practiceFactory = opts.createPracticeBar ?? defaultPracticeBarFactory;
   const canPractice = !!(voicePlayer && vault && voiceNotes);
   const cues = transcript.cues;
+  // No videoId → audio-only reading (e.g. a voice-note transcript): the bound
+  // voice note is the only sentence audio, so click/Space must play THAT, not a
+  // silent video clock.
+  const hasVideo = !!transcript.videoId;
   const sections = transcript.sections ?? [];
   const ranges = alignCuesToTokens(tokens, cues);
   const times = cueTimes(cues);
@@ -670,14 +674,17 @@ export function mountTranscriptSync(opts: {
   function playCueInVideo(cueIndex: number): void {
     if (cues.length === 0) return;
     const i = Math.max(0, Math.min(cueIndex, cues.length - 1));
-    if (serenaSource && voicePlayer) {
-      // Serena mode: park the video on the line's first frame and play the TTS
-      // take instead. Seek first, then pause LAST — YouTube's seekTo can resume a
-      // paused player, so pausing after the seek guarantees only Serena is heard.
+    // Play the voice note when Serena-on-click is set, OR when there's no video at
+    // all (audio-only reading) — in that case the voice note IS the sentence audio.
+    if ((serenaSource || !hasVideo) && voicePlayer) {
       stopVoice(); // halt any chain/shadowing first
-      selectedCue = i; // keep the line highlighted while Serena speaks
+      selectedCue = i; // keep the line highlighted while the voice plays
+      // Park the clock at the line start (the video when there is one, else the
+      // local scrubber clock). Seek first, then pause LAST — YouTube's seekTo can
+      // resume a paused player, so pausing after the seek keeps only the voice.
       seek(times[i]!.start);
-      setPlaying(false); // pause AFTER the seek (also clears the one-shot)
+      setPlaying(false);
+      highlightCue(i); // light the clicked line (audio-only has no clock to drive paint())
       voicePlayer.playCue(i, { slow });
       return;
     }

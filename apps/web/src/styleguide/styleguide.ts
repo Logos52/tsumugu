@@ -97,7 +97,7 @@ export function mountStyleguide(root: HTMLElement, _app: AppState): ViewControll
     grades.append(el("button", { class: CLS.btn, type: "button", text: g.label, dataset: { grade: g.label }, title: g.meaning }));
   }
   container.append(
-    section("Grade buttons (1 red → 4 teal → K green; X = ignore)", grades),
+    section("Grade buttons (1 red → 4 green; K green; X = ignore)", grades),
   );
 
   // ── tone colors ──
@@ -113,7 +113,7 @@ export function mountStyleguide(root: HTMLElement, _app: AppState): ViewControll
   // ── palette swatches ──
   container.append(
     section(
-      "Catppuccin palette (current theme)",
+      "wnac palette (current theme)",
       ...PALETTE.map((name) =>
         el(
           "div",

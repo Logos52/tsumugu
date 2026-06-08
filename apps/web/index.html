@@ -7,11 +7,11 @@
     <!-- Self-hosted reading face (offline; lazy unicode-range woff2). -->
     <link rel="stylesheet" href="/fonts/lxgw-wenkai-tc.css" />
     <title>Tsumugu — reader</title>
-    <!-- Apply the saved Catppuccin variant before paint to avoid a flash. -->
+    <!-- Apply the saved theme before paint to avoid a flash. Default = wnac dark. -->
     <script>
       try {
-        if (localStorage.getItem("tsg-theme") === "dark")
-          document.documentElement.dataset.theme = "dark";
+        if (localStorage.getItem("tsg-theme") === "light")
+          document.documentElement.dataset.theme = "light";
       } catch (e) {}
     </script>
     <link rel="stylesheet" href="/src/styles.css" />

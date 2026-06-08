@@ -134,6 +134,7 @@ function persistSettings(): void {
   try {
     const {
       phonetics,
+      phoneticsAllWords,
       toneColoring,
       guessFirst,
       hoverMode,
@@ -146,6 +147,7 @@ function persistSettings(): void {
       SETTINGS_KEY,
       JSON.stringify({
         phonetics,
+        phoneticsAllWords,
         toneColoring,
         guessFirst,
         hoverMode,
@@ -517,7 +519,7 @@ function buildToolbar(): void {
 
   const phonetics = el(
     "label",
-    { class: "tsg-btn", title: "Migaku visual: zhuyin above each word + unknown underlines" },
+    { class: "tsg-btn", title: "Migaku visual: zhuyin above unknown words + unknown underlines" },
     el("input", {
       attrs: app.settings.phonetics ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {
@@ -525,6 +527,20 @@ function buildToolbar(): void {
       },
     }),
     " zhuyin",
+  );
+
+  // Scope toggle: by default zhuyin only sits over words you don't know yet
+  // (new/l1/l2/l3); this shows it over every word. Only meaningful with zhuyin on.
+  const phoneticsAll = el(
+    "label",
+    { class: "tsg-btn", title: "Zhuyin over ALL words (off = only words you don't know yet)" },
+    el("input", {
+      attrs: app.settings.phoneticsAllWords ? { type: "checkbox", checked: "" } : { type: "checkbox" },
+      on: {
+        change: (e) => setToggle({ phoneticsAllWords: (e.target as HTMLInputElement).checked }),
+      },
+    }),
+    " all",
   );
 
   const layout = el(
@@ -597,17 +613,17 @@ function buildToolbar(): void {
 
   const theme = el(
     "label",
-    { class: "tsg-btn", title: "Catppuccin Mocha (dark)" },
+    { class: "tsg-btn", title: "Dark theme (wnac)" },
     el("input", {
       attrs:
-        document.documentElement.dataset.theme === "dark"
-          ? { type: "checkbox", checked: "" }
-          : { type: "checkbox" },
+        document.documentElement.dataset.theme === "light"
+          ? { type: "checkbox" } // light active → unchecked
+          : { type: "checkbox", checked: "" }, // default/dark → checked
       on: {
         change: (e) => {
           const dark = (e.target as HTMLInputElement).checked;
-          if (dark) document.documentElement.dataset.theme = "dark";
-          else delete document.documentElement.dataset.theme;
+          if (dark) document.documentElement.removeAttribute("data-theme");
+          else document.documentElement.dataset.theme = "light";
           try {
             localStorage.setItem("tsg-theme", dark ? "dark" : "light");
           } catch {
@@ -651,7 +667,7 @@ function buildToolbar(): void {
   // vault isn't auto-loading (e.g. the production build).
   const items: HTMLElement[] = [picker, openBtn, fileInput];
   if (!devVault) items.push(grant);
-  items.push(exportBtn, exportVoiceBtn, layout, hover, translate, voiceToggle, tone, guess, phonetics, theme, styleBtn);
+  items.push(exportBtn, exportVoiceBtn, layout, hover, translate, voiceToggle, tone, guess, phonetics, phoneticsAll, theme, styleBtn);
   toolbarEl.append(...items);
 }
 

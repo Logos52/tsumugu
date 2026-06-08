@@ -133,6 +133,40 @@ describe("mountReader", () => {
     view.unmount();
   });
 
+  it("gates zhuyin to unknown words by default; phoneticsAllWords reveals every word", () => {
+    // Default phonetics opts into the Migaku visual but NOT the all-words scope,
+    // so CSS hides the ruby over known/l4/ignored words (status-class gated).
+    const gated = buildApp({ phonetics: true });
+    const root1 = document.createElement("div");
+    const v1 = mountReader(root1, gated);
+    const text1 = root1.querySelector<HTMLElement>(`.${CLS.readerText}`);
+    expect(text1?.dataset.visual).toBe("migaku");
+    expect(text1?.dataset.ruby).toBeUndefined();
+    // The ruby is still in the DOM (CSS, not JS, does the gating) so grading a
+    // word live re-gates it without a re-render.
+    expect(wordSpan(root1, "你好").querySelector("ruby")).not.toBeNull();
+    v1.unmount();
+
+    const all = buildApp({ phonetics: true, phoneticsAllWords: true });
+    const root2 = document.createElement("div");
+    const v2 = mountReader(root2, all);
+    expect(root2.querySelector<HTMLElement>(`.${CLS.readerText}`)?.dataset.ruby).toBe("all");
+    v2.unmount();
+  });
+
+  it("opens the word card on click even in shift hover mode (Migaku-style)", () => {
+    // Product default is hoverMode "shift" — hover stays quiet without Shift. A
+    // deliberate click must still open the card (the behavior users expect), so
+    // you never need to discover the Shift modifier.
+    const app = buildApp({ hoverMode: "shift" });
+    const root = document.createElement("div");
+    const view = mountReader(root, app);
+    expect(root.querySelector(`.${CLS.popup}`)).toBeNull();
+    wordSpan(root, "你好").dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    expect(root.querySelector(`.${CLS.popup}`)).not.toBeNull();
+    view.unmount();
+  });
+
   it("renders newline non-word tokens as visible <br> line breaks", () => {
     // Transcript-style content: word tokens separated by a pure "\n" cue break,
     // plus a token mixing text and a newline ("foo\nbar").

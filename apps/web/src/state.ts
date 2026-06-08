@@ -37,6 +37,12 @@ export interface AppSettings {
   toneColoring: boolean;
   /** Zhuyin/bopomofo ruby above each word (Migaku-style); off by default. */
   phonetics: boolean;
+  /**
+   * When phonetics is on, which words get the ruby: `false` (default) shows it
+   * only over words you don't know yet (new/l1/l2/l3), Migaku-style; `true`
+   * shows it over every word.
+   */
+  phoneticsAllWords: boolean;
   /** Guess-first: hide the gloss until the user asks to reveal. */
   guessFirst: boolean;
   /**
@@ -72,6 +78,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   explanationLang: "target",
   toneColoring: false,
   phonetics: false,
+  phoneticsAllWords: false,
   guessFirst: false,
   // Quiet by default — the card opens on Shift-hover (or keyboard word-nav),
   // Migaku-style, so moving the mouse doesn't pop a card on every word.

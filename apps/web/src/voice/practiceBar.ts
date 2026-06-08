@@ -75,12 +75,12 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
   const ws = WaveSurfer.create({
     container,
     height: 64,
-    waveColor: cssVar("--ctp-overlay0", "#9ca0b0"),
-    progressColor: cssVar("--ctp-blue", "#1e66f5"),
-    cursorColor: cssVar("--ctp-text", "#4c4f69"),
+    waveColor: cssVar("--ctp-overlay0", "#2e466b"),
+    progressColor: cssVar("--ctp-blue", "#5089d8"),
+    cursorColor: cssVar("--ctp-blue-bright", "#66aaf7"),
   });
   const regions = ws.registerPlugin(RegionsPlugin.create());
-  regions.enableDragSelection({ color: "rgba(30, 102, 245, 0.18)" });
+  regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });
 
   let looping = false;
   let region: Region | null = null;
@@ -170,7 +170,7 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
           looping = false;
           return;
         }
-        region = regions.addRegion({ start: 0, end, color: "rgba(30, 102, 245, 0.12)" });
+        region = regions.addRegion({ start: 0, end, color: "rgba(80,137,216,0.20)" });
       }
       region.play();
     },

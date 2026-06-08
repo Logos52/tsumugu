@@ -85,7 +85,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   const text = el("div", { class: CLS.readerText });
   // Opt into the Migaku visual model (zhuyin ruby + colored-underline grading,
   // no background fill) when phonetics is on; the default fill model otherwise.
-  if (app.settings.phonetics) text.dataset.visual = "migaku";
+  // By default the ruby only sits over words you don't know yet (new/l1/l2/l3,
+  // CSS-gated by status class); `phoneticsAllWords` reveals it over every word.
+  if (app.settings.phonetics) {
+    text.dataset.visual = "migaku";
+    if (app.settings.phoneticsAllWords) text.dataset.ruby = "all";
+  }
   container.append(text);
 
   // One element per token (word OR punctuation span), index-aligned with
@@ -265,6 +270,13 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       // In shift mode the card stays quiet on plain focus (e.g. a click, which
       // plays the sentence) — keyboard word-nav still opens it via setActive.
       if (app.settings.hoverMode !== "shift") openPopup(word, span);
+    });
+    // A deliberate CLICK always opens the card (Migaku-style), regardless of
+    // hoverMode — so you never need to know to hold Shift. The sentence-play /
+    // video-seek on the bubbling click (onTextClick) still fires underneath.
+    span.addEventListener("click", () => {
+      setCurrent(word, span);
+      openPopup(word, span);
     });
     return span;
   }

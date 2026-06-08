@@ -145,16 +145,16 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     const ws = WaveSurfer.create({
       container: p.waveEl,
       height: 30,
-      waveColor: cssVar("--ctp-overlay0", "#565f89"),
-      progressColor: cssVar("--ctp-blue", "#7aa2f7"),
-      cursorColor: cssVar("--ctp-mauve", "#bb9af7"),
+      waveColor: cssVar("--ctp-overlay0", "#2e466b"),
+      progressColor: cssVar("--ctp-blue", "#5089d8"),
+      cursorColor: cssVar("--ctp-blue-bright", "#66aaf7"),
       normalize: true,
       barWidth: 2,
       barGap: 1,
       barRadius: 2,
     });
     const regions = ws.registerPlugin(RegionsPlugin.create());
-    regions.enableDragSelection({ color: "rgba(122,162,247,0.22)" });
+    regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });
     const inst: Inst = { cue: p.cue, row: p.row, ws, region: null, looping: false, lp: p.lp, url: null };
     regions.on("region-created", (r) => {
       for (const o of regions.getRegions()) if (o !== r) o.remove();

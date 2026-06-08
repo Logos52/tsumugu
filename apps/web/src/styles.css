@@ -3,102 +3,149 @@
  * apps/web/public/fonts and are linked from index.html (no CDN). */
 
 /*
- * Tsumugu web — app stylesheet. Catppuccin: Latte by default, Mocha under
- * <html data-theme="dark">. The palette lives in --ctp-* (redefined per theme);
- * the semantic --tsg-* tokens reference it, so theming is one swap. Class names
- * mirror apps/web/src/ui/classes.ts and the index.html element ids.
+ * Tsumugu web — app stylesheet. wnac / Copilot Money palette: DARK by default
+ * (bare :root), light under <html data-theme="light">. The palette lives in
+ * --ctp-* (redefined per theme); the semantic --tsg-* tokens reference it, so
+ * theming is one swap. Class names mirror apps/web/src/ui/classes.ts and the
+ * index.html element ids.
  *
- * Status fades new → l4 → known; "new" is the strongest, "known" has none,
- * "ignored" is muted.
+ * Status ramp: new=RED (attention) → orange → amber → known=NONE (calm);
+ * "new" is the strongest, "known" has none, "ignored" is muted.
  */
 
 :root {
-  /* ── Catppuccin Latte (light, default) ──────────────────────────────────── */
-  --ctp-base: #eff1f5;
-  --ctp-surface: #ffffff;
-  --ctp-text: #4c4f69;
-  --ctp-subtext: #6c6f85;
-  --ctp-faint: #8c8fa1;
-  --ctp-border: #ccd0da;
-  --ctp-border-strong: #bcc0cc;
-  --ctp-blue: #1e66f5;
-  --ctp-red: #d20f39;
-  --ctp-peach: #fe640b;
-  --ctp-yellow: #df8e1d;
-  --ctp-green: #40a02b;
-  --ctp-teal: #179299;
-  --ctp-mauve: #8839ef;
-  --ctp-overlay: #9ca0b0;
-  --ctp-on-accent: #ffffff;
-  --tsg-shadow: 0 6px 24px rgba(76, 79, 105, 0.14);
-  --tsg-shadow-sm: 0 1px 2px rgba(76, 79, 105, 0.1);
-  color-scheme: light;
+  /* wnac / Copilot Money — DARK is the default theme (bare :root). Palette in
+     --ctp-*; semantic --tsg-* reference it (theming = one swap, [data-theme=light]).
+     Status ramp: new=RED (attention) -> orange -> amber -> known=NONE (calm).
+     Surfaces are LIFTED off pure black so cards/borders/hover read (a11y crit P2);
+     on-accent is dark navy because every accent fill is mid-tone (a11y crit). */
+  --ctp-base:          #000610;
+  --ctp-mantle:        #03101f;
+  --ctp-surface:       #0a1a30;
+  --ctp-surface0:      #122440;
+  --ctp-surface1:      #18304f;
+  --ctp-border:        #1f375c;
+  --ctp-border-strong: #2e466b;
+  --ctp-overlay:       #5b6e8c;
+  --ctp-overlay0:      #2e466b;
+  --ctp-text:          #dae5f3;
+  --ctp-subtext:       #9ab0cf;
+  --ctp-faint:         #7e91ad;
+  --ctp-blue:          #5089d8;
+  --ctp-blue-bright:   #66aaf7;
+  --ctp-on-accent:     #000610;
+  --ctp-red:           #f3241a;
+  --ctp-peach:         #ed8001;
+  --ctp-yellow:        #f5a623;
+  --ctp-green:         #00bb36;
+  --ctp-teal:          #46c5e6;
+  --ctp-mauve:         #b36ef5;
+  --tsg-shadow:    inset 0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.45);
+  --tsg-shadow-sm: inset 0 1px 0 rgba(255,255,255,.05), 0 2px 8px rgba(0,0,0,.40);
+  color-scheme: dark;
 
-  /* ── semantic tokens → palette (shared across themes) ───────────────────── */
-  --tsg-bg: var(--ctp-base);
-  --tsg-surface: var(--ctp-surface);
-  --tsg-ink: var(--ctp-text);
-  --tsg-ink-muted: var(--ctp-subtext);
-  --tsg-ink-faint: var(--ctp-faint);
-  --tsg-border: var(--ctp-border);
+  --tsg-bg:            var(--ctp-base);
+  --tsg-surface:       var(--ctp-surface);
+  --tsg-surface-alt:   var(--ctp-surface0);
+  --tsg-surface-sunk:  var(--ctp-mantle);
+  --tsg-ink:           var(--ctp-text);
+  --tsg-ink-muted:     var(--ctp-subtext);
+  --tsg-ink-faint:     var(--ctp-faint);
+  --tsg-ink-soft:      var(--ctp-subtext);
+  --tsg-border:        var(--ctp-border);
   --tsg-border-strong: var(--ctp-border-strong);
-  --tsg-accent: var(--ctp-blue);
-  --tsg-accent-ink: var(--ctp-on-accent);
-  /* Hover/press surfaces — theme-adaptive (mix the overlay into the surface), so
-   * they read correctly in both Latte and Mocha instead of a hardcoded light. */
-  --tsg-hover: color-mix(in oklab, var(--ctp-overlay) 15%, var(--tsg-surface));
-  --tsg-press: color-mix(in oklab, var(--ctp-overlay) 26%, var(--tsg-surface));
-  --tsg-radius: 8px;
-  --tsg-radius-sm: 5px;
+  --tsg-accent:        var(--ctp-blue);
+  --tsg-accent-bright: var(--ctp-blue-bright);
+  --tsg-accent-ink:    var(--ctp-on-accent);
+  --tsg-hover:    color-mix(in oklab, var(--ctp-blue-bright) 10%, var(--ctp-surface));
+  --tsg-press:    color-mix(in oklab, var(--ctp-blue-bright) 18%, var(--ctp-surface));
+  --tsg-selected: var(--ctp-surface1);
+  --tsg-info:    var(--ctp-blue);
+  --tsg-topic:   var(--ctp-mauve);
+  --tsg-success: var(--ctp-green);
+  --tsg-danger:  var(--ctp-red);
 
-  /* status fill ramp (default visual): theme-adaptive peach/yellow tint */
-  --tsg-new-underline: var(--ctp-yellow);
-  --tsg-new-bg: color-mix(in oklab, var(--ctp-peach) 26%, var(--tsg-surface));
-  --tsg-l1-bg: color-mix(in oklab, var(--ctp-peach) 20%, var(--tsg-surface));
-  --tsg-l2-bg: color-mix(in oklab, var(--ctp-yellow) 16%, var(--tsg-surface));
-  --tsg-l3-bg: color-mix(in oklab, var(--ctp-yellow) 11%, var(--tsg-surface));
-  --tsg-l4-bg: color-mix(in oklab, var(--ctp-yellow) 6%, var(--tsg-surface));
+  --tsg-radius:      12px;
+  --tsg-radius-sm:   8px;
+  --tsg-radius-xs:   4px;
+  --tsg-radius-pill: 999px;
 
-  /* tones (Mandarin standard scheme, Catppuccin hues) */
+  --tsg-st-new:   var(--ctp-red);
+  --tsg-st-l1:    var(--ctp-peach);
+  --tsg-st-l2:    var(--ctp-peach);
+  --tsg-st-l3:    var(--ctp-yellow);
+  --tsg-st-l4:    color-mix(in oklab, var(--ctp-green) 70%, var(--ctp-yellow));
+  --tsg-st-known: var(--ctp-green);
+
+  --tsg-new-underline: var(--tsg-st-new);
+  --tsg-new-bg: color-mix(in oklab, var(--tsg-st-new) 16%, var(--tsg-surface));
+  --tsg-l1-bg:  color-mix(in oklab, var(--tsg-st-l1) 13%, var(--tsg-surface));
+  --tsg-l2-bg:  color-mix(in oklab, var(--tsg-st-l2) 10%, var(--tsg-surface));
+  --tsg-l3-bg:  color-mix(in oklab, var(--tsg-st-l3) 8%, var(--tsg-surface));
+  --tsg-l4-bg:  color-mix(in oklab, var(--tsg-st-l4) 6%, var(--tsg-surface));
+
+  --tsg-unknown-underline:  var(--tsg-st-new);
+  --tsg-learning-underline: var(--tsg-st-l1);
+
   --tsg-tone-1: var(--ctp-red);
   --tsg-tone-2: var(--ctp-green);
-  --tsg-tone-3: var(--ctp-blue);
+  --tsg-tone-3: var(--ctp-blue-bright);
   --tsg-tone-4: var(--ctp-mauve);
   --tsg-tone-5: var(--ctp-faint);
 
-  /* Migaku-style underlines (phonetics visual): unknown=red, learning=peach */
-  --tsg-unknown-underline: var(--ctp-red);
-  --tsg-learning-underline: var(--ctp-peach);
-
   --tsg-reading-width: 38rem;
+  --tsg-brand-gradient: linear-gradient(135deg, #66aaf7 0%, #b36ef5 58%, #f34ad8 100%);
 
-  --tsg-font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, "PingFang TC", "Hiragino Sans", "Microsoft JhengHei", sans-serif;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 24px; --space-6: 32px;
+
+  --type-xs: .75rem;   --lh-xs: 1.4;
+  --type-sm: .85rem;   --lh-sm: 1.45;
+  --type-base: .95rem; --lh-base: 1.5;
+  --type-md: 1.05rem;  --lh-md: 1.5;
+  --type-lg: 1.15rem;  --lh-lg: 1.3;
+  --type-xl: 1.45rem;  --lh-xl: 1.25;
+  --lh-read: 2;
+
+  --fw-label: 500; --fw-chip: 600; --fw-numeral: 700; --track-chip: .04em;
+
+  --ease-spring:   cubic-bezier(.34, 1.56, .64, 1);
+  --ease-standard: cubic-bezier(.4, 0, .2, 1);
+  --dur-fast: 120ms; --dur-base: 160ms; --dur-slow: 320ms;
+
+  --tsg-font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "PingFang TC", "Hiragino Sans", "Microsoft JhengHei", system-ui, sans-serif;
   --tsg-font-read: "LXGW WenKai TC", "Iowan Old Style", "PingFang TC", "Songti TC",
     "Noto Serif CJK TC", serif;
 }
 
-:root[data-theme="dark"] {
-  /* ── Catppuccin Mocha (dark) — only the palette + shadows change ─────────── */
-  --ctp-base: #1e1e2e;
-  --ctp-surface: #313244;
-  --ctp-text: #cdd6f4;
-  --ctp-subtext: #a6adc8;
-  --ctp-faint: #7f849c;
-  --ctp-border: #45475a;
-  --ctp-border-strong: #585b70;
-  --ctp-blue: #89b4fa;
-  --ctp-red: #f38ba8;
-  --ctp-peach: #fab387;
-  --ctp-yellow: #f9e2af;
-  --ctp-green: #a6e3a1;
-  --ctp-teal: #94e2d5;
-  --ctp-mauve: #cba6f7;
-  --ctp-overlay: #6c7086;
-  --ctp-on-accent: #11111b;
-  --tsg-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
-  --tsg-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
-  color-scheme: dark;
+:root[data-theme="light"] {
+  --ctp-base:          #eff1f5;
+  --ctp-mantle:        #e6e9ef;
+  --ctp-surface:       #ffffff;
+  --ctp-surface0:      #dce0e8;
+  --ctp-surface1:      #e6e9ef;
+  --ctp-border:        #ccd0da;
+  --ctp-border-strong: #bcc0cc;
+  --ctp-overlay:       #9ca0b0;
+  --ctp-overlay0:      #bcc0cc;
+  --ctp-text:          #4c4f69;
+  --ctp-subtext:       #5c5f73;
+  --ctp-faint:         #73768a;
+  --ctp-blue:          #1a5ce0;
+  --ctp-blue-bright:   #1a5ce0;
+  --ctp-on-accent:     #ffffff;
+  --ctp-red:           #d20f39;
+  --ctp-peach:         #fe640b;
+  --ctp-yellow:        #df8e1d;
+  --ctp-green:         #40a02b;
+  --ctp-teal:          #179299;
+  --ctp-mauve:         #8839ef;
+  --tsg-shadow:    0 6px 24px rgba(76, 79, 105, 0.14);
+  --tsg-shadow-sm: 0 1px 2px rgba(76, 79, 105, 0.10);
+  --tsg-hover:    color-mix(in oklab, var(--ctp-overlay) 12%, var(--tsg-surface));
+  --tsg-press:    color-mix(in oklab, var(--ctp-overlay) 22%, var(--tsg-surface));
+  --tsg-brand-gradient: linear-gradient(135deg, #1e66f5 0%, #8839ef 58%, #ea76cb 100%);
+  color-scheme: light;
 }
 
 /* ── base reset ───────────────────────────────────────────────────────────── */
@@ -147,12 +194,13 @@ button {
 #app-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 0.6rem 1.25rem;
-  background: color-mix(in oklab, var(--tsg-surface) 88%, transparent);
-  backdrop-filter: saturate(1.4) blur(8px);
+  gap: var(--space-4);
+  padding: var(--space-2) var(--space-5);
+  background: color-mix(in oklab, var(--ctp-mantle) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--tsg-border);
-  box-shadow: var(--tsg-shadow-sm);
+  box-shadow: none;
   position: sticky; /* toolbar stays reachable while scrolling a long reading */
   top: 0;
   z-index: 50;
@@ -168,14 +216,15 @@ button {
   width: 30px;
   height: 30px;
   display: block;
-  border-radius: 9px;
+  border-radius: var(--tsg-radius-sm);
   box-shadow: var(--tsg-shadow-sm);
 }
 
 #app-header h1 {
   margin: 0;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: var(--tsg-font-ui);
+  font-size: var(--type-lg);
+  font-weight: var(--fw-numeral);
   letter-spacing: 0.01em;
   white-space: nowrap;
 }
@@ -185,11 +234,11 @@ button {
 .tsg-brand-char {
   font-family: var(--tsg-font-read);
   font-size: 1.25em;
-  font-weight: 700;
-  background: linear-gradient(135deg, #74c0fc 0%, #8b5cf6 58%, #f2a7d5 100%);
+  background: var(--tsg-brand-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 #app-nav {
@@ -198,13 +247,15 @@ button {
 }
 
 #app-nav button {
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--tsg-border-strong);
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid transparent;
   border-radius: var(--tsg-radius-sm);
-  background: var(--tsg-surface);
+  background: transparent;
   color: var(--tsg-ink-muted);
   cursor: pointer;
-  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  font-weight: var(--fw-label);
+  transition: background var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
 }
 
 #app-nav button:hover {
@@ -222,10 +273,12 @@ button {
 }
 
 #app-nav button[aria-pressed="true"],
-#app-nav button.tsg-btn-active {
+#app-nav button.tsg-btn-active,
+#app-nav button.tsg-btn-active:hover {
   background: var(--tsg-accent);
   border-color: var(--tsg-accent);
   color: var(--tsg-accent-ink);
+  box-shadow: 0 2px 10px color-mix(in oklab, var(--tsg-accent) 35%, transparent);
 }
 
 #app-toolbar {
@@ -260,27 +313,32 @@ button {
 /* ── shared controls ──────────────────────────────────────────────────────── */
 
 .tsg-btn {
-  padding: 0.4rem 0.9rem;
-  border: 1px solid var(--tsg-border-strong);
+  padding: 6px 13px;
+  border: 1px solid var(--tsg-border);
   border-radius: var(--tsg-radius-sm);
-  background: var(--tsg-surface);
+  background: var(--tsg-surface-alt);
   color: var(--tsg-ink);
   cursor: pointer;
   line-height: 1.2;
-  font-weight: 500;
+  font-family: var(--tsg-font-ui);
+  font-size: var(--type-sm);
+  font-weight: var(--fw-label);
   box-shadow: var(--tsg-shadow-sm);
-  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease,
-    box-shadow 0.12s ease, transform 0.06s ease;
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
 }
 
 .tsg-btn:hover {
-  background: var(--tsg-hover);
-  border-color: var(--tsg-accent);
+  background: color-mix(in oklab, var(--ctp-surface1) 60%, var(--tsg-surface-alt));
+  border-color: var(--tsg-border-strong);
+  transform: translateY(-1px);
 }
 
 .tsg-btn:active {
   background: var(--tsg-press);
-  transform: translateY(1px);
+  transform: translateY(0);
   box-shadow: none;
 }
 
@@ -290,7 +348,7 @@ button {
 }
 
 .tsg-btn:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
   box-shadow: none;
 }
@@ -328,34 +386,41 @@ button {
 
 .tsg-status-new {
   background: var(--tsg-new-bg);
-  box-shadow: inset 0 -0.18em 0 0 var(--tsg-new-underline);
+  box-shadow: inset 0 -0.16em 0 0 var(--tsg-new-underline);
 }
 
 .tsg-status-l1 {
   background: var(--tsg-l1-bg);
+  box-shadow: inset 0 -0.14em 0 0 var(--tsg-st-l1);
 }
 
 .tsg-status-l2 {
   background: var(--tsg-l2-bg);
+  box-shadow: inset 0 -0.12em 0 0 var(--tsg-st-l2);
 }
 
 .tsg-status-l3 {
   background: var(--tsg-l3-bg);
+  box-shadow: inset 0 -0.10em 0 0 var(--tsg-st-l3);
 }
 
 .tsg-status-l4 {
+  /* fill only, no bar */
   background: var(--tsg-l4-bg);
 }
 
 .tsg-status-known {
   /* mastered — no highlight */
   background: transparent;
+  box-shadow: none;
 }
 
 .tsg-status-ignored {
   /* ignored = "I know this / proper noun (e.g. Mandarin Corner)" — render like
    * known: no highlight, no strikeout, it just blends into the text. */
   background: transparent;
+  box-shadow: none;
+  opacity: 0.55;
 }
 
 /* ── tone coloring (engine: toneClass) — text color only ──────────────────── */
@@ -386,8 +451,8 @@ button {
   max-width: var(--tsg-reading-width);
   margin: 0 auto;
   font-family: var(--tsg-font-read);
-  font-size: 1.45rem;
-  line-height: 2;
+  font-size: var(--type-xl);
+  line-height: var(--lh-read);
   letter-spacing: 0.015em; /* a little air between CJK glyphs (WenKai brush face) */
   color: var(--tsg-ink);
   word-break: break-word;
@@ -397,13 +462,14 @@ button {
 
 .tsg-token {
   cursor: pointer;
-  border-radius: var(--tsg-radius-sm);
+  border-radius: var(--tsg-radius-xs);
   padding: 0.02em 0.06em;
-  transition: filter 0.1s ease;
+  transition: background var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard);
 }
 
 .tsg-token:hover {
-  filter: brightness(0.96);
+  background: color-mix(in oklab, var(--tsg-ink) 6%, transparent);
 }
 
 .tsg-word {
@@ -459,6 +525,23 @@ button {
   line-height: 2.4;
 }
 
+/*
+ * Zhuyin ruby sits only over words you don't know yet (new / l1 / l2 / l3);
+ * Learned (l4) / Known / Ignored show none — the page stays clean and grading a
+ * word down hides its reading live (the status class swaps on grade). The "all"
+ * mode (phoneticsAllWords / `data-ruby="all"`) reveals the reading over every word.
+ */
+.tsg-reader-text[data-visual="migaku"] .tsg-ruby rt {
+  display: none;
+}
+.tsg-reader-text[data-visual="migaku"] .tsg-status-new .tsg-ruby rt,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l1 .tsg-ruby rt,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l2 .tsg-ruby rt,
+.tsg-reader-text[data-visual="migaku"] .tsg-status-l3 .tsg-ruby rt,
+.tsg-reader-text[data-visual="migaku"][data-ruby="all"] .tsg-ruby rt {
+  display: revert;
+}
+
 .tsg-reader-text[data-visual="migaku"] .tsg-status-new,
 .tsg-reader-text[data-visual="migaku"] .tsg-status-l1 {
   background: transparent;
@@ -467,7 +550,6 @@ button {
 
 .tsg-reader-text[data-visual="migaku"] .tsg-status-l2,
 .tsg-reader-text[data-visual="migaku"] .tsg-status-l3 {
-  background: transparent;
   box-shadow: inset 0 -0.1em 0 0 var(--tsg-learning-underline);
 }
 
@@ -483,9 +565,9 @@ button {
 }
 
 .tsg-reader-text[data-visual="migaku"] .tsg-active {
-  background: color-mix(in oklab, var(--tsg-accent) 22%, transparent);
+  background: color-mix(in oklab, var(--tsg-accent-bright) 20%, transparent);
   outline: none;
-  border-radius: var(--tsg-radius-sm);
+  border-radius: var(--tsg-radius-xs);
 }
 
 /* ── popup (hover card) ───────────────────────────────────────────────────── */
@@ -504,18 +586,18 @@ button {
 .tsg-popup {
   position: absolute;
   z-index: 1000;
-  animation: tsg-pop-in 0.11s ease-out;
+  animation: tsg-pop-in var(--dur-base) var(--ease-standard);
   /* A real width: the card is an absolutely-positioned child of the inline word
    * span, so without this it shrink-to-fits to a sliver and every line wraps. */
   width: 20rem;
   max-width: 92vw;
-  padding: 0.75rem 0.9rem;
+  padding: var(--space-3) var(--space-4);
   background: var(--tsg-surface);
   border: 1px solid var(--tsg-border);
   border-radius: var(--tsg-radius);
   box-shadow: var(--tsg-shadow);
   font-family: var(--tsg-font-ui);
-  font-size: 0.95rem;
+  font-size: var(--type-base);
   line-height: 1.45;
   color: var(--tsg-ink);
 }
@@ -524,7 +606,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-weight: 700;
+  font-weight: 400;
   font-size: 1.25rem;
   line-height: 1.2;
 }
@@ -564,8 +646,8 @@ button {
   margin-top: 0.5rem;
   padding: 0.4rem 0.55rem;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-blue) 8%, var(--tsg-surface));
-  border: 1px solid color-mix(in oklab, var(--ctp-blue) 22%, var(--tsg-border));
+  background: color-mix(in oklab, var(--tsg-info) 8%, var(--tsg-surface));
+  border: 1px solid color-mix(in oklab, var(--tsg-info) 22%, var(--tsg-border));
   font-size: 0.85rem;
   color: var(--tsg-ink-muted);
 }
@@ -583,22 +665,38 @@ button {
  * nearly there) → K (green, known); X (gray) = ignored. The colour IS the cue. */
 .tsg-popup-grades [data-grade] {
   min-width: 2.1rem;
-  font-weight: 700;
   text-align: center;
-  color: var(--g);
-  border-color: color-mix(in oklab, var(--g) 45%, var(--tsg-border));
+  border-radius: var(--tsg-radius-pill);
+  border: 1px solid color-mix(in oklab, var(--g) 45%, var(--tsg-border));
   background: color-mix(in oklab, var(--g) 12%, var(--tsg-surface));
+  color: var(--gt, var(--g));
+  font-weight: var(--fw-chip);
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
 }
 .tsg-popup-grades [data-grade]:hover {
-  background: color-mix(in oklab, var(--g) 24%, var(--tsg-surface));
+  background: color-mix(in oklab, var(--g) 22%, var(--tsg-surface));
   border-color: color-mix(in oklab, var(--g) 60%, var(--tsg-border));
+  transform: translateY(-1px);
 }
-.tsg-popup-grades [data-grade="1"] { --g: var(--ctp-red); }
-.tsg-popup-grades [data-grade="2"] { --g: var(--ctp-peach); }
-.tsg-popup-grades [data-grade="3"] { --g: var(--ctp-yellow); }
-.tsg-popup-grades [data-grade="4"] { --g: var(--ctp-teal); }
-.tsg-popup-grades [data-grade="K"] { --g: var(--ctp-green); }
-.tsg-popup-grades [data-grade="X"] { --g: var(--ctp-overlay); }
+.tsg-popup-grades [data-grade]:focus-visible {
+  outline: 2px solid var(--tsg-accent);
+  outline-offset: 2px;
+}
+/* selected/current chip fills with its hue; text flips to on-accent for contrast */
+.tsg-popup-grades [data-grade][aria-pressed="true"],
+.tsg-popup-grades [data-grade].tsg-btn-active {
+  background: var(--g);
+  border-color: var(--g);
+  color: var(--ctp-on-accent);
+}
+.tsg-popup-grades [data-grade="1"] { --g: var(--tsg-st-new); --gt: #ff6b61; }
+.tsg-popup-grades [data-grade="2"] { --g: var(--tsg-st-l1);  --gt: #ed8001; }
+.tsg-popup-grades [data-grade="3"] { --g: var(--tsg-st-l3);  --gt: #f5a623; }
+.tsg-popup-grades [data-grade="4"] { --g: var(--ctp-green);  --gt: #00bb36; }
+.tsg-popup-grades [data-grade="K"] { --g: var(--ctp-green);  --gt: #00bb36; }
+.tsg-popup-grades [data-grade="X"] { --g: var(--ctp-faint);  --gt: #9ab0cf; }
 
 /* guess-first: conceal the gloss/answer until the learner hits Reveal.
  * The conceal must hold on hover too — otherwise hovering leaks the answer,
@@ -622,10 +720,11 @@ button {
   width: 100%;
   max-width: 30rem;
   margin: 0 auto;
-  padding: 2rem 1.75rem;
+  padding: var(--space-6) var(--space-5);
   background: var(--tsg-surface);
   border: 1px solid var(--tsg-border);
   border-radius: var(--tsg-radius);
+  border-top: 3px solid var(--tsg-accent);
   box-shadow: var(--tsg-shadow);
   text-align: center;
 }
@@ -633,7 +732,7 @@ button {
 .tsg-card-term {
   font-family: var(--tsg-font-read);
   font-size: 2.75rem;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.2;
   margin-bottom: 0.5rem;
 }
@@ -706,7 +805,7 @@ button {
   border: 2px solid var(--tsg-surface);
   box-shadow: var(--tsg-shadow-sm);
   cursor: grab;
-  transition: transform 0.1s ease;
+  transition: transform var(--dur-fast) var(--ease-standard);
 }
 .tsg-scrubber::-webkit-slider-thumb:active {
   transform: scale(1.18);
@@ -725,6 +824,7 @@ button {
   background: var(--tsg-accent);
   box-shadow: var(--tsg-shadow-sm);
   cursor: grab;
+  transition: transform var(--dur-fast) var(--ease-standard);
 }
 .tsg-scrubber:focus-visible {
   outline: 2px solid var(--tsg-accent);
@@ -735,8 +835,8 @@ button {
   margin-top: 0.5rem;
   padding: 0.5rem 0.7rem;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-blue) 8%, var(--tsg-surface));
-  border-left: 3px solid var(--ctp-blue);
+  background: color-mix(in oklab, var(--tsg-info) 8%, var(--tsg-surface));
+  border-left: 3px solid var(--tsg-info);
   color: var(--tsg-ink-muted);
   font-style: italic;
   font-size: 0.95rem;
@@ -748,8 +848,8 @@ button {
   margin-top: 0.5rem;
   padding: 0.5rem 0.7rem;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-mauve) 9%, var(--tsg-surface));
-  border-left: 3px solid var(--ctp-mauve);
+  background: color-mix(in oklab, var(--tsg-topic) 9%, var(--tsg-surface));
+  border-left: 3px solid var(--tsg-topic);
   color: var(--tsg-ink);
   font-size: 0.95rem;
   font-family: var(--tsg-font-ui);
@@ -760,8 +860,8 @@ button {
 /* English translation of the section summary (shown under the 譯 toggle). */
 .tsg-section-tr {
   margin-top: 0.25rem;
-  font-size: 0.85rem;
-  color: var(--tsg-ink-soft, var(--ctp-subtext));
+  font-size: var(--type-sm);
+  color: var(--tsg-ink-soft);
 }
 .tsg-section-tr:empty {
   display: none;
@@ -770,10 +870,11 @@ button {
  * A continuous accent band (square inner edges so adjacent tokens read as one
  * line) that fades in as the highlight moves. */
 .tsg-cue-active {
-  background: color-mix(in oklab, var(--tsg-accent) 18%, var(--tsg-surface));
-  box-shadow: inset 0 -0.12em 0 0 color-mix(in oklab, var(--tsg-accent) 55%, transparent);
-  border-radius: 2px;
-  transition: background 0.15s ease;
+  /* The active-sentence highlight is BACKGROUND ONLY — no underline — so every
+     word keeps its own red/orange/amber status underline painted on top of it. */
+  background: color-mix(in oklab, var(--tsg-accent) 13%, var(--tsg-surface));
+  border-radius: var(--tsg-radius-xs);
+  transition: background var(--dur-base) var(--ease-standard);
 }
 
 /* Segment-loop practice bar (M2.1) — collapsible; the waveform is wavesurfer. */
@@ -781,8 +882,8 @@ button {
   margin-top: 0.5rem;
   padding: 0.5rem 0.7rem;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-blue) 7%, var(--tsg-surface));
-  border-left: 3px solid var(--ctp-blue);
+  background: color-mix(in oklab, var(--tsg-info) 7%, var(--tsg-surface));
+  border-left: 3px solid var(--tsg-info);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -797,8 +898,8 @@ button {
   margin-top: 0.5rem;
   padding: 0.5rem 0.7rem;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-green) 7%, var(--tsg-surface));
-  border-left: 3px solid var(--ctp-green);
+  background: color-mix(in oklab, var(--tsg-success) 7%, var(--tsg-surface));
+  border-left: 3px solid var(--tsg-success);
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -807,7 +908,7 @@ button {
   position: relative;
   height: 30px;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 18%, var(--tsg-surface));
+  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 18%, var(--tsg-surface));
   cursor: pointer;
   overflow: hidden;
 }
@@ -816,7 +917,7 @@ button {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 45%, transparent);
+  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 45%, transparent);
   pointer-events: none;
 }
 .tsg-loop-fill {
@@ -833,7 +934,7 @@ button {
   width: 10px;
   transform: translateX(-50%);
   background: var(--tsg-accent);
-  border-radius: 3px;
+  border-radius: var(--tsg-radius-sm);
   cursor: col-resize;
   touch-action: none;
   box-shadow: var(--tsg-shadow-sm);
@@ -859,7 +960,7 @@ button {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--ctp-red, #f38ba8);
+  background: var(--tsg-danger);
   pointer-events: none;
 }
 /* a small knob at the top of the playhead */
@@ -872,7 +973,7 @@ button {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--ctp-red, #f38ba8);
+  background: var(--tsg-danger);
   box-shadow: var(--tsg-shadow-sm);
 }
 
@@ -910,7 +1011,7 @@ button {
   align-self: stretch;
   min-height: 4rem;
   border-radius: 999px;
-  background: color-mix(in oklab, var(--ctp-overlay0, #6c7086) 35%, transparent);
+  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 35%, transparent);
   cursor: col-resize;
   touch-action: none;
   transition: background 0.15s ease;
@@ -1004,9 +1105,9 @@ select.tsg-btn {
   -webkit-appearance: none;
   appearance: none;
   padding-right: 1.7rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4.5l4 4 4-4' fill='none' stroke='%238c8fa1' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235B6E8C' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 0.55rem center;
+  background-position: right 0.6rem center;
   background-size: 0.72rem;
 }
 /* Checkbox toggles inside .tsg-btn labels: accent the box + line it up. */
@@ -1038,10 +1139,11 @@ label.tsg-btn {
   font-family: var(--tsg-font-read);
   font-size: 3.25rem;
   margin-bottom: 0.6rem;
-  background: linear-gradient(135deg, #74c0fc 0%, #8b5cf6 58%, #f2a7d5 100%);
+  background: var(--tsg-brand-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* ── review flashcard ─────────────────────────────────────────────────────── */
@@ -1164,10 +1266,11 @@ html {
 /* Per-sentence waveforms (cueWaveforms.ts): one row per cue, sentence left,
    its wavesurfer looper on the right. */
 .tsg-cue-rows { display: block; }
-.tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: .4rem 0; border-top: 1px solid var(--ctp-surface0, #2f344d); }
-.tsg-cue-rows .tsg-cue-row.tsg-cw-active { background: var(--ctp-mantle, rgba(122,162,247,.06)); border-radius: 6px; }
+.tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: var(--space-2) 0; border-top: 1px solid var(--ctp-border); }
+.tsg-cue-rows .tsg-cue-row.tsg-cw-active { background: color-mix(in oklab, var(--tsg-accent) 8%, transparent); border-radius: var(--tsg-radius-xs); }
 .tsg-cue-rows .tsg-cue-text { flex: 1 1 auto; line-height: 1.6; }
 .tsg-cue-wavewrap { flex: 0 0 auto; display: flex; align-items: center; gap: .4rem; }
 .tsg-cw-wave { width: 220px; height: 30px; flex: 0 0 auto; }
-.tsg-cw-btn { background: var(--ctp-surface1, #2f344d); color: var(--ctp-text, #c0caf5); border: 0; border-radius: 5px; height: 24px; min-width: 24px; cursor: pointer; font-size: .78rem; }
-.tsg-cw-btn.on { background: var(--ctp-mauve, #bb9af7); color: var(--ctp-base, #1a1b26); }
+.tsg-cw-btn { background: var(--tsg-surface-alt); color: var(--tsg-ink); border: 1px solid var(--tsg-border); border-radius: var(--tsg-radius-sm); height: 24px; min-width: 24px; cursor: pointer; font-size: var(--type-sm); transition: background var(--dur-fast) var(--ease-standard); }
+.tsg-cw-btn:hover { background: var(--ctp-surface1); }
+.tsg-cw-btn.on { background: var(--tsg-topic); color: var(--tsg-accent-ink); border-color: var(--tsg-topic); }
