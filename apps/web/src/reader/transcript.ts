@@ -37,7 +37,11 @@ import {
   type PracticeBar,
   type PracticeBarFactory,
 } from "../voice/practiceBar.js";
+import { mountCueWaveforms, type CueWaveforms } from "../voice/cueWaveforms.js";
 import type { SectionAudioPlayer } from "../voice/sectionAudio.js";
+
+/** Max cues for the always-on per-sentence waveforms (a long reading would spawn too many). */
+const CUE_WAVEFORM_LIMIT = 80;
 
 export interface TranscriptController {
   destroy(): void;
@@ -96,6 +100,8 @@ export interface TranscriptController {
   toggleLoopStrip(): void;
   /** Whether the A/B loop strip is open. */
   isLoopStripOpen(): boolean;
+  /** Handle Space / arrows / L for the per-sentence waveforms; true if consumed. */
+  cueKey(ev: KeyboardEvent): boolean;
 }
 
 /** mm:ss for the time label. */
@@ -222,8 +228,18 @@ export function mountTranscriptSync(opts: {
     const vShadow = el("button", { class: CLS.btn, type: "button", text: "跟讀", title: "Shadowing: hear → repeat → Space to advance (Esc exits)" });
     shadowBtn = vShadow;
     vPlay.addEventListener("click", () => playCurrentCueVoice());
-    vFrom.addEventListener("click", () => (chaining ? stopVoice() : playFromCurrentVoice()));
-    vStop.addEventListener("click", () => stopVoice());
+    vFrom.addEventListener("click", () => {
+      if (cueWaves) {
+        // ⏩ plays through every sentence's waveform, auto-advancing.
+        cueWaves.isPlaying() ? cueWaves.stop() : cueWaves.playThrough();
+        return;
+      }
+      chaining ? stopVoice() : playFromCurrentVoice();
+    });
+    vStop.addEventListener("click", () => {
+      cueWaves?.stop();
+      stopVoice();
+    });
     vSlow.addEventListener("click", () => {
       slow = !slow;
       vSlow.classList.toggle(CLS.btnActive, slow);
@@ -286,6 +302,22 @@ export function mountTranscriptSync(opts: {
     if (r) pSpeed.textContent = `${r}×`;
   });
   panel.append(practicePanel);
+
+  // Per-sentence waveforms: an inline wavesurfer looper on every cue, inserted
+  // right after each cue's text. Opt-in by size (a long reading would spawn
+  // hundreds). Self-contained per line; interacting with one selects that cue.
+  let cueWaves: CueWaveforms | null = null;
+  if (voicePlayer && vault && voiceNotes && cues.length <= CUE_WAVEFORM_LIMIT) {
+    void mountCueWaveforms({
+      ranges,
+      tokenEls,
+      vault,
+      binding: voiceNotes,
+      onActivate: (c) => selectCue(c),
+    }).then((cw) => {
+      cueWaves = cw;
+    });
+  }
 
   // ── A/B video loop strip (🆎) — collapsible; handles snap to sentences ──────
   regionPanel = el("div", { class: CLS.loopStrip });
@@ -416,6 +448,7 @@ export function mountTranscriptSync(opts: {
     }
     lastCue = idx;
     followCue(idx); // the practice bar tracks the active sentence
+    cueWaves?.setActive(idx); // outline the matching per-sentence waveform
   }
 
   function paint(t: number): void {
@@ -869,6 +902,7 @@ export function mountTranscriptSync(opts: {
       player?.destroy();
       voicePlayer?.stop();
       practiceBar?.destroy();
+      cueWaves?.destroy();
       for (const node of tokenEls) node?.classList.remove(CLS.cueActive);
       panel.remove();
     },
@@ -928,6 +962,9 @@ export function mountTranscriptSync(opts: {
     toggleLoopStrip,
     isLoopStripOpen() {
       return loopStripOpen;
+    },
+    cueKey(ev) {
+      return cueWaves?.key(ev) ?? false;
     },
   };
 }

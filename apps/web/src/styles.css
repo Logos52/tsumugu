@@ -1160,3 +1160,14 @@ html {
     outline: none !important;
   }
 }
+
+/* Per-sentence waveforms (cueWaveforms.ts): one row per cue, sentence left,
+   its wavesurfer looper on the right. */
+.tsg-cue-rows { display: block; }
+.tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: .4rem 0; border-top: 1px solid var(--ctp-surface0, #2f344d); }
+.tsg-cue-rows .tsg-cue-row.tsg-cw-active { background: var(--ctp-mantle, rgba(122,162,247,.06)); border-radius: 6px; }
+.tsg-cue-rows .tsg-cue-text { flex: 1 1 auto; line-height: 1.6; }
+.tsg-cue-wavewrap { flex: 0 0 auto; display: flex; align-items: center; gap: .4rem; }
+.tsg-cw-wave { width: 220px; height: 30px; flex: 0 0 auto; }
+.tsg-cw-btn { background: var(--ctp-surface1, #2f344d); color: var(--ctp-text, #c0caf5); border: 0; border-radius: 5px; height: 24px; min-width: 24px; cursor: pointer; font-size: .78rem; }
+.tsg-cw-btn.on { background: var(--ctp-mauve, #bb9af7); color: var(--ctp-base, #1a1b26); }

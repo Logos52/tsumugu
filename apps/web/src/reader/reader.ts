@@ -617,6 +617,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       closePopup();
       return;
     }
+    // Per-sentence waveforms (when present) own Space / ↑↓ / L: play the selected
+    // line's waveform, move the selection, loop it. Falls through otherwise.
+    if (transcriptCtl?.cueKey(ev)) return;
     // The practice bar follows the active sentence (always visible); `[` / `]`
     // nudge the nearest loop edge. Loop itself is the 🔁 button (so `l` stays
     // next-word). These don't collide with any existing binding.

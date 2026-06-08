@@ -60,6 +60,7 @@ function densify(s: string): string {
  * dot. Unparseable parts contribute 0 rather than `NaN`-poisoning the result.
  */
 export function parseTimecode(tc: string): number {
+  if (!tc) return 0; // a cue with no start/end (plain-text transcript) → 0, not a throw
   const parts = tc.trim().replace(",", ".").split(":");
   let seconds = 0;
   for (const part of parts) {
