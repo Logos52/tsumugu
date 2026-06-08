@@ -145,9 +145,9 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     const ws = WaveSurfer.create({
       container: p.waveEl,
       height: 30,
-      waveColor: cssVar("--ctp-overlay0", "#2e466b"),
-      progressColor: cssVar("--ctp-blue", "#5089d8"),
-      cursorColor: cssVar("--ctp-blue-bright", "#66aaf7"),
+      waveColor: cssVar("--wnac-overlay0", "#2e466b"),
+      progressColor: cssVar("--wnac-blue", "#5089d8"),
+      cursorColor: cssVar("--wnac-blue-bright", "#66aaf7"),
       normalize: true,
       barWidth: 2,
       barGap: 1,

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { migakuAdapter, reconcile } from "./index.js";
+import { srsAdapter, reconcile } from "./index.js";
 import type {
   ExternalVocabRecord,
   ReconciliationReport,
@@ -11,15 +11,15 @@ const LANG = "zh-Hant";
 /** A tiny store: one agreement, one conflict, one store-only word. */
 function store(): WordEntry[] {
   return [
-    { lang: LANG, word: "你好", status: "known" }, // agrees with migaku
-    { lang: LANG, word: "謝謝", status: "known" }, // migaku says LEARNING → conflict
-    { lang: LANG, word: "孤獨", status: "l2" }, // not in migaku at all
+    { lang: LANG, word: "你好", status: "known" }, // agrees with the import
+    { lang: LANG, word: "謝謝", status: "known" }, // import says LEARNING → conflict
+    { lang: LANG, word: "孤獨", status: "l2" }, // not in the import at all
     { lang: "vi", word: "xin", status: "new" }, // other language → ignored
   ];
 }
 
-/** A small Migaku-shaped export covering agreement, conflict, and missing. */
-const migakuJson = {
+/** A small SRS-shaped export covering agreement, conflict, and missing. */
+const srsJson = {
   words: [
     { word: "你好", lang: LANG, status: "KNOWN" }, // matches store
     { word: "謝謝", lang: LANG, status: "LEARNING" }, // conflicts with store
@@ -28,8 +28,8 @@ const migakuJson = {
   ],
 };
 
-describe("reconcile — Migaku JSON → records → reconcile", () => {
-  const records = migakuAdapter.parse(migakuJson);
+describe("reconcile — SRS JSON → records → reconcile", () => {
+  const records = srsAdapter.parse(srsJson);
   const report: ReconciliationReport = reconcile(LANG, store(), records);
 
   it("parses the right number of records (cross-lang kept at parse time)", () => {
@@ -46,7 +46,7 @@ describe("reconcile — Migaku JSON → records → reconcile", () => {
     ]);
   });
 
-  it("flags the conflict (謝謝: store=known vs migaku=l3)", () => {
+  it("flags the conflict (謝謝: store=known vs srs=l3)", () => {
     expect(report.conflicts.map((r) => r.word)).toEqual(["謝謝"]);
     const conflict = report.conflicts[0];
     expect(conflict?.storeStatus).toBe("known");
@@ -54,7 +54,7 @@ describe("reconcile — Migaku JSON → records → reconcile", () => {
     expect(conflict?.conflict).toBe(true);
   });
 
-  it("does NOT flag the agreement (你好: store=known, migaku=known)", () => {
+  it("does NOT flag the agreement (你好: store=known, srs=known)", () => {
     const agree = report.reconciled.find((r) => r.word === "你好");
     expect(agree?.conflict).toBe(false);
     expect(agree?.storeStatus).toBe("known");
@@ -82,7 +82,7 @@ describe("reconcile — Migaku JSON → records → reconcile", () => {
 describe("reconcile — conflict semantics", () => {
   it("treats an undefined external status as non-conflicting", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "曖昧", externalStatus: "SUSPENDED" },
+      { source: "srs", lang: LANG, word: "曖昧", externalStatus: "SUSPENDED" },
     ];
     const entries: WordEntry[] = [{ lang: LANG, word: "曖昧", status: "l2" }];
     const report = reconcile(LANG, entries, records);
@@ -95,7 +95,7 @@ describe("reconcile — conflict semantics", () => {
 
   it("does not flag a conflict when the word is absent from the store", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "新詞", status: "known" },
+      { source: "srs", lang: LANG, word: "新詞", status: "known" },
     ];
     const report = reconcile(LANG, [], records);
     expect(report.conflicts).toHaveLength(0);
@@ -104,7 +104,7 @@ describe("reconcile — conflict semantics", () => {
 
   it("flags conflict when ANY of multiple external sources disagrees", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "詞", status: "known" },
+      { source: "srs", lang: LANG, word: "詞", status: "known" },
       { source: "anki", lang: LANG, word: "詞", status: "l1" },
     ];
     const entries: WordEntry[] = [{ lang: LANG, word: "詞", status: "known" }];
@@ -115,7 +115,7 @@ describe("reconcile — conflict semantics", () => {
 
   it("no conflict when all defined external statuses match the store", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "詞", status: "known" },
+      { source: "srs", lang: LANG, word: "詞", status: "known" },
       { source: "anki", lang: LANG, word: "詞", status: "known" },
     ];
     const entries: WordEntry[] = [{ lang: LANG, word: "詞", status: "known" }];
@@ -125,7 +125,7 @@ describe("reconcile — conflict semantics", () => {
 
   it("agreeing source + undefined-status source = no conflict", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "詞", status: "known" },
+      { source: "srs", lang: LANG, word: "詞", status: "known" },
       { source: "anki", lang: LANG, word: "詞", externalStatus: "SUSPENDED" },
     ];
     const entries: WordEntry[] = [{ lang: LANG, word: "詞", status: "known" }];
@@ -136,7 +136,7 @@ describe("reconcile — conflict semantics", () => {
 
   it("conflicting source still flags even when a sibling source agrees", () => {
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "詞", status: "known" }, // agrees
+      { source: "srs", lang: LANG, word: "詞", status: "known" }, // agrees
       { source: "anki", lang: LANG, word: "詞", status: "l1" }, // disagrees
     ];
     const entries: WordEntry[] = [{ lang: LANG, word: "詞", status: "known" }];
@@ -149,7 +149,7 @@ describe("reconcile — conflict semantics", () => {
     // disagree with each other but with no store entry are 'missingFromStore',
     // not a conflict.
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "詞", status: "known" },
+      { source: "srs", lang: LANG, word: "詞", status: "known" },
       { source: "anki", lang: LANG, word: "詞", status: "new" },
     ];
     const report = reconcile(LANG, [], records);
@@ -159,7 +159,7 @@ describe("reconcile — conflict semantics", () => {
   });
 
   it("conflicts is always a subset of reconciled (same row objects)", () => {
-    const records = migakuAdapter.parse(migakuJson);
+    const records = srsAdapter.parse(srsJson);
     const report = reconcile(LANG, store(), records);
     for (const c of report.conflicts) {
       expect(report.reconciled).toContain(c); // identity, not just equality
@@ -194,8 +194,8 @@ describe("reconcile — edge cases & determinism", () => {
   it("preserves first-seen ordering (store words anchor before new external)", () => {
     const entries: WordEntry[] = [{ lang: LANG, word: "乙", status: "new" }];
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: LANG, word: "甲", status: "new" },
-      { source: "migaku", lang: LANG, word: "乙", status: "new" },
+      { source: "srs", lang: LANG, word: "甲", status: "new" },
+      { source: "srs", lang: LANG, word: "乙", status: "new" },
     ];
     const report = reconcile(LANG, entries, records);
     // 乙 first (from store), then 甲 (external-only).
@@ -205,14 +205,14 @@ describe("reconcile — edge cases & determinism", () => {
   it("preserves external source order within one word's external[]", () => {
     const records: ExternalVocabRecord[] = [
       { source: "anki", lang: LANG, word: "詞", status: "l1" },
-      { source: "migaku", lang: LANG, word: "詞", status: "l2" },
-      { source: "pleco", lang: LANG, word: "詞", status: "l3" },
+      { source: "srs", lang: LANG, word: "詞", status: "l2" },
+      { source: "dict", lang: LANG, word: "詞", status: "l3" },
     ];
     const report = reconcile(LANG, [], records);
     expect(report.reconciled[0]?.external.map((e) => e.source)).toEqual([
       "anki",
-      "migaku",
-      "pleco",
+      "srs",
+      "dict",
     ]);
   });
 
@@ -222,8 +222,8 @@ describe("reconcile — edge cases & determinism", () => {
       { lang: LANG, word: "你好", status: "known" },
     ];
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: "vi", word: "chào", status: "new" },
-      { source: "migaku", lang: LANG, word: "再見", status: "new" },
+      { source: "srs", lang: "vi", word: "chào", status: "new" },
+      { source: "srs", lang: LANG, word: "再見", status: "new" },
     ];
     const report = reconcile(LANG, entries, records);
     expect(report.reconciled.map((r) => r.word)).toEqual(["你好", "再見"]);
@@ -233,7 +233,7 @@ describe("reconcile — edge cases & determinism", () => {
   it("returns no rows when no input matches the requested lang", () => {
     const entries: WordEntry[] = [{ lang: "vi", word: "xin", status: "new" }];
     const records: ExternalVocabRecord[] = [
-      { source: "migaku", lang: "vi", word: "chào", status: "new" },
+      { source: "srs", lang: "vi", word: "chào", status: "new" },
     ];
     const report = reconcile("zh-Hant", entries, records);
     expect(report).toEqual({
@@ -253,7 +253,7 @@ describe("reconcile — edge cases & determinism", () => {
   });
 
   it("produces a JSON-serializable report", () => {
-    const records = migakuAdapter.parse(migakuJson);
+    const records = srsAdapter.parse(srsJson);
     const report = reconcile(LANG, store(), records);
     const round = JSON.parse(JSON.stringify(report)) as ReconciliationReport;
     expect(round).toEqual(report);

@@ -7,12 +7,12 @@
  */
 
 // ───────────────────────────────────────────────────────────────────────────
-// Word-status model (PRD §5.2) — LingQ-style, Migaku-mappable.
+// Word-status model (PRD §5.2) — graded 1-4 / Known / Ignore.
 // ───────────────────────────────────────────────────────────────────────────
 
 /**
  * A word's known-ness. `"new"` is the implicit default for any word not yet
- * present in the store (strongest highlight). `l1..l4` are the LingQ learning
+ * present in the store (strongest highlight). `l1..l4` are the learning
  * levels (fading highlight). `known`/`ignored` are terminal (no highlight).
  */
 export type WordStatus =
@@ -35,7 +35,7 @@ export const STATUS_ORDER: readonly WordStatus[] = [
   "ignored",
 ] as const;
 
-/** Human-facing LingQ labels. */
+/** Human-facing status labels. */
 export const STATUS_LABELS: Record<WordStatus, string> = {
   new: "New",
   l1: "New",
@@ -200,13 +200,14 @@ export interface WordRef {
 /**
  * A link to the same word in an external tool, preserved verbatim so a status
  * decision is reversible and a future write-back can re-address the exact row.
- * Migaku keys its WordList on a 4-tuple `(dictForm, secondary, partOfSpeech,
- * language)`; Tsumugu keys `(lang, word)`, so several Migaku rows can collapse
- * to one Tsumugu entry. Keeping the tuple here makes that collapse reversible.
+ * The external SRS keys its word list on a 4-tuple `(dictForm, secondary,
+ * partOfSpeech, language)`; Tsumugu keys `(lang, word)`, so several external rows
+ * can collapse to one Tsumugu entry. Keeping the tuple here makes that collapse
+ * reversible.
  */
 export interface ExternalRef {
-  source: "migaku" | (string & {});
-  /** Migaku WordList composite key — the dictionary/lemma form. */
+  source: "srs" | (string & {});
+  /** External word-list composite key — the dictionary/lemma form. */
   dictForm: string;
   /** Secondary disambiguator (reading/sense index). */
   secondary: string;
@@ -241,7 +242,7 @@ export interface WordEntry {
    */
   statusUpdatedAt?: string;
   /** What last set the status. */
-  statusSource?: "tsumugu" | "migaku" | "import" | (string & {});
+  statusSource?: "tsumugu" | "srs" | "import" | (string & {});
   /** How the status was set (user grade vs SRS study vs bulk import). */
   statusOrigin?: "manual" | "study" | "import" | (string & {});
   /** Links to this word in external tools (for reversible write-back). */
@@ -360,7 +361,7 @@ export interface ProgressMetrics {
 
 /** A normalized record imported from an external vocab source. */
 export interface ExternalVocabRecord {
-  source: "migaku" | "pleco" | "anki" | (string & {});
+  source: "srs" | "anki" | (string & {});
   lang: string;
   word: string;
   /** Mapped Tsumugu status if derivable, else raw external status string. */

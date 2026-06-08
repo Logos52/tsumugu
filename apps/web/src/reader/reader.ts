@@ -83,12 +83,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // ── render ──────────────────────────────────────────────────────────────────
   const container = el("div", { class: CLS.reader });
   const text = el("div", { class: CLS.readerText });
-  // Opt into the Migaku visual model (zhuyin ruby + colored-underline grading,
+  // Opt into the phonetic visual model (zhuyin ruby + colored-underline grading,
   // no background fill) when phonetics is on; the default fill model otherwise.
   // By default the ruby only sits over words you don't know yet (new/l1/l2/l3,
   // CSS-gated by status class); `phoneticsAllWords` reveals it over every word.
   if (app.settings.phonetics) {
-    text.dataset.visual = "migaku";
+    text.dataset.visual = "phonetic";
     if (app.settings.phoneticsAllWords) text.dataset.ruby = "all";
   }
   container.append(text);
@@ -179,7 +179,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       // visual so colors read over the picture; only the active cue is shown).
       container.classList.add("tsg-reader-theater");
       text.classList.add("tsg-subtitle-layout");
-      text.dataset.visual = "migaku";
+      text.dataset.visual = "phonetic";
       playerEl.appendChild(text);
     } else if (layout === "subtitle" || layout === "theater") {
       container.classList.add("tsg-reader-subtitle");
@@ -240,7 +240,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     const mode = app.settings.hoverMode;
     if (mode === "all") return true;
     if (mode === "shift") return ev.shiftKey;
-    return !isKnown(app.getStatus(word)); // "unknown" — Migaku-style
+    return !isKnown(app.getStatus(word)); // "unknown" — only words you don't know yet
   }
 
   /** Build a word span with its status color, flagged marker, and tone wrap. */
@@ -271,7 +271,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       // plays the sentence) — keyboard word-nav still opens it via setActive.
       if (app.settings.hoverMode !== "shift") openPopup(word, span);
     });
-    // A deliberate CLICK always opens the card (Migaku-style), regardless of
+    // A deliberate CLICK always opens the card, regardless of
     // hoverMode — so you never need to know to hold Shift. The sentence-play /
     // video-seek on the bubbling click (onTextClick) still fires underneath.
     span.addEventListener("click", () => {
@@ -283,8 +283,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
   /**
    * Render the inner content of a word span. Three independently-toggled
-   * layers: zhuyin ruby ABOVE each character (`settings.phonetics`,
-   * Migaku-style), tone-coloring of the glyphs (`settings.toneColoring`), and
+   * layers: zhuyin ruby ABOVE each character (`settings.phonetics`),
+   * tone-coloring of the glyphs (`settings.toneColoring`), and
    * the plain glyphs. Ruby and tone-coloring both need a per-syllable reading
    * that aligns 1:1 with the word's characters; when it doesn't, we fall back
    * gracefully (tone spans, then plain text).

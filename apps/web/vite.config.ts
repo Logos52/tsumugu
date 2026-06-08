@@ -125,9 +125,10 @@ function devVault(): Plugin {
 // above exists only under `vite dev`. sql.js wasm is loaded via a ?url import.
 export default defineConfig({
   root: ".",
-  // GitHub Pages serves this project site under /tsumugu/; the CI build sets
-  // GH_PAGES=1 so asset URLs resolve there. Local `pnpm dev`/build stay at "/".
-  base: process.env.GH_PAGES ? "/tsumugu/" : "/",
+  // GitHub Pages serves the reader under /tsumugu/app/ (the /tsumugu/ root is a
+  // landing hub). The CI build sets GH_PAGES=1 so asset URLs resolve there;
+  // local `pnpm dev`/build stay at "/".
+  base: process.env.GH_PAGES ? "/tsumugu/app/" : "/",
   plugins: [devVault()],
   build: {
     target: "es2022",

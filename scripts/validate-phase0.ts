@@ -66,7 +66,7 @@ check("CI computed", ci.totalWordTokens > 0, `coverage=${(ci.coverage * 100).toF
 check("unknown words surfaced", ci.unknownWords.length > 0, ci.unknownWords.map((u) => u.word).join(" "));
 
 console.log("\n[4] cross-seeding vi from known Hanzi (Hán-Việt bridge)");
-// Known Hanzi are character-level (as from a Migaku known-word export decomposed
+// Known Hanzi are character-level (as from an imported known-word list decomposed
 // into characters): a Sino-word is "free" only when every component Hanzi is known.
 const knownEtyma = new Set(
   store

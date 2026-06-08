@@ -1,14 +1,14 @@
 /**
- * External-vocab cross-reference harness (PRD §5.7). Import a Migaku/Pleco/Anki
+ * External-vocab cross-reference harness (PRD §5.7). Import an SRS/Anki
  * export, reconcile it against the word store, and (optionally, import-first)
  * apply external statuses. Write-back to the external tool is out of scope.
  *
  * Apply is clock-aware: it uses the engine's `resolveStatusUpdate` so an import
  * may seed/promote but (by default) never silently demotes a word the user
- * graded up — Tsumugu is canonical, Migaku is a timestamped input.
+ * graded up — Tsumugu is canonical, the external source is a timestamped input.
  */
 import {
-  migakuAdapter,
+  srsAdapter,
   reconcile,
   resolveStatusUpdate,
   type ExternalRef,
@@ -21,11 +21,11 @@ import {
 
 export function adapterFor(source: string): ExternalVocabAdapter {
   switch (source) {
-    case "migaku":
-      return migakuAdapter;
+    case "srs":
+      return srsAdapter;
     default:
       throw new Error(
-        `No adapter for source "${source}" yet. Supported: migaku (Pleco/Anki next).`,
+        `No adapter for source "${source}" yet. Supported: srs (Anki next).`,
       );
   }
 }
@@ -56,7 +56,7 @@ export interface ApplyResult {
 }
 
 /**
- * Migaku's `mod` epoch (always milliseconds) → ISO; undefined if absent or
+ * The SRS's `mod` epoch (always milliseconds) → ISO; undefined if absent or
  * outside a sane epoch-ms window (~2001..2096). Rejecting out-of-range values
  * (rather than rescaling a "small" number as seconds) avoids minting an
  * expanded-year ISO that would invert the resolver's lexicographic compare.
@@ -69,7 +69,7 @@ function externalChangeIso(r: ExternalVocabRecord): string | undefined {
   return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
 }
 
-/** Map a Migaku `wordHistory.origin` to a Tsumugu status origin. */
+/** Map an SRS `wordHistory.origin` to a Tsumugu status origin. */
 function externalOrigin(r: ExternalVocabRecord): "manual" | "study" | "import" {
   const o = String(r.raw?.["origin"] ?? "").toLowerCase();
   if (o === "manual") return "manual";
@@ -81,7 +81,7 @@ const str = (v: unknown): string | undefined =>
   typeof v === "string" && v.length > 0 ? v : undefined;
 
 /**
- * Attach (or refresh) the Migaku 4-tuple on the entry so the (lang,word) ↔
+ * Attach (or refresh) the SRS 4-tuple on the entry so the (lang,word) ↔
  * 4-tuple collapse stays reversible. Only fires for enriched imports that carry
  * the tuple (the lossy word/lang/status export has none). Returns true if linked.
  */
@@ -99,7 +99,7 @@ function linkExternalRef(
   if (!e) return false;
   const mod = raw["mod"];
   const ref: ExternalRef = {
-    source: "migaku",
+    source: "srs",
     dictForm: str(raw["dictForm"]) ?? word,
     secondary: str(raw["secondary"]) ?? "",
     partOfSpeech: str(raw["partOfSpeech"]) ?? "",
@@ -145,7 +145,7 @@ export function applyToStore(
   for (const r of records) {
     if (r.lang !== lang || r.status === undefined) continue;
     const incomingAt = externalChangeIso(r);
-    const prov = { source: "migaku" as const, origin: externalOrigin(r), at: incomingAt };
+    const prov = { source: "srs" as const, origin: externalOrigin(r), at: incomingAt };
     const existing = store.get(lang, r.word);
 
     if (!existing) {

@@ -3,7 +3,7 @@ import { describe, it, expect, beforeAll } from "vitest";
 import initSqlJs from "sql.js";
 import type { Database } from "sql.js";
 
-import { parseMigakuDb } from "./migaku-db.js";
+import { parseSrsDb } from "./srs-db.js";
 
 let SQL: Awaited<ReturnType<typeof initSqlJs>>;
 beforeAll(async () => {
@@ -11,7 +11,7 @@ beforeAll(async () => {
 });
 
 /**
- * A tiny in-memory Migaku store: a deleted row, a row with two history entries
+ * A tiny in-memory SRS store: a deleted row, a row with two history entries
  * (latest = STUDY), a row with no history, and an UNKNOWN row.
  */
 function fixture(): Database {
@@ -37,9 +37,9 @@ function fixture(): Database {
   return db;
 }
 
-describe("parseMigakuDb", () => {
+describe("parseSrsDb", () => {
   it("skips soft-deleted rows", () => {
-    const recs = parseMigakuDb(fixture());
+    const recs = parseSrsDb(fixture());
     const words = recs.map((r) => r.word);
     expect(recs).toHaveLength(3);
     expect(words).not.toContain("刪"); // del = 1
@@ -47,7 +47,7 @@ describe("parseMigakuDb", () => {
   });
 
   it("maps knownStatus and carries the enriched 4-tuple + mod + latest origin in raw", () => {
-    const byWord = Object.fromEntries(parseMigakuDb(fixture()).map((r) => [r.word, r]));
+    const byWord = Object.fromEntries(parseSrsDb(fixture()).map((r) => [r.word, r]));
 
     const xue = byWord["學"]!;
     expect(xue.status).toBe("known");

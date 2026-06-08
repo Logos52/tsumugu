@@ -1,7 +1,7 @@
 /**
  * External-vocab adapter contract (PRD §5.7).
  *
- * Each external source (Migaku / Pleco / Anki) ships an adapter that parses its
+ * Each external source (SRS / Anki) ships an adapter that parses its
  * native export shape into normalized `ExternalVocabRecord[]`. The engine then
  * reconciles those records against the vault word-store.
  *
@@ -19,7 +19,7 @@ import type { ExternalVocabRecord } from "../types.js";
  * carry their own module-level default rather than extending this signature.
  */
 export interface ExternalVocabAdapter {
-  /** Stable source id, e.g. "migaku", "pleco", "anki". */
+  /** Stable source id, e.g. "srs", "anki". */
   source: string;
   /** Parse untrusted input into normalized records (never throws on shape). */
   parse(input: unknown): ExternalVocabRecord[];

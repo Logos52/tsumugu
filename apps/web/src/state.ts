@@ -35,20 +35,20 @@ export interface AppSettings {
   explanationLang: "target" | "en" | (string & {});
   /** zh tone coloring toggle (separate from status coloring; off by default). */
   toneColoring: boolean;
-  /** Zhuyin/bopomofo ruby above each word (Migaku-style); off by default. */
+  /** Zhuyin/bopomofo ruby above each word; off by default. */
   phonetics: boolean;
   /**
    * When phonetics is on, which words get the ruby: `false` (default) shows it
-   * only over words you don't know yet (new/l1/l2/l3), Migaku-style; `true`
+   * only over words you don't know yet (new/l1/l2/l3); `true`
    * shows it over every word.
    */
   phoneticsAllWords: boolean;
   /** Guess-first: hide the gloss until the user asks to reveal. */
   guessFirst: boolean;
   /**
-   * When the hover card appears: `unknown` (Migaku-style — only words you don't
+   * When the hover card appears: `unknown` (only words you don't
    * know yet), `all` (any word), or `shift` (any word, but only while Shift is
-   * held — Yomitan-style). Hovering always sets the keyboard-grade target.
+   * held). Hovering always sets the keyboard-grade target.
    */
   hoverMode: "unknown" | "all" | "shift";
   /**
@@ -81,7 +81,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   phoneticsAllWords: false,
   guessFirst: false,
   // Quiet by default — the card opens on Shift-hover (or keyboard word-nav),
-  // Migaku-style, so moving the mouse doesn't pop a card on every word.
+  // so moving the mouse doesn't pop a card on every word.
   hoverMode: "shift",
   transcriptLayout: "document",
   showTranslation: false,

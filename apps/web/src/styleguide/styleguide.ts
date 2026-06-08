@@ -1,7 +1,7 @@
 /**
  * Styleguide / testing page (#/styleguide). A non-functional gallery of the
  * reader's design system — word statuses (both visuals), the grade-button
- * gradient, tone colors, the Catppuccin palette, and a popup preview — so the
+ * gradient, tone colors, the wnac palette, and a popup preview — so the
  * look can be eyeballed in either theme without loading real content.
  */
 import type { AppState, ViewController } from "../state.js";
@@ -64,7 +64,7 @@ export function mountStyleguide(root: HTMLElement, _app: AppState): ViewControll
     el("h2", { text: "Tsumugu styleguide" }),
     el("p", {
       class: CLS.popupReading,
-      text: "Toggle dark in the toolbar to compare Catppuccin Latte / Mocha. Toggle zhuyin to see the Migaku visual.",
+      text: "Toggle dark in the toolbar to compare the light / dark theme. Toggle zhuyin to see the phonetic visual.",
     }),
   );
 
@@ -76,20 +76,20 @@ export function mountStyleguide(root: HTMLElement, _app: AppState): ViewControll
     ),
   );
 
-  // ── word statuses, Migaku visual (underline ramp, no fill) ──
-  const migaku = el("div", {
+  // ── word statuses, phonetic visual (underline ramp, no fill) ──
+  const phonetic = el("div", {
     class: CLS.readerText,
-    attrs: { "data-visual": "migaku" },
+    attrs: { "data-visual": "phonetic" },
     style: { margin: "0", maxWidth: "none", fontSize: "1.3rem", lineHeight: "2.4" },
   });
-  migaku.append(
+  phonetic.append(
     ...STATUSES.map((s) => statusWord(`字`, s)),
     el("span", { class: CLS.punct, text: "   " }),
     rubyWord([["你", "ㄋㄧˇ"], ["好", "ㄏㄠˇ"]], "new"),
     rubyWord([["世", "ㄕˋ"], ["界", "ㄐㄧㄝˋ"]], "l2"),
     rubyWord([["已", "ㄧˇ"], ["知", "ㄓ"]], "known"),
   );
-  container.append(section("Word status — Migaku visual (ruby + underline)", migaku));
+  container.append(section("Word status — phonetic visual (ruby + underline)", phonetic));
 
   // ── grade buttons ──
   const grades = el("div", { class: CLS.popupGrades, style: { marginTop: "0" } });
@@ -123,7 +123,7 @@ export function mountStyleguide(root: HTMLElement, _app: AppState): ViewControll
               width: "3.5rem",
               height: "3.5rem",
               borderRadius: "var(--tsg-radius)",
-              background: `var(--ctp-${name})`,
+              background: `var(--wnac-${name})`,
               border: "1px solid var(--tsg-border)",
             },
           }),

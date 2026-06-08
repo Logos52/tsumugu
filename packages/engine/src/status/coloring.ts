@@ -11,7 +11,7 @@ import type { WordStatus } from "../types.js";
 
 /**
  * Highlight strength in [0, 1]. Strongest for `new` (never graded), fading
- * through the LingQ learning levels `l1..l4`, and 0 for the terminal states
+ * through the learning levels `l1..l4`, and 0 for the terminal states
  * (`known`/`ignored`) which carry no highlight.
  *
  * Mirrors the fade implied by `STATUS_LEVEL` (level 0 → 1.0 … level 4 → 0.2)

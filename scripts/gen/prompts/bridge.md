@@ -4,7 +4,7 @@ Generate a **bridge entry** that connects a Sino-Vietnamese word to its Chinese 
 
 ## Inputs
 - `word` — a Vietnamese word (likely Sino-Vietnamese).
-- `knownHanzi` — the user's known Hanzi set (from their Migaku known-Mandarin export).
+- `knownHanzi` — the user's known Hanzi set (from their known-Mandarin SRS export).
 
 ## Produce a `BridgeInfo` (see `packages/engine/src/types.ts`)
 ```json

@@ -1,20 +1,20 @@
 /**
- * Migaku write-back (PRD §8, Fork B2) — the second leg of two-way sync, fenced.
+ * SRS write-back (PRD §8, Fork B2) — the second leg of two-way sync, fenced.
  *
- * Pushes status changes the user made in Tsumugu back toward Migaku, addressed
+ * Pushes status changes the user made in Tsumugu back toward the SRS, addressed
  * by the 4-tuple preserved in `WordEntry.externalRefs` at import. Safety is the
  * whole point:
  *   - DRY-RUN by default: `planWriteback` only reports; nothing is written.
  *   - NEVER-CLOBBER: a word is pushed only when Tsumugu's `statusUpdatedAt` is
- *     strictly newer than Migaku's current `mod` (the symmetric counterpart to
- *     the import resolver), so a Migaku change made after import is never lost.
+ *     strictly newer than the SRS's current `mod` (the symmetric counterpart to
+ *     the import resolver), so an SRS change made after import is never lost.
  *   - COPY-ONLY: `writeBack` writes a MODIFIED COPY unless `inPlace` is forced;
- *     it never touches Migaku's live OPFS store (this file is an exported
- *     snapshot — re-importing the copy into Migaku is a deliberate manual step).
+ *     it never touches the SRS's live OPFS store (this file is an exported
+ *     snapshot — re-importing the copy into the SRS is a deliberate manual step).
  *
  * Only `WordList` is updated (knownStatus, a fresh mod, isPendingEnqueue=1 so
- * Migaku's own syncer uploads it). `wordHistory` is intentionally NOT written:
- * its `day` counter is a Migaku-internal value we can't reconstruct safely.
+ * the SRS's own syncer uploads it). `wordHistory` is intentionally NOT written:
+ * its `day` counter is an SRS-internal value we can't reconstruct safely.
  *
  * Lives in scripts/ (never the engine); sql.js is a shared dependency.
  */
@@ -26,7 +26,7 @@ import type { Database, SqlValue } from "sql.js";
 
 import type { WordEntry, WordStatus } from "@tsumugu/engine";
 
-export type MigakuKnown = "KNOWN" | "LEARNING" | "UNKNOWN" | "IGNORED";
+export type SrsKnown = "KNOWN" | "LEARNING" | "UNKNOWN" | "IGNORED";
 
 /** 4-tuple key separator — an ASCII unit separator never appears in a field. */
 const SEP = String.fromCharCode(31);
@@ -46,8 +46,8 @@ function num(v: Cell): number {
   return Number.isFinite(n) ? n : 0;
 }
 
-/** Tsumugu status → Migaku's 4-bucket knownStatus (lossy; l1..l3 collapse). */
-export function reverseStatus(s: WordStatus): MigakuKnown {
+/** Tsumugu status → the SRS's 4-bucket knownStatus (lossy; l1..l3 collapse). */
+export function reverseStatus(s: WordStatus): SrsKnown {
   switch (s) {
     case "known":
     case "l4":
@@ -94,7 +94,7 @@ export interface WritebackChange {
   partOfSpeech: string;
   language: string;
   from: string;
-  to: MigakuKnown;
+  to: SrsKnown;
   storeAt: number;
   dbMod: number;
 }
@@ -105,11 +105,11 @@ export interface WritebackPlan {
 }
 
 /**
- * Compute the set of Tsumugu→Migaku status pushes. Pure: takes store entries +
- * the current Migaku rows, returns the plan. A change is emitted only when the
- * store entry carries a Migaku 4-tuple, the row exists, the mapped status
+ * Compute the set of Tsumugu→SRS status pushes. Pure: takes store entries +
+ * the current SRS rows, returns the plan. A change is emitted only when the
+ * store entry carries an SRS 4-tuple, the row exists, the mapped status
  * differs, the store has a status clock, and that clock is strictly newer than
- * Migaku's `mod`.
+ * the SRS's `mod`.
  */
 export function planWriteback(
   entries: readonly WordEntry[],
@@ -119,7 +119,7 @@ export function planWriteback(
   const skipped = { noRef: 0, noRow: 0, same: 0, notNewer: 0, noClock: 0 };
 
   for (const e of entries) {
-    const refs = (e.externalRefs ?? []).filter((r) => r.source === "migaku");
+    const refs = (e.externalRefs ?? []).filter((r) => r.source === "srs");
     if (refs.length === 0) {
       skipped.noRef++;
       continue;
@@ -141,7 +141,7 @@ export function planWriteback(
         continue;
       }
       if (!(at > row.mod)) {
-        skipped.notNewer++; // Migaku is newer-or-equal — never clobber
+        skipped.notNewer++; // the SRS is newer-or-equal — never clobber
         continue;
       }
       changes.push({

@@ -56,7 +56,7 @@ The feature is delivered as a **thin, optional voice module** (inert when no ass
 
 ## 2. Problem & Motivation
 
-Wedge (intermediate+ zh-TW / beginner vi learner using Refold + Migaku-style workflows) already relies heavily on voice for immersion while reading. The current Tsumugu baseline (Web Speech API per-word in the hover popup via `AudioPort` + pack `ttsVoice`) is convenient and fully offline, but the quality is insufficient for natural prosody, tones, Taiwan register, and effective shadowing practice.
+Wedge (intermediate+ zh-TW / beginner vi learner using immersion-based workflows) already relies heavily on voice for immersion while reading. The current Tsumugu baseline (Web Speech API per-word in the hover popup via `AudioPort` + pack `ttsVoice`) is convenient and fully offline, but the quality is insufficient for natural prosody, tones, Taiwan register, and effective shadowing practice.
 
 Existing transcript support gives clean per-sentence cues (text + timing). The user wants to attach **high-quality synthesized audio** to those exact sentences so they can:
 

@@ -1,6 +1,6 @@
 /**
- * Enriched Migaku importer (M3b, PRD §5.7). Reads the real Migaku SQLite store
- * (`migaku-core.db`) directly via sql.js, instead of the lossy `(word, lang,
+ * Enriched SRS importer (M3b, PRD §5.7). Reads the real SRS SQLite store
+ * (`srs-core.db`) directly via sql.js, instead of the lossy `(word, lang,
  * status)` JSON export, so the clock-aware reconciler gets what it needs: each
  * word's `mod` change-epoch, its 4-tuple identity, and the latest `wordHistory`
  * origin. The output is plain `ExternalVocabRecord[]` — the SAME shape the JSON
@@ -46,7 +46,7 @@ function tupleKey(a: Cell, b: Cell, c: Cell, d: Cell): string {
 }
 
 /**
- * Map an OPEN Migaku database to enriched records. Pure (no IO) so it can be
+ * Map an OPEN SRS database to enriched records. Pure (no IO) so it can be
  * unit-tested against an in-memory sql.js fixture.
  *
  * - Skips soft-deleted rows (`del` truthy).
@@ -54,7 +54,7 @@ function tupleKey(a: Cell, b: Cell, c: Cell, d: Cell): string {
  *   `origin` / `prevKnownStatus`.
  * - Maps `knownStatus` to a Tsumugu status via the engine's `mapKnownness`.
  */
-export function parseMigakuDb(db: Database): ExternalVocabRecord[] {
+export function parseSrsDb(db: Database): ExternalVocabRecord[] {
   // Latest history per 4-tuple. ORDER ascending + overwrite ⇒ last write wins.
   const history = new Map<string, { origin?: string; prevKnownStatus?: string }>();
   try {
@@ -101,7 +101,7 @@ export function parseMigakuDb(db: Database): ExternalVocabRecord[] {
     if (hist?.origin) raw.origin = hist.origin;
     if (hist?.prevKnownStatus) raw.prevKnownStatus = hist.prevKnownStatus;
 
-    const rec: ExternalVocabRecord = { source: "migaku", lang: language, word: dictForm, raw };
+    const rec: ExternalVocabRecord = { source: "srs", lang: language, word: dictForm, raw };
     if (knownStatus) {
       rec.externalStatus = knownStatus;
       const mapped = mapKnownness(knownStatus);
@@ -113,13 +113,13 @@ export function parseMigakuDb(db: Database): ExternalVocabRecord[] {
   return out;
 }
 
-/** Read a Migaku SQLite file and return enriched records. */
-export async function readMigakuDb(path: string): Promise<ExternalVocabRecord[]> {
+/** Read an SRS SQLite file and return enriched records. */
+export async function readSrsDb(path: string): Promise<ExternalVocabRecord[]> {
   const SQL = await initSqlJs();
   const bytes = await readFile(path);
   const db = new SQL.Database(new Uint8Array(bytes));
   try {
-    return parseMigakuDb(db);
+    return parseSrsDb(db);
   } finally {
     db.close();
   }

@@ -75,9 +75,9 @@ export const createPracticeBar: PracticeBarFactory = async ({ container, vault, 
   const ws = WaveSurfer.create({
     container,
     height: 64,
-    waveColor: cssVar("--ctp-overlay0", "#2e466b"),
-    progressColor: cssVar("--ctp-blue", "#5089d8"),
-    cursorColor: cssVar("--ctp-blue-bright", "#66aaf7"),
+    waveColor: cssVar("--wnac-overlay0", "#2e466b"),
+    progressColor: cssVar("--wnac-blue", "#5089d8"),
+    cursorColor: cssVar("--wnac-blue-bright", "#66aaf7"),
   });
   const regions = ws.registerPlugin(RegionsPlugin.create());
   regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });

@@ -3,7 +3,7 @@
  *
  * Cross-seeding lifts target-language coverage using known etyma from the
  * bridge language. Example: a learner who already knows a set of Hanzi (e.g.
- * exported from Migaku) gets Vietnamese Sino-words "for free" when every
+ * from an imported known-word list) gets Vietnamese Sino-words "for free" when every
  * etymon behind that word is among the Hanzi they already know.
  *
  * Pure, deterministic, data-free. No DOM/network/filesystem.

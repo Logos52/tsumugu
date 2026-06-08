@@ -36,10 +36,16 @@ jobs:
       - run: pnpm --filter @tsumugu/web build
         env:
           GH_PAGES: "1"
+      # Assemble the site: a landing hub at /tsumugu/, the reader at /tsumugu/app/.
+      - run: |
+          mkdir -p _site/app
+          cp -r apps/web/dist/. _site/app/
+          cp apps/web/landing/index.html _site/index.html
+          cp apps/web/public/logo-glyph.svg _site/logo-glyph.svg
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: apps/web/dist
+          path: _site
 
   deploy:
     needs: build

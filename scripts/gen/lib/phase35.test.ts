@@ -93,7 +93,7 @@ describe("bridge cache + cross-seed", () => {
 });
 
 describe("crossref import + reconcile + apply", () => {
-  const migaku = {
+  const srs = {
     words: [
       { word: "夜市", lang: "zh-Hant", status: "KNOWN" },
       { word: "熱鬧", language: "zh-Hant", known: "LEARNING" },
@@ -101,8 +101,8 @@ describe("crossref import + reconcile + apply", () => {
     ],
   };
 
-  it("parses Migaku JSON and reconciles against the store", () => {
-    const records = importExternal("migaku", migaku);
+  it("parses SRS JSON and reconciles against the store", () => {
+    const records = importExternal("srs", srs);
     expect(records).toHaveLength(3);
     expect(records.find((r) => r.word === "夜市")?.status).toBe("known");
 
@@ -114,7 +114,7 @@ describe("crossref import + reconcile + apply", () => {
   });
 
   it("seeds missing words and preserves an explicit local grade (no external clock)", () => {
-    const records = importExternal("migaku", migaku);
+    const records = importExternal("srs", srs);
     const store = new WordStore();
     store.setStatus("zh-Hant", "夜市", "l2"); // explicit local grade
 
@@ -130,7 +130,7 @@ describe("crossref import + reconcile + apply", () => {
 
   it("never silently demotes a locally-known word, even under overwrite", () => {
     const lower = { words: [{ word: "夜市", lang: "zh-Hant", status: "LEARNING" }] };
-    const records = importExternal("migaku", lower);
+    const records = importExternal("srs", lower);
     const store = new WordStore();
     store.setStatus("zh-Hant", "夜市", "known"); // user graded it up
 
@@ -149,18 +149,18 @@ describe("crossref import + reconcile + apply", () => {
     const store = new WordStore();
     // Old local grade…
     store.setStatus("zh-Hant", "夜市", "l2", clockAt("2020-01-01T00:00:00.000Z"));
-    // …and a newer Migaku change (its `mod` epoch passes through record.raw).
+    // …and a newer SRS change (its `mod` epoch passes through record.raw).
     const newer = {
       words: [
         { word: "夜市", lang: "zh-Hant", status: "KNOWN", mod: Date.parse("2025-01-01T00:00:00.000Z") },
       ],
     };
-    const records = importExternal("migaku", newer);
+    const records = importExternal("srs", newer);
     const res = applyToStore(store, "zh-Hant", records, {}); // never-demote (a promote here)
     expect(store.getStatus("zh-Hant", "夜市")).toBe("known");
     expect(res.changed).toBe(1);
     const e = store.get("zh-Hant", "夜市");
-    expect(e?.statusSource).toBe("migaku");
-    expect(e?.statusUpdatedAt).toBe("2025-01-01T00:00:00.000Z"); // dated by Migaku's mod
+    expect(e?.statusSource).toBe("srs");
+    expect(e?.statusUpdatedAt).toBe("2025-01-01T00:00:00.000Z"); // dated by the SRS's mod
   });
 });

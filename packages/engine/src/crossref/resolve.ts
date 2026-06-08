@@ -79,7 +79,7 @@ function compareTimes(a: string | undefined, b: string | undefined): number {
  *     when the stored word was never graded (`current === "new"`) AND the
  *     incoming raises known-ness. An explicit local grade is never overwritten
  *     without timestamp evidence that the external is newer — Tsumugu is
- *     canonical; Migaku is a timestamped input.
+ *     canonical; the external source is a timestamped input.
  */
 export function resolveStatusUpdate(input: StatusUpdateInput): StatusDecision {
   const { current, currentAt, incoming, incomingAt } = input;

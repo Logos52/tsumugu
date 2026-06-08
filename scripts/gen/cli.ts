@@ -39,8 +39,8 @@ import {
   reconcileAgainstStore,
   applyToStore,
 } from "./lib/crossref.js";
-import { readMigakuDb } from "./lib/migaku-db.js";
-import { writeBack } from "./lib/migaku-writeback.js";
+import { readSrsDb } from "./lib/srs-db.js";
+import { writeBack } from "./lib/srs-writeback.js";
 import { resolve as resolvePath, dirname, join, relative, basename } from "node:path";
 import {
   deriveSlug,
@@ -371,19 +371,19 @@ async function cmdBridge(opts: Record<string, string | boolean>): Promise<void> 
 }
 
 async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void> {
-  const source = str(opts, "source") ?? "migaku";
-  const inPath = str(opts, "in") ?? fail("crossref needs --in <export.json | migaku-core.db>");
+  const source = str(opts, "source") ?? "srs";
+  const inPath = str(opts, "in") ?? fail("crossref needs --in <export.json | srs-core.db>");
   const storePath = str(opts, "store");
   const store = await loadStore(storePath);
-  // A .db input (or --source migaku-db) reads the real Migaku SQLite directly,
+  // A .db input (or --source srs-db) reads the real SRS SQLite directly,
   // enriched with each word's mod / 4-tuple / latest origin so the clock-aware
   // reconciler can never silently demote. Otherwise parse the lossy JSON export.
-  const isDb = source === "migaku-db" || inPath.toLowerCase().endsWith(".db");
+  const isDb = source === "srs-db" || inPath.toLowerCase().endsWith(".db");
   const records = isDb
-    ? await readMigakuDb(inPath)
+    ? await readSrsDb(inPath)
     : importExternal(source, await readJson<unknown>(inPath));
   const lang = str(opts, "lang") ?? records[0]?.lang ?? fail("specify --lang");
-  // Optional source→canonical language relabel (e.g. Migaku stores Chinese as
+  // Optional source→canonical language relabel (e.g. the SRS stores Chinese as
   // "zh"; Tsumugu's store/reader use "zh-Hant"): keep only --from-lang rows and
   // re-tag them to --lang. The original code is preserved in externalRefs.
   const fromLang = str(opts, "from-lang");
@@ -415,13 +415,13 @@ async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void
 
 async function cmdWriteback(opts: Record<string, string | boolean>): Promise<void> {
   const storePath = str(opts, "store") ?? fail("writeback needs --store <word-store.json>");
-  const dbPath = str(opts, "db") ?? fail("writeback needs --db <migaku-core.db>");
+  const dbPath = str(opts, "db") ?? fail("writeback needs --db <srs-core.db>");
   const store = await loadStore(storePath);
   const apply = flag(opts, "apply");
   const inPlace = flag(opts, "in-place");
   const outPath = str(opts, "out");
   if (apply && !inPlace && !outPath) {
-    fail("--apply writes a COPY: pass --out <copy.db>, or --in-place --yes to overwrite the snapshot (your LIVE Migaku store is never touched either way)");
+    fail("--apply writes a COPY: pass --out <copy.db>, or --in-place --yes to overwrite the snapshot (your LIVE SRS store is never touched either way)");
   }
   if (apply && outPath && resolvePath(outPath) === resolvePath(dbPath)) {
     fail("--out must differ from --db (it would overwrite the snapshot); use --in-place --yes to overwrite it deliberately");
@@ -440,7 +440,7 @@ async function cmdWriteback(opts: Record<string, string | boolean>): Promise<voi
     nowMs: Date.now(),
   });
 
-  console.log(`writeback: ${result.changes.length} word(s) where Tsumugu is newer than Migaku`);
+  console.log(`writeback: ${result.changes.length} word(s) where Tsumugu is newer than the SRS`);
   for (const c of result.changes.slice(0, 30)) {
     console.log(`  ${c.word}  [${c.partOfSpeech}/${c.language}]  ${c.from} → ${c.to}`);
   }
@@ -452,7 +452,7 @@ async function cmdWriteback(opts: Record<string, string | boolean>): Promise<voi
     const warn = modified < planned ? `  (⚠ ${planned - modified} planned row(s) did not match WordList)` : "";
     console.error(
       `\n✓ wrote ${modified}/${planned} change(s) → ${result.wrote}${warn}` +
-        (inPlace ? "" : "  (a COPY — re-import into Migaku yourself; your live store is untouched)"),
+        (inPlace ? "" : "  (a COPY — re-import into your SRS yourself; your live store is untouched)"),
     );
   } else {
     console.error("\n(dry-run — pass --apply --out <copy.db> to write a modified COPY. Nothing was changed.)");
@@ -961,9 +961,9 @@ function usage(): void {
       "  pnpm gen encoding --lang <id> --store ws.json [--words a,b|--flagged|--srs] [--out-dir wiki/Inbox]",
       "  pnpm gen bridge   --lang vi --store ws.json [--bridge-lang zh-Hant] [--words a,b]",
       "                    | --cache results.json --registry bridge/vi-bridge.json --lang vi --store ws.json",
-      "  pnpm gen crossref --source migaku --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
-      "  pnpm gen crossref --source migaku-db --in migaku-core.db --lang zh-Hant --from-lang zh [--apply]   (enriched: reads the real SQLite; relabels Migaku 'zh' → 'zh-Hant')",
-      "  pnpm gen writeback --store ws.json --db migaku-core.db [--lang <id>] [--apply --out copy.db]   (Fork B2: dry-run by default; writes a COPY, never your live Migaku)",
+      "  pnpm gen crossref --source srs --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
+      "  pnpm gen crossref --source srs-db --in srs-core.db --lang zh-Hant --from-lang zh [--apply]   (enriched: reads the real SQLite; relabels the source's 'zh' → 'zh-Hant')",
+      "  pnpm gen writeback --store ws.json --db srs-core.db [--lang <id>] [--apply --out copy.db]   (Fork B2: dry-run by default; writes a COPY, never your live SRS)",
       "  pnpm gen voice-notes --in <prepared.cues.json> [--voice Serena] [--model <id>] [--out audio/<slug>/]   (local OSS batch TTS → mp3 per cue + voice-notes.json)",
       "                    [--limit N] [--cues 73,386,647] [--slow all|over:30|cues:73,647] [--slow-instruct \"…\"] [--force] [--dry-run]",
       "  pnpm gen word-audio --in <prepared.json> [--words all|glossary] [--voice Serena] [--model <id>] [--out audio/words/]   (per-word Serena mp3 for hover 🔊)",

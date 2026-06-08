@@ -1,17 +1,17 @@
 /**
- * Migaku word-exporter adapter (PRD §5.7).
+ * SRS word-exporter adapter (PRD §5.7).
  *
- * Migaku's word exporter produces JSON in a few shapes depending on version and
+ * An SRS word exporter produces JSON in a few shapes depending on version and
  * export path. This adapter is intentionally resilient: it accepts
  *   - a bare array of records, or
  *   - an object wrapping the array under `words` or `cards`.
  * Anything that isn't recognizable is skipped rather than throwing — import of a
  * third-party file must never crash the reader.
  *
- * Status mapping assumptions (Migaku knownness → Tsumugu WordStatus),
+ * Status mapping assumptions (SRS knownness → Tsumugu WordStatus),
  * case-insensitive:
  *   - "KNOWN" / "known"    → "known"
- *   - "LEARNING"           → "l3"      (Migaku's single learning bucket maps to
+ *   - "LEARNING"           → "l3"      (a single learning bucket maps to
  *                                        "Familiar"; we have no finer signal)
  *   - "UNKNOWN" / "new"    → "new"
  *   - "IGNORED"            → "ignored"
@@ -31,7 +31,7 @@ import type { ExternalVocabAdapter } from "./adapter.js";
 export const DEFAULT_LANG = "und";
 
 /**
- * Maps a raw Migaku knownness string to a Tsumugu `WordStatus`.
+ * Maps a raw SRS knownness string to a Tsumugu `WordStatus`.
  * Returns `undefined` for unrecognized values (caller keeps the raw string).
  */
 export function mapKnownness(raw: string): WordStatus | undefined {
@@ -70,7 +70,7 @@ function readString(
   return undefined;
 }
 
-/** Pull the record array out of whatever shape Migaku handed us. */
+/** Pull the record array out of whatever shape the export handed us. */
 function extractRecords(input: unknown): unknown[] {
   if (Array.isArray(input)) return input;
   if (isPlainObject(input)) {
@@ -82,7 +82,7 @@ function extractRecords(input: unknown): unknown[] {
   return [];
 }
 
-/** Normalize one raw Migaku record; returns undefined if it has no usable word. */
+/** Normalize one raw SRS record; returns undefined if it has no usable word. */
 function toRecord(raw: unknown): ExternalVocabRecord | undefined {
   if (!isPlainObject(raw)) return undefined;
 
@@ -95,7 +95,7 @@ function toRecord(raw: unknown): ExternalVocabRecord | undefined {
   const gloss = readString(raw, "gloss", "meaning", "definition");
 
   const record: ExternalVocabRecord = {
-    source: "migaku",
+    source: "srs",
     lang,
     word,
     raw,
@@ -112,9 +112,9 @@ function toRecord(raw: unknown): ExternalVocabRecord | undefined {
   return record;
 }
 
-/** The Migaku word-exporter adapter. */
-export const migakuAdapter: ExternalVocabAdapter = {
-  source: "migaku",
+/** The SRS word-exporter adapter. */
+export const srsAdapter: ExternalVocabAdapter = {
+  source: "srs",
   parse(input: unknown): ExternalVocabRecord[] {
     const out: ExternalVocabRecord[] = [];
     for (const raw of extractRecords(input)) {

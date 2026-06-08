@@ -29,7 +29,7 @@ links:
 
 # PRD — Tsumugu
 
-**An open-source, language-agnostic engine for a Migaku-grade graded reader + a compounding LLM-wiki. The reader runs entirely client-side (free, offline); the LLM work is done in batch by your own agents (Claude Code / Grok Build) running scripts — no paid API in the core loop. First two private packs: Traditional Mandarin (Taiwan) and Vietnamese, with a Hán-Việt bridge that uses your Chinese to bootstrap Vietnamese.**
+**An open-source, language-agnostic engine for a high-quality graded reader + a compounding LLM-wiki. The reader runs entirely client-side (free, offline); the LLM work is done in batch by your own agents (Claude Code / Grok Build) running scripts — no paid API in the core loop. First two private packs: Traditional Mandarin (Taiwan) and Vietnamese, with a Hán-Việt bridge that uses your Chinese to bootstrap Vietnamese.**
 
 > `Tsumugu` = the public engine/project. Private packs: Chinese (zh-Hant), Vietnamese (vi). A for-fun project; open-sourcing the engine is an explicit goal. The language **wiki** it produces is a **Karpathy-style llm-wiki published via Quartz** to a public, offline-viewable static site — an *adjacent project* reusing Wedge's existing llm-knowledge-base stack (Obsidian → Quartz → GitHub Pages).
 
@@ -38,7 +38,7 @@ links:
 ## 0. Decision log (decisions + overrides, on the record)
 
 - **Full build; "don't reinvent" consciously overridden** by Wedge for this project.
-- **Works fully without Migaku** (optional source, never a dependency).
+- **Works fully without any external import** (an SRS export is an optional source, never a dependency).
 - **✅ ONE engine + pluggable language packs + a shared cross-language word store** (not two repos).
 - **✅ Full multi-language now** (zh-Hant + vi first-class).
 - **✅ Structure: two public repos + one private folder** (Apache-2.0). **Repo 1 (public): engine** — core logic + pack interface + demo pack + pack-authoring guide + agent scripts + docs. **Repo 2 (public): wiki** — the Quartz llm-wiki site (§5.5). **Private local folder: personal** — zh/vi packs, dictionaries, vocab/word-store, status, flags, custom entries, generated content. Wedge **doesn't mind any of it being public** — the folder is *organizational* (simplest, and avoids redistributing CC-BY-SA dictionary data), **not a privacy wall**. (Any API tokens still stay out of public repos — standard hygiene.) IP posture = open / prior-art, not patent (`DESIGN-HISTORY.md`).
@@ -48,36 +48,36 @@ links:
 - **✅ Audio = free browser Web Speech API** (client-side, $0). **NOTE FOR GROK (later):** evaluate better voice options (Grok TTS quality for zh/vi, shadowing, interactive read-aloud) — deferred for Grok to investigate (§9).
 - **✅ CI target: default Extensive ~95%** (Intensive ~80% + custom).
 - **✅ Explanation language toggle:** target-monolingual (leveled) default; English; or another known L2. Circularity acceptable.
-- **✅ Reader UX = LingQ numeric grading + Migaku hover popup** (1 New / 2 Recognized / 3 Familiar / 4 Learned + Known K / Ignore X; buttons + hotkeys). Guess-first reveal.
+- **✅ Reader UX = numeric grading + hover popup** (1 New / 2 Recognized / 3 Familiar / 4 Learned + Known K / Ignore X; buttons + hotkeys). Guess-first reveal.
 - **✅ Chinese tone coloring** (1st–4th + neutral), toggle, off by default; separate from status coloring.
 - **✅ Dictionaries:** packaged offline base **+ a custom/override entry layer** (Wedge's own definitions, corrections, notes).
 - **✅ Built-in SRS review — pull-based, no scheduler.** Uses an SRS algorithm (e.g. `ts-fsrs`, client-side, free) to pick what's *due*; serves it **only when Wedge opens review**. No scheduling, nagging, or notifications. **Plus Anki export.** Two review paths; Tsumugu never reminds.
 - **✅ AI "encoding-layer" wiki pages for SRS words** — clicking a word opens an AI-generated page built for *memory encoding* (etymology, mnemonics, associations, vivid examples, the bridge); batch-generated.
-- **✅ Hán-Việt bridge = AI-generated as-you-go (batch), cached + correctable**, seeded by Wedge's Migaku known-Mandarin export. Cross-seeds Vietnamese comprehension from known Chinese.
-- **✅ External-vocab cross-reference** (Migaku first; Pleco/Anki same rails) — import + reconcile; write-back gated.
+- **✅ Hán-Việt bridge = AI-generated as-you-go (batch), cached + correctable**, seeded by Wedge's known-Mandarin SRS export. Cross-seeds Vietnamese comprehension from known Chinese.
+- **✅ External-vocab cross-reference** (SRS export first; Anki same rails) — import + reconcile; write-back gated.
 - **✅ Intake = Obsidian Web Clipper → Inbox → agent-run light clean/tag/commentary → Wiki** (promote on confirm). Lightweight wiki, **no workbench / L2–L3 quality layer**; dedup/stale cleanup manual.
 - **✅ Wiki = Karpathy-style llm-wiki, published via Quartz** (Repo 2) to a public GitHub-Pages static site, **openable offline as HTML** — *reuses* Wedge's proven llm-knowledge-base stack (Obsidian → Quartz → Pages), not a rebuild.
 - **✅ Chinese + Vietnamese combined for now** (one wiki repo + one personal folder covering both languages), **designed to split per-language later** if that proves cleaner. Pack interface + cross-language store make either layout work.
 - **✅ Video: text-first transcripts + AI commentary on hard sections** (batch). No audio STT in v1.
 - **✅ Tooling:** build via Grok Build (plan mode) + Claude Code. No Codex.
 - **App ↔ local files** via the **File System Access API** (point at the vault/Inbox folder once). **Word store lives in the vault** as JSON (rides Wedge's existing vault sync/git across machines).
-- **Learner:** Intermediate+ Chinese, beginner Vietnamese; stack Migaku + Pleco/Anki; for-fun project.
+- **Learner:** Intermediate+ Chinese, beginner Vietnamese; uses an SRS export + Anki; for-fun project.
 
 ---
 
 ## 1. Problem
 
-Wedge learns through real input (Refold) across **Traditional Mandarin (Taiwan)** and **Vietnamese (beginner)**, wants to use Chinese to learn Vietnamese **without English**, wants to **open-source the engine**, and **doesn't want recurring API costs**.
+Wedge learns through real, comprehensible input across **Traditional Mandarin (Taiwan)** and **Vietnamese (beginner)**, wants to use Chinese to learn Vietnamese **without English**, wants to **open-source the engine**, and **doesn't want recurring API costs**.
 
 Gaps no existing tool closes together:
 
 1. **Lookups evaporate** — popup dictionaries leave nothing durable.
 2. **Content isn't matched** — generic readers don't know *your* words; nothing recycles what you're actively learning.
 3. **Cross-language leverage is wasted** — ~40% of Vietnamese is Sino-Vietnamese with systematic correspondence to Chinese.
-4. **Vocabulary knowledge is fragmented** across Migaku/Pleco/Anki.
+4. **Vocabulary knowledge is fragmented** across your SRS export and Anki.
 5. **No reusable, publishable foundation** — and most tools assume a paid backend/API.
 
-Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, keeps a durable cross-linked wiki + word store, generates reading + explanations **in batch via your own agents**, uses one language to bootstrap another, and reconciles your external vocab sources.
+Tsumugu is one open, **client-side, cost-free** engine with an inline ruby/hover reading layer, keeps a durable cross-linked wiki + word store, generates reading + explanations **in batch via your own agents**, uses one language to bootstrap another, and reconciles your external vocab sources.
 
 ---
 
@@ -86,7 +86,7 @@ Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, k
 **Engine / reader (client-side, $0, offline):**
 
 1. Read TL text with live word status (segment → color new→1–4→known→ignored). Hover popup = gloss + reading + audio + examples + **pre-baked AI explanation** (no live call); grade via 1–4 / Known / Ignore (buttons + hotkeys); next-unknown keyboard navigation. *< 2s for 500 tokens, offline.*
-2. Offline dictionary, no Migaku, no network — ≥ 95% coverage on intermediate text; **custom/override entries** supported.
+2. Offline dictionary, no external import, no network — ≥ 95% coverage on intermediate text; **custom/override entries** supported.
 3. Compounding, portable, cross-language-linked word store; **stored in the vault** (syncs across machines).
 4. **Flag-for-clarification:** any word/line can be flagged while reading → collected for the next batch generation run.
 
@@ -103,8 +103,8 @@ Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, k
 
 **Cross-language + reconciliation:**
 
-10. **Hán-Việt bridge** — Sino-Vietnamese word → Hanzi + reading + known meaning; **cross-seeding** raises Vietnamese known-coverage from your Chinese (Migaku export).
-11. **External-vocab cross-reference** — import Migaku/Pleco/Anki → reconciled view + conflicts; import-first.
+10. **Hán-Việt bridge** — Sino-Vietnamese word → Hanzi + reading + known meaning; **cross-seeding** raises Vietnamese known-coverage from your Chinese (your SRS export).
+11. **External-vocab cross-reference** — import your SRS export / Anki → reconciled view + conflicts; import-first.
 
 **Open-core:**
 
@@ -118,7 +118,7 @@ Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, k
 - Client-side engine: reader (web app + Chromium-extension overlay), pluggable segmentation, coloring, hover (pre-baked), grading, guess-first, flag-for-clarification, word store (in vault), built-in pull SRS, Anki export, File System Access bridge.
 - Offline dictionaries (packaged base + custom/override layer); OpenCC.
 - Cross-language store + Hán-Việt bridge (AI-as-you-go, cached) + cross-seeding.
-- External-vocab cross-reference (Migaku/Pleco/Anki).
+- External-vocab cross-reference (SRS export / Anki).
 - **Agent-run batch generation scripts** (in the repo): content prep w/ pre-baked unknowns, CI-calibrated readers, wiki + encoding-layer pages, bridge entries, Inbox clean/tag/commentary. Configurable agent (Claude Code / Grok Build).
 - Intake: Web Clipper → Inbox → agent clean → Wiki.
 - Later: transcript ingestion + AI commentary; Grok voice (see Note for Grok).
@@ -141,7 +141,7 @@ Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, k
 3. **Autonomous feed:** agent generates the next passage from your gaps + due words.
 4. **Vietnamese through Chinese:** Sino words bridged to Hanzi + known meaning; explanations in Chinese.
 5. **Review:** open SRS → due words → click one → its AI encoding-layer page.
-6. **Reconcile:** import Migaku/Pleco/Anki → one view of what you know.
+6. **Reconcile:** import your SRS export / Anki → one view of what you know.
 7. Later: transcript + AI commentary; shadow with voice.
 
 ---
@@ -152,7 +152,7 @@ Tsumugu is one open, **client-side, cost-free** engine that reads like Migaku, k
 Target (zh-Hant / vi) · Base/explanation (target-monolingual default, English/other-L2 toggle) · Bridge (vi's bridge = zh-Hant, Hán-Việt).
 
 ### 5.2 Word-status model
-`0/new` → `1` New · `2` Recognized · `3` Familiar · `4` Learned → `known` (✓) → `ignored` (X). LingQ labels (Migaku-mappable). Colors: new strong → fades → known/ignored none. Tone coloring (zh) is a separate toggle. Stored per (language, word) in the vault; cross-linked across languages (§5.6).
+`0/new` → `1` New · `2` Recognized · `3` Familiar · `4` Learned → `known` (✓) → `ignored` (X). Numeric status labels. Colors: new strong → fades → known/ignored none. Tone coloring (zh) is a separate toggle. Stored per (language, word) in the vault; cross-linked across languages (§5.6).
 
 ### 5.3 Batch generation model (no live API)
 The repo ships **prompts + scripts**; Wedge runs them via **Claude Code or Grok Build** (his subs, $0 marginal). They read inputs (clipped pages, transcripts, target words, the word store) and write outputs (prepared reader content, wiki/encoding pages, bridge entries, Inbox edits). **Unknown words are pre-resolved at generation time** so the reader's hover is instant and offline. A **verification pass** re-scores CI coverage + runs **OpenCC** on zh output (Grok leaks Simplified). Real-time AI is explicitly *not* in the core; flags collected while reading feed the next run.
@@ -168,13 +168,13 @@ Default **Extensive ~95% known** (Intensive ~80%, custom); TOCFL/frequency ceili
 - **Open question (Wedge, later):** known/stale words *fade*/archive over time; and known words *evolve into sentences* by composition (overlaps CI generation over your known set).
 
 ### 5.6 Cross-language store + Hán-Việt bridge
-Entries keyed (language, word), joined by etymon links (zh `發展` ↔ vi `phát triển`). **Bridge entries are AI-generated as-you-go (batch)** — Hanzi + Hán-Việt reading + morpheme breakdown + meaning — **cached** into the private bridge dictionary, **confidence-flagged + correctable**, optionally reconciled against a Wiktionary Hán-Việt dump later. **Seed = Wedge's Migaku known-Mandarin export** (the zh anchor); intersect bridge Hanzi with known Hanzi → **cross-seeding** lifts Vietnamese CI coverage.
+Entries keyed (language, word), joined by etymon links (zh `發展` ↔ vi `phát triển`). **Bridge entries are AI-generated as-you-go (batch)** — Hanzi + Hán-Việt reading + morpheme breakdown + meaning — **cached** into the private bridge dictionary, **confidence-flagged + correctable**, optionally reconciled against a Wiktionary Hán-Việt dump later. **Seed = Wedge's known-Mandarin SRS export** (the zh anchor); intersect bridge Hanzi with known Hanzi → **cross-seeding** lifts Vietnamese CI coverage.
 
 ### 5.7 External-vocab cross-reference
-Adapter ingests an export (Migaku JSON first; Pleco/Anki next) → reconcile vs the store → unified per-word view (Tsumugu data + external status) + conflict report + gated sync (import-first; write-back fragile/optional).
+Adapter ingests an export (SRS export first; Anki next) → reconcile vs the store → unified per-word view (Tsumugu data + external status) + conflict report + gated sync (import-first; write-back fragile/optional).
 
 ### 5.8 Reader interaction & grading UX
-Coloring always on (+ zh tone toggle). Hover popup (Migaku-style; **pre-baked** definition/reading/audio/examples/AI-explanation + wiki link; vi shows the bridge). Grade via `1/2/3/4/K/X` buttons **or** hotkeys → instant recolor + persist. Guess-first reveal. Keyboard sweep (next/prev highlighted, next unknown). **Flag** key to mark for next batch. Identical in web app + extension over the same store.
+Coloring always on (+ zh tone toggle). Hover popup (**pre-baked** definition/reading/audio/examples/AI-explanation + wiki link; vi shows the bridge). Grade via `1/2/3/4/K/X` buttons **or** hotkeys → instant recolor + persist. Guess-first reveal. Keyboard sweep (next/prev highlighted, next unknown). **Flag** key to mark for next batch. Identical in web app + extension over the same store.
 
 ### 5.9 Learner-outcome metrics
 Read-only progress from the store + history: known-word growth, comprehension-% trend, words promoted, reading volume, active-target coverage. Per language.
@@ -247,8 +247,8 @@ Read-only progress from the store + history: known-word growth, comprehension-% 
 - **Phase 1 — Engine + reader (client-side, offline) + both packs.** Pluggable segmentation, packaged dicts + custom layer, word store in vault (FS Access), coloring, hover (consuming pre-baked data), grading + hotkeys, guess-first, flag, Zhuyin/Pinyin + tone toggle, **Anki export**, **built-in pull SRS** (`ts-fsrs`). *Exit: read + grade + review + export, offline, $0.*
 - **Phase 2 — Generation scripts (agent-run).** Repo prompts/scripts for Claude Code/Grok Build: content prep with pre-baked unknowns (CI-calibrated, OpenCC-guarded), directed + autonomous modes, verification re-score. *Exit: criteria 5–7.*
 - **Phase 3 — Wiki + encoding-layer pages + Web Clipper intake.** Generate word/encoding pages; Inbox → clean/tag/commentary → Wiki; click SRS word → encoding page. *Exit: criteria 7, 8.*
-- **Phase 4 — Cross-language: Hán-Việt bridge + cross-seeding** (seed from Migaku export; cached, correctable). *Exit: criteria 10.*
-- **Phase 5 — External-vocab cross-reference** (Migaku → Pleco/Anki). *Exit: criterion 11.*
+- **Phase 4 — Cross-language: Hán-Việt bridge + cross-seeding** (seed from your SRS export; cached, correctable). *Exit: criteria 10.*
+- **Phase 5 — External-vocab cross-reference** (SRS export → Anki). *Exit: criterion 11.*
 - **Phase 6 — Browser extension** (shared engine overlay, Chromium). 
 - **Phase 7 — Transcript ingestion + AI commentary** (text-first).
 - **Phase 8 — Voice** (per Note for Grok, §9).
@@ -278,7 +278,7 @@ Read-only progress from the store + history: known-word growth, comprehension-% 
 - vi dicts: https://sourceforge.net/projects/ovdp/ · https://github.com/ds4v/NomNaOCR
 - zh: https://moedict.tw/ · https://www.mdbg.net/chinese/dictionary?page=cedict · https://github.com/ckiplab · https://github.com/BYVoid/OpenCC · TOCFL: https://zhongchinese.com/tocfl/vocabulary/
 - SRS: ts-fsrs (FSRS, TypeScript) · Web Speech API (MDN)
-- Migaku/Anki: https://chromewebstore.google.com/detail/migaku-word-exporter/akkpijkjiihgcalbfoobconnlnalafbd
-- Reader UX verified: Migaku (popup/status) + LingQ (1–4 grading + hotkeys) — see prior journal entry.
+- Known-words export: your SRS's word exporter (browser extension or DB) / Anki
+- Reader UX verified: hover popup/status + 1–4 grading with hotkeys — see prior journal entry.
 - CI threshold: Nation; Hu & Nation (95–98%).
 - Internal: `journal/2026-06-03-ai-mandarin-reader.md`, `wiki/Resources/Mandarin Chinese Language Learning Resources.md`, `cos/operating-instructions.md`

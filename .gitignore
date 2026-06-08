@@ -28,3 +28,6 @@ examples/out/
 
 # Local agent state (Claude Code worktrees, session data)
 .claude/
+
+# GitHub Pages assembly (CI builds it)
+_site/

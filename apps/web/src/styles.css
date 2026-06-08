@@ -3,9 +3,9 @@
  * apps/web/public/fonts and are linked from index.html (no CDN). */
 
 /*
- * Tsumugu web — app stylesheet. wnac / Copilot Money palette: DARK by default
+ * Tsumugu web — app stylesheet. wnac palette: DARK by default
  * (bare :root), light under <html data-theme="light">. The palette lives in
- * --ctp-* (redefined per theme); the semantic --tsg-* tokens reference it, so
+ * --wnac-* (redefined per theme); the semantic --tsg-* tokens reference it, so
  * theming is one swap. Class names mirror apps/web/src/ui/classes.ts and the
  * index.html element ids.
  *
@@ -14,68 +14,68 @@
  */
 
 :root {
-  /* wnac / Copilot Money — DARK is the default theme (bare :root). Palette in
-     --ctp-*; semantic --tsg-* reference it (theming = one swap, [data-theme=light]).
+  /* wnac — DARK is the default theme (bare :root). Palette in
+     --wnac-*; semantic --tsg-* reference it (theming = one swap, [data-theme=light]).
      Status ramp: new=RED (attention) -> orange -> amber -> known=NONE (calm).
      Surfaces are LIFTED off pure black so cards/borders/hover read (a11y crit P2);
      on-accent is dark navy because every accent fill is mid-tone (a11y crit). */
-  --ctp-base:          #000610;
-  --ctp-mantle:        #03101f;
-  --ctp-surface:       #0a1a30;
-  --ctp-surface0:      #122440;
-  --ctp-surface1:      #18304f;
-  --ctp-border:        #1f375c;
-  --ctp-border-strong: #2e466b;
-  --ctp-overlay:       #5b6e8c;
-  --ctp-overlay0:      #2e466b;
-  --ctp-text:          #dae5f3;
-  --ctp-subtext:       #9ab0cf;
-  --ctp-faint:         #7e91ad;
-  --ctp-blue:          #5089d8;
-  --ctp-blue-bright:   #66aaf7;
-  --ctp-on-accent:     #000610;
-  --ctp-red:           #f3241a;
-  --ctp-peach:         #ed8001;
-  --ctp-yellow:        #f5a623;
-  --ctp-green:         #00bb36;
-  --ctp-teal:          #46c5e6;
-  --ctp-mauve:         #b36ef5;
+  --wnac-base:          #000610;
+  --wnac-mantle:        #03101f;
+  --wnac-surface:       #0a1a30;
+  --wnac-surface0:      #122440;
+  --wnac-surface1:      #18304f;
+  --wnac-border:        #1f375c;
+  --wnac-border-strong: #2e466b;
+  --wnac-overlay:       #5b6e8c;
+  --wnac-overlay0:      #2e466b;
+  --wnac-text:          #dae5f3;
+  --wnac-subtext:       #9ab0cf;
+  --wnac-faint:         #7e91ad;
+  --wnac-blue:          #5089d8;
+  --wnac-blue-bright:   #66aaf7;
+  --wnac-on-accent:     #000610;
+  --wnac-red:           #f3241a;
+  --wnac-peach:         #ed8001;
+  --wnac-yellow:        #f5a623;
+  --wnac-green:         #00bb36;
+  --wnac-teal:          #46c5e6;
+  --wnac-mauve:         #b36ef5;
   --tsg-shadow:    inset 0 1px 0 rgba(255,255,255,.06), 0 8px 24px rgba(0,0,0,.45);
   --tsg-shadow-sm: inset 0 1px 0 rgba(255,255,255,.05), 0 2px 8px rgba(0,0,0,.40);
   color-scheme: dark;
 
-  --tsg-bg:            var(--ctp-base);
-  --tsg-surface:       var(--ctp-surface);
-  --tsg-surface-alt:   var(--ctp-surface0);
-  --tsg-surface-sunk:  var(--ctp-mantle);
-  --tsg-ink:           var(--ctp-text);
-  --tsg-ink-muted:     var(--ctp-subtext);
-  --tsg-ink-faint:     var(--ctp-faint);
-  --tsg-ink-soft:      var(--ctp-subtext);
-  --tsg-border:        var(--ctp-border);
-  --tsg-border-strong: var(--ctp-border-strong);
-  --tsg-accent:        var(--ctp-blue);
-  --tsg-accent-bright: var(--ctp-blue-bright);
-  --tsg-accent-ink:    var(--ctp-on-accent);
-  --tsg-hover:    color-mix(in oklab, var(--ctp-blue-bright) 10%, var(--ctp-surface));
-  --tsg-press:    color-mix(in oklab, var(--ctp-blue-bright) 18%, var(--ctp-surface));
-  --tsg-selected: var(--ctp-surface1);
-  --tsg-info:    var(--ctp-blue);
-  --tsg-topic:   var(--ctp-mauve);
-  --tsg-success: var(--ctp-green);
-  --tsg-danger:  var(--ctp-red);
+  --tsg-bg:            var(--wnac-base);
+  --tsg-surface:       var(--wnac-surface);
+  --tsg-surface-alt:   var(--wnac-surface0);
+  --tsg-surface-sunk:  var(--wnac-mantle);
+  --tsg-ink:           var(--wnac-text);
+  --tsg-ink-muted:     var(--wnac-subtext);
+  --tsg-ink-faint:     var(--wnac-faint);
+  --tsg-ink-soft:      var(--wnac-subtext);
+  --tsg-border:        var(--wnac-border);
+  --tsg-border-strong: var(--wnac-border-strong);
+  --tsg-accent:        var(--wnac-blue);
+  --tsg-accent-bright: var(--wnac-blue-bright);
+  --tsg-accent-ink:    var(--wnac-on-accent);
+  --tsg-hover:    color-mix(in oklab, var(--wnac-blue-bright) 10%, var(--wnac-surface));
+  --tsg-press:    color-mix(in oklab, var(--wnac-blue-bright) 18%, var(--wnac-surface));
+  --tsg-selected: var(--wnac-surface1);
+  --tsg-info:    var(--wnac-blue);
+  --tsg-topic:   var(--wnac-mauve);
+  --tsg-success: var(--wnac-green);
+  --tsg-danger:  var(--wnac-red);
 
   --tsg-radius:      12px;
   --tsg-radius-sm:   8px;
   --tsg-radius-xs:   4px;
   --tsg-radius-pill: 999px;
 
-  --tsg-st-new:   var(--ctp-red);
-  --tsg-st-l1:    var(--ctp-peach);
-  --tsg-st-l2:    var(--ctp-peach);
-  --tsg-st-l3:    var(--ctp-yellow);
-  --tsg-st-l4:    color-mix(in oklab, var(--ctp-green) 70%, var(--ctp-yellow));
-  --tsg-st-known: var(--ctp-green);
+  --tsg-st-new:   var(--wnac-red);
+  --tsg-st-l1:    var(--wnac-peach);
+  --tsg-st-l2:    var(--wnac-peach);
+  --tsg-st-l3:    var(--wnac-yellow);
+  --tsg-st-l4:    color-mix(in oklab, var(--wnac-green) 70%, var(--wnac-yellow));
+  --tsg-st-known: var(--wnac-green);
 
   --tsg-new-underline: var(--tsg-st-new);
   --tsg-new-bg: color-mix(in oklab, var(--tsg-st-new) 16%, var(--tsg-surface));
@@ -87,11 +87,11 @@
   --tsg-unknown-underline:  var(--tsg-st-new);
   --tsg-learning-underline: var(--tsg-st-l1);
 
-  --tsg-tone-1: var(--ctp-red);
-  --tsg-tone-2: var(--ctp-green);
-  --tsg-tone-3: var(--ctp-blue-bright);
-  --tsg-tone-4: var(--ctp-mauve);
-  --tsg-tone-5: var(--ctp-faint);
+  --tsg-tone-1: var(--wnac-red);
+  --tsg-tone-2: var(--wnac-green);
+  --tsg-tone-3: var(--wnac-blue-bright);
+  --tsg-tone-4: var(--wnac-mauve);
+  --tsg-tone-5: var(--wnac-faint);
 
   --tsg-reading-width: 38rem;
   --tsg-brand-gradient: linear-gradient(135deg, #66aaf7 0%, #b36ef5 58%, #f34ad8 100%);
@@ -119,31 +119,31 @@
 }
 
 :root[data-theme="light"] {
-  --ctp-base:          #eff1f5;
-  --ctp-mantle:        #e6e9ef;
-  --ctp-surface:       #ffffff;
-  --ctp-surface0:      #dce0e8;
-  --ctp-surface1:      #e6e9ef;
-  --ctp-border:        #ccd0da;
-  --ctp-border-strong: #bcc0cc;
-  --ctp-overlay:       #9ca0b0;
-  --ctp-overlay0:      #bcc0cc;
-  --ctp-text:          #4c4f69;
-  --ctp-subtext:       #5c5f73;
-  --ctp-faint:         #73768a;
-  --ctp-blue:          #1a5ce0;
-  --ctp-blue-bright:   #1a5ce0;
-  --ctp-on-accent:     #ffffff;
-  --ctp-red:           #d20f39;
-  --ctp-peach:         #fe640b;
-  --ctp-yellow:        #df8e1d;
-  --ctp-green:         #40a02b;
-  --ctp-teal:          #179299;
-  --ctp-mauve:         #8839ef;
+  --wnac-base:          #eff1f5;
+  --wnac-mantle:        #e6e9ef;
+  --wnac-surface:       #ffffff;
+  --wnac-surface0:      #dce0e8;
+  --wnac-surface1:      #e6e9ef;
+  --wnac-border:        #ccd0da;
+  --wnac-border-strong: #bcc0cc;
+  --wnac-overlay:       #9ca0b0;
+  --wnac-overlay0:      #bcc0cc;
+  --wnac-text:          #4c4f69;
+  --wnac-subtext:       #5c5f73;
+  --wnac-faint:         #73768a;
+  --wnac-blue:          #1a5ce0;
+  --wnac-blue-bright:   #1a5ce0;
+  --wnac-on-accent:     #ffffff;
+  --wnac-red:           #d20f39;
+  --wnac-peach:         #fe640b;
+  --wnac-yellow:        #df8e1d;
+  --wnac-green:         #40a02b;
+  --wnac-teal:          #179299;
+  --wnac-mauve:         #8839ef;
   --tsg-shadow:    0 6px 24px rgba(76, 79, 105, 0.14);
   --tsg-shadow-sm: 0 1px 2px rgba(76, 79, 105, 0.10);
-  --tsg-hover:    color-mix(in oklab, var(--ctp-overlay) 12%, var(--tsg-surface));
-  --tsg-press:    color-mix(in oklab, var(--ctp-overlay) 22%, var(--tsg-surface));
+  --tsg-hover:    color-mix(in oklab, var(--wnac-overlay) 12%, var(--tsg-surface));
+  --tsg-press:    color-mix(in oklab, var(--wnac-overlay) 22%, var(--tsg-surface));
   --tsg-brand-gradient: linear-gradient(135deg, #1e66f5 0%, #8839ef 58%, #ea76cb 100%);
   color-scheme: light;
 }
@@ -167,7 +167,7 @@ body {
   display: flex;
   flex-direction: column;
   /* Subtle accent glow at the top of the page over the base — adds depth in both
-   * themes (reads as a soft halo in Mocha, a faint wash in Latte). */
+   * themes (reads as a soft halo in the dark theme, a faint wash in the light theme). */
   background:
     radial-gradient(
         1100px 460px at 50% -180px,
@@ -196,7 +196,7 @@ button {
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-2) var(--space-5);
-  background: color-mix(in oklab, var(--ctp-mantle) 86%, transparent);
+  background: color-mix(in oklab, var(--wnac-mantle) 86%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--tsg-border);
@@ -331,7 +331,7 @@ button {
 }
 
 .tsg-btn:hover {
-  background: color-mix(in oklab, var(--ctp-surface1) 60%, var(--tsg-surface-alt));
+  background: color-mix(in oklab, var(--wnac-surface1) 60%, var(--tsg-surface-alt));
   border-color: var(--tsg-border-strong);
   transform: translateY(-1px);
 }
@@ -500,7 +500,7 @@ button {
   outline-offset: 1px;
 }
 
-/* ── Migaku reading visual (phonetics on: data-visual="migaku") ───────────── */
+/* ── Phonetic reading visual (phonetics on: data-visual="phonetic") ───────────── */
 /*
  * Scoped so the default fill model above stays intact when phonetics is off.
  * Safari: also set -webkit-ruby-position: over if ruby rows misalign.
@@ -521,7 +521,7 @@ button {
   color: var(--tsg-ink-muted);
 }
 
-.tsg-reader-text[data-visual="migaku"] {
+.tsg-reader-text[data-visual="phonetic"] {
   line-height: 2.4;
 }
 
@@ -531,40 +531,40 @@ button {
  * word down hides its reading live (the status class swaps on grade). The "all"
  * mode (phoneticsAllWords / `data-ruby="all"`) reveals the reading over every word.
  */
-.tsg-reader-text[data-visual="migaku"] .tsg-ruby rt {
+.tsg-reader-text[data-visual="phonetic"] .tsg-ruby rt {
   display: none;
 }
-.tsg-reader-text[data-visual="migaku"] .tsg-status-new .tsg-ruby rt,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l1 .tsg-ruby rt,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l2 .tsg-ruby rt,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l3 .tsg-ruby rt,
-.tsg-reader-text[data-visual="migaku"][data-ruby="all"] .tsg-ruby rt {
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-new .tsg-ruby rt,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l1 .tsg-ruby rt,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l2 .tsg-ruby rt,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l3 .tsg-ruby rt,
+.tsg-reader-text[data-visual="phonetic"][data-ruby="all"] .tsg-ruby rt {
   display: revert;
 }
 
-.tsg-reader-text[data-visual="migaku"] .tsg-status-new,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l1 {
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-new,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l1 {
   background: transparent;
   box-shadow: inset 0 -0.1em 0 0 var(--tsg-unknown-underline);
 }
 
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l2,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l3 {
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l2,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l3 {
   box-shadow: inset 0 -0.1em 0 0 var(--tsg-learning-underline);
 }
 
-.tsg-reader-text[data-visual="migaku"] .tsg-status-l4,
-.tsg-reader-text[data-visual="migaku"] .tsg-status-known {
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-l4,
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-known {
   background: transparent;
   box-shadow: none;
 }
 
-.tsg-reader-text[data-visual="migaku"] .tsg-status-ignored {
+.tsg-reader-text[data-visual="phonetic"] .tsg-status-ignored {
   background: transparent;
   box-shadow: none;
 }
 
-.tsg-reader-text[data-visual="migaku"] .tsg-active {
+.tsg-reader-text[data-visual="phonetic"] .tsg-active {
   background: color-mix(in oklab, var(--tsg-accent-bright) 20%, transparent);
   outline: none;
   border-radius: var(--tsg-radius-xs);
@@ -689,14 +689,14 @@ button {
 .tsg-popup-grades [data-grade].tsg-btn-active {
   background: var(--g);
   border-color: var(--g);
-  color: var(--ctp-on-accent);
+  color: var(--wnac-on-accent);
 }
 .tsg-popup-grades [data-grade="1"] { --g: var(--tsg-st-new); --gt: #ff6b61; }
 .tsg-popup-grades [data-grade="2"] { --g: var(--tsg-st-l1);  --gt: #ed8001; }
 .tsg-popup-grades [data-grade="3"] { --g: var(--tsg-st-l3);  --gt: #f5a623; }
-.tsg-popup-grades [data-grade="4"] { --g: var(--ctp-green);  --gt: #00bb36; }
-.tsg-popup-grades [data-grade="K"] { --g: var(--ctp-green);  --gt: #00bb36; }
-.tsg-popup-grades [data-grade="X"] { --g: var(--ctp-faint);  --gt: #9ab0cf; }
+.tsg-popup-grades [data-grade="4"] { --g: var(--wnac-green);  --gt: #00bb36; }
+.tsg-popup-grades [data-grade="K"] { --g: var(--wnac-green);  --gt: #00bb36; }
+.tsg-popup-grades [data-grade="X"] { --g: var(--wnac-faint);  --gt: #9ab0cf; }
 
 /* guess-first: conceal the gloss/answer until the learner hits Reveal.
  * The conceal must hold on hover too — otherwise hovering leaks the answer,
@@ -908,7 +908,7 @@ button {
   position: relative;
   height: 30px;
   border-radius: var(--tsg-radius-sm);
-  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 18%, var(--tsg-surface));
+  background: color-mix(in oklab, var(--wnac-overlay0, #2e466b) 18%, var(--tsg-surface));
   cursor: pointer;
   overflow: hidden;
 }
@@ -917,7 +917,7 @@ button {
   top: 0;
   bottom: 0;
   width: 1px;
-  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 45%, transparent);
+  background: color-mix(in oklab, var(--wnac-overlay0, #2e466b) 45%, transparent);
   pointer-events: none;
 }
 .tsg-loop-fill {
@@ -1011,7 +1011,7 @@ button {
   align-self: stretch;
   min-height: 4rem;
   border-radius: 999px;
-  background: color-mix(in oklab, var(--ctp-overlay0, #2e466b) 35%, transparent);
+  background: color-mix(in oklab, var(--wnac-overlay0, #2e466b) 35%, transparent);
   cursor: col-resize;
   touch-action: none;
   transition: background 0.15s ease;
@@ -1266,11 +1266,11 @@ html {
 /* Per-sentence waveforms (cueWaveforms.ts): one row per cue, sentence left,
    its wavesurfer looper on the right. */
 .tsg-cue-rows { display: block; }
-.tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: var(--space-2) 0; border-top: 1px solid var(--ctp-border); }
+.tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: var(--space-2) 0; border-top: 1px solid var(--wnac-border); }
 .tsg-cue-rows .tsg-cue-row.tsg-cw-active { background: color-mix(in oklab, var(--tsg-accent) 8%, transparent); border-radius: var(--tsg-radius-xs); }
 .tsg-cue-rows .tsg-cue-text { flex: 1 1 auto; line-height: 1.6; }
 .tsg-cue-wavewrap { flex: 0 0 auto; display: flex; align-items: center; gap: .4rem; }
 .tsg-cw-wave { width: 220px; height: 30px; flex: 0 0 auto; }
 .tsg-cw-btn { background: var(--tsg-surface-alt); color: var(--tsg-ink); border: 1px solid var(--tsg-border); border-radius: var(--tsg-radius-sm); height: 24px; min-width: 24px; cursor: pointer; font-size: var(--type-sm); transition: background var(--dur-fast) var(--ease-standard); }
-.tsg-cw-btn:hover { background: var(--ctp-surface1); }
+.tsg-cw-btn:hover { background: var(--wnac-surface1); }
 .tsg-cw-btn.on { background: var(--tsg-topic); color: var(--tsg-accent-ink); border-color: var(--tsg-topic); }

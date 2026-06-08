@@ -519,7 +519,7 @@ function buildToolbar(): void {
 
   const phonetics = el(
     "label",
-    { class: "tsg-btn", title: "Migaku visual: zhuyin above unknown words + unknown underlines" },
+    { class: "tsg-btn", title: "Phonetic visual: zhuyin above unknown words + unknown underlines" },
     el("input", {
       attrs: app.settings.phonetics ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {
@@ -569,7 +569,7 @@ function buildToolbar(): void {
     "select",
     {
       class: "tsg-btn",
-      title: "When the hover card appears (Migaku-style: only unknown words)",
+      title: "When the hover card appears (only unknown words)",
       on: {
         change: (e) => {
           app.updateSettings({

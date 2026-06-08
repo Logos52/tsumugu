@@ -134,13 +134,13 @@ describe("mountReader", () => {
   });
 
   it("gates zhuyin to unknown words by default; phoneticsAllWords reveals every word", () => {
-    // Default phonetics opts into the Migaku visual but NOT the all-words scope,
+    // Default phonetics opts into the phonetic visual but NOT the all-words scope,
     // so CSS hides the ruby over known/l4/ignored words (status-class gated).
     const gated = buildApp({ phonetics: true });
     const root1 = document.createElement("div");
     const v1 = mountReader(root1, gated);
     const text1 = root1.querySelector<HTMLElement>(`.${CLS.readerText}`);
-    expect(text1?.dataset.visual).toBe("migaku");
+    expect(text1?.dataset.visual).toBe("phonetic");
     expect(text1?.dataset.ruby).toBeUndefined();
     // The ruby is still in the DOM (CSS, not JS, does the gating) so grading a
     // word live re-gates it without a re-render.
@@ -154,7 +154,7 @@ describe("mountReader", () => {
     v2.unmount();
   });
 
-  it("opens the word card on click even in shift hover mode (Migaku-style)", () => {
+  it("opens the word card on click even in shift hover mode", () => {
     // Product default is hoverMode "shift" — hover stays quiet without Shift. A
     // deliberate click must still open the card (the behavior users expect), so
     // you never need to discover the Shift modifier.

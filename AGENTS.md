@@ -4,7 +4,7 @@
 
 ## What you're building
 
-A client-side, offline graded reader + compounding LLM-wiki engine. Real foreign text is segmented, every word colored by how well the user knows it (LingQ-style 1–4 / Known / Ignore), hover shows a definition + pre-baked AI explanation, and unknown words/idioms become durable wiki pages. The engine is language-agnostic; languages are pluggable packs. First packs: Traditional Mandarin (zh-Hant) + Vietnamese (vi), with a Hán-Việt bridge.
+A client-side, offline graded reader + compounding LLM-wiki engine. Real foreign text is segmented, every word colored by how well the user knows it (1–4 / Known / Ignore), hover shows a definition + pre-baked AI explanation, and unknown words/idioms become durable wiki pages. The engine is language-agnostic; languages are pluggable packs. First packs: Traditional Mandarin (zh-Hant) + Vietnamese (vi), with a Hán-Việt bridge.
 
 ## Hard constraints — do not violate
 
@@ -25,8 +25,8 @@ Engine (this repo) → pluggable **language packs** (segmenter, dictionaryProvid
 1. **Engine + reader + both packs** — pluggable segmentation (jieba-wasm zh / JS tokenizer vi), packaged dicts + custom layer, word store (File System Access), coloring, hover (pre-baked), grading + hotkeys, guess-first, **built-in pull SRS (`ts-fsrs`)**, **Anki export**. Offline, $0.
 2. **Generation scripts** — batch content prep (CI ~95%, pre-baked unknowns, OpenCC), directed + autonomous, verification re-score.
 3. **Wiki + encoding-layer pages + Web Clipper intake** — Inbox → clean/tag/commentary → Wiki; click an SRS word → its AI encoding page; publish via Quartz.
-4. **Hán-Việt bridge + cross-seeding** — AI-generated as-you-go, cached, seeded from the Migaku known-Mandarin export.
-5. **External-vocab cross-reference** — import + reconcile Migaku/Pleco/Anki.
+4. **Hán-Việt bridge + cross-seeding** — AI-generated as-you-go, cached, seeded from the known-Mandarin SRS export.
+5. **External-vocab cross-reference** — import + reconcile known words from your SRS export and Anki.
 6. **Browser extension** — shared engine overlay (Chromium).
 7. **Transcripts + AI commentary** (text-first).
 8. **Voice** — per PRD §9 (Grok to evaluate).

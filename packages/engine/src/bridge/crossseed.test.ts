@@ -17,7 +17,7 @@ function bridge(
 
 describe("crossSeed", () => {
   it("seeds words whose every morpheme etymon is known, leaves others", () => {
-    // Learner knows these Hanzi (e.g. from a Migaku export).
+    // Learner knows these Hanzi (e.g. from an imported known-word list).
     const knownEtyma = new Set(["發", "展", "國"]);
 
     const entries: CrossSeedEntry[] = [

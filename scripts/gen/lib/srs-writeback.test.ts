@@ -9,7 +9,7 @@ import {
   readWordListStatus,
   planWriteback,
   applyWriteback,
-} from "./migaku-writeback.js";
+} from "./srs-writeback.js";
 
 let SQL: Awaited<ReturnType<typeof initSqlJs>>;
 beforeAll(async () => {
@@ -27,14 +27,14 @@ function db(): Database {
     "INSERT INTO WordList (dictForm, secondary, partOfSpeech, language, mod, del, knownStatus, isPendingEnqueue) VALUES " +
       "('學', '', 'noun', 'zh', 1000, 0, 'LEARNING', 0)," + // newer Tsumugu KNOWN → push
       "('習', '', 'verb', 'zh', 2000, 0, 'LEARNING', 0)," + // l3 maps to same LEARNING → skip
-      "('讀', '', 'verb', 'zh', 9000, 0, 'UNKNOWN', 0)," + // Migaku mod newer → never clobber
+      "('讀', '', 'verb', 'zh', 9000, 0, 'UNKNOWN', 0)," + // SRS mod newer → never clobber
       "('說', '', 'verb', 'zh', 1000, 0, 'UNKNOWN', 0)", // store has no clock → skip
   );
   return d;
 }
 
 const ref = (dictForm: string, partOfSpeech: string, mod: number) => ({
-  source: "migaku" as const,
+  source: "srs" as const,
   dictForm,
   secondary: "",
   partOfSpeech,
@@ -54,7 +54,7 @@ function entries(): WordEntry[] {
 }
 
 describe("reverseStatus", () => {
-  it("collapses Tsumugu statuses into Migaku's 4 buckets", () => {
+  it("collapses Tsumugu statuses into the SRS's 4 buckets", () => {
     expect(reverseStatus("known")).toBe("KNOWN");
     expect(reverseStatus("l4")).toBe("KNOWN");
     expect(reverseStatus("l3")).toBe("LEARNING");

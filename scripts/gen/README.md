@@ -43,7 +43,7 @@ pnpm gen bridge   --lang vi --store <ws.json> [--bridge-lang zh-Hant] [--words a
 pnpm gen bridge   --cache <results.json> --registry bridge/vi-bridge.json --lang vi --store <ws.json>
 
 # Phase 5 — external vocab cross-reference
-pnpm gen crossref --source migaku --in <export.json> --lang zh-Hant --store <ws.json> [--apply] [--overwrite] [--out ws.json]
+pnpm gen crossref --source srs --in <export.json> --lang zh-Hant --store <ws.json> [--apply] [--overwrite] [--out ws.json]
 ```
 
 - Any command takes `--pack <id>` / `--pack-module <path.ts>` to load a `LanguagePack`. The public repo ships only the **demo** pack; the **example** zh-Hant pack (`examples/packs/zh-hant-example/index.ts`) demonstrates the real OpenCC guard + segmentation; your full private zh/vi packs register via `--pack-module` (see `PACK-AUTHORING.md`).
