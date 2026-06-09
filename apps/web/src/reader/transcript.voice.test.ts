@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach } from "vitest";
 
 import type { PreparedToken, VaultIO } from "@tsumugu/engine";
 import { mountTranscriptSync } from "./transcript.js";
@@ -238,13 +238,28 @@ describe("transcript voice transport + shadowing wiring", () => {
     ctl.destroy();
   });
 
-  it("pauses local playback when a voice note starts (no double audio)", () => {
-    const { host, ctl } = mount({ player: fakePlayer([]) });
+  it("voice-led ▶ (audio-only reading) plays through Serena's clips, not a silent clock", () => {
+    const calls: Call[] = [];
+    const { host } = mount({ player: fakePlayer(calls) }); // no videoId → always voice-led
     const playBtn = btn(host, "▶")!;
-    playBtn.click(); // start the local clock (▶ → ⏸)
-    expect(playBtn.textContent).toBe("⏸");
-    ctl.playCurrentCueVoice(); // voice takes over → video/clock pauses
+    playBtn.click(); // ▶ → Serena play-through (PRD §13: no more silent clock)
+    expect(calls.at(-1)![0]).toBe("playFrom");
+    expect(calls.at(-1)![1]).toBe(0);
+    expect(playBtn.textContent).toBe("⏸"); // the ▶ lamp follows the chain
+    playBtn.click(); // ▶ doubles as its own stop
+    expect(calls.some((c) => c[0] === "stop")).toBe(true);
     expect(playBtn.textContent).toBe("▶");
+  });
+
+  it("a single-cue voice note stops a voice-led play-through and resets the ▶ lamp", () => {
+    const calls: Call[] = [];
+    const { host, ctl } = mount({ player: fakePlayer(calls) });
+    const playBtn = btn(host, "▶")!;
+    playBtn.click(); // start the Serena play-through (▶ → ⏸)
+    expect(playBtn.textContent).toBe("⏸");
+    ctl.playCurrentCueVoice(); // a single cue takes over → ▶ lamp resets
+    expect(playBtn.textContent).toBe("▶");
+    expect(calls.some((c) => c[0] === "playCue")).toBe(true);
   });
 
   it("advancing past the last cue ends shadowing (done → idle)", () => {
@@ -427,6 +442,93 @@ describe("transcript sentence navigation + video loop (M2.2)", () => {
     loopBtn.click();
     expect(ctl.isVideoLooping()).toBe(false);
     expect(loopBtn.classList.contains(CLS.btnActive)).toBe(false);
+    ctl.destroy();
+  });
+});
+
+describe("transcript fusion: capability-driven mode (PRD §13)", () => {
+  // Stub the YouTube IFrame API so a videoId reading mounts WITHOUT a network
+  // fetch (loadApi short-circuits when window.YT.Player exists). The fake player
+  // resolves on a microtask, so the synchronous clicks below still see the
+  // offline clock — exactly the headless path we want to assert.
+  type Win = { YT?: unknown };
+  beforeEach(() => {
+    (globalThis as unknown as Win).YT = {
+      Player: class {
+        constructor(_el: Element, cfg: { events?: { onReady?: () => void } }) {
+          cfg.events?.onReady?.();
+        }
+        getCurrentTime() { return 0; }
+        getDuration() { return 0; }
+        seekTo() {}
+        playVideo() {}
+        pauseVideo() {}
+        destroy() {}
+      },
+    };
+  });
+  afterEach(() => {
+    delete (globalThis as unknown as Win).YT;
+  });
+
+  it("a video reading is video-led: ▶ drives the clock, not Serena", () => {
+    const calls: Call[] = [];
+    const host = document.createElement("div");
+    const tokenEls = tokens.map(() => document.createElement("span"));
+    const ctl = mountTranscriptSync({
+      host,
+      tokens,
+      transcript: { ...transcript, videoId: "abcdefghijk" },
+      tokenEls,
+      player: fakePlayer(calls),
+    });
+    expect(ctl.capabilities().hasPicture).toBe(true);
+    expect(ctl.capabilities().defaultVoiceLed).toBe(false);
+    const playBtn = btn(host, "▶")!;
+    playBtn.click();
+    expect(playBtn.textContent).toBe("⏸"); // the clock is playing
+    expect(calls.some((c) => c[0] === "playFrom")).toBe(false); // Serena was NOT invoked
+    ctl.destroy();
+  });
+
+  it("a mixed reading (video + ≥2 voice tracks) shows the full union; v flips ▶ to Serena", () => {
+    const calls: Call[] = [];
+    const host = document.createElement("div");
+    const tokenEls = tokens.map(() => document.createElement("span"));
+    const mixed: TranscriptDoc = {
+      videoId: "abcdefghijk",
+      cues: [
+        { text: "今晚我們去，", start: "00:00:00,000", end: "00:00:03,000", speaker: "A" },
+        { text: "那裡很熱鬧。", start: "00:00:03,000", end: "00:00:06,000", speaker: "B" },
+      ],
+    };
+    const ctl = mountTranscriptSync({
+      host,
+      tokens,
+      transcript: mixed,
+      tokenEls,
+      player: fakePlayer(calls),
+      vault: fakeVault,
+      voiceNotes: fakeBinding(),
+      voiceTracks: [
+        { id: "native", label: "Native", binding: fakeBinding() },
+        { id: "serena", label: "Serena", binding: fakeBinding() },
+      ],
+      voiceAssignment: { A: "native", B: "serena" },
+      onVoiceAssign: () => {},
+      createPracticeBar: fakeBarFactory([], () => {}),
+    });
+    const caps = ctl.capabilities();
+    expect(caps.hasPicture && caps.hasVoice && caps.canPractice && caps.hasDualVoice).toBe(true);
+    expect(caps.defaultVoiceLed).toBe(false); // a video reading starts video-led
+    expect(host.querySelector("select")).not.toBeNull(); // the 甲/乙 picker mounted (≥2 tracks)
+    const playBtn = btn(host, "▶")!;
+    playBtn.click(); // video-led ▶ → clock, not Serena
+    expect(calls.some((c) => c[0] === "playFrom")).toBe(false);
+    ctl.toggleSerenaSource(); // `v` → voice-led (parks the video)
+    calls.length = 0;
+    playBtn.click(); // now ▶ plays Serena's clips
+    expect(calls.at(-1)?.[0]).toBe("playFrom");
     ctl.destroy();
   });
 });

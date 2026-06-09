@@ -22,9 +22,40 @@ export async function writeJson(path: string, value: unknown): Promise<void> {
   await writeText(path, JSON.stringify(value, null, 2) + "\n");
 }
 
+/** Unicode NFC normalize a term (ARCHITECTURE.md §3 filename invariant). */
+export function nfcTerm(term: string): string {
+  return term.normalize("NFC");
+}
+
+/** Characters that require an explicit `slug:` override instead of a verbatim filename. */
+const FILESYSTEM_HOSTILE = /[\s/\\<>:"|?*]/;
+
+/**
+ * Basename for an encoding twin (`encoding/{basename}.md`).
+ * CJK terms pass through NFC-normalized; hostile terms require `slug`.
+ */
+export function encodingBasename(term: string, slug?: string): string {
+  const nfc = nfcTerm(term);
+  if (slug !== undefined && slug !== "") return slugify(slug);
+  if (FILESYSTEM_HOSTILE.test(nfc)) {
+    throw new Error(
+      `term "${term}" contains filesystem-hostile characters; pass an explicit slug: override ` +
+        `(see ARCHITECTURE.md §3 — e.g. frontmatter slug: for terms with /, whitespace, or symbols)`,
+    );
+  }
+  const slugged = slugify(nfc);
+  if (slugged !== nfc) {
+    throw new Error(
+      `term "${term}" cannot be used as a verbatim filename (slugify → "${slugged}"); ` +
+        `pass an explicit slug: override (see ARCHITECTURE.md §3)`,
+    );
+  }
+  return nfc;
+}
+
 /** A filesystem-safe slug from a title/source (keeps CJK/Latin letters). */
 export function slugify(s: string): string {
-  const trimmed = s
+  const trimmed = nfcTerm(s)
     .trim()
     .replace(/[\s/\\]+/g, "-")
     .replace(/[^\p{Letter}\p{Number}\-]/gu, "")

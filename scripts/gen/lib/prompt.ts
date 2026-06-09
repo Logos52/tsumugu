@@ -28,7 +28,7 @@ export function contextBlock(c: PromptContext): string {
     "",
     "---",
     "## Run context (filled by `pnpm gen`)",
-    `- agent: ${c.agent ?? "claude"}`,
+    `- agent: ${c.agent ?? "(unspecified)"}`,
     `- lang: ${c.lang}`,
     `- mode: ${c.mode}`,
     `- ciTarget: ${c.ciTarget}`,

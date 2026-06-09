@@ -199,7 +199,7 @@ Read-only progress from the store + history: known-word growth, comprehension-% 
 
 ## 7. Technical foundations (researched 2026-06-03)
 
-- **zh-Hant:** TOCFL leveling + Academia Sinica frequency; **MoEDict (CC0)** + **CC-CEDICT (CC-BY-SA)**; `jieba-wasm`/`jieba-tw` (client) / CKIP (server, optional); **OpenCC** (`opencc-js`, client).
+- **zh-Hant:** TOCFL leveling + Academia Sinica frequency; **CC-CEDICT (CC-BY-SA)** + **MoEDict** (g0v `moedict-data`: only kcwu's format-conversion layer is CC0; the underlying MoE 重編國語辭典/國語辭典 *text* is **CC BY-ND Taiwan 3.0** — attribution + **NoDerivatives**, government-owned — so it is a non-redistributed reference only, never a paraphrase seed; see PRD-Dictionary §7); `jieba-wasm`/`jieba-tw` (client) / CKIP (server, optional); **OpenCC** (`opencc-js`, client).
 - **vi:** ~40% Sino-Vietnamese (systematic Middle-Chinese correspondence); segmentation underthesea/VnCoreNLP (server-grade) vs JS tokenizer (client); dicts OVDP/EVDict + C-V + Wiktionary Hán-Việt; leveling frequency + 6-level. *Data is multi-source/rough; the bridge is AI-built-as-you-go.*
 - **SRS:** `ts-fsrs` (FSRS in TypeScript, client-side, free) for due-selection.
 - **Anki:** build `.apkg` in-browser (sql.js/genanki-style) or POST to **AnkiConnect** (`localhost`).

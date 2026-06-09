@@ -1,6 +1,6 @@
 # Batch generation (agent-run) — `scripts/gen`
 
-Tsumugu has **no live API in the core**. All LLM work runs in **batch**, executed by *your own* coding agent (Claude Code / Grok Build) using the prompts in [`prompts/`](./prompts/). This CLI is the **deterministic harness** around that: it does the parts that don't need a model (segment, identify unknowns, score CI, OpenCC-guard, validate, write files) and hands the model a filled-in prompt + a content skeleton to complete.
+Tsumugu has **no live API in the core**. All LLM work runs in **batch**, executed by *your own* coding agent (Claude Code, Grok Build, Codex, Cursor, or any other harness) using the model-neutral prompts in [`prompts/`](./prompts/). This CLI is the **deterministic harness** around that: it does the parts that don't need a model (segment, identify unknowns, score CI, OpenCC-guard, validate, write files) and hands the model a filled-in prompt + a content skeleton to complete.
 
 ```
 source ─▶ gen prep ─▶ (agent fills glosses/explanations via prompts/content-prep.md)
@@ -47,7 +47,7 @@ pnpm gen crossref --source srs --in <export.json> --lang zh-Hant --store <ws.jso
 ```
 
 - Any command takes `--pack <id>` / `--pack-module <path.ts>` to load a `LanguagePack`. The public repo ships only the **demo** pack; the **example** zh-Hant pack (`examples/packs/zh-hant-example/index.ts`) demonstrates the real OpenCC guard + segmentation; your full private zh/vi packs register via `--pack-module` (see `PACK-AUTHORING.md`).
-- `--agent claude|grok` selects the generation-runtime hint; the CLI emits the right prompt. Default `claude`.
+- `--agent <name>` is a free-text provenance tag echoed into the run-context block for your own bookkeeping. It does **not** change the prompt or behavior; any value is accepted, and there is one shared, model-neutral prompt set.
 - `verify` exits non-zero when content is not ready (missing glosses, or Simplified found without `--fix`) — usable in the autonomous loop.
 - Outputs land in `Inbox/<lang>/` and only move into the reader/wiki on **your confirm**.
 

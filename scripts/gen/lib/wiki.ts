@@ -6,6 +6,7 @@
  * item — links, not copies.
  */
 import type { DictEntry, WordEntry, BridgeInfo } from "@tsumugu/engine";
+import { nfcTerm } from "./io.js";
 
 export interface WikiInput {
   term: string;
@@ -102,8 +103,11 @@ export function buildWikiPage(input: WikiInput): string {
 }
 
 export function buildEncodingPage(input: WikiInput & { flagNote?: string }): string {
+  // ARCHITECTURE.md §4 invariant #4: encoding twin carries `word:` audit key (word == term, NFC).
+  const term = nfcTerm(input.term);
   const fm = frontmatter({
-    term: input.term,
+    term,
+    word: term,
     reading: input.reading,
     pos: input.pos,
     status: input.status,
@@ -116,7 +120,7 @@ export function buildEncodingPage(input: WikiInput & { flagNote?: string }): str
     lang: input.lang,
   });
   const body = [
-    `# ${input.term} — encoding-layer page`,
+    `# ${term} — encoding-layer page`,
     "",
     "> Memory-encoding page (PRD §5.5): etymology, mnemonics, associations, *why it's tricky*.",
     "",

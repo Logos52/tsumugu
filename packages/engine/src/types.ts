@@ -376,6 +376,20 @@ export const PREPARED_CONTENT_SCHEMA_V2 = "tsumugu/prepared-content@2" as const;
 
 export const ENCODING_PAGE_SCHEMA = "tsumugu/encoding-page@1" as const;
 
+/** Per-word encoding audio manifest (term + per-sentence Serena clips). */
+export const ENCODING_AUDIO_SCHEMA = "tsumugu/encoding-audio@1" as const;
+
+/** `gen encoding-audio` sidecar: term-level + indexed example-sentence audio paths. */
+export interface EncodingAudioManifest {
+  schema: typeof ENCODING_AUDIO_SCHEMA;
+  lang: string;
+  term: string;
+  /** mp3 path relative to the manifest's directory. */
+  termAudio?: string;
+  /** 0-based example index → mp3 path relative to the manifest's directory. */
+  sentences: Record<number, string>;
+}
+
 /** App-consumed per-word encoding artifact (Encoding PRD §6.2). */
 export interface EncodingPageDoc {
   schema: typeof ENCODING_PAGE_SCHEMA;

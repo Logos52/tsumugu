@@ -39,9 +39,7 @@ import {
 } from "../voice/practiceBar.js";
 import { mountCueWaveforms, type CueWaveforms } from "../voice/cueWaveforms.js";
 import type { SectionAudioPlayer } from "../voice/sectionAudio.js";
-
-/** Max cues for the always-on per-sentence waveforms (a long reading would spawn too many). */
-const CUE_WAVEFORM_LIMIT = 80;
+import { resolveCapabilities, type ReadingCapabilities } from "./capabilities.js";
 
 export interface TranscriptController {
   destroy(): void;
@@ -102,6 +100,8 @@ export interface TranscriptController {
   isLoopStripOpen(): boolean;
   /** Handle Space / arrows / L for the per-sentence waveforms; true if consumed. */
   cueKey(ev: KeyboardEvent): boolean;
+  /** The resolved capability set (PRD §13, FR-F1) — drives control + layout mounting. */
+  capabilities(): ReadingCapabilities;
 }
 
 /** mm:ss for the time label. */
@@ -160,13 +160,24 @@ export function mountTranscriptSync(opts: {
   const vault = opts.vault ?? null;
   const voiceNotes = opts.voiceNotes ?? null;
   const practiceFactory = opts.createPracticeBar ?? defaultPracticeBarFactory;
-  const canPractice = !!(voicePlayer && vault && voiceNotes);
   const cues = transcript.cues;
-  // No videoId → audio-only reading (e.g. a voice-note transcript): the bound
-  // voice note is the only sentence audio, so click/Space must play THAT, not a
-  // silent video clock.
-  const hasVideo = !!transcript.videoId;
   const sections = transcript.sections ?? [];
+  // One capability set drives every control + layout choice (PRD §13, FR-F1);
+  // nothing below reads `transcript.videoId` truthiness directly.
+  const caps = resolveCapabilities({
+    hasVideoId: !!transcript.videoId,
+    cueCount: cues.length,
+    sectionCount: sections.length,
+    hasVoicePlayer: !!voicePlayer,
+    hasVault: !!vault,
+    hasVoiceNotes: !!voiceNotes,
+    voiceTrackCount: opts.voiceTracks?.length ?? 0,
+  });
+  const canPractice = caps.canPractice;
+  // No picture → audio-only reading (e.g. a voice-note transcript): the bound
+  // voice note is the only sentence audio, so click/Space must play THAT, not a
+  // silent video clock. `hasVideo` is now just a readable alias for caps.hasPicture.
+  const hasVideo = caps.hasPicture;
   const ranges = alignCuesToTokens(tokens, cues);
   const times = cueTimes(cues);
   const sectionTimes = cueTimes(sections);
@@ -187,6 +198,11 @@ export function mountTranscriptSync(opts: {
   let slow = opts.voiceSlow ?? false;
   let serenaSource = opts.serenaOnClick ?? false; // click/Space plays Serena, not the video
   let serenaBtn: HTMLButtonElement | null = null;
+  // Voice-led when the reading has voice audio AND either it has no video picture
+  // (audio-only → always voice-led) or the 🎙️/`v` source toggle is on. In
+  // voice-led mode the ▶ transport plays through Serena's per-cue clips instead
+  // of the (silent, for audio) video clock (PRD §13.4: "v switches to Serena playback").
+  const voiceLed = (): boolean => caps.hasVoice && (serenaSource || caps.defaultVoiceLed);
   let voiceHighlight = false; // when true, voice playback owns the highlight (not the clock)
   let shadow: ShadowState = SHADOW_IDLE;
   let shadowBtn: HTMLButtonElement | null = null;
@@ -250,7 +266,7 @@ export function mountTranscriptSync(opts: {
       opts.onSlowToggle?.(slow);
     });
     vShadow.addEventListener("click", () => toggleShadowing());
-    const vSrc = el("button", { class: CLS.btn, type: "button", text: "🎙️", title: "Click / Space plays Serena's voice and parks the video on the line (v)" });
+    const vSrc = el("button", { class: CLS.btn, type: "button", text: "🎙️", title: "Voice-led (v): ▶ and clicks play Serena's per-cue voice and park the video" });
     serenaBtn = vSrc;
     if (serenaSource) vSrc.classList.add(CLS.btnActive);
     vSrc.addEventListener("click", () => toggleSerenaSource());
@@ -268,7 +284,7 @@ export function mountTranscriptSync(opts: {
   // Changing a selector recomposes the binding; the host rebuilds the player.
   let voicePickerRow: HTMLElement | null = null;
   const vTracks = opts.voiceTracks ?? [];
-  if (vTracks.length >= 2 && opts.onVoiceAssign) {
+  if (caps.hasDualVoice && opts.onVoiceAssign) {
     const assign = opts.voiceAssignment ?? {};
     const found = speakersOf(cues.map((c) => c.speaker));
     const speakerKeys = found.length ? found : [""];
@@ -311,12 +327,13 @@ export function mountTranscriptSync(opts: {
   // right after each cue's text. Opt-in by size (a long reading would spawn
   // hundreds). Self-contained per line; interacting with one selects that cue.
   let cueWaves: CueWaveforms | null = null;
-  if (voicePlayer && vault && voiceNotes && cues.length <= CUE_WAVEFORM_LIMIT) {
+  if (caps.canWaveforms) {
+    // caps.canWaveforms ⟹ vault + voiceNotes are present (it implies canPractice).
     void mountCueWaveforms({
       ranges,
       tokenEls,
-      vault,
-      binding: voiceNotes,
+      vault: vault!,
+      binding: voiceNotes!,
       onActivate: (c) => selectCue(c),
     }).then((cw) => {
       cueWaves = cw;
@@ -358,7 +375,7 @@ export function mountTranscriptSync(opts: {
   sectionPlayBtn.addEventListener("click", () => playCurrentSectionVoice());
   sectionLoopBtn.addEventListener("click", () => toggleSectionLoop());
   const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionLoopBtn, sectionTextEl, sectionTrEl);
-  if (sections.length === 0) sectionEl.style.display = "none";
+  if (!caps.hasSections) sectionEl.style.display = "none";
   const trEl = el("div", { class: CLS.translation });
   let showTr = opts.showTranslation ?? false;
   trEl.style.display = showTr ? "block" : "none";
@@ -407,7 +424,7 @@ export function mountTranscriptSync(opts: {
       playOneCue = -1;
       playOneArmed = false;
     }
-    playBtn.textContent = on ? "⏸" : "▶";
+    reflectPlayBtn();
     if (player) {
       if (on) player.play();
       else player.pause();
@@ -422,7 +439,12 @@ export function mountTranscriptSync(opts: {
     paint(t);
   }
 
-  playBtn.addEventListener("click", () => setPlaying(!playing));
+  playBtn.addEventListener("click", () => {
+    // Voice-led: ▶ plays through Serena's per-cue clips and doubles as its own
+    // stop. Video-led: ▶ plays/pauses the video (or offline) clock as before.
+    if (voiceLed()) chaining ? stopVoice() : playFromCurrentVoice();
+    else setPlaying(!playing);
+  });
   scrubber.addEventListener("input", () => {
     selectedCue = null; // scrubbing moves the video → drop the manual selection
     playOneCue = -1; // …and cancels a one-shot sentence play
@@ -461,8 +483,12 @@ export function mountTranscriptSync(opts: {
     if (!voiceHighlight) {
       highlightCue(selectedCue !== null ? selectedCue : cueIndexAtTime(cues, t, times));
     }
-    if (document.activeElement !== scrubber) scrubber.value = String(t);
-    timeLabel.textContent = `${fmt(t)} / ${fmt(duration)}`;
+    // While voice playback owns the highlight (play-through / shadowing), show the
+    // active cue's start on the scrubber/clock so a voice-led play-through visibly
+    // advances the timeline instead of sitting on the parked clock.
+    const shownTime = voiceHighlight && lastCue >= 0 && times[lastCue] ? times[lastCue]!.start : t;
+    if (document.activeElement !== scrubber) scrubber.value = String(shownTime);
+    timeLabel.textContent = `${fmt(shownTime)} / ${fmt(duration)}`;
     if (showTr) trEl.textContent = lastCue >= 0 ? (cues[lastCue]?.tr ?? "— (no translation yet)") : "";
     if (sections.length) {
       // The section follows the highlighted line (selection or clock), so a
@@ -706,6 +732,9 @@ export function mountTranscriptSync(opts: {
     serenaSource = !serenaSource;
     serenaBtn?.classList.toggle(CLS.btnActive, serenaSource);
     opts.onSerenaToggle?.(serenaSource);
+    // Flipping INTO voice-led parks a playing video — Serena owns playback now.
+    if (voiceLed() && playing) setPlaying(false);
+    reflectPlayBtn();
   }
 
   function updateVideoLoopBtn(): void {
@@ -782,6 +811,11 @@ export function mountTranscriptSync(opts: {
     voiceFromBtn?.classList.toggle(CLS.btnActive, chaining);
   }
 
+  /** ▶/⏸ lamp: follows the Serena play-through when voice-led, else the clock. */
+  function reflectPlayBtn(): void {
+    playBtn.textContent = (voiceLed() ? chaining : playing) ? "⏸" : "▶";
+  }
+
   // Apply a shadowing event and map the resulting state to effects.
   function dispatchShadow(ev: ShadowEvent): void {
     const prev = shadow;
@@ -813,6 +847,7 @@ export function mountTranscriptSync(opts: {
     voiceHighlight = false;
     chaining = false;
     updateVoiceFromBtn();
+    reflectPlayBtn();
     voicePlayer.playCue(currentCue(), { slow });
   }
 
@@ -823,6 +858,7 @@ export function mountTranscriptSync(opts: {
     voiceHighlight = true;
     chaining = true;
     updateVoiceFromBtn();
+    reflectPlayBtn();
     voicePlayer.playFrom(currentCue(), {
       slow,
       onAdvance: (i) => highlightCue(i),
@@ -830,6 +866,7 @@ export function mountTranscriptSync(opts: {
         voiceHighlight = false;
         chaining = false;
         updateVoiceFromBtn();
+        reflectPlayBtn();
       },
     });
   }
@@ -839,6 +876,7 @@ export function mountTranscriptSync(opts: {
     voiceHighlight = false;
     chaining = false;
     updateVoiceFromBtn();
+    reflectPlayBtn();
     if (shadowActive(shadow)) {
       shadow = SHADOW_IDLE;
       updateShadowBtn();
@@ -972,6 +1010,9 @@ export function mountTranscriptSync(opts: {
     },
     cueKey(ev) {
       return cueWaves?.key(ev) ?? false;
+    },
+    capabilities() {
+      return caps;
     },
   };
 }

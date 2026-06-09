@@ -8,12 +8,16 @@ A **pack** teaches the engine a new language. Packs are *not* part of this publi
 
 | Member | Purpose |
 |--------|---------|
+**Required:** `segmenter`, `dictionaryProvider`, `phoneticLayer`, `levelingModel`. **Optional:** `scriptNormalizer?`, `ttsVoice?`, `bridge?` — omit `scriptNormalizer` for any language with no script-normalization need (most non-CJK languages); it is mandatory ONLY for Simplified-bearing scripts (zh-Hant).
+
+| Member | Purpose |
+|--------|---------|
 | `segmenter(text)` | → tokens (words). zh: `jieba-wasm`; vi: a JS dictionary/longest-match tokenizer (or optional local CKIP/underthesea). |
 | `dictionaryProvider(word)` | → `{ gloss, reading, senses, audio? }`. Packaged base **+ a custom/override layer** the user can edit. |
 | `phoneticLayer` | reading system (Zhuyin/Pinyin; Latin + tone diacritics; …). |
 | `levelingModel(word)` | → difficulty/frequency band (zh: TOCFL; vi: frequency + 6-level). |
-| `scriptNormalizer(text)` | → normalized text (zh: OpenCC Simplified→Traditional). |
-| `ttsVoice` | locale/voice id for the Web Speech API. |
+| `scriptNormalizer?(text)` | *optional* → normalized text (zh: OpenCC Simplified→Traditional). Omit when no normalization is needed. |
+| `ttsVoice?` | *optional* locale/voice id for the Web Speech API. |
 | `bridge?` | *optional* cross-language etymon map (e.g. Hán-Việt → Hanzi) for cross-seeding. |
 
 ## Steps
