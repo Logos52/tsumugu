@@ -74,6 +74,17 @@ export interface AppSettings {
   storePath: string;
 }
 
+/**
+ * Resolve the persisted dictionary default for encoding + hover surfaces.
+ * Migrates legacy `explanationLang` values: `"target" → "zh"`, `"en" → "en"`.
+ */
+export function resolveDictDefault(settings: Pick<AppSettings, "explanationLang">): "en" | "zh" {
+  const lang = settings.explanationLang;
+  if (lang === "en") return "en";
+  if (lang === "zh" || lang === "target") return "zh";
+  return "en";
+}
+
 export const DEFAULT_SETTINGS: AppSettings = {
   explanationLang: "target",
   toneColoring: false,

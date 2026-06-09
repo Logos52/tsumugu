@@ -1,0 +1,63 @@
+{
+  "schema": "tsumugu/encoding-page@1",
+  "lang": "zh-Hant",
+  "term": "熱鬧",
+  "reading": { "zhuyin": "ㄖㄜˋ ㄋㄠˋ", "pinyin": "rènào" },
+  "pos": "adjective",
+  "level": "TOCFL B1",
+  "audio": "zh-Hant/encoding/熱鬧/term.mp3",
+  "definitions": {
+    "en": {
+      "gloss": "lively · bustling · buzzing with activity",
+      "explanation": "Of a place or occasion that is busy, crowded, and full of cheerful noise and energy."
+    },
+    "zh": {
+      "gloss": "（形容）人多、又吵又有活力，讓人覺得很開心的樣子。",
+      "explanation": "像夜市、廟會、過年的街上那種氣氛。",
+      "levelCap": "TOCFL B1",
+      "leveledVerdict": "leveled"
+    }
+  },
+  "defaultDefinition": "en",
+  "examples": [
+    {
+      "text": "週末的夜市總是很熱鬧。",
+      "translation": "The weekend night market is always lively.",
+      "audio": "zh-Hant/encoding/熱鬧/ex-1.mp3"
+    },
+    {
+      "text": "過年的時候，街上又熱鬧又開心。",
+      "translation": "During New Year, the streets are lively and joyful.",
+      "audio": "zh-Hant/encoding/熱鬧/ex-2.mp3"
+    },
+    {
+      "text": "這家餐廳生意很好，每天都很熱鬧。",
+      "translation": "This restaurant does great business — it's busy every day.",
+      "audio": "zh-Hant/encoding/熱鬧/ex-3.mp3"
+    },
+    {
+      "text": "大家一起吃飯、聊天，氣氛很熱鬧。",
+      "translation": "Everyone eats and chats together; the mood is lively.",
+      "audio": "zh-Hant/encoding/熱鬧/ex-4.mp3"
+    }
+  ],
+  "etymology": {
+    "parts": [
+      { "char": "熱", "reading": "rè", "gloss": "hot", "note": "灬 fire" },
+      { "char": "鬧", "reading": "nào", "gloss": "noisy", "note": "鬥 fight around 市 market" }
+    ],
+    "payoff": "heat + market-noise = a buzzing, lively scene.",
+    "grounding": "mnemonic-device"
+  },
+  "tricky": {
+    "text": "熱鬧 = good festive noise. 鬧鐘 = an annoying alarm. Same 鬧, opposite feeling.",
+    "confusable": "鬧鐘"
+  },
+  "related": [
+    { "word": "夜市", "relation": "neighbour" },
+    { "word": "安靜", "relation": "antonym" },
+    { "word": "鬧鐘", "relation": "confusable" }
+  ],
+  "flagNote": "confuses with 鬧鐘",
+  "generatedAt": "2026-06-09T00:00:00.000Z"
+}
