@@ -48,6 +48,34 @@ describe("createZhHantBrowserPack", () => {
     expect(await pack.dictionaryProvider("missing")).toBeUndefined();
   });
 
+  it("vault-backed dict populates definitions.en.senses from CC-CEDICT g[]", async () => {
+    const dict: BrowserDict = {
+      lookup: async (word) => {
+        if (word !== "熱鬧") return undefined;
+        return {
+          term: "熱鬧",
+          gloss: "bustling with noise and excitement; lively",
+          definitions: {
+            en: {
+              gloss: "bustling with noise and excitement",
+              senses: [
+                { gloss: "bustling with noise and excitement" },
+                { gloss: "lively" },
+              ],
+            },
+          },
+          senses: [
+            { gloss: "bustling with noise and excitement" },
+            { gloss: "lively" },
+          ],
+        };
+      },
+    };
+    const pack = createZhHantBrowserPack({ dict });
+    const entry = await pack.dictionaryProvider("熱鬧");
+    expect(entry?.definitions?.en?.senses).toHaveLength(2);
+  });
+
   it("dictionaryProvider yields undefined with no dict wired", async () => {
     const pack = createZhHantBrowserPack();
     expect(await pack.dictionaryProvider("夜市")).toBeUndefined();

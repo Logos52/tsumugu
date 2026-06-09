@@ -31,8 +31,11 @@ import type { SectionAudioBinding } from "./voice/sectionAudio.js";
 
 /** Reader/review display preferences. */
 export interface AppSettings {
-  /** Explanation language for hover/wiki: target-monolingual default. */
-  explanationLang: "target" | "en" | (string & {});
+  /**
+   * Default dictionary layer for hover + encoding surfaces (Dictionary PRD §5.5).
+   * `"zh"` = leveled monolingual 簡明中文; `"en"` = English gloss.
+   */
+  dictDefault: "en" | "zh";
   /** zh tone coloring toggle (separate from status coloring; off by default). */
   toneColoring: boolean;
   /** Zhuyin/bopomofo ruby above each word; off by default. */
@@ -74,19 +77,33 @@ export interface AppSettings {
   storePath: string;
 }
 
+/** Legacy settings shape before Dictionary PRD D1. */
+export type LegacyAppSettings = Partial<AppSettings> & {
+  explanationLang?: "target" | "en" | "zh" | (string & {});
+};
+
 /**
- * Resolve the persisted dictionary default for encoding + hover surfaces.
- * Migrates legacy `explanationLang` values: `"target" → "zh"`, `"en" → "en"`.
+ * Migrate persisted settings: `explanationLang` → `dictDefault`.
+ * `"target" → "zh"`, `"en" → "en"`, unknown legacy values → `"en"`.
  */
-export function resolveDictDefault(settings: Pick<AppSettings, "explanationLang">): "en" | "zh" {
-  const lang = settings.explanationLang;
-  if (lang === "en") return "en";
-  if (lang === "zh" || lang === "target") return "zh";
-  return "en";
+export function migrateAppSettings(raw: LegacyAppSettings): Partial<AppSettings> {
+  const { explanationLang, ...rest } = raw;
+  if (rest.dictDefault !== undefined) return rest;
+  if (explanationLang === "en") return { ...rest, dictDefault: "en" };
+  if (explanationLang === "zh" || explanationLang === "target") {
+    return { ...rest, dictDefault: "zh" };
+  }
+  if (explanationLang !== undefined) return { ...rest, dictDefault: "en" };
+  return rest;
+}
+
+/** Read the active dictionary default (falls back to immersion-first `"zh"`). */
+export function resolveDictDefault(settings: Pick<AppSettings, "dictDefault">): "en" | "zh" {
+  return settings.dictDefault ?? "zh";
 }
 
 export const DEFAULT_SETTINGS: AppSettings = {
-  explanationLang: "target",
+  dictDefault: "zh",
   toneColoring: false,
   phonetics: false,
   phoneticsAllWords: false,
@@ -169,7 +186,7 @@ export class AppState {
     this.voiceNotes = opts.voiceNotes ?? null;
     this.wordAudio = opts.wordAudio ?? null;
     this.sectionAudio = opts.sectionAudio ?? null;
-    this.settings = { ...DEFAULT_SETTINGS, ...opts.settings };
+    this.settings = { ...DEFAULT_SETTINGS, ...migrateAppSettings(opts.settings ?? {}) };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
     this.clock = opts.clock ?? systemClock;

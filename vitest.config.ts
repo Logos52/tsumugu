@@ -6,6 +6,7 @@ export default defineConfig({
       "packages/**/src/**/*.test.ts",
       "apps/**/src/**/*.test.ts",
       "scripts/**/*.test.ts",
+      "packs/private/**/*.test.ts",
     ],
     environment: "node",
   },

@@ -15,6 +15,12 @@ import {
   type PrebakedEntry,
   type KnownPolicy,
 } from "@tsumugu/engine";
+import {
+  allowListWords,
+  loadDefLevelIndex,
+  resolveDefFloorBand,
+  type DefLevelIndex,
+} from "./defLevelData.js";
 
 export interface SkeletonOptions {
   lang: string;
@@ -25,12 +31,30 @@ export interface SkeletonOptions {
   source?: string;
   ciTarget?: number;
   policy?: KnownPolicy;
+  /** TOCFL floor band for monolingual zh defs (default TOCFL-3 / env). */
+  defFloorBand?: string;
+  /** Optional pre-loaded index (tests); zh-Hant loads private pack data by default. */
+  defLevelIndex?: DefLevelIndex;
 }
 
 export interface SkeletonResult {
   content: PreparedContent;
   /** Distinct unknown words the agent must resolve (gloss/explanation empty). */
   unknownWords: string[];
+  /** Defining-vocabulary allow-list for the floor band (zh-Hant monolingual fill). */
+  allowList?: string[];
+  /** Resolved floor band stamped on seeded `definitions.zh.level`. */
+  defFloorBand?: string;
+}
+
+function resolveDefIndex(lang: string, explicit?: DefLevelIndex): DefLevelIndex | undefined {
+  if (explicit !== undefined) return explicit;
+  if (lang !== "zh-Hant") return undefined;
+  try {
+    return loadDefLevelIndex();
+  } catch {
+    return undefined;
+  }
 }
 
 export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResult> {
@@ -47,6 +71,14 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
     if (!isKnown(status, opts.policy)) unknown.add(t.text);
   }
 
+  const defFloorBand =
+    opts.lang === "zh-Hant" ? resolveDefFloorBand(opts.defFloorBand) : undefined;
+  const defIndex = resolveDefIndex(opts.lang, opts.defLevelIndex);
+  const allowList =
+    defFloorBand !== undefined && defIndex !== undefined
+      ? allowListWords(defFloorBand, defIndex)
+      : undefined;
+
   const glossary: Record<string, PrebakedEntry> = {};
   for (const word of unknown) {
     const dict = await opts.pack.dictionaryProvider(word);
@@ -61,6 +93,18 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
     if (reading !== undefined) entry.reading = reading;
     if (dict?.pos !== undefined) entry.pos = dict.pos;
     if (level?.band !== undefined) entry.level = level.band;
+
+    if (defFloorBand !== undefined) {
+      entry.definitions = {
+        zh: {
+          gloss: "",
+          level: defFloorBand,
+          monolingual: true,
+          source: "generated",
+        },
+      };
+    }
+
     glossary[word] = entry;
   }
 
@@ -74,5 +118,10 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
   };
   if (opts.title !== undefined) content.title = opts.title;
 
-  return { content, unknownWords: [...unknown] };
+  return {
+    content,
+    unknownWords: [...unknown],
+    ...(allowList !== undefined ? { allowList } : {}),
+    ...(defFloorBand !== undefined ? { defFloorBand } : {}),
+  };
 }

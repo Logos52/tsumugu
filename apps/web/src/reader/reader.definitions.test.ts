@@ -42,12 +42,12 @@ function dualDefContent(): PreparedContent {
   };
 }
 
-function buildApp(explanationLang: "en" | "zh" | "target" = "en"): AppState {
+function buildApp(dictDefault: "en" | "zh" = "en"): AppState {
   return new AppState({
     pack: dualDefPack(),
     content: dualDefContent(),
     store: new WordStore(),
-    settings: { hoverMode: "all", guessFirst: false, explanationLang },
+    settings: { hoverMode: "all", guessFirst: false, dictDefault },
   });
 }
 
@@ -116,6 +116,29 @@ describe("reader popup definition flip", () => {
 
     expect(popup.querySelector(`.${CLS.defToggle}`)).toBeNull();
     expect(popup.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("lively; bustling");
+
+    view.unmount();
+  });
+
+  it("shows only the first two examples in the hover popup", async () => {
+    const app = buildApp("en");
+    const content = dualDefContent();
+    content.glossary["熱鬧"]!.examples = [
+      { text: "例句一", translation: "one" },
+      { text: "例句二", translation: "two" },
+      { text: "例句三", translation: "three" },
+    ];
+    app.content = content;
+
+    const root = document.createElement("div");
+    const view = mountReader(root, app);
+    const popup = openPopup(root);
+    await Promise.resolve();
+
+    const items = popup.querySelectorAll(`.${CLS.popupExamples} li`);
+    expect(items).toHaveLength(2);
+    expect(items[0]?.textContent).toBe("例句一");
+    expect(items[1]?.textContent).toBe("例句二");
 
     view.unmount();
   });

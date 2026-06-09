@@ -5,7 +5,7 @@
  */
 import { demoPack } from "@tsumugu/demo-pack";
 import type { AnkiDeck, WordStatus, VaultIO } from "@tsumugu/engine";
-import { AppState, type AppSettings, type ViewController } from "./state.js";
+import { AppState, migrateAppSettings, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
 import { mountEncoding } from "./encoding/encoding.js";
@@ -49,7 +49,9 @@ const SETTINGS_KEY = "tsg-settings";
 const HOVER_SHIFT_MIGRATION_KEY = "tsg-hover-shift-default";
 const persistedSettings: Partial<AppSettings> = (() => {
   try {
-    const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}") as Partial<AppSettings>;
+    const raw = migrateAppSettings(
+      JSON.parse(localStorage.getItem(SETTINGS_KEY) ?? "{}") as Partial<AppSettings>,
+    );
     if (!localStorage.getItem(HOVER_SHIFT_MIGRATION_KEY)) {
       delete raw.hoverMode; // fall back to the new "shift" default
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(raw)); // persist the cleaned value
@@ -143,7 +145,7 @@ function persistSettings(): void {
       showTranslation,
       voiceNotesEnabled,
       voiceSlow,
-      explanationLang,
+      dictDefault,
     } = app.settings;
     localStorage.setItem(
       SETTINGS_KEY,
@@ -157,7 +159,7 @@ function persistSettings(): void {
         showTranslation,
         voiceNotesEnabled,
         voiceSlow,
-        explanationLang,
+        dictDefault,
       }),
     );
   } catch {

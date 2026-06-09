@@ -13,7 +13,12 @@
  * jieba-wasm in the browser bundle).
  */
 
-import type { DictEntry, LanguagePack, VaultIO } from "@tsumugu/engine";
+import {
+  enDefinitionFromCedictGlosses,
+  type DictEntry,
+  type LanguagePack,
+  type VaultIO,
+} from "@tsumugu/engine";
 
 import { createZhHantBrowserPack } from "./zhHant.js";
 import { createViBrowserPack } from "./vi.js";
@@ -30,8 +35,8 @@ export interface BrowserDict {
 interface CedictRaw {
   /** Pinyin / reading. */
   py?: string;
-  /** Gloss(es). */
-  g?: string;
+  /** Gloss line(s) — string or CC-CEDICT string[]. */
+  g?: string | string[];
   /** Simplified form (or other secondary field), unused for display. */
   s?: string;
 }
@@ -45,14 +50,27 @@ interface KaikkiRaw {
 
 type DictFileShape = Record<string, CedictRaw | KaikkiRaw>;
 
+function cedictGlossLines(raw: CedictRaw): string[] {
+  if (raw.g === undefined) return [];
+  return Array.isArray(raw.g) ? raw.g : [raw.g];
+}
+
 /** Map a raw cedict-shaped record to a `DictEntry`. */
 function fromCedict(word: string, raw: CedictRaw): DictEntry {
-  return {
+  const lines = cedictGlossLines(raw);
+  const entry: DictEntry = {
     term: word,
-    gloss: raw.g ?? "",
+    gloss: "",
     ...(raw.py ? { reading: raw.py } : {}),
     source: "packaged",
   };
+  if (lines.length > 0) {
+    const { en, senses, legacyGloss } = enDefinitionFromCedictGlosses(lines);
+    entry.gloss = legacyGloss;
+    entry.senses = senses;
+    entry.definitions = { en };
+  }
+  return entry;
 }
 
 /** Map a raw kaikki-shaped record to a `DictEntry`. */
