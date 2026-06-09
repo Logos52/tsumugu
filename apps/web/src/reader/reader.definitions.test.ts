@@ -137,8 +137,9 @@ describe("reader popup definition flip", () => {
 
     const items = popup.querySelectorAll(`.${CLS.popupExamples} li`);
     expect(items).toHaveLength(2);
-    expect(items[0]?.textContent).toBe("例句一");
-    expect(items[1]?.textContent).toBe("例句二");
+    expect(items[0]?.querySelector("span")?.textContent).toBe("例句一");
+    expect(items[1]?.querySelector("span")?.textContent).toBe("例句二");
+    expect(items[0]?.querySelector("button")?.textContent).toBe("🔊");
 
     view.unmount();
   });

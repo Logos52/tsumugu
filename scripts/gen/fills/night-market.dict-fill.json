@@ -1,0 +1,249 @@
+{
+  "你好": {
+    "zh": {
+      "gloss": "見面時對人說的話，表示友好。",
+      "illustration": "早上見朋友時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "我早上跟同學說你好。", "translation": "I said hello to my classmate this morning.", "shared": true, "source": "generated" },
+      { "text": "他笑著跟我說你好。", "translation": "He smiled and said hello to me.", "shared": true, "source": "generated" },
+      { "text": "進門時記得說你好。", "translation": "Remember to say hello when you come in.", "shared": true, "source": "generated" },
+      { "text": "老師進教室，大家說你好。", "translation": "The teacher entered; everyone said hello.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "說你好", "translation": "say hello", "pattern": "說 + 你好", "shared": true, "source": "generated" },
+      { "phrase": "跟你說你好", "translation": "say hello to you", "pattern": "跟…說", "shared": true, "source": "generated" },
+      { "phrase": "大家好", "translation": "hello everyone", "pattern": "固定問候", "shared": true, "source": "generated" },
+      { "phrase": "你好嗎", "translation": "how are you?", "pattern": "你好 + 嗎", "shared": true, "source": "generated" }
+    ]
+  },
+  "今晚": {
+    "zh": {
+      "gloss": "今天晚上的時候。",
+      "illustration": "太陽下山到睡覺前。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "今晚我們去夜市。", "translation": "Tonight we're going to the night market.", "shared": true, "source": "generated" },
+      { "text": "今晚天氣很好。", "translation": "The weather is nice tonight.", "shared": true, "source": "generated" },
+      { "text": "今晚你想吃什麼？", "translation": "What do you want to eat tonight?", "shared": true, "source": "generated" },
+      { "text": "今晚早點回家。", "translation": "Come home early tonight.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "今晚去", "translation": "go tonight", "pattern": "今晚 + V", "shared": true, "source": "generated" },
+      { "phrase": "今晚的", "translation": "tonight's", "pattern": "今晚 + 的", "shared": true, "source": "generated" },
+      { "phrase": "從今晚", "translation": "starting tonight", "pattern": "從 + 今晚", "shared": true, "source": "generated" },
+      { "phrase": "今晚見", "translation": "see you tonight", "pattern": "固定道別", "shared": true, "source": "generated" }
+    ]
+  },
+  "我們": {
+    "zh": {
+      "gloss": "說話的人和自己這邊的人。",
+      "illustration": "我和朋友一起時會用。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "我們一起去夜市。", "translation": "Let's go to the night market together.", "shared": true, "source": "generated" },
+      { "text": "我們很開心。", "translation": "We are very happy.", "shared": true, "source": "generated" },
+      { "text": "我們在這裡等你。", "translation": "We are waiting for you here.", "shared": true, "source": "generated" },
+      { "text": "我們喜歡吃小吃。", "translation": "We like eating street food.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "我們一起", "translation": "we together / let's", "pattern": "我們 + 一起", "shared": true, "source": "generated" },
+      { "phrase": "我們去", "translation": "we go / let's go", "pattern": "我們 + V", "shared": true, "source": "generated" },
+      { "phrase": "跟我們", "translation": "with us", "pattern": "跟 + 我們", "shared": true, "source": "generated" },
+      { "phrase": "我們的", "translation": "our", "pattern": "我們 + 的", "shared": true, "source": "generated" }
+    ]
+  },
+  "去": {
+    "zh": {
+      "gloss": "從這裡到另一個地方。",
+      "illustration": "走路或坐車都可以。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "我們去夜市吃小吃。", "translation": "We go to the night market to eat snacks.", "shared": true, "source": "generated" },
+      { "text": "你想去哪裡？", "translation": "Where do you want to go?", "shared": true, "source": "generated" },
+      { "text": "他今天去學校。", "translation": "He went to school today.", "shared": true, "source": "generated" },
+      { "text": "我們現在就去。", "translation": "Let's go right now.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "去夜市", "translation": "go to the night market", "pattern": "去 + O", "shared": true, "source": "generated" },
+      { "phrase": "一起去", "translation": "go together", "pattern": "一起 + 去", "shared": true, "source": "generated" },
+      { "phrase": "要去", "translation": "want to go / going to", "pattern": "要 + 去", "shared": true, "source": "generated" },
+      { "phrase": "去那裡", "translation": "go there", "pattern": "去 + 那裡", "shared": true, "source": "generated" }
+    ]
+  },
+  "夜市": {
+    "zh": {
+      "gloss": "晚上才開的市場，可以買東西、吃小吃。",
+      "illustration": "臺灣很多地方都有。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "今晚我們去夜市。", "translation": "Tonight we're going to the night market.", "shared": true, "source": "generated" },
+      { "text": "夜市有很多小吃。", "translation": "The night market has lots of street food.", "shared": true, "source": "generated" },
+      { "text": "週末的夜市很熱鬧。", "translation": "The weekend night market is very lively.", "shared": true, "source": "generated" },
+      { "text": "我喜歡逛夜市。", "translation": "I like strolling through night markets.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "去夜市", "translation": "go to the night market", "pattern": "去 + 夜市", "shared": true, "source": "generated" },
+      { "phrase": "逛夜市", "translation": "stroll the night market", "pattern": "逛 + 夜市", "shared": true, "source": "generated" },
+      { "phrase": "夜市小吃", "translation": "night-market snacks", "pattern": "夜市 + N", "shared": true, "source": "generated" },
+      { "phrase": "在夜市", "translation": "at the night market", "pattern": "在 + 夜市", "shared": true, "source": "generated" }
+    ]
+  },
+  "吃": {
+    "zh": {
+      "gloss": "把食物放進嘴裡、吞下去。",
+      "illustration": "每天三餐都會做。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "我們去夜市吃小吃。", "translation": "We go to the night market to eat snacks.", "shared": true, "source": "generated" },
+      { "text": "你想吃什麼？", "translation": "What do you want to eat?", "shared": true, "source": "generated" },
+      { "text": "他喜歡吃甜的。", "translation": "He likes eating sweet things.", "shared": true, "source": "generated" },
+      { "text": "大家一起吃飯。", "translation": "Everyone eats together.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "吃小吃", "translation": "eat street food", "pattern": "吃 + O", "shared": true, "source": "generated" },
+      { "phrase": "想吃", "translation": "want to eat", "pattern": "想 + 吃", "shared": true, "source": "generated" },
+      { "phrase": "一起吃", "translation": "eat together", "pattern": "一起 + 吃", "shared": true, "source": "generated" },
+      { "phrase": "吃飯", "translation": "eat a meal", "pattern": "吃 + 飯", "shared": true, "source": "generated" }
+    ]
+  },
+  "小吃": {
+    "zh": {
+      "gloss": "份量小、便宜的食物，常在路邊賣。",
+      "illustration": "夜市裡很多。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "夜市有很多好吃的小吃。", "translation": "The night market has many tasty snacks.", "shared": true, "source": "generated" },
+      { "text": "我們吃了很多小吃。", "translation": "We ate a lot of street food.", "shared": true, "source": "generated" },
+      { "text": "這家的小吃很有名。", "translation": "This place's snacks are famous.", "shared": true, "source": "generated" },
+      { "text": "你想試哪種小吃？", "translation": "Which snack do you want to try?", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "吃小吃", "translation": "eat street food", "pattern": "吃 + 小吃", "shared": true, "source": "generated" },
+      { "phrase": "夜市小吃", "translation": "night-market snacks", "pattern": "N + 小吃", "shared": true, "source": "generated" },
+      { "phrase": "好吃的小吃", "translation": "tasty snacks", "pattern": "ADJ + 的 + 小吃", "shared": true, "source": "generated" },
+      { "phrase": "買小吃", "translation": "buy snacks", "pattern": "買 + 小吃", "shared": true, "source": "generated" }
+    ]
+  },
+  "那裡": {
+    "zh": {
+      "gloss": "離說話的人遠一點的地方。",
+      "illustration": "用手指遠處時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "那裡很熱鬧。", "translation": "It's lively over there.", "shared": true, "source": "generated" },
+      { "text": "我們去那裡看看。", "translation": "Let's go take a look over there.", "shared": true, "source": "generated" },
+      { "text": "那裡有很多店。", "translation": "There are many shops there.", "shared": true, "source": "generated" },
+      { "text": "你在那裡等我。", "translation": "Wait for me there.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "去那裡", "translation": "go there", "pattern": "去 + 那裡", "shared": true, "source": "generated" },
+      { "phrase": "在那裡", "translation": "over there / at that place", "pattern": "在 + 那裡", "shared": true, "source": "generated" },
+      { "phrase": "到那裡", "translation": "arrive there", "pattern": "到 + 那裡", "shared": true, "source": "generated" },
+      { "phrase": "那裡的", "translation": "that place's", "pattern": "那裡 + 的", "shared": true, "source": "generated" }
+    ]
+  },
+  "很": {
+    "zh": {
+      "gloss": "放在別的詞前面，表示程度深。",
+      "illustration": "跟「非常」意思接近。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "那裡很熱鬧。", "translation": "It's very lively there.", "shared": true, "source": "generated" },
+      { "text": "今天很冷。", "translation": "It's very cold today.", "shared": true, "source": "generated" },
+      { "text": "這個很好吃。", "translation": "This is very delicious.", "shared": true, "source": "generated" },
+      { "text": "他跑得很快。", "translation": "He runs very fast.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "很熱鬧", "translation": "very lively", "pattern": "很 + ADJ", "shared": true, "source": "generated" },
+      { "phrase": "很好", "translation": "very good", "pattern": "很 + ADJ", "shared": true, "source": "generated" },
+      { "phrase": "很多", "translation": "very many / a lot", "pattern": "很 + ADJ", "shared": true, "source": "generated" },
+      { "phrase": "很快", "translation": "very fast", "pattern": "很 + ADJ", "shared": true, "source": "generated" }
+    ]
+  },
+  "熱鬧": {
+    "zh": {
+      "gloss": "人多、又吵，讓人覺得開心的樣子。",
+      "illustration": "像夜市、過年街上那種感覺。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "那裡很熱鬧。", "translation": "It's very lively there.", "shared": true, "source": "generated" },
+      { "text": "過年的時候街上很熱鬧。", "translation": "The streets are lively during New Year.", "shared": true, "source": "generated" },
+      { "text": "週末的夜市很熱鬧。", "translation": "The weekend night market is lively.", "shared": true, "source": "generated" },
+      { "text": "大家一起吃飯，很開心也很熱鬧。", "translation": "Everyone ate together; it was happy and lively.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "很熱鬧", "translation": "very lively", "pattern": "很 + 熱鬧", "shared": true, "source": "generated" },
+      { "phrase": "變得熱鬧", "translation": "become lively", "pattern": "變得 + 熱鬧", "shared": true, "source": "generated" },
+      { "phrase": "熱鬧的夜市", "translation": "a lively night market", "pattern": "熱鬧 + 的 + N", "shared": true, "source": "generated" },
+      { "phrase": "街上熱鬧", "translation": "lively on the street", "pattern": "N + 熱鬧", "shared": true, "source": "generated" }
+    ]
+  },
+  "謝謝": {
+    "zh": {
+      "gloss": "對別人的幫忙或好意表示謝意。",
+      "illustration": "收到東西或得到幫助時說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "謝謝你幫我。", "translation": "Thank you for helping me.", "shared": true, "source": "generated" },
+      { "text": "我們說謝謝，然後回家。", "translation": "We said thanks and went home.", "shared": true, "source": "generated" },
+      { "text": "謝謝你的小吃。", "translation": "Thanks for the snacks.", "shared": true, "source": "generated" },
+      { "text": "他笑著說謝謝。", "translation": "He smiled and said thank you.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "謝謝你", "translation": "thank you", "pattern": "謝謝 + 你", "shared": true, "source": "generated" },
+      { "phrase": "說謝謝", "translation": "say thank you", "pattern": "說 + 謝謝", "shared": true, "source": "generated" },
+      { "phrase": "非常謝謝", "translation": "thank you very much", "pattern": "非常 + 謝謝", "shared": true, "source": "generated" },
+      { "phrase": "謝謝大家", "translation": "thanks everyone", "pattern": "謝謝 + 大家", "shared": true, "source": "generated" }
+    ]
+  },
+  "你": {
+    "zh": {
+      "gloss": "跟說話的人說話的那個人。",
+      "illustration": "跟朋友說話時用。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "謝謝你，我們一起去。", "translation": "Thank you; let's go together.", "shared": true, "source": "generated" },
+      { "text": "你想吃什麼？", "translation": "What do you want to eat?", "shared": true, "source": "generated" },
+      { "text": "你今天好嗎？", "translation": "How are you today?", "shared": true, "source": "generated" },
+      { "text": "你可以跟我們去夜市。", "translation": "You can come to the night market with us.", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "謝謝你", "translation": "thank you", "pattern": "V + 你", "shared": true, "source": "generated" },
+      { "phrase": "你想", "translation": "you want / you would like", "pattern": "你 + 想", "shared": true, "source": "generated" },
+      { "phrase": "跟你", "translation": "with you", "pattern": "跟 + 你", "shared": true, "source": "generated" },
+      { "phrase": "你的", "translation": "your", "pattern": "你 + 的", "shared": true, "source": "generated" }
+    ]
+  },
+  "一起": {
+    "zh": {
+      "gloss": "在同一個時間、同一個地方做同一件事。",
+      "illustration": "跟朋友同行時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      { "text": "謝謝你，我們一起去。", "translation": "Thank you; let's go together.", "shared": true, "source": "generated" },
+      { "text": "我們一起去夜市。", "translation": "Let's go to the night market together.", "shared": true, "source": "generated" },
+      { "text": "大家一起吃飯。", "translation": "Everyone eats together.", "shared": true, "source": "generated" },
+      { "text": "你想跟我們一起去嗎？", "translation": "Do you want to go with us?", "shared": true, "source": "generated" }
+    ],
+    "collocations": [
+      { "phrase": "一起去", "translation": "go together", "pattern": "一起 + V", "shared": true, "source": "generated" },
+      { "phrase": "一起吃", "translation": "eat together", "pattern": "一起 + V", "shared": true, "source": "generated" },
+      { "phrase": "跟我們一起", "translation": "together with us", "pattern": "跟…一起", "shared": true, "source": "generated" },
+      { "phrase": "大家一起", "translation": "everyone together", "pattern": "大家 + 一起", "shared": true, "source": "generated" }
+    ]
+  }
+}

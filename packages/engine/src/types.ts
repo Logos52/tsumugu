@@ -184,6 +184,21 @@ export interface ExampleSentence {
   highlightSpans?: { start: number; end: number }[];
 }
 
+/**
+ * A natural word pairing — collocations the headword commonly appears with
+ * (Dictionary PRD extension: "words that go well together").
+ */
+export interface Collocation {
+  /** Short phrase showing the pairing; often includes the headword. */
+  phrase: string;
+  /** English gloss of the collocation pattern. */
+  translation: string;
+  /** Optional pattern hint, e.g. "很 + ADJ", "去 + O". */
+  pattern?: string;
+  shared?: boolean;
+  source?: "generated" | (string & {});
+}
+
 /** Character-story / etymology block (Encoding PRD §5.4). */
 export interface Etymology {
   parts: { char: string; reading?: string; gloss?: string; note?: string }[];
@@ -218,6 +233,8 @@ export interface DictEntry {
   definitions?: Definitions;
   /** Structured example sentences (custom-example relocation; Dictionary PRD §5.7). */
   examples?: ExampleSentence[];
+  /** Common word pairings for this headword. */
+  collocations?: Collocation[];
   reading?: string;
   senses?: Sense[];
   pos?: string;
@@ -380,6 +397,8 @@ export interface PrebakedEntry {
   level?: string;
   /** Structured example sentences (normalized on load; never raw `string[]`). */
   examples?: ExampleSentence[];
+  /** Common word pairings for this headword. */
+  collocations?: Collocation[];
   /** Legacy @1 explanation — also lifted to `definitions.en.explanation` on load. */
   explanation?: string;
   /** vi: the Hán-Việt bridge box (PRD §5.8). */
@@ -449,6 +468,7 @@ export interface EncodingPageDoc {
   /** Generation-time fallback hint; app setting wins once ever set. */
   defaultDefinition?: "en" | "zh";
   examples?: ExampleSentence[];
+  collocations?: Collocation[];
   etymology?: Etymology;
   mnemonic?: Mnemonic;
   tricky?: Tricky;

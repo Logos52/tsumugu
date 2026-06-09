@@ -15,9 +15,13 @@ import { encodingArtifactPath } from "./encoding.js";
 export { encodingArtifactPath };
 
 /** True when the vault holds `{lang}/encoding/{term}.encoding.json`. */
-export async function hasEncodingArtifact(app: AppState, word: string): Promise<boolean> {
+export async function hasEncodingArtifact(
+  app: AppState,
+  word: string,
+  lang: string = app.studyLang,
+): Promise<boolean> {
   if (!app.vault) return false;
-  const path = encodingArtifactPath(app.lang, word);
+  const path = encodingArtifactPath(lang, word);
   const raw = await app.vault.readText(path);
   return raw != null && raw.length > 0;
 }
@@ -34,8 +38,12 @@ function prebakedHasRichExplanation(
 /**
  * Pragmatic v1 heuristic: vault artifact, rich prebaked gloss, or a flagged note.
  */
-export async function hasEncoding(app: AppState, word: string): Promise<boolean> {
-  if (await hasEncodingArtifact(app, word)) return true;
+export async function hasEncoding(
+  app: AppState,
+  word: string,
+  lang: string = app.studyLang,
+): Promise<boolean> {
+  if (await hasEncodingArtifact(app, word, lang)) return true;
 
   const entry = app.getEntry(word);
   if (entry?.flagNote?.trim()) return true;
@@ -66,10 +74,15 @@ export function formatEncodingCoverageLine(stats: EncodingCoverageStats): string
   return `encoded ${stats.encodedCount} · bare ${stats.bareCount} · stab encoded ${enc} / bare ${bare}`;
 }
 
-/** Compute encoding coverage stats for all SRS-tracked words in the store. */
-export async function computeEncodingCoverageStats(app: AppState): Promise<EncodingCoverageStats> {
-  const entries = app.store.all(app.lang);
-  const flags = await Promise.all(entries.map((e) => hasEncoding(app, e.word)));
+/** Compute encoding coverage stats for SRS-tracked words in the study language. */
+export async function computeEncodingCoverageStats(
+  app: AppState,
+  lang: string = app.studyLang,
+): Promise<EncodingCoverageStats> {
+  const entries = app.store.all(lang).filter((e) => e.srs !== undefined);
+  const flags = await Promise.all(
+    entries.map((e) => hasEncoding(app, e.word, lang)),
+  );
   const encoded = new Set<string>();
   entries.forEach((e, i) => {
     if (flags[i]) encoded.add(e.word);

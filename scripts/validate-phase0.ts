@@ -38,7 +38,14 @@ const zh = parsePreparedContent(read("examples/zh-hant/night-market.prepared.jso
 const vi = parsePreparedContent(read("examples/vi/develop.prepared.json"));
 check("zh parses, lang zh-Hant", zh.lang === "zh-Hant");
 check("zh has pre-baked 夜市", !!lookupPrebaked(zh, "夜市"));
-check("zh 熱鬧 has monolingual explanation", !!lookupPrebaked(zh, "熱鬧")?.explanation);
+const renao = lookupPrebaked(zh, "熱鬧");
+check(
+  "zh 熱鬧 has leveled definition (@2 or legacy explanation)",
+  !!(
+    renao?.definitions?.zh?.gloss ??
+    renao?.definitions?.en?.explanation
+  ),
+);
 check("vi parses, lang vi", vi.lang === "vi");
 const phat = lookupPrebaked(vi, "phát triển");
 check("vi phát triển has Hán-Việt bridge → 發展", phat?.bridge?.etymon === "發展");

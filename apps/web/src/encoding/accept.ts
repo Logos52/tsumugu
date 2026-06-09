@@ -12,6 +12,7 @@ import type {
   EncodingPageDoc,
   Etymology,
   ExampleSentence,
+  Collocation,
   MonoDefinition,
   ResolvedHover,
 } from "@tsumugu/engine";
@@ -24,6 +25,7 @@ export interface AcceptedDefinitions {
 export interface AcceptedEncodingContent {
   definitions: AcceptedDefinitions;
   examples: ExampleSentence[];
+  collocations: Collocation[];
   etymology?: Etymology;
 }
 
@@ -144,5 +146,9 @@ export function acceptEncodingContent(
 
   const etymology = acceptEtymology(doc?.etymology);
 
-  return { definitions, examples, etymology };
+  const collocations = (hover.collocations ?? doc?.collocations ?? []).filter(
+    (c) => c.phrase.trim() !== "" && c.translation.trim() !== "",
+  );
+
+  return { definitions, examples, collocations, etymology };
 }

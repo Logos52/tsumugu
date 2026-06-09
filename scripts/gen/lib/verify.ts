@@ -27,6 +27,7 @@ import {
   assertMonolingualSeedLicenses,
   type ProvenanceManifest,
 } from "./licenseAssert.js";
+import { verifyExamples, type ExampleEntryStats } from "./exampleVerify.js";
 
 export interface DefLevelEntryStats {
   term: string;
@@ -75,6 +76,14 @@ export interface VerifyReport {
   licenseErrors: string[];
   /** Fraction of zh defs with zero band violations (0..1; 1 when none checked). */
   defLevelPassRate: number;
+  /** Per-entry example stats (zh-Hant dictionary path). */
+  exampleByEntry: Record<string, ExampleEntryStats>;
+  /** Band violations in example sentence text. */
+  exampleLevelViolations: DefLevelViolation[];
+  /** Known-word recycle ratio over overlay (`shared:false`) rows only. */
+  exampleOverlayRecycleRatio: number | null;
+  /** True when example count/headword/highlight/shared checks fail. */
+  exampleErrors: boolean;
   /** Content with all strings normalized + `ciMeasured` set. Use with --fix. */
   normalized: PreparedContent;
 }
@@ -167,6 +176,15 @@ async function normalizeEntry(
           ex.reading !== undefined
             ? await normalize(pack, ex.reading, changes)
             : undefined,
+      })),
+    );
+  }
+  if (e.collocations) {
+    out.collocations = await Promise.all(
+      e.collocations.map(async (c) => ({
+        ...c,
+        phrase: await normalize(pack, c.phrase, changes),
+        translation: await normalize(pack, c.translation, changes),
       })),
     );
   }
@@ -264,8 +282,24 @@ function verifyZhDefs(
           index: defIndex,
           field: `examples[${i}].text`,
         });
-        entryViolations.push(...exCheck.violations);
+        const exViolations = exCheck.violations.filter((v) => v.word !== term);
+        entryViolations.push(...exViolations);
         achievedOrd = Math.max(achievedOrd, tocflOrdinal(exCheck.achievedLevel));
+      }
+    }
+
+    if (entry.collocations) {
+      for (let i = 0; i < entry.collocations.length; i++) {
+        const col = entry.collocations[i]!;
+        if (col.phrase.trim() === "") continue;
+        const colCheck = checkDefLevel({
+          text: col.phrase,
+          ceiling,
+          index: defIndex,
+          field: `collocations[${i}].phrase`,
+        });
+        entryViolations.push(...colCheck.violations);
+        achievedOrd = Math.max(achievedOrd, tocflOrdinal(colCheck.achievedLevel));
       }
     }
 
@@ -355,6 +389,14 @@ export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> 
 
   const defIndex = resolveDefIndex(lang, opts.defLevelIndex);
   const zhDef = verifyZhDefs(glossary, lang, defIndex);
+  const exampleReport = await verifyExamples({
+    glossary: zhDef.stamped,
+    lang,
+    pack,
+    store,
+    ...(defIndex !== undefined ? { defIndex } : {}),
+    ...(opts.policy ? { policy: opts.policy } : {}),
+  });
 
   const licenseResult = opts.provenance
     ? assertMonolingualSeedLicenses(opts.provenance)
@@ -381,6 +423,10 @@ export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> 
     zhDefEmpty: zhDef.empty,
     licenseErrors: licenseResult.errors,
     defLevelPassRate: zhDef.passRate,
+    exampleByEntry: exampleReport.byEntry,
+    exampleLevelViolations: exampleReport.exampleLevelViolations,
+    exampleOverlayRecycleRatio: exampleReport.overlayRecycleRatio,
+    exampleErrors: exampleReport.hasErrors,
     normalized,
   };
 }

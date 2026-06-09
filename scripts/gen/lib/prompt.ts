@@ -27,6 +27,12 @@ export interface PromptContext {
   allowListCount?: number;
   /** Path to the monolingual zh prompt template. */
   dictMonoPrompt?: string;
+  /** Path to the shared example-sentence prompt template. */
+  dictExamplesPrompt?: string;
+  /** Path to the per-learner overlay example prompt stub. */
+  dictExamplesOverlayPrompt?: string;
+  /** Total shared example slots seeded across unknown words. */
+  exampleSlotTotal?: number;
 }
 
 export function contextBlock(c: PromptContext): string {
@@ -54,6 +60,15 @@ export function contextBlock(c: PromptContext): string {
   }
   if (c.dictMonoPrompt !== undefined) {
     lines.push(`- monolingual zh prompt: \`${c.dictMonoPrompt}\``);
+  }
+  if (c.dictExamplesPrompt !== undefined) {
+    lines.push(`- shared examples prompt: \`${c.dictExamplesPrompt}\``);
+  }
+  if (c.dictExamplesOverlayPrompt !== undefined) {
+    lines.push(`- overlay examples prompt (vault-only stub): \`${c.dictExamplesOverlayPrompt}\``);
+  }
+  if (c.exampleSlotTotal !== undefined) {
+    lines.push(`- shared example slots seeded: ${c.exampleSlotTotal} (3–6 per headword)`);
   }
   lines.push(
     "",

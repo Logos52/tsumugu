@@ -31,6 +31,7 @@ import { mountTranscriptSync, type TranscriptController } from "./transcript.js"
 import { createVoicePlayer, type VoicePlayer } from "../voice/player.js";
 import { createWordAudioPlayer, type WordAudioPlayer } from "../voice/wordAudio.js";
 import { createSectionAudioPlayer, type SectionAudioPlayer } from "../voice/sectionAudio.js";
+import { createExampleAudioPlayer, type ExampleAudioPlayer } from "../voice/exampleAudio.js";
 
 /** Labels shown on the grading row, in order; each maps via `hotkeyToStatus`. */
 const GRADE_LABELS = ["1", "2", "3", "4", "K", "X"] as const;
@@ -147,6 +148,15 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   const sectionAudioPlayer: SectionAudioPlayer | null =
     app.transcript && app.sectionAudio && app.vault
       ? createSectionAudioPlayer({ vault: app.vault, binding: app.sectionAudio, speak: (t) => app.speak(t) })
+      : null;
+
+  const exampleAudioPlayer: ExampleAudioPlayer | null =
+    app.vault
+      ? createExampleAudioPlayer({
+          vault: app.vault,
+          contentBaseDir: app.contentBaseDir,
+          speak: (t) => app.speak(t),
+        })
       : null;
 
   const transcriptCtl: TranscriptController | null = app.transcript
@@ -614,11 +624,43 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     }
     if (hasMeaning) host.append(meaning);
 
-    // Examples.
+    // Collocations (first three) — common word pairings.
+    if (hover.collocations && hover.collocations.length > 0) {
+      const col = el("div", { class: "tsg-popup-collocations" });
+      col.append(el("div", { class: "tsg-popup-col-label", text: "搭配" }));
+      const list = el("ul", { class: "tsg-popup-col-list" });
+      for (const c of hover.collocations.slice(0, 3)) {
+        const row = el("li", { class: "tsg-popup-col-row" });
+        row.append(el("span", { class: "tsg-popup-col-phrase", text: c.phrase }));
+        row.append(el("span", { class: "tsg-popup-col-tr", text: c.translation }));
+        list.append(row);
+      }
+      col.append(list);
+      host.append(col);
+    }
+
+    // Examples (first two) with per-sentence 🔊 when `examples[].audio` is present.
     if (hover.examples && hover.examples.length > 0) {
       const ex = el("ul", { class: CLS.popupExamples });
       for (const e of hover.examples.slice(0, 2)) {
-        ex.append(el("li", { text: exampleLine(e) }));
+        const row = el("li", { class: "tsg-popup-example-row" });
+        row.append(el("span", { text: exampleLine(e) }));
+        row.append(
+          el("button", {
+            class: CLS.btn,
+            type: "button",
+            text: "🔊",
+            title: "Play example sentence",
+            on: {
+              click: (ev) => {
+                ev.stopPropagation();
+                if (exampleAudioPlayer) exampleAudioPlayer.playExample(e.audio, e.text);
+                else app.speak(e.text);
+              },
+            },
+          }),
+        );
+        ex.append(row);
       }
       host.append(ex);
     }
@@ -865,6 +907,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       voicePlayer?.destroy();
       wordAudioPlayer?.destroy();
       sectionAudioPlayer?.destroy();
+      exampleAudioPlayer?.destroy();
       closePopup();
       clear(root);
     },

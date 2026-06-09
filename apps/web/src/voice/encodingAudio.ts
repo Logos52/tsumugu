@@ -97,9 +97,14 @@ export function resolveSentenceAudioPath(
   binding: EncodingAudioBinding | null,
   doc: EncodingPageDoc | null,
   index: number,
+  encodingBaseDir?: string | null,
 ): string | null {
   const fromManifest = binding?.manifest.sentences[index];
-  if (fromManifest) return resolveAudioPath(binding.baseDir, fromManifest);
+  if (fromManifest && binding) return resolveAudioPath(binding.baseDir, fromManifest);
   const fromDoc = doc?.examples?.[index]?.audio;
-  return fromDoc ?? null;
+  if (fromDoc) {
+    const base = binding?.baseDir ?? encodingBaseDir;
+    return base ? resolveAudioPath(base, fromDoc) : fromDoc;
+  }
+  return null;
 }

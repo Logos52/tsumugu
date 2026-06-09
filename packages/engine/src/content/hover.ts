@@ -19,6 +19,7 @@ import type {
   MonoDefinition,
   Definitions,
   ExampleSentence,
+  Collocation,
 } from "../types.js";
 import { normalizeExampleRows } from "./schema.js";
 
@@ -36,6 +37,7 @@ export interface ResolvedHover {
   definitions?: Definitions;
   reading?: string;
   examples?: ExampleSentence[];
+  collocations?: Collocation[];
   explanation?: string;
   bridge?: BridgeInfo;
   pos?: string;
@@ -164,6 +166,7 @@ export function mergeHover(args: {
   const examples = normalizeExampleRows(
     pick(custom?.examples, prebaked?.examples, dict?.examples),
   );
+  const collocations = pick(custom?.collocations, prebaked?.collocations, dict?.collocations);
   const explanation = pick(
     custom?.definitions?.en?.explanation,
     prebaked?.definitions?.en?.explanation,
@@ -177,6 +180,7 @@ export function mergeHover(args: {
   if (definitions !== undefined) hover.definitions = definitions;
   if (reading !== undefined) hover.reading = reading;
   if (examples !== undefined) hover.examples = examples;
+  if (collocations !== undefined && collocations.length > 0) hover.collocations = collocations;
   if (explanation !== undefined) hover.explanation = explanation;
   if (bridge !== undefined) hover.bridge = bridge;
   if (pos !== undefined) hover.pos = pos;
@@ -200,6 +204,7 @@ function customHasValue(custom: Partial<DictEntry> | undefined): boolean {
     custom.level !== undefined ||
     custom.senses !== undefined ||
     custom.examples !== undefined ||
+    custom.collocations !== undefined ||
     definitionsHaveValue(custom.definitions)
   );
 }
@@ -241,6 +246,9 @@ function contributesPrebaked(
     return true;
   }
   if (prebaked.examples !== undefined && custom?.examples === undefined) {
+    return true;
+  }
+  if (prebaked.collocations !== undefined && custom?.collocations === undefined) {
     return true;
   }
   if (!prebakedLexicalFields(prebaked)) return false;
@@ -311,6 +319,9 @@ function contributesDict(
     (enDefinitionHasValue(dict.definitions?.en) && !takenDefs.en) ||
     (monoDefinitionHasValue(dict.definitions?.zh) && !takenDefs.zh) ||
     (dict.senses !== undefined && !sensesTaken) ||
-    (dict.examples !== undefined && !examplesTaken(custom, prebaked))
+    (dict.examples !== undefined && !examplesTaken(custom, prebaked)) ||
+    (dict.collocations !== undefined &&
+      custom?.collocations === undefined &&
+      prebaked?.collocations === undefined)
   );
 }

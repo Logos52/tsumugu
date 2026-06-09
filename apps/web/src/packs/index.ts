@@ -22,6 +22,7 @@ import {
 
 import { createZhHantBrowserPack } from "./zhHant.js";
 import { createViBrowserPack } from "./vi.js";
+import { createBandShardedDict } from "./sqliteDict.js";
 
 /**
  * An optional async dictionary the packs consult for live hover lookups.
@@ -138,7 +139,9 @@ export function packForLang(
   switch (lang) {
     case "zh-Hant":
       return createZhHantBrowserPack(
-        vault ? { dict: vaultBackedDict(vault, "zh-Hant") } : {},
+        vault
+          ? { dict: createBandShardedDict({ vault, lang: "zh-Hant" }) }
+          : {},
       );
     case "vi":
       return createViBrowserPack(

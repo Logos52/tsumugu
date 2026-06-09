@@ -108,13 +108,24 @@ describe("resolveDictDefault", () => {
 });
 
 describe("mountEncoding — 熱鬧 fixture", () => {
+  it("emphasizes the headword in example sentences via highlightSpans", async () => {
+    const root = document.createElement("div");
+    mountEncoding(root, appWithRenao(), "熱鬧");
+    await waitForPage(root);
+
+    const cn = [...root.querySelectorAll(`.${CLS.sentCn}`)].map((el) => el.innerHTML);
+    expect(cn.some((html) => html.includes("<em>熱鬧</em>"))).toBe(true);
+  });
+
   it("renders defgrid, four sentence rows, grounding marker, and flag end-to-end", async () => {
     const root = document.createElement("div");
     mountEncoding(root, appWithRenao(), "熱鬧");
     await waitForPage(root);
 
     expect(root.querySelector(`.${CLS.defGrid}`)).not.toBeNull();
-    expect(root.querySelectorAll(`.${CLS.sentRow}`).length).toBe(4);
+    expect(root.querySelectorAll(`.${CLS.sentRow}`).length).toBe(5);
+    expect(root.querySelectorAll(`.${CLS.sentWave}`).length).toBe(5);
+    expect(root.querySelector(".tsg-encoding-audio-sec")).not.toBeNull();
     expect(root.querySelector(`.${CLS.groundingMarker}`)?.textContent).toBe("memory device");
     expect(root.textContent).toContain("confuses with 鬧鐘");
     expect(root.textContent).toContain("lively · bustling · buzzing with activity");

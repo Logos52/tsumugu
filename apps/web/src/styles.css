@@ -719,8 +719,13 @@ button {
 
 .tsg-review {
   display: flex;
-  justify-content: center;
-  padding-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem 1rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .tsg-card {
@@ -1411,6 +1416,23 @@ html {
 }
 .tsg-encoding-sec-cap { font-size: 0.72rem; color: var(--tsg-ink-faint); }
 
+.tsg-col-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.tsg-col-chip {
+  display: inline-flex; flex-direction: column; gap: 0.15rem;
+  background: var(--tsg-surface); border: 1px solid var(--tsg-border);
+  border-radius: 10px; padding: 0.45rem 0.65rem; min-width: 6rem;
+}
+.tsg-col-phrase { font-family: var(--tsg-font-zh, inherit); font-size: 0.95rem; }
+.tsg-col-tr { font-size: 0.72rem; color: var(--tsg-ink-faint); }
+.tsg-col-pattern { font-size: 0.62rem; color: var(--tsg-accent-bright); }
+
+.tsg-popup-collocations { margin-top: 0.35rem; }
+.tsg-popup-col-label { font-size: 0.68rem; color: var(--tsg-ink-faint); margin-bottom: 0.2rem; }
+.tsg-popup-col-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+.tsg-popup-col-row { display: flex; gap: 0.5rem; align-items: baseline; font-size: 0.82rem; }
+.tsg-popup-col-phrase { font-family: var(--tsg-font-zh, inherit); }
+.tsg-popup-col-tr { color: var(--tsg-ink-faint); font-size: 0.75rem; }
+
 .tsg-def-toggle {
   margin-left: auto;
   display: flex;
@@ -1491,6 +1513,22 @@ html {
 .tsg-sent-wave-btn:hover { background: var(--wnac-surface1); }
 .tsg-sent-wave-btn.on { background: var(--tsg-topic); color: var(--tsg-accent-ink); border-color: var(--tsg-topic); }
 .tsg-sent-wave-active { background: color-mix(in oklab, var(--tsg-accent-bright) 8%, transparent); }
+
+/* Review reveal + encoding term audio — same looper rows as 例句 */
+.tsg-review-reveal-audio,
+.tsg-encoding-audio-sec {
+  margin-top: 0.75rem;
+  text-align: left;
+}
+.tsg-review-reveal-audio .tsg-sent-row,
+.tsg-encoding-audio-sec .tsg-sent-row {
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+}
+.tsg-review-reveal-audio .tsg-sent-wave,
+.tsg-term-wave-row .tsg-sent-wave {
+  width: min(180px, 42vw);
+}
 
 .tsg-encoding-cell {
   flex: 1 1 14rem;

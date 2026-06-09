@@ -22,7 +22,7 @@ import {
   type RecordLogItem,
 } from "ts-fsrs";
 
-import type { SrsState, WordEntry } from "../types.js";
+import type { SrsState, WordEntry, WordStatus } from "../types.js";
 import { type Clock, systemClock } from "../ports.js";
 
 /**
@@ -149,4 +149,33 @@ export function getDue(
         entry.srs !== undefined && isDue(entry.srs, clock),
     )
     .sort((a, b) => Date.parse(a.srs.due) - Date.parse(b.srs.due));
+}
+
+/** Statuses eligible for pull-SRS review (keyboard levels 1–4). */
+export const REVIEW_STATUSES: readonly WordStatus[] = ["l1", "l2", "l3", "l4"];
+
+export interface PrepareReviewQueueResult {
+  /** Due learning cards, most overdue first. */
+  queue: WordEntry[];
+  /** How many entries received a fresh `srs` state this call (caller may persist). */
+  initialized: number;
+}
+
+/**
+ * Build the review queue from level 1–4 words: initialize FSRS on first encounter,
+ * then return those that are due now.
+ */
+export function prepareReviewQueue(
+  entries: WordEntry[],
+  clock: Clock = systemClock,
+): PrepareReviewQueueResult {
+  const learning = entries.filter((e) => REVIEW_STATUSES.includes(e.status));
+  let initialized = 0;
+  for (const entry of learning) {
+    if (entry.srs === undefined) {
+      ensureSrs(entry, clock);
+      initialized += 1;
+    }
+  }
+  return { queue: getDue(learning, clock), initialized };
 }

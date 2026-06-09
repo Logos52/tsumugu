@@ -9,7 +9,6 @@ import {
   getDue,
   lookupPrebaked,
   mergeHover,
-  parseEncodingPage,
   reviewSrs,
   STATUS_LABELS,
   STATUS_LEVEL,
@@ -29,13 +28,16 @@ import {
   computeEncodingCoverageStats,
   formatEncodingCoverageLine,
 } from "./coverage.js";
-import { mountSentenceWaveforms, type SentenceWaveforms } from "../voice/sentenceWaveform.js";
+import type { SentenceWaveforms } from "../voice/sentenceWaveform.js";
+import { resolveTermAudioPath } from "../voice/encodingAudio.js";
 import {
-  discoverEncodingAudio,
-  resolveSentenceAudioPath,
-  resolveTermAudioPath,
-  type EncodingAudioBinding,
-} from "../voice/encodingAudio.js";
+  appendExampleWaveformRow,
+  appendTermWaveformRow,
+  emptyWaveformCollections,
+  loadEncodingAudioBinding,
+  loadEncodingDoc,
+  mountEncodingWaveforms,
+} from "./audioUi.js";
 import { exportEncodingAnki } from "./ankiExport.js";
 import { acceptEncodingContent } from "./accept.js";
 
@@ -44,16 +46,6 @@ const CIRCLED = ["⓪", "①", "②", "③", "④"] as const;
 /** Vault-relative path for a per-word encoding artifact. */
 export function encodingArtifactPath(lang: string, term: string): string {
   return `${lang}/encoding/${term}.encoding.json`;
-}
-
-async function loadEncodingPage(
-  app: AppState,
-  term: string,
-): Promise<EncodingPageDoc | null> {
-  const path = encodingArtifactPath(app.lang, term);
-  const raw = await app.vault?.readText(path);
-  if (!raw) return null;
-  return parseEncodingPage(raw);
 }
 
 function formatInterval(ms: number, rating: SrsRating): string {
@@ -95,15 +87,6 @@ function formatReading(doc: EncodingPageDoc | null, hoverReading?: string): stri
 function formatPosLevel(pos?: string, level?: string): string {
   const bits = [pos, level].filter(Boolean);
   return bits.join(" · ");
-}
-
-function highlightTerm(text: string, term: string, extra?: string[]): string {
-  const targets = new Set([term, ...(extra ?? [])]);
-  let out = text;
-  for (const t of [...targets].sort((a, b) => b.length - a.length)) {
-    out = out.split(t).join(`<em>${t}</em>`);
-  }
-  return out;
 }
 
 function groundingLabel(grounding: Etymology["grounding"]): string {
@@ -160,8 +143,6 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
   let waveforms: SentenceWaveforms | null = null;
   let keyHandler: ((ev: KeyboardEvent) => void) | null = null;
   let disposed = false;
-  let termAudioEl: HTMLAudioElement | null = null;
-  let termAudioUrl: string | null = null;
 
   const onKey = (ev: KeyboardEvent): void => {
     if (disposed) return;
@@ -177,7 +158,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
   async function gradeActive(rating: SrsRating): Promise<void> {
     const entry = app.getEntry(word);
     if (!entry?.srs) return;
-    app.store.setSrs(app.lang, word, reviewSrs(entry.srs, rating, app.clock));
+    app.store.setSrs(app.studyLang, word, reviewSrs(entry.srs, rating, app.clock));
     await app.saveStore();
     app.emit("change");
     void renderRail();
@@ -185,7 +166,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
 
   async function renderRail(): Promise<void> {
     clear(railHost);
-    const due = getDue(app.store.all(app.lang), app.clock);
+    const due = getDue(app.store.all(app.studyLang), app.clock);
     const entry = app.getEntry(word);
     const srs = entry?.srs;
 
@@ -281,12 +262,8 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     clear(pageHost);
 
     const entry = app.getEntry(word);
-    const doc = await loadEncodingPage(app, word);
-    const audioBinding: EncodingAudioBinding | null = await discoverEncodingAudio(
-      app.vault,
-      app.lang,
-      word,
-    );
+    const doc = await loadEncodingDoc(app, word);
+    const audioBinding = await loadEncodingAudioBinding(app, word);
     const prebaked = app.content ? lookupPrebaked(app.content, word) : undefined;
     const custom = entry?.custom;
     const dict = await app.pack.dictionaryProvider(word);
@@ -297,7 +274,10 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       ...(dict ? { dict } : {}),
     });
 
-    const { definitions, examples, etymology } = acceptEncodingContent(doc, hover);
+    const { definitions, examples, collocations, etymology } = acceptEncodingContent(
+      doc,
+      hover,
+    );
     const dictDefault = resolveDictDefault(app.settings);
     const guessFirst = app.settings.guessFirst;
     let defsRevealed = !guessFirst;
@@ -323,20 +303,6 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     const posLevel = formatPosLevel(pos, level);
     if (posLevel) meta.append(el("div", { class: CLS.encodingPosLevel, text: posLevel }));
     header.append(meta);
-
-    const termAudioPath = resolveTermAudioPath(audioBinding, doc);
-    const termAudio = el("button", {
-      class: "tsg-encoding-audio",
-      text: "🔊",
-      type: "button",
-      title: "Play term audio",
-      on: {
-        click: () => {
-          void playTermAudio(termAudioPath, word);
-        },
-      },
-    });
-    header.append(termAudio);
 
     const tags = el("div", { class: "tsg-encoding-tags" });
     if (entry) {
@@ -473,6 +439,54 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     renderDefPins();
     pageHost.append(defSection);
 
+    if (collocations.length) {
+      const colSection = el("div", { class: "tsg-encoding-sec tsg-collocations" });
+      colSection.append(
+        el("div", { class: "tsg-encoding-sec-head" },
+          el("span", { class: "tsg-encoding-sec-label", text: "搭配 · Collocations" }),
+          el("span", {
+            class: "tsg-encoding-sec-cap",
+            text: "words this term commonly pairs with",
+          }),
+        ),
+      );
+      const chips = el("div", { class: "tsg-col-chips" });
+      for (const col of collocations) {
+        const chip = el("span", { class: "tsg-col-chip" });
+        chip.append(el("span", { class: "tsg-col-phrase", text: col.phrase }));
+        chip.append(el("span", { class: "tsg-col-tr", text: col.translation }));
+        if (col.pattern) {
+          chip.append(el("span", { class: "tsg-col-pattern", text: col.pattern }));
+        }
+        chips.append(chip);
+      }
+      colSection.append(chips);
+      pageHost.append(colSection);
+    }
+
+    const waveformCollections = emptyWaveformCollections();
+    const termAudioPath = resolveTermAudioPath(audioBinding, doc);
+
+    if (termAudioPath || word) {
+      const audioSection = el("div", { class: `tsg-encoding-sec ${CLS.sents} tsg-encoding-audio-sec` });
+      audioSection.append(
+        el("div", { class: "tsg-encoding-sec-head" },
+          el("span", { class: "tsg-encoding-sec-label", text: "Audio · 發音" }),
+          el("span", {
+            class: "tsg-encoding-sec-cap",
+            text: "drag on waveform to loop a slice · Space play · L loop",
+          }),
+        ),
+      );
+      appendTermWaveformRow(audioSection, {
+        term: word,
+        audioPath: termAudioPath,
+        collections: waveformCollections,
+        label: "Term pronunciation",
+      });
+      pageHost.append(audioSection);
+    }
+
     if (examples.length) {
       const sentSection = el("div", { class: `tsg-encoding-sec ${CLS.sents}` });
       sentSection.append(
@@ -480,67 +494,28 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
           el("span", { class: "tsg-encoding-sec-label", text: "例句 · Example sentences" }),
           el("span", {
             class: "tsg-encoding-sec-cap",
-            text: "AI-generated · simple, common, usable · 🔊 each · recycles your known words",
+            text: "AI-generated · simple, common, usable · loop any slice for chorusing",
           }),
         ),
       );
 
-      const rows: HTMLElement[] = [];
-      const waveEls: HTMLElement[] = [];
-      const playBtns: HTMLButtonElement[] = [];
-      const loopBtns: HTMLButtonElement[] = [];
-      const audioPaths: (string | undefined)[] = [];
-      const texts: string[] = [];
-
       examples.forEach((ex, i) => {
-        const row = el("div", { class: CLS.sentRow });
-        row.append(el("span", { class: CLS.sentNum, text: String(i + 1) }));
-        row.append(
-          el("span", {
-            class: CLS.sentCn,
-            html: highlightTerm(ex.text, word, i === 0 ? ["夜市"] : undefined),
-          }),
-        );
-        if (ex.translation) row.append(el("span", { class: CLS.sentEn, text: ex.translation }));
-
-        const wrap = el("div", { class: CLS.sentWavewrap });
-        const pp = el("button", {
-          class: CLS.sentWaveBtn,
-          text: "▶",
-          type: "button",
-          title: "Play / pause (Space)",
+        appendExampleWaveformRow(sentSection, {
+          term: word,
+          ex,
+          index: i,
+          audioBinding,
+          doc,
+          app,
+          collections: waveformCollections,
         });
-        const waveEl = el("div", { class: CLS.sentWave });
-        const lp = el("button", {
-          class: CLS.sentWaveBtn,
-          text: "🔁",
-          type: "button",
-          title: "Loop region (L)",
-        });
-        wrap.append(pp, waveEl, lp);
-        row.append(wrap);
-        sentSection.append(row);
-
-        rows.push(row);
-        waveEls.push(waveEl);
-        playBtns.push(pp);
-        loopBtns.push(lp);
-        audioPaths.push(resolveSentenceAudioPath(audioBinding, doc, i) ?? ex.audio);
-        texts.push(ex.text);
       });
 
       pageHost.append(sentSection);
+    }
 
-      void mountSentenceWaveforms({
-        rows,
-        waveEls,
-        playBtns,
-        loopBtns,
-        audioPaths,
-        texts,
-        vault: app.vault,
-        speak: (t) => app.speak(t),
-      })
+    if (waveformCollections.rows.length > 0) {
+      void mountEncodingWaveforms(app, waveformCollections)
         .then((w) => {
           if (!disposed) waveforms = w;
         })
@@ -601,33 +576,6 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     );
   }
 
-  async function playTermAudio(path: string | null, fallbackText: string): Promise<void> {
-    if (!path || !app.vault?.readBytes) {
-      app.speak(fallbackText);
-      return;
-    }
-    let bytes: Uint8Array | null;
-    try {
-      bytes = await app.vault.readBytes(path);
-    } catch {
-      bytes = null;
-    }
-    if (!bytes) {
-      app.speak(fallbackText);
-      return;
-    }
-    if (termAudioUrl) {
-      URL.revokeObjectURL(termAudioUrl);
-      termAudioUrl = null;
-    }
-    if (!termAudioEl) termAudioEl = new Audio();
-    const part = new Uint8Array(bytes);
-    termAudioUrl = URL.createObjectURL(new Blob([part.buffer]));
-    termAudioEl.src = termAudioUrl;
-    termAudioEl.playbackRate = 1;
-    void termAudioEl.play().catch(() => app.speak(fallbackText));
-  }
-
   void renderRail();
   void renderPage();
 
@@ -636,14 +584,6 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       disposed = true;
       if (keyHandler) document.removeEventListener("keydown", keyHandler);
       waveforms?.destroy();
-      if (termAudioEl) {
-        termAudioEl.pause();
-        termAudioEl = null;
-      }
-      if (termAudioUrl) {
-        URL.revokeObjectURL(termAudioUrl);
-        termAudioUrl = null;
-      }
       clear(root);
     },
   };

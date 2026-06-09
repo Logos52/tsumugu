@@ -3,4 +3,4 @@
  * word store (PRD §5.2, §6.4) and its progress metrics (PRD §5.9).
  */
 
-export { WordStore, progressMetrics } from "./wordStore.js";
+export { WordStore, progressMetrics, primaryStoreLang } from "./wordStore.js";

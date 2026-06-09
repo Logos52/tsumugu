@@ -130,6 +130,12 @@ export default defineConfig({
   // local `pnpm dev`/build stay at "/".
   base: process.env.GH_PAGES ? "/tsumugu/app/" : "/",
   plugins: [devVault()],
+  server: {
+    port: 5173,
+    strictPort: true,
+    // Bind IPv4 so http://127.0.0.1:5173 and http://localhost:5173 both work.
+    host: "127.0.0.1",
+  },
   build: {
     target: "es2022",
     outDir: "dist",

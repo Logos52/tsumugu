@@ -12,6 +12,7 @@ import {
   isDue,
   ensureSrs,
   getDue,
+  prepareReviewQueue,
   type SrsRating,
 } from "./index.js";
 
@@ -407,5 +408,25 @@ describe("getDue", () => {
   it("returns a new array, not the input array", () => {
     const input: WordEntry[] = [];
     expect(getDue(input, fixedClock(T0))).not.toBe(input);
+  });
+});
+
+describe("prepareReviewQueue", () => {
+  it("initializes SRS and returns level 1–4 words that are due", () => {
+    const clock = fixedClock("2026-06-04T00:00:00.000Z");
+    const learning: WordEntry = { lang: "zh-Hant", word: "播客", status: "l1" };
+    const known: WordEntry = { lang: "zh-Hant", word: "好", status: "known" };
+    const { queue, initialized } = prepareReviewQueue([learning, known], clock);
+    expect(initialized).toBe(1);
+    expect(queue.map((e) => e.word)).toEqual(["播客"]);
+    expect(learning.srs).toBeDefined();
+  });
+
+  it("skips words not at learning levels 1–4", () => {
+    const clock = fixedClock(T0);
+    const fresh: WordEntry = { lang: "zh-Hant", word: "新", status: "new" };
+    const { queue, initialized } = prepareReviewQueue([fresh], clock);
+    expect(initialized).toBe(0);
+    expect(queue).toEqual([]);
   });
 });

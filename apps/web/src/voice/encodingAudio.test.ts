@@ -77,6 +77,22 @@ describe("resolve audio paths", () => {
         },
         1,
       ),
-    ).toBe("legacy/ex-1.mp3");
+    ).toBe("zh-Hant/encoding/legacy/ex-1.mp3");
+  });
+
+  it("resolves doc audio against encodingBaseDir when manifest is absent", () => {
+    expect(
+      resolveSentenceAudioPath(
+        null,
+        {
+          schema: ENCODING_AUDIO_SCHEMA,
+          lang: "zh-Hant",
+          term: "熱鬧",
+          examples: [{ text: "a", translation: "A", audio: "audio/ex-0.mp3" }],
+        },
+        0,
+        "zh-Hant/encoding",
+      ),
+    ).toBe("zh-Hant/encoding/audio/ex-0.mp3");
   });
 });

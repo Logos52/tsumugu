@@ -56,6 +56,7 @@ describe("mountReview", () => {
     const app = new AppState({
       pack: fakePack(),
       store,
+      settings: { studyLang: "demo" },
       clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
     });
     const root = document.createElement("div");
@@ -74,6 +75,7 @@ describe("mountReview", () => {
     const app = new AppState({
       pack: fakePack({ [word]: { term: word, gloss: "hello", reading: "ㄋㄧˇ ㄏㄠˇ" } }),
       store,
+      settings: { studyLang: "demo" },
       clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
     });
     const root = document.createElement("div");
@@ -87,10 +89,9 @@ describe("mountReview", () => {
     );
     expect(revealBtn).toBeTruthy();
     revealBtn!.click();
-    await Promise.resolve(); // dictionaryProvider is awaited
-    await Promise.resolve();
-
-    expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("hello");
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("hello");
+    });
     expect(root.querySelector(`.${CLS.popupReading}`)?.textContent).toBe("ㄋㄧˇ ㄏㄠˇ");
 
     // Encoding anchor with the right dataset + href.
@@ -117,9 +118,11 @@ describe("mountReview", () => {
     await vi.waitFor(() => {
       expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain("1 reviewed");
     });
-    expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
-      /encoded \d+ · bare \d+ · stab encoded/,
-    );
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
+        /encoded \d+ · bare \d+ · stab encoded/,
+      );
+    });
   });
 
   it("uses the custom gloss/reading when present (no dictionary call)", async () => {
@@ -141,6 +144,7 @@ describe("mountReview", () => {
     const app = new AppState({
       pack,
       store,
+      settings: { studyLang: "demo" },
       clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
     });
     const root = document.createElement("div");
@@ -163,19 +167,73 @@ describe("mountReview", () => {
     const app = new AppState({
       pack: fakePack(),
       store,
+      settings: { studyLang: "demo" },
       clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
     });
     const root = document.createElement("div");
     mountReview(root, app);
 
-    await vi.waitFor(() => {
-      expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain("Nothing due");
-    });
-    expect(root.querySelector(`.${CLS.metrics}`)?.textContent).toContain("known 1");
-    expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
-      /encoded 0 · bare 0 · stab encoded — \/ bare —/,
+    expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain(
+      "No words at levels 1–4 yet",
     );
+    expect(root.querySelector(`.${CLS.metrics}`)?.textContent).toContain("known 1");
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
+        /encoded 0 · bare 0 · stab encoded — \/ bare —/,
+      );
+    });
     expect(root.querySelector(`.${CLS.card}`)).toBeNull();
+  });
+
+  it("reveals loopable waveform rows when an encoding artifact is present", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { dirname, join } = await import("node:path");
+    const { fileURLToPath } = await import("node:url");
+    const { MemoryVault } = await import("../host/fsVault.js");
+    const { encodingArtifactPath } = await import("../encoding/encoding.js");
+
+    const fixturePath = join(
+      dirname(fileURLToPath(import.meta.url)),
+      "../../../../examples/encoding/熱鬧.encoding.json",
+    );
+    const vault = new MemoryVault();
+    vault.writeText(encodingArtifactPath("zh-Hant", "熱鬧"), readFileSync(fixturePath, "utf8"));
+
+    const store = new WordStore();
+    const entry: WordEntry = { lang: "zh-Hant", word: "熱鬧", status: "l1" };
+    ensureSrs(entry, fixedClock(new Date("2020-01-01T00:00:00Z")));
+    store.upsert(entry);
+
+    const app = new AppState({
+      pack: fakePack(),
+      store,
+      vault,
+      settings: { studyLang: "zh-Hant" },
+      clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
+    });
+    const root = document.createElement("div");
+    mountReview(root, app);
+
+    [...root.querySelectorAll("button")].find((b) => b.textContent === "Reveal")!.click();
+    await vi.waitFor(() => {
+      expect(root.querySelectorAll(".tsg-sent-wave").length).toBeGreaterThan(0);
+    });
+    expect(root.textContent).toContain("lively");
+  });
+
+  it("includes zh-Hant level 1–4 words without prior SRS", () => {
+    const store = new WordStore();
+    store.upsert({ lang: "zh-Hant", word: "播客", status: "l1" });
+    store.upsert({ lang: "zh-Hant", word: "桂林", status: "l2" });
+    const app = new AppState({
+      pack: fakePack(),
+      store,
+      settings: { studyLang: "zh-Hant" },
+      clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
+    });
+    const root = document.createElement("div");
+    mountReview(root, app);
+    expect(root.querySelector(`.${CLS.cardTerm}`)?.textContent).toBe("播客");
   });
 
   it("navigates to the encoding route when the card term is clicked", () => {
@@ -184,6 +242,7 @@ describe("mountReview", () => {
     const app = new AppState({
       pack: fakePack(),
       store,
+      settings: { studyLang: "demo" },
       clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
     });
     const emitSpy = vi.spyOn(app, "emit");

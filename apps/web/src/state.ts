@@ -9,6 +9,7 @@
 import {
   WordStore,
   progressMetrics,
+  primaryStoreLang,
   systemClock,
   type LanguagePack,
   type PreparedContent,
@@ -75,6 +76,11 @@ export interface AppSettings {
   serenaOnClick: boolean;
   /** Path of the word-store JSON inside the granted vault folder. */
   storePath: string;
+  /**
+   * Language for SRS review + encoding pages. Defaults to the vault's dominant
+   * language when unset (see {@link AppState.studyLang}).
+   */
+  studyLang?: string;
 }
 
 /** Legacy settings shape before Dictionary PRD D1. */
@@ -158,6 +164,11 @@ export class AppState {
   wordAudio: WordAudioBinding | null;
   /** Optional per-section summary audio bound to the current reading. */
   sectionAudio: SectionAudioBinding | null;
+  /**
+   * Vault-relative directory of the loaded prepared.json (audio paths in
+   * `examples[].audio` resolve against this). Null for samples / file-picker loads.
+   */
+  contentBaseDir: string | null;
   settings: AppSettings;
   vault: VaultIO | null;
   audio: AudioPort | null;
@@ -174,6 +185,7 @@ export class AppState {
     voiceNotes?: VoiceNotesBinding | null;
     wordAudio?: WordAudioBinding | null;
     sectionAudio?: SectionAudioBinding | null;
+    contentBaseDir?: string | null;
     settings?: Partial<AppSettings>;
     vault?: VaultIO | null;
     audio?: AudioPort | null;
@@ -186,6 +198,7 @@ export class AppState {
     this.voiceNotes = opts.voiceNotes ?? null;
     this.wordAudio = opts.wordAudio ?? null;
     this.sectionAudio = opts.sectionAudio ?? null;
+    this.contentBaseDir = opts.contentBaseDir ?? null;
     this.settings = { ...DEFAULT_SETTINGS, ...migrateAppSettings(opts.settings ?? {}) };
     this.vault = opts.vault ?? null;
     this.audio = opts.audio ?? null;
@@ -202,6 +215,19 @@ export class AppState {
     return this.content?.lang ?? this.pack.id;
   }
 
+  /**
+   * Language for pull-SRS review and encoding-layer pages. Independent of the
+   * loaded reading so review works against the vault word store (e.g. zh-Hant)
+   * while the reader shows a demo passage.
+   */
+  get studyLang(): string {
+    return (
+      this.settings.studyLang ??
+      primaryStoreLang(this.store) ??
+      this.lang
+    );
+  }
+
   // ── reads ────────────────────────────────────────────────────────────────
 
   getStatus(word: string): WordStatus {
@@ -212,8 +238,8 @@ export class AppState {
     return this.store.get(this.lang, word);
   }
 
-  metrics(): ProgressMetrics {
-    return progressMetrics(this.store, this.lang);
+  metrics(lang?: string): ProgressMetrics {
+    return progressMetrics(this.store, lang ?? this.lang);
   }
 
   // ── mutations (emit "change"; persistence is host-gated) ──────────────────
@@ -247,7 +273,7 @@ export class AppState {
     this.emit("change");
   }
 
-  setContent(content: PreparedContent | null): void {
+  setContent(content: PreparedContent | null, opts?: { baseDir?: string | null }): void {
     this.content = content;
     // New content drops any prior transcript + voice-notes binding; callers
     // re-attach via setTranscript() / setVoiceNotes() if the new reading has them.
@@ -257,6 +283,7 @@ export class AppState {
     this.voiceAssignment = {};
     this.wordAudio = null;
     this.sectionAudio = null;
+    this.contentBaseDir = content ? (opts?.baseDir ?? null) : null;
     this.recordContentSeen();
     this.emit("change");
   }

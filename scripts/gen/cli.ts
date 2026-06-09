@@ -104,6 +104,22 @@ import {
   maxSentenceDurationSec,
   ENCODING_AUDIO_DIR,
 } from "./lib/encodingAudio.js";
+import {
+  selectExampleWords,
+  collectExamples,
+  planExamples,
+  stampExampleAudio,
+  EXAMPLE_AUDIO_DIR,
+} from "./lib/exampleAudio.js";
+import {
+  formatSizeReport,
+  packageDictFromPrivatePack,
+} from "./lib/dictPackaging.js";
+import {
+  applyDictionaryFill,
+  listWordsNeedingFill,
+  type DictionaryFillMap,
+} from "./lib/dictFill.js";
 import type { LanguagePack, WordStatus, WordStoreDoc } from "@tsumugu/engine";
 
 const LEARNING: WordStatus[] = ["l1", "l2", "l3", "l4"];
@@ -140,7 +156,8 @@ async function cmdPrep(opts: Record<string, string | boolean>): Promise<void> {
   const ciTarget = num(opts, "target") ?? 0.95;
   const title = str(opts, "title");
 
-  const { content, unknownWords, allowList, defFloorBand } = await buildSkeleton({
+  const { content, unknownWords, allowList, defFloorBand, exampleTargetByWord } =
+    await buildSkeleton({
     lang,
     pack,
     store,
@@ -169,7 +186,15 @@ async function cmdPrep(opts: Record<string, string | boolean>): Promise<void> {
   if (lang === "zh-Hant" && defFloorBand !== undefined) {
     console.log("\n---\n");
     console.log(await loadPrompt("dict-mono-zh.md"));
+    console.log("\n---\n");
+    console.log(await loadPrompt("dict-examples-zh.md"));
+    console.log("\n---\n");
+    console.log(await loadPrompt("dict-collocations-zh.md"));
   }
+  const exampleSlotTotal =
+    exampleTargetByWord !== undefined
+      ? Object.values(exampleTargetByWord).reduce((sum, n) => sum + n, 0)
+      : undefined;
   console.log(
     contextBlock({
       lang,
@@ -181,7 +206,15 @@ async function cmdPrep(opts: Record<string, string | boolean>): Promise<void> {
       ...(str(opts, "agent") ? { agent: str(opts, "agent")! } : {}),
       ...(defFloorBand !== undefined ? { defFloorBand } : {}),
       ...(allowList !== undefined ? { allowListCount: allowList.length } : {}),
-      ...(lang === "zh-Hant" ? { dictMonoPrompt: "scripts/gen/prompts/dict-mono-zh.md" } : {}),
+      ...(lang === "zh-Hant"
+        ? {
+            dictMonoPrompt: "scripts/gen/prompts/dict-mono-zh.md",
+            dictExamplesPrompt: "scripts/gen/prompts/dict-examples-zh.md",
+            dictExamplesOverlayPrompt: "scripts/gen/prompts/dict-examples-overlay-zh.md",
+            dictCollocationsPrompt: "scripts/gen/prompts/dict-collocations-zh.md",
+          }
+        : {}),
+      ...(exampleSlotTotal !== undefined ? { exampleSlotTotal } : {}),
     }),
   );
   console.error(
@@ -333,6 +366,77 @@ async function cmdVerifyEncodingJson(opts: Record<string, string | boolean>): Pr
   console.error("\n✓ encoding-page verified — ready to read.");
 }
 
+async function cmdDictFill(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("dict-fill needs --in <prepared.json>");
+  let content;
+  try {
+    content = parsePreparedContent(await readText(inPath));
+  } catch (e) {
+    fail(`invalid prepared content: ${String(e)}`);
+  }
+
+  const applyPath = str(opts, "apply");
+  if (!applyPath) {
+    const needs = listWordsNeedingFill(content);
+    console.log(`Dictionary fill status: ${needs.length} word(s) need content\n`);
+    for (const row of needs) {
+      console.log(`  ${row.term} — needs: ${row.needs.join(", ")} (${row.gloss.slice(0, 50)})`);
+    }
+    if (content.lang === "zh-Hant") {
+      console.log("\n---\n");
+      console.log(await loadPrompt("dict-mono-zh.md"));
+      console.log("\n---\n");
+      console.log(await loadPrompt("dict-examples-zh.md"));
+      console.log("\n---\n");
+      console.log(await loadPrompt("dict-collocations-zh.md"));
+    }
+    console.log(
+      contextBlock({
+        lang: content.lang,
+        skeletonPath: inPath,
+        unknownWords: needs.map((n) => n.term),
+        mode: "dict-fill",
+      }),
+    );
+    console.error(
+      `\n→ Write fills to a JSON map (term → { zh, examples, collocations }), then:\n` +
+        `  pnpm gen dict-fill --in ${inPath} --apply fills.json [--out path] [--verify]`,
+    );
+    return;
+  }
+
+  const fills = (await readJson(applyPath)) as DictionaryFillMap;
+  const filled = applyDictionaryFill(content, fills);
+  const outPath = str(opts, "out") ?? inPath;
+  await writeJson(outPath, filled);
+  console.error(`✓ dictionary fill applied: ${outPath} (${Object.keys(fills).length} word(s))`);
+
+  if (flag(opts, "verify")) {
+    const lang = str(opts, "lang") ?? content.lang;
+    const store = await loadStore(str(opts, "store"));
+    const reg = await buildRegistry(str(opts, "pack-module"));
+    let pack: LanguagePack;
+    try {
+      pack = resolvePack(reg, lang, str(opts, "pack"));
+    } catch {
+      pack = demoPack;
+    }
+    const report = await verifyContent({ lang, pack, store, content: filled });
+    if (
+      report.missingGlossary.length ||
+      report.openccChanged ||
+      report.exampleErrors ||
+      report.zhDefCircular.length ||
+      report.zhDefEmpty.length ||
+      report.licenseErrors.length
+    ) {
+      console.error("✗ verify reported issues — run `pnpm gen verify --in` for details");
+      process.exit(1);
+    }
+    console.error("✓ verify passed after dict-fill");
+  }
+}
+
 async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> {
   if (flag(opts, "encoding")) return cmdVerifyEncodingJson(opts);
 
@@ -403,6 +507,35 @@ async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> 
     console.log("License:");
     for (const e of report.licenseErrors) console.log(`   ✗ ${e}`);
   }
+  if (Object.keys(report.exampleByEntry).length) {
+    console.log("Examples:");
+    for (const stats of Object.values(report.exampleByEntry)) {
+      const flags = [
+        `shared ${stats.exampleCount}`,
+        stats.countOk ? "count ok" : `count ${stats.exampleCount} (need 3–6)`,
+        stats.headwordMissing.length
+          ? `headword missing @ ${stats.headwordMissing.join(",")}`
+          : null,
+        stats.highlightSpanErrors.length ? `${stats.highlightSpanErrors.length} highlight error(s)` : null,
+        stats.sharedFlagErrors.length ? `${stats.sharedFlagErrors.length} shared-flag error(s)` : null,
+        stats.exampleLevelViolations.length
+          ? `${stats.exampleLevelViolations.length} band violation(s)`
+          : null,
+        stats.overlayCount ? `overlay ${stats.overlayCount}` : null,
+      ]
+        .filter(Boolean)
+        .join(", ");
+      console.log(`   ${stats.term}: ${flags}`);
+    }
+    if (report.exampleOverlayRecycleRatio !== null) {
+      console.log(
+        `   overlay recycle ratio: ${(report.exampleOverlayRecycleRatio * 100).toFixed(0)}%`,
+      );
+    }
+    for (const v of report.exampleLevelViolations.slice(0, 10)) {
+      console.log(`   ✗ ${v.field}: "${v.word}" (${v.band} > ${v.ceiling})`);
+    }
+  }
 
   if (flag(opts, "fix")) {
     await writeJson(inPath, report.normalized);
@@ -414,7 +547,8 @@ async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> 
     (report.openccChanged && !flag(opts, "fix")) ||
     report.zhDefCircular.length > 0 ||
     report.zhDefEmpty.length > 0 ||
-    report.licenseErrors.length > 0;
+    report.licenseErrors.length > 0 ||
+    report.exampleErrors;
   if (blocked) {
     const parts: string[] = [];
     if (report.missingGlossary.length) parts.push("fill the missing glosses");
@@ -422,6 +556,7 @@ async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> 
     if (report.zhDefCircular.length) parts.push("fix circular zh definitions");
     if (report.zhDefEmpty.length) parts.push("fill empty zh definitions");
     if (report.licenseErrors.length) parts.push("resolve license violations");
+    if (report.exampleErrors) parts.push("fix example sentences (count/headword/highlight/band/shared)");
     console.error(`\n✗ not ready: ${parts.join("; ")}`);
     process.exit(1);
   }
@@ -1206,6 +1341,148 @@ async function cmdEncodingAudio(opts: Record<string, string | boolean>): Promise
   }
 }
 
+async function cmdExampleAudio(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("example-audio needs --in <prepared.json>");
+  let content;
+  try {
+    content = parsePreparedContent(await readText(inPath));
+  } catch (e) {
+    return fail(`invalid prepared content: ${String(e)}`);
+  }
+  const lang = str(opts, "lang") ?? content.lang;
+  const slug = deriveSlug(inPath);
+  const model = str(opts, "model") ?? DEFAULT_MODEL;
+  const voice = str(opts, "voice") ?? DEFAULT_VOICE;
+  const language = str(opts, "language") ?? DEFAULT_LANGUAGE;
+  const mode = (str(opts, "words") ?? "glossary") as WordSelectMode;
+  if (mode !== "all" && mode !== "glossary") fail("--words must be all|glossary");
+  const force = flag(opts, "force");
+  const dryRun = flag(opts, "dry-run");
+
+  const manifestDir = dirname(inPath);
+  const outArg = str(opts, "out");
+  const audioAbsDir = outArg ? resolvePath(outArg) : join(manifestDir, EXAMPLE_AUDIO_DIR);
+  let audioRelDir = relative(manifestDir, audioAbsDir).replace(/\\/g, "/");
+  if (!audioRelDir || audioRelDir.startsWith("..")) audioRelDir = audioAbsDir.replace(/\\/g, "/");
+
+  let words = selectExampleWords(content, mode);
+  const limit = num(opts, "limit");
+  if (limit !== undefined) words = words.slice(0, Math.max(0, limit));
+  const refs = collectExamples(content, words);
+  if (refs.length === 0) fail("no example sentences selected (empty glossary / examples?)");
+
+  const existing = await presentMp3s(audioAbsDir, audioRelDir);
+  const plans = planExamples(refs, audioRelDir, existing, force);
+  const toRender = plans.filter((p) => p.render);
+
+  if (dryRun) {
+    console.log(`example-audio plan (dry-run) — ${slug} [${lang}], --words ${mode}`);
+    console.log(`  prepared : ${inPath}`);
+    console.log(`  audio dir: ${audioAbsDir}  (manifest-relative: ${audioRelDir})`);
+    console.log(`  voice    : ${model}@mlx-audio / ${voice}`);
+    console.log(`  examples : ${refs.length} sentence(s) across ${words.length} word(s)`);
+    console.log(`  to render: ${toRender.length}  (skipping ${plans.length - toRender.length} already present)`);
+    console.error(`\n(dry-run — model not loaded, nothing written)`);
+    return;
+  }
+
+  if (spawnSync("ffmpeg", ["-version"], { stdio: "ignore" }).status !== 0) {
+    fail("ffmpeg not found on PATH — install it (e.g. `brew install ffmpeg`). See personal/voice/README.md.");
+  }
+  const python = resolveVoicePython();
+  await mkdir(audioAbsDir, { recursive: true });
+  const wavDir = join(audioAbsDir, ".wav-tmp");
+
+  const rendered: WorkerReport["items"] = [];
+  const failed: string[] = [];
+  const MAX_ATTEMPTS = 4;
+
+  if (toRender.length > 0) {
+    await mkdir(wavDir, { recursive: true });
+    let pending = toRender.map((p, i) => ({
+      plan: p,
+      wav: join(wavDir, `ex-${i}.wav`),
+    }));
+
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS && pending.length > 0; attempt++) {
+      console.error(
+        `Synthesizing ${pending.length} example sentence(s) via ${python}${attempt > 1 ? ` (retry ${attempt - 1})` : ""} …`,
+      );
+      const rep = await runVoiceWorker(python, {
+        model,
+        voice,
+        language,
+        items: pending.map((p, i) => ({
+          index: i,
+          text: p.plan.text,
+          instruct: null,
+          outWav: p.wav,
+        })),
+      });
+      const byWav = new Map(rep.items.map((it) => [it.outWav, it]));
+      const stillBad: typeof pending = [];
+      for (const p of pending) {
+        const it = byWav.get(p.wav);
+        if (!it || !it.ok) {
+          stillBad.push(p);
+          continue;
+        }
+        const maxSec = maxSentenceDurationSec([...p.plan.text].length);
+        const tooLong = (it.durationSec ?? Infinity) > maxSec;
+        if (tooLong && attempt < MAX_ATTEMPTS) {
+          await rm(p.wav, { force: true });
+          stillBad.push(p);
+          continue;
+        }
+        const mp3Abs = join(manifestDir, p.plan.audio);
+        await mkdir(dirname(mp3Abs), { recursive: true });
+        await runFfmpeg(ffmpegArgs(p.wav, mp3Abs));
+        await rm(p.wav, { force: true });
+        rendered.push(it);
+      }
+      pending = stillBad;
+    }
+    for (const p of pending) failed.push(`${p.plan.word}[${p.plan.index}]`);
+    await rm(wavDir, { recursive: true, force: true });
+  } else {
+    console.error("Nothing to render — all selected examples already exist (use --force to re-render).");
+  }
+
+  const audioByWord = new Map<string, Map<number, string>>();
+  for (const p of plans) {
+    if (!existsSync(join(manifestDir, p.audio))) continue;
+    let byIndex = audioByWord.get(p.word);
+    if (!byIndex) {
+      byIndex = new Map();
+      audioByWord.set(p.word, byIndex);
+    }
+    byIndex.set(p.index, p.audio);
+  }
+  const stamped = stampExampleAudio(content, audioByWord);
+  await writeJson(inPath, stamped);
+
+  const totalGen = rendered.reduce((s, i) => s + (i.genSec ?? 0), 0);
+  const totalAudio = rendered.reduce((s, i) => s + (i.durationSec ?? 0), 0);
+  const rtf = totalAudio > 0 ? totalGen / totalAudio : 0;
+
+  console.error(
+    [
+      "",
+      `✓ example-audio: stamped ${audioByWord.size} word(s), ${plans.length} example row(s) → ${inPath}`,
+      `  rendered this run: ${rendered.length}`,
+      rendered.length
+        ? `  generation: ${totalGen.toFixed(1)}s for ${totalAudio.toFixed(1)}s audio (RTF ${rtf.toFixed(2)})`
+        : "  generation: nothing rendered (all skipped)",
+      `  audio dir: ${audioAbsDir}`,
+    ].join("\n"),
+  );
+
+  if (failed.length) {
+    console.error(`\n✗ ${failed.length} render failure(s): ${failed.slice(0, 8).join(", ")}`);
+    process.exit(1);
+  }
+}
+
 async function cmdSectionAudio(opts: Record<string, string | boolean>): Promise<void> {
   const inPath = str(opts, "in") ?? fail("section-audio needs --in <…cues.json>");
   type CuesDoc = { sections?: { summary?: string }[]; lang?: string };
@@ -1318,6 +1595,31 @@ async function cmdSectionAudio(opts: Record<string, string | boolean>): Promise<
   }
 }
 
+async function cmdPackDict(opts: Record<string, string | boolean>): Promise<void> {
+  const lang = str(opts, "lang") ?? "zh-Hant";
+  if (lang !== "zh-Hant") fail("pack-dict currently supports --lang zh-Hant only");
+
+  const dataDir =
+    str(opts, "data-dir") ??
+    resolvePath(fileURLToPath(new URL("../../packs/private/zh-hant/data", import.meta.url)));
+  const outDir =
+    str(opts, "out") ??
+    resolvePath(fileURLToPath(new URL("../../packs/private/zh-hant/dist", import.meta.url)));
+  const monoPath = str(opts, "mono");
+
+  const assets = await packageDictFromPrivatePack({
+    dataDir,
+    outDir,
+    ...(monoPath ? { monoPath } : {}),
+  });
+
+  console.error(`\n✓ pack-dict: wrote assets to ${outDir}`);
+  console.error(formatSizeReport(assets.sizeReport));
+  if (!assets.licenseAssert.ok) {
+    fail(assets.licenseAssert.errors.join("; "));
+  }
+}
+
 function usage(): void {
   console.log(
     [
@@ -1348,6 +1650,12 @@ function usage(): void {
       "                    [--limit N] [--force] [--dry-run]",
       "  pnpm gen encoding-audio --in <term.encoding.json> [--voice Serena] [--model <id>] [--out audio/encoding/]   (term + example sentences for encoding page 🔊)",
       "                    [--no-term] [--force] [--dry-run]",
+      "  pnpm gen example-audio --in <prepared.json> [--words all|glossary] [--voice Serena] [--model <id>] [--out audio/examples/]   (per-example Serena mp3 → examples[].audio)",
+      "                    [--limit N] [--force] [--dry-run]",
+      "  pnpm gen dict-fill --in <prepared.json> [--apply fills.json] [--out path] [--verify]",
+      "                    (list dictionary gaps + prompts; --apply merges agent fill JSON)",
+      "  pnpm gen pack-dict [--lang zh-Hant] [--data-dir packs/private/zh-hant/data] [--out dist/]",
+      "                    [--mono dict.mono.zh.json]   (SQLite per license regime + JSON shards + size report)",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",
@@ -1387,6 +1695,12 @@ async function main(): Promise<void> {
       return cmdSectionAudio(opts);
     case "encoding-audio":
       return cmdEncodingAudio(opts);
+    case "example-audio":
+      return cmdExampleAudio(opts);
+    case "dict-fill":
+      return cmdDictFill(opts);
+    case "pack-dict":
+      return cmdPackDict(opts);
     case "help":
     case undefined:
       return usage();

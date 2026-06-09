@@ -21,6 +21,8 @@ import {
   resolveDefFloorBand,
   type DefLevelIndex,
 } from "./defLevelData.js";
+import { exampleTargetCount, seedSharedExampleSlots } from "./examples.js";
+import { collocationTargetCount, seedCollocationSlots } from "./collocations.js";
 
 export interface SkeletonOptions {
   lang: string;
@@ -45,6 +47,10 @@ export interface SkeletonResult {
   allowList?: string[];
   /** Resolved floor band stamped on seeded `definitions.zh.level`. */
   defFloorBand?: string;
+  /** Per-headword shared example slot counts (zh-Hant dictionary fill). */
+  exampleTargetByWord?: Record<string, number>;
+  /** Per-headword collocation slot counts (zh-Hant dictionary fill). */
+  collocationTargetByWord?: Record<string, number>;
 }
 
 function resolveDefIndex(lang: string, explicit?: DefLevelIndex): DefLevelIndex | undefined {
@@ -79,6 +85,8 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
       ? allowListWords(defFloorBand, defIndex)
       : undefined;
 
+  const exampleTargetByWord: Record<string, number> = {};
+  const collocationTargetByWord: Record<string, number> = {};
   const glossary: Record<string, PrebakedEntry> = {};
   for (const word of unknown) {
     const dict = await opts.pack.dictionaryProvider(word);
@@ -88,8 +96,13 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
       term: word,
       gloss: dict?.gloss ?? "", // empty → agent fills
       explanation: "", // agent fills (leveled, monolingual by default)
-      examples: [],
+      examples: opts.lang === "zh-Hant" ? seedSharedExampleSlots(word) : [],
     };
+    if (opts.lang === "zh-Hant") {
+      exampleTargetByWord[word] = exampleTargetCount(word);
+      collocationTargetByWord[word] = collocationTargetCount(word);
+      entry.collocations = seedCollocationSlots(word);
+    }
     if (reading !== undefined) entry.reading = reading;
     if (dict?.pos !== undefined) entry.pos = dict.pos;
     if (level?.band !== undefined) entry.level = level.band;
@@ -123,5 +136,11 @@ export async function buildSkeleton(opts: SkeletonOptions): Promise<SkeletonResu
     unknownWords: [...unknown],
     ...(allowList !== undefined ? { allowList } : {}),
     ...(defFloorBand !== undefined ? { defFloorBand } : {}),
+    ...(Object.keys(exampleTargetByWord).length
+      ? { exampleTargetByWord }
+      : {}),
+    ...(Object.keys(collocationTargetByWord).length
+      ? { collocationTargetByWord }
+      : {}),
   };
 }

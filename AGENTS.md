@@ -303,14 +303,15 @@ flags: `--lang` (required on every content/audio command), `--in`, `--store`,
 | `writeback` | `writeback --store ws.json --db srs-core.db` (both **required inputs**) — push Tsumugu's grades back toward the SRS snapshot DB. **Dry-run by default; `--apply` writes a COPY** (`--out copy.db`), never the live SRS; `--in-place --yes` overwrites the snapshot only. |
 | `voice-notes` | Render per-cue audio via the local TTS worker → mp3 + `voice-notes.json` manifest; `--cues`, `--slow`, `--limit`, `--force`, `--dry-run`, `--voice <name>`, `--model <id>`. |
 | `word-audio` | Render per-word audio for the hover 🔊 (`--words all\|glossary`, `--voice <name>`, `--model <id>`), with over-long-take retry. |
+| `example-audio` | Render per-glossary-example Serena mp3s and stamp `examples[].audio` on a prepared.json (`--words all\|glossary`, `--voice <name>`, `--model <id>`). |
 | `section-audio` | Render per-section summary audio from cue `sections[].summary` (`--voice <name>`, `--model <id>`). |
 | `help` | Print usage. |
 
 **Supporting structure:** pure logic in `scripts/gen/lib/` · prompts in
 `scripts/gen/prompts/` · local Python TTS worker in
 `scripts/gen/voice/synthesize_qwen3_mlx.py` (resolved venv via `TSUMUGU_VOICE_PYTHON`;
-requires `ffmpeg` on PATH). All three audio commands (`voice-notes`, `word-audio`,
-`section-audio`) accept `--voice <name> --model <id> --out <dir>`; run `pnpm gen help`
+requires `ffmpeg` on PATH). Audio commands (`voice-notes`, `word-audio`,
+`section-audio`, `encoding-audio`, `example-audio`) accept `--voice <name> --model <id> --out <dir>`; run `pnpm gen help`
 for the full per-command flag list.
 
 **A typical session:**

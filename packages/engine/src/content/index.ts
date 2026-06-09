@@ -23,3 +23,10 @@ export { mergeHover } from "./hover.js";
 export type { ResolvedHover, HoverSource } from "./hover.js";
 
 export { enDefinitionFromCedictGlosses, senseFromCedictGloss } from "./cedict.js";
+
+export {
+  computeHighlightSpans,
+  validateHighlightSpans,
+  renderHighlightSpans,
+} from "./highlightSpans.js";
+export type { TextSpan, HighlightSpanValidation } from "./highlightSpans.js";

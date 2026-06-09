@@ -1,68 +1,114 @@
 /**
  * Pull-SRS review view (PRD §5, §8).
  *
- * No scheduler: the queue is built once on mount from the words that are due
- * "now" (`getDue`), and the view walks it card by card. Grading a card calls
- * `reviewSrs` to advance the FSRS state, persists, and moves on. When the queue
- * is exhausted (or was empty to begin with) a summary is shown — Tsumugu never
- * nags.
+ * Queue = level 1–4 words from the vault word store (`studyLang`), FSRS-initialized
+ * on first encounter, then due-now cards. Reveal shows gloss + loopable term/sentence
+ * waveforms (encoding-layer audio when present).
  */
 
-import { getDue, reviewSrs, type SrsRating, type WordEntry } from "@tsumugu/engine";
+import {
+  REVIEW_STATUSES,
+  lookupPrebaked,
+  mergeHover,
+  prepareReviewQueue,
+  reviewSrs,
+  type SrsRating,
+  type WordEntry,
+} from "@tsumugu/engine";
 import {
   computeEncodingCoverageStats,
   formatEncodingCoverageLine,
 } from "../encoding/coverage.js";
+import { acceptEncodingContent } from "../encoding/accept.js";
+import {
+  appendExampleWaveformRow,
+  appendTermWaveformRow,
+  emptyWaveformCollections,
+  loadEncodingAudioBinding,
+  loadEncodingDoc,
+  mountEncodingWaveforms,
+} from "../encoding/audioUi.js";
+import { resolveTermAudioPath } from "../voice/encodingAudio.js";
+import type { SentenceWaveforms } from "../voice/sentenceWaveform.js";
 import type { AppState, ViewController } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
 
+const REVEAL_EXAMPLE_LIMIT = 2;
+
 export function mountReview(root: HTMLElement, app: AppState): ViewController {
-  // Build the queue once on mount; the view owns its own index.
-  const queue: WordEntry[] = getDue(app.store.all(app.lang), app.clock);
+  const lang = app.studyLang;
+  const { queue, initialized } = prepareReviewQueue(app.store.all(lang), app.clock);
+  if (initialized > 0) void app.saveStore();
+
   let index = 0;
   let reviewed = 0;
+  let revealWaves: SentenceWaveforms | null = null;
+  let revealKeyHandler: ((ev: KeyboardEvent) => void) | null = null;
+
+  function destroyRevealAudio(): void {
+    revealWaves?.destroy();
+    revealWaves = null;
+    if (revealKeyHandler) {
+      document.removeEventListener("keydown", revealKeyHandler);
+      revealKeyHandler = null;
+    }
+  }
 
   function navigateToEncoding(word: string): void {
     app.emit("change");
-    // The encoding/wiki route is hash-based; setting the hash triggers the host
-    // router. Kept side-effect-light so happy-dom tests don't depend on layout.
     location.hash = `#/encoding/${encodeURIComponent(word)}`;
   }
 
-  async function renderEmpty(): Promise<void> {
-    const m = app.metrics();
-    const coverage = formatEncodingCoverageLine(await computeEncodingCoverageStats(app));
-    root.append(
-      el(
-        "div",
-        { class: CLS.review },
-        el("p", { text: "Nothing due — Tsumugu never nags." }),
-        el(
-          "p",
-          { class: CLS.metrics },
-          `known ${m.knownCount} · due ${m.dueCount ?? 0}`,
-        ),
-        el("p", { class: CLS.encodingCoverage, text: coverage }),
-      ),
-    );
+  function learningCount(): number {
+    return app.store.all(lang).filter((e) => REVIEW_STATUSES.includes(e.status)).length;
   }
 
-  async function renderSummary(): Promise<void> {
-    const coverage = formatEncodingCoverageLine(await computeEncodingCoverageStats(app));
-    root.append(
+  function emptyMessage(): string {
+    if (learningCount() === 0) {
+      return "No words at levels 1–4 yet. In the reader, press 1–4 on a word to study it.";
+    }
+    return "Nothing due right now — Tsumugu never nags.";
+  }
+
+  function renderEmpty(): void {
+    const m = app.metrics(lang);
+    const shell = el(
+      "div",
+      { class: CLS.review },
+      el("p", { text: emptyMessage() }),
       el(
-        "div",
-        { class: CLS.review },
-        el("p", { text: `${reviewed} reviewed` }),
-        el("p", { class: CLS.encodingCoverage, text: coverage }),
+        "p",
+        { class: CLS.metrics },
+        `known ${m.knownCount} · learning ${learningCount()} · due 0`,
       ),
     );
+    root.append(shell);
+    void computeEncodingCoverageStats(app, lang).then((stats) => {
+      shell.append(
+        el("p", { class: CLS.encodingCoverage, text: formatEncodingCoverageLine(stats) }),
+      );
+    });
+  }
+
+  function renderSummary(): void {
+    const shell = el(
+      "div",
+      { class: CLS.review },
+      el("p", { text: `${reviewed} reviewed` }),
+    );
+    root.append(shell);
+    void computeEncodingCoverageStats(app, lang).then((stats) => {
+      shell.append(
+        el("p", { class: CLS.encodingCoverage, text: formatEncodingCoverageLine(stats) }),
+      );
+    });
   }
 
   function grade(word: string, rating: SrsRating): void {
-    const e = app.getEntry(word);
-    if (e?.srs) app.store.setSrs(app.lang, word, reviewSrs(e.srs, rating, app.clock));
+    destroyRevealAudio();
+    const e = app.store.get(lang, word);
+    if (e?.srs) app.store.setSrs(lang, word, reviewSrs(e.srs, rating, app.clock));
     void app.saveStore();
     reviewed += 1;
     index += 1;
@@ -83,6 +129,57 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
     }
     if (reading) back.append(el("div", { class: CLS.popupReading, text: reading }));
     if (gloss) back.append(el("div", { class: CLS.popupGloss, text: gloss }));
+
+    const doc = await loadEncodingDoc(app, entry.word);
+    const audioBinding = await loadEncodingAudioBinding(app, entry.word);
+    const prebaked = app.content ? lookupPrebaked(app.content, entry.word) : undefined;
+    const hover = mergeHover({
+      word: entry.word,
+      ...(prebaked ? { prebaked } : {}),
+      ...(custom ? { custom } : {}),
+    });
+    const { examples } = acceptEncodingContent(doc, hover);
+    const termPath = resolveTermAudioPath(audioBinding, doc);
+    const hasAudio = Boolean(termPath) || examples.length > 0;
+
+    if (hasAudio) {
+      const audioHost = el("div", { class: "tsg-review-reveal-audio" });
+      const collections = emptyWaveformCollections();
+
+      if (termPath || entry.word) {
+        appendTermWaveformRow(audioHost, {
+          term: entry.word,
+          audioPath: termPath,
+          collections,
+          label: "Term",
+        });
+      }
+
+      for (const [i, ex] of examples.slice(0, REVEAL_EXAMPLE_LIMIT).entries()) {
+        appendExampleWaveformRow(audioHost, {
+          term: entry.word,
+          ex,
+          index: i,
+          audioBinding,
+          doc,
+          app,
+          collections,
+        });
+      }
+
+      back.append(audioHost);
+
+      destroyRevealAudio();
+      try {
+        revealWaves = await mountEncodingWaveforms(app, collections);
+        revealKeyHandler = (ev) => {
+          revealWaves?.key(ev);
+        };
+        document.addEventListener("keydown", revealKeyHandler);
+      } catch {
+        /* wavesurfer unavailable — ▶ still speaks via Web Speech */
+      }
+    }
 
     const href = `#/encoding/${encodeURIComponent(entry.word)}`;
     back.append(
@@ -150,14 +247,15 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
   }
 
   function render(): void {
+    destroyRevealAudio();
     clear(root);
     if (queue.length === 0) {
-      void renderEmpty();
+      renderEmpty();
       return;
     }
     const entry = queue[index];
     if (!entry) {
-      void renderSummary();
+      renderSummary();
       return;
     }
     renderCard(entry);
@@ -167,6 +265,7 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
 
   return {
     unmount(): void {
+      destroyRevealAudio();
       clear(root);
     },
   };

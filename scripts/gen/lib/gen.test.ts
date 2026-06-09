@@ -25,6 +25,23 @@ const fakeZh: LanguagePack = {
 };
 
 describe("buildSkeleton", () => {
+  it("seeds zh-Hant shared example slots (3–6) with shared:true placeholders", async () => {
+    const store = new WordStore();
+    const { content, exampleTargetByWord } = await buildSkeleton({
+      lang: "zh-Hant",
+      pack: fakeZh,
+      store,
+      text: "熱",
+      defFloorBand: "TOCFL-3",
+      defLevelIndex: { tocfl: { 熱: { level: "TOCFL-1" } }, freq: {} },
+    });
+    const slots = content.glossary["熱"]?.examples ?? [];
+    expect(slots.length).toBeGreaterThanOrEqual(3);
+    expect(slots.length).toBeLessThanOrEqual(6);
+    expect(slots.every((ex) => ex.shared === true && ex.source === "generated")).toBe(true);
+    expect(exampleTargetByWord?.["熱"]).toBe(slots.length);
+  });
+
   it("creates glossary slots only for unknown words, seeding from the pack dict", async () => {
     const store = new WordStore();
     store.setStatus("demo", "hello", "known");

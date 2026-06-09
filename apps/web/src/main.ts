@@ -4,7 +4,7 @@
  * the reader / review views. Client-side, offline, no backend.
  */
 import { demoPack } from "@tsumugu/demo-pack";
-import type { AnkiDeck, WordStatus, VaultIO } from "@tsumugu/engine";
+import { primaryStoreLang, type AnkiDeck, type WordStatus, type VaultIO } from "@tsumugu/engine";
 import { AppState, migrateAppSettings, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
@@ -94,9 +94,14 @@ const KNOWN_VOICE_SUFFIXES = ["native"] as const;
  * Falls back to the generic demo pack for languages with no browser pack. A
  * granted vault wires an optional vault-backed dictionary for live hover.
  */
+/** Pack language for the surface being mounted (reader vs review/encoding). */
+function activePackLang(): string {
+  if (encodingRoute() || app.mode === "review") return app.studyLang;
+  return app.content?.lang ?? "";
+}
+
 function syncPack(): void {
-  app.pack =
-    packForLang(app.content?.lang ?? "", { vault: app.vault }) ?? demoPack;
+  app.pack = packForLang(activePackLang(), { vault: app.vault }) ?? demoPack;
 }
 
 /** Parse #/encoding/<word> → the word, else null. */
@@ -106,6 +111,7 @@ function encodingRoute(): string | null {
 }
 
 function remount(): void {
+  syncPack();
   view?.unmount();
   clear(rootEl);
   if (location.hash === "#/styleguide") {
@@ -124,7 +130,7 @@ function remount(): void {
 window.addEventListener("hashchange", remount);
 
 function refreshStatus(): void {
-  const m = app.metrics();
+  const m = app.metrics(app.vault ? app.studyLang : undefined);
   // Note: progressMetrics() does not populate dueCount (left undefined per the
   // engine spec), so no `· due N` suffix is shown here.
   statusEl.textContent =
@@ -178,9 +184,8 @@ function setToggle(patch: Partial<AppSettings>): void {
 // Switch mode and leave any encoding route (clearing the hash re-renders via
 // the hashchange listener; the modechange listener handles the mode switch).
 const navTo = (mode: "reader" | "review"): void => {
-  const hadHash = location.hash !== "";
+  if (location.hash !== "") location.hash = "";
   app.setMode(mode);
-  if (hadHash) location.hash = "";
 };
 $<HTMLButtonElement>("#mode-reader")?.addEventListener("click", () => navTo("reader"));
 $<HTMLButtonElement>("#mode-review")?.addEventListener("click", () => navTo("review"));
@@ -220,6 +225,13 @@ async function openReadingFiles(files: File[]): Promise<void> {
       ? `Loaded reading + transcript (${t.cues.length} cues${t.videoId ? ", synced video" : ""}).`
       : "Loaded reading.",
   );
+}
+
+/** Vault-relative directory beside a prepared.json (where `examples[].audio` resolves). */
+function preparedBaseDir(readingPath: string): string {
+  const slugBase = readingPath.replace(/\.prepared\.json$/, "").replace(/\.json$/, "");
+  const lastSlash = slugBase.lastIndexOf("/");
+  return lastSlash >= 0 ? slugBase.slice(0, lastSlash) : "";
 }
 
 /**
@@ -369,7 +381,7 @@ async function loadVaultReading(path: string): Promise<void> {
     app.setStatusMessage(`No reading content in ${path}.`);
     return;
   }
-  app.setContent(payload.content);
+  app.setContent(payload.content, { baseDir: preparedBaseDir(path) });
   syncPack();
   app.setTranscript(payload.transcript ?? null);
   // Voice notes: the base `<slug>.voice-notes.json` plus any native/other tracks
@@ -745,6 +757,9 @@ async function init(): Promise<void> {
     app.setVault(createHttpVault());
     try {
       await app.loadStore();
+      const primary = primaryStoreLang(app.store);
+      if (primary) app.updateSettings({ studyLang: primary });
+      syncPack();
       vaultReadings = await listVaultReadings();
     } catch (err) {
       app.setStatusMessage(`Vault auto-load failed: ${String(err)}`);
