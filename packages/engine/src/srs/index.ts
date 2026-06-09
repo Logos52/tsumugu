@@ -16,4 +16,7 @@ export {
   getDue,
 } from "./fsrs.js";
 
+export { encodingCoverageStats } from "./encodingStats.js";
+
 export type { SrsRating } from "./fsrs.js";
+export type { EncodingCoverageStats } from "./encodingStats.js";

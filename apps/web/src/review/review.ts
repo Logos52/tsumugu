@@ -9,6 +9,10 @@
  */
 
 import { getDue, reviewSrs, type SrsRating, type WordEntry } from "@tsumugu/engine";
+import {
+  computeEncodingCoverageStats,
+  formatEncodingCoverageLine,
+} from "../encoding/coverage.js";
 import type { AppState, ViewController } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
@@ -26,8 +30,9 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
     location.hash = `#/encoding/${encodeURIComponent(word)}`;
   }
 
-  function renderEmpty(): void {
+  async function renderEmpty(): Promise<void> {
     const m = app.metrics();
+    const coverage = formatEncodingCoverageLine(await computeEncodingCoverageStats(app));
     root.append(
       el(
         "div",
@@ -38,16 +43,19 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
           { class: CLS.metrics },
           `known ${m.knownCount} · due ${m.dueCount ?? 0}`,
         ),
+        el("p", { class: CLS.encodingCoverage, text: coverage }),
       ),
     );
   }
 
-  function renderSummary(): void {
+  async function renderSummary(): Promise<void> {
+    const coverage = formatEncodingCoverageLine(await computeEncodingCoverageStats(app));
     root.append(
       el(
         "div",
         { class: CLS.review },
         el("p", { text: `${reviewed} reviewed` }),
+        el("p", { class: CLS.encodingCoverage, text: coverage }),
       ),
     );
   }
@@ -144,12 +152,12 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
   function render(): void {
     clear(root);
     if (queue.length === 0) {
-      renderEmpty();
+      void renderEmpty();
       return;
     }
     const entry = queue[index];
     if (!entry) {
-      renderSummary();
+      void renderSummary();
       return;
     }
     renderCard(entry);

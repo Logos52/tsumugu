@@ -113,8 +113,13 @@ describe("mountReview", () => {
     expect(after).toBeTruthy();
     expect(new Date(after!).getTime()).toBeGreaterThan(new Date(before!).getTime());
 
-    // Queue had one card → summary renders.
-    expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain("1 reviewed");
+    // Queue had one card → summary renders (coverage line loads async).
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain("1 reviewed");
+    });
+    expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
+      /encoded \d+ · bare \d+ · stab encoded/,
+    );
   });
 
   it("uses the custom gloss/reading when present (no dictionary call)", async () => {
@@ -151,7 +156,7 @@ describe("mountReview", () => {
     expect(provider).not.toHaveBeenCalled();
   });
 
-  it("renders the empty state with metrics when nothing is due", () => {
+  it("renders the empty state with metrics when nothing is due", async () => {
     const store = new WordStore();
     // A known word so metrics have something to show; not due (no SRS).
     store.upsert({ lang: "demo", word: "好", status: "known" });
@@ -163,9 +168,13 @@ describe("mountReview", () => {
     const root = document.createElement("div");
     mountReview(root, app);
 
-    const review = root.querySelector(`.${CLS.review}`);
-    expect(review?.textContent).toContain("Nothing due");
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.review}`)?.textContent).toContain("Nothing due");
+    });
     expect(root.querySelector(`.${CLS.metrics}`)?.textContent).toContain("known 1");
+    expect(root.querySelector(`.${CLS.encodingCoverage}`)?.textContent).toMatch(
+      /encoded 0 · bare 0 · stab encoded — \/ bare —/,
+    );
     expect(root.querySelector(`.${CLS.card}`)).toBeNull();
   });
 

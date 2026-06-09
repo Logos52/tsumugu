@@ -27,7 +27,12 @@ import type { AppState, ViewController } from "../state.js";
 import { resolveDictDefault } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
+import {
+  computeEncodingCoverageStats,
+  formatEncodingCoverageLine,
+} from "./coverage.js";
 import { mountSentenceWaveforms, type SentenceWaveforms } from "../voice/sentenceWaveform.js";
+import { acceptEncodingContent } from "./accept.js";
 
 const CIRCLED = ["⓪", "①", "②", "③", "④"] as const;
 
@@ -139,31 +144,6 @@ function relatedSuffix(link: RelatedLink): string {
   return "";
 }
 
-function normalizeExamples(
-  doc: EncodingPageDoc | null,
-  hoverExamples?: ExampleSentence[] | string[],
-): ExampleSentence[] {
-  if (doc?.examples?.length) return doc.examples;
-  if (!hoverExamples?.length) return [];
-  if (typeof hoverExamples[0] === "string") {
-    return (hoverExamples as string[]).map((text) => ({ text, translation: "" }));
-  }
-  return hoverExamples as ExampleSentence[];
-}
-
-function resolveDefinitions(
-  doc: EncodingPageDoc | null,
-  hoverDefs?: { en?: Definition; zh?: Definition },
-): { en?: Definition; zh?: Definition } {
-  if (doc?.definitions) {
-    return {
-      en: doc.definitions.en ?? hoverDefs?.en,
-      zh: doc.definitions.zh ?? hoverDefs?.zh,
-    };
-  }
-  return hoverDefs ?? {};
-}
-
 export function mountEncoding(root: HTMLElement, app: AppState, word: string): ViewController {
   const work = el("div", { class: CLS.encodingWork });
   const railHost = el("div", { class: CLS.encodingRail });
@@ -193,10 +173,10 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     app.store.setSrs(app.lang, word, reviewSrs(entry.srs, rating, app.clock));
     await app.saveStore();
     app.emit("change");
-    renderRail();
+    void renderRail();
   }
 
-  function renderRail(): void {
+  async function renderRail(): Promise<void> {
     clear(railHost);
     const due = getDue(app.store.all(app.lang), app.clock);
     const entry = app.getEntry(word);
@@ -256,6 +236,11 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
         }),
       );
     }
+
+    const coverage = formatEncodingCoverageLine(await computeEncodingCoverageStats(app));
+    railHost.append(
+      el("p", { class: CLS.encodingCoverage, text: coverage }),
+    );
   }
 
   async function renderPage(): Promise<void> {
@@ -275,8 +260,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       ...(dict ? { dict } : {}),
     });
 
-    const definitions = resolveDefinitions(doc, hover.definitions);
-    const examples = normalizeExamples(doc, hover.examples);
+    const { definitions, examples, etymology } = acceptEncodingContent(doc, hover);
     const dictDefault = resolveDictDefault(app.settings);
     const guessFirst = app.settings.guessFirst;
     let defsRevealed = !guessFirst;
@@ -517,17 +501,17 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     }
 
     const bottom = el("div", { class: CLS.encodingBrow });
-    if (doc?.etymology) {
+    if (etymology) {
       const cell = el("div", { class: CLS.encodingCell });
       const head = el("div", { class: "tsg-encoding-cell-head" });
       head.append(el("span", { text: "Character story" }));
       head.append(
         el("span", {
           class: CLS.groundingMarker,
-          text: groundingLabel(doc.etymology.grounding),
+          text: groundingLabel(etymology.grounding),
         }),
       );
-      cell.append(head, renderEtymologyBody(doc.etymology));
+      cell.append(head, renderEtymologyBody(etymology));
       bottom.append(cell);
     } else if (hover.explanation) {
       bottom.append(
@@ -568,7 +552,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     );
   }
 
-  renderRail();
+  void renderRail();
   void renderPage();
 
   return {
