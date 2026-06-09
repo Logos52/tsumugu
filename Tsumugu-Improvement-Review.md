@@ -1,9 +1,7 @@
 # Tsumugu Comprehensive Improvement Review
 
 **Date:** 2026-06  
-**Context:** Review of the Tsumugu project (engine, web reader app, generation scripts, voice features, packs, docs, etc.) based on direct code inspection, PRD alignment, real usage artifacts in `personal/`, and multiple parallel subagent analyses. This document consolidates *all* findings (including the prior dedicated UI/UX response) into one place for review. It is **not** a formal PRD — it is a broad "areas of improvement" + feature/roadmap/quality/UX synthesis.
-
-**How this was produced:** Orchestrated 4 specialized subagents (Architecture/Engine, UI/UX Deep-Dive, Features/PRD/Roadmap, Code Quality/Testing/Maintainability) + synthesis pass that folded in the previous standalone UI/UX analysis. All observations are evidence-based with absolute file paths under `/Users/n1/Projects/tsumugu`.
+**Context:** Review of the Tsumugu project (engine, web reader app, generation scripts, voice features, packs, docs, etc.) based on direct code inspection, PRD alignment, and real usage artifacts in `personal/`. It consolidates all findings into one place: a broad "areas of improvement" + feature/roadmap/quality/UX synthesis rather than a formal PRD.
 
 **Overall Health Assessment:** Very strong. The project is a clean, disciplined example of "fast-moving features under strict constraints" (batch/pre-baked, client-side $0 offline core, open-core hygiene, no paid API in core, pull-only SRS, vault writes on explicit confirm). Voice has evolved from a deferred §9 item into a *central, production-used immersion surface* (M1 + substantial M2/M3 + real heavy usage with 1000+ cue assets). Generation ergonomics are excellent. Tests and docs kept pace. The engine remains an excellent, extensible foundation. Real usage (GSM-style transcripts + voice + Migaku sync + SRS/Anki + wiki) proves the model works for the intended learner.
 
@@ -102,7 +100,7 @@ The main debts are classic "feature accretion in the view layer" (reader + trans
 
 ---
 
-## 4. UI/UX (Consolidated from Prior Dedicated Review + New Subagent Deep-Dive)
+## 4. UI/UX
 
 ### Prior UI/UX Findings (Categorized, Actionable)
 **Discoverability**:
@@ -134,7 +132,7 @@ The main debts are classic "feature accretion in the view layer" (reader + trans
 - Polish practice bar default visibility + ensure cue-waveform interaction doesn't fight main shadowing state.
 - Add "Enter shadowing for this reading" one-click (if assets present).
 
-### New/Deepened Findings from Latest Subagent
+### New / deepened findings
 **Strengths**:
 - Thin opt-in (inert without manifest + vault + setting).
 - Excellent integration (voice claims highlight via `voiceHighlight`, precedence, auto-follow, stop/pause guards).
@@ -208,7 +206,7 @@ The main debts are classic "feature accretion in the view layer" (reader + trans
 - Pick top 2–3 items and we can produce a concrete implementation plan (or plan-mode breakdown) for them.
 - Draft specific diffs/prompts for the top items (e.g., "your turn" UI, shared audio loader, vi voice gen path).
 - Focus on one area (detailed voice UX mocks or gen script enhancements).
-- Re-run targeted subagents on a narrowed scope if desired.
+- Re-run a targeted review on a narrowed scope if desired.
 
 All paths above are directly traceable to the sources. The project is already in excellent shape; these changes would make the voice/immersion experience feel first-class while preserving the excellent architecture and open-core boundaries.
 
