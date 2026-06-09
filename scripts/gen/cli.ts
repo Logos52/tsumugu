@@ -26,6 +26,7 @@ import { verifyContent } from "./lib/verify.js";
 import { selectAutonomousTargets } from "./lib/targets.js";
 import { loadPrompt, contextBlock } from "./lib/prompt.js";
 import { buildWikiPage, buildEncodingPage, wikiInputFromStore } from "./lib/wiki.js";
+import { annotateMarkdown } from "./lib/annotate.js";
 import {
   knownHanziFromStore,
   cacheBridges,
@@ -337,6 +338,25 @@ async function cmdCrossref(opts: Record<string, string | boolean>): Promise<void
   }
 }
 
+async function cmdAnnotate(opts: Record<string, string | boolean>): Promise<void> {
+  const lang = str(opts, "lang") ?? fail("annotate needs --lang");
+  const inPath = str(opts, "in") ?? fail("annotate needs --in <markdown file>");
+  const md = await readText(inPath);
+  const store = await loadStore(str(opts, "store"));
+  const reg = await buildRegistry(str(opts, "pack-module"));
+  const pack = resolvePack(reg, lang, str(opts, "pack"));
+
+  const policy = flag(opts, "exact") ? "exact" : "decodable";
+  const result = await annotateMarkdown({ md, lang, pack, store, policy });
+  const outPath = str(opts, "out") ?? inPath;
+  await writeText(outPath, result.md);
+
+  const pct = result.wordCount ? (100 * result.unknownCount) / result.wordCount : 0;
+  console.error(
+    `✓ annotated ${result.wordCount} word-token(s) — ${result.unknownCount} highlighted (${pct.toFixed(0)}%, ${policy}), ${result.distinct} distinct → ${outPath}`,
+  );
+}
+
 function usage(): void {
   console.log(
     [
@@ -356,6 +376,9 @@ function usage(): void {
       "  pnpm gen bridge   --lang vi --store ws.json [--bridge-lang zh-Hant] [--words a,b]",
       "                    | --cache results.json --registry bridge/vi-bridge.json --lang vi --store ws.json",
       "  pnpm gen crossref --source migaku --in export.json --lang <id> [--store ws.json] [--apply] [--overwrite] [--out ws.json]",
+      "  pnpm gen annotate --lang <id> --in page.md --store ws.json --pack-module <path> [--out page.md] [--exact]",
+      "                  (wraps Han words in status spans + hover data; re-runnable;",
+      "                   default highlights words with an unknown char; --exact = strict)",
       "",
       "The public engine ships only the demo pack; private zh/vi packs plug in via",
       "--pack-module (see PACK-AUTHORING.md).",
@@ -383,6 +406,8 @@ async function main(): Promise<void> {
       return cmdBridge(opts);
     case "crossref":
       return cmdCrossref(opts);
+    case "annotate":
+      return cmdAnnotate(opts);
     case "help":
     case undefined:
       return usage();
