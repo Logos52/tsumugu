@@ -98,6 +98,7 @@ export const CLS = {
   btnActive: "tsg-btn-active",
   toolbar: "tsg-toolbar",
   metrics: "tsg-metrics",
+  encodingCoverage: "tsg-encoding-coverage",
 } as const;
 
 /** zh tone-coloring class for syllable tone n (1..5; 5 = neutral). */

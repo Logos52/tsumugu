@@ -378,6 +378,13 @@ button {
   font-variant-numeric: tabular-nums;
 }
 
+.tsg-encoding-coverage {
+  color: var(--tsg-ink-faint);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  margin: 0.35rem 0 0;
+}
+
 /* ── status coloring (engine: statusColorClass) ───────────────────────────── */
 /*
  * Highlights ride on the token's background; tone color sits on text and is
