@@ -24,7 +24,7 @@ export async function hasEncodingArtifact(app: AppState, word: string): Promise<
 
 function prebakedHasRichExplanation(
   explanation?: string,
-  examples?: string[] | ExampleSentence[],
+  examples?: ExampleSentence[],
 ): boolean {
   if (!explanation?.trim()) return false;
   if (!examples?.length) return false;

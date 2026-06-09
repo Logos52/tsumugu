@@ -118,7 +118,48 @@ export interface Sense {
   register?: string;
 }
 
-/** A leveled or English definition (Encoding PRD §6.2; Dictionary PRD shared contract). */
+/** English definition layer (Dictionary PRD §5.1). */
+export interface EnDefinition {
+  /** "·"-joined synonym gloss, e.g. "lively · bustling · buzzing with activity". */
+  gloss: string;
+  /** One-sentence English definition. Optional — the gloss alone may suffice. */
+  explanation?: string;
+  /** CC-CEDICT "/"-delimited defs / kaikki numbered senses. */
+  senses?: Sense[];
+}
+
+/** Leveled monolingual definition layer (Dictionary PRD §5.1). */
+export interface MonoDefinition {
+  /** Leveled monolingual definition. */
+  gloss: string;
+  /** Familiar-context illustration, also band-gated. */
+  illustration?: string;
+  /**
+   * Defining-vocabulary ceiling this was generated + verified against,
+   * on the canonical ladder: a "TOCFL-N" string (N in 1..7).
+   */
+  level: string;
+  /** Measured max token band actually present (verifier output). */
+  achievedLevel?: string;
+  /** True when generation could not stay at/below `level` after the repair cap. */
+  levelEscalated?: boolean;
+  monolingual: true;
+  /** Provenance of how the text was authored. */
+  source?: "generated" | (string & {});
+}
+
+/** Per-language definition map (Dictionary PRD §5.1). */
+export interface Definitions {
+  en?: EnDefinition;
+  /** Target-language monolingual, leveled. Key is the pack's monolingual lang id. */
+  zh?: MonoDefinition;
+}
+
+/**
+ * A leveled or English definition (Encoding PRD §6.2).
+ * Retained during Dictionary PRD D0 for EncodingPageDoc consumption; prefer
+ * {@link EnDefinition} / {@link MonoDefinition} on dictionary entry types.
+ */
 export interface Definition {
   gloss: string;
   senses?: Sense[];
@@ -131,14 +172,16 @@ export interface Definition {
   offendingWord?: string;
 }
 
-/** A structured example sentence (Encoding PRD §5.3). */
+/** A structured example sentence (Dictionary PRD §5.4). */
 export interface ExampleSentence {
   text: string;
   translation: string;
   reading?: string;
   audio?: string;
-  source?: string;
-  sense?: string;
+  source?: "tatoeba" | "generated" | (string & {});
+  level?: string;
+  shared?: boolean;
+  highlightSpans?: { start: number; end: number }[];
 }
 
 /** Character-story / etymology block (Encoding PRD §5.4). */
@@ -172,7 +215,9 @@ export interface DictEntry {
   /** Primary gloss (monolingual-leveled default, or L2 toggle). */
   gloss: string;
   /** Dual-definition payload (@2); preferred over legacy `gloss` when present. */
-  definitions?: { en?: Definition; zh?: Definition };
+  definitions?: Definitions;
+  /** Structured example sentences (custom-example relocation; Dictionary PRD §5.7). */
+  examples?: ExampleSentence[];
   reading?: string;
   senses?: Sense[];
   pos?: string;
@@ -329,13 +374,13 @@ export interface PrebakedEntry {
   term: string;
   gloss: string;
   /** Dual-definition payload (@2); preferred over legacy `gloss` when present. */
-  definitions?: { en?: Definition; zh?: Definition };
+  definitions?: Definitions;
   reading?: string;
   pos?: string;
   level?: string;
-  /** Example sentences — legacy `string[]` or structured `ExampleSentence[]`. */
-  examples?: string[] | ExampleSentence[];
-  /** Pre-baked AI explanation (PRD §2.1) — shown on hover, NO live call. */
+  /** Structured example sentences (normalized on load; never raw `string[]`). */
+  examples?: ExampleSentence[];
+  /** Legacy @1 explanation — also lifted to `definitions.en.explanation` on load. */
   explanation?: string;
   /** vi: the Hán-Việt bridge box (PRD §5.8). */
   bridge?: BridgeInfo;

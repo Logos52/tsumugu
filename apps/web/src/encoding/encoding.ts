@@ -429,7 +429,14 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       }
     }
     if (definitions.zh) {
-      const cap = definitions.zh.levelCap ?? level ?? "B1";
+      const cap =
+        ("monolingual" in definitions.zh && definitions.zh.monolingual
+          ? definitions.zh.level
+          : definitions.zh.levelCap) ?? level ?? "B1";
+      const zhBlurb =
+        "monolingual" in definitions.zh && definitions.zh.monolingual
+          ? definitions.zh.illustration
+          : definitions.zh.explanation;
       zhCard.append(
         el("div", {
           class: "tsg-def-label",
@@ -437,9 +444,9 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
         }),
         el("div", { class: "tsg-def-gloss tsg-def-gloss-zh", text: definitions.zh.gloss }),
       );
-      if (definitions.zh.explanation) {
+      if (zhBlurb) {
         zhCard.append(
-          el("div", { class: "tsg-def-explain tsg-def-explain-zh", text: definitions.zh.explanation }),
+          el("div", { class: "tsg-def-explain tsg-def-explain-zh", text: zhBlurb }),
         );
       }
     }

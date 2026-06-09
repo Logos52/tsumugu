@@ -144,15 +144,18 @@ describe("parsePreparedContent", () => {
     expect(parsed.tokens).toHaveLength(4);
   });
 
-  it("accepts an already-parsed object", () => {
+  it("normalizes an already-parsed @1 object to canonical @2", () => {
     const obj = makeContent();
-    expect(parsePreparedContent(obj)).toBe(obj);
+    const parsed = parsePreparedContent(obj);
+    expect(parsed.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
+    expect(lookupPrebaked(parsed, "你好")?.definitions?.en?.gloss).toBe("hello");
   });
 
-  it("round-trips through JSON without loss", () => {
+  it("upgrades @1 through JSON parse", () => {
     const original = makeContent();
     const round = parsePreparedContent(JSON.stringify(original));
-    expect(round).toEqual(original);
+    expect(round.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
+    expect(lookupPrebaked(round, "你好")?.definitions?.en?.gloss).toBe("hello");
   });
 
   it("throws a clear error on invalid JSON", () => {
@@ -203,8 +206,8 @@ describe("parsePreparedContent", () => {
             en: { gloss: "lively and noisy" },
             zh: {
               gloss: "人多又吵又有活力",
-              leveledVerdict: "leveled",
-              levelCap: "TOCFL-B1",
+              level: "TOCFL-B1",
+              monolingual: true,
             },
           },
           examples: [
@@ -215,7 +218,7 @@ describe("parsePreparedContent", () => {
     });
     const parsed = parsePreparedContent(JSON.stringify(v2));
     expect(parsed.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
-    expect(lookupPrebaked(parsed, "熱鬧")?.definitions?.zh?.levelCap).toBe(
+    expect(lookupPrebaked(parsed, "熱鬧")?.definitions?.zh?.level).toBe(
       "TOCFL-B1",
     );
   });
@@ -226,7 +229,7 @@ describe("parsePreparedContent", () => {
         發展: {
           term: "發展",
           gloss: "to develop",
-          examples: ["經濟發展很快。"],
+          examples: [{ text: "經濟發展很快。", translation: "" }],
           explanation: "Sino-Vietnamese compound.",
           bridge: {
             bridgeLang: "zh-Hant",
@@ -243,8 +246,10 @@ describe("parsePreparedContent", () => {
       },
     });
     const round = parsePreparedContent(JSON.stringify(original));
-    expect(round).toEqual(original);
-    // lossless deep equality on the nested bridge structures.
+    expect(round.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
+    expect(lookupPrebaked(round, "發展")?.examples).toEqual([
+      { text: "經濟發展很快。", translation: "" },
+    ]);
     expect(lookupPrebaked(round, "發展")?.bridge?.morphemes).toHaveLength(2);
   });
 });

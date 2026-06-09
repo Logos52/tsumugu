@@ -90,8 +90,19 @@ async function normalizeEntry(
   if (e.reading !== undefined) out.reading = await normalize(pack, e.reading, changes);
   if (e.explanation !== undefined)
     out.explanation = await normalize(pack, e.explanation, changes);
-  if (e.examples)
-    out.examples = await Promise.all(e.examples.map((x) => normalize(pack, x, changes)));
+  if (e.examples) {
+    out.examples = await Promise.all(
+      e.examples.map(async (ex) => ({
+        ...ex,
+        text: await normalize(pack, ex.text, changes),
+        translation: await normalize(pack, ex.translation, changes),
+        reading:
+          ex.reading !== undefined
+            ? await normalize(pack, ex.reading, changes)
+            : undefined,
+      })),
+    );
+  }
   if (e.bridge !== undefined) out.bridge = await normalizeBridge(pack, e.bridge, changes);
   return out;
 }

@@ -14,6 +14,7 @@ import {
   type PreparedToken,
   type PrebakedEntry,
 } from "../types.js";
+import { normalizePreparedContent, type RawPreparedContent } from "./schema.js";
 
 const ACCEPTED_PREPARED_SCHEMAS: readonly string[] = [
   PREPARED_CONTENT_SCHEMA,
@@ -82,7 +83,7 @@ export function parsePreparedContent(input: string | unknown): PreparedContent {
         `of {text,isWord}, and a "glossary" object.`,
     );
   }
-  return value;
+  return normalizePreparedContent(value as RawPreparedContent);
 }
 
 /**

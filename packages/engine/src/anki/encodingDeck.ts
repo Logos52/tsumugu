@@ -6,7 +6,8 @@
  * regenerated sentences update the same card.
  */
 
-import type { AnkiDeck, AnkiNote, EncodingPageDoc, ExampleSentence } from "../types.js";
+import type { EncodingPageDoc, ExampleSentence } from "../types.js";
+import type { AnkiDeck, AnkiNote } from "./exporter.js";
 
 export interface BuildEncodingDeckOpts {
   doc: EncodingPageDoc;

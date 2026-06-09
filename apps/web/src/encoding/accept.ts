@@ -7,15 +7,18 @@
 
 import type {
   Definition,
+  Definitions,
+  EnDefinition,
   EncodingPageDoc,
   Etymology,
   ExampleSentence,
+  MonoDefinition,
   ResolvedHover,
 } from "@tsumugu/engine";
 
 export interface AcceptedDefinitions {
-  en?: Definition;
-  zh?: Definition;
+  en?: Definition | EnDefinition;
+  zh?: Definition | MonoDefinition;
 }
 
 export interface AcceptedEncodingContent {
@@ -44,10 +47,14 @@ export function normalizeExampleRows(
   return examples as ExampleSentence[];
 }
 
+function isMonoDefinition(def: Definition | MonoDefinition): def is MonoDefinition {
+  return "monolingual" in def && def.monolingual === true;
+}
+
 function resolveRawDefinitions(
   doc: EncodingPageDoc | null,
-  hoverDefs?: { en?: Definition; zh?: Definition },
-): { en?: Definition; zh?: Definition } {
+  hoverDefs?: Definitions,
+): { en?: Definition | EnDefinition; zh?: Definition | MonoDefinition } {
   if (doc?.definitions) {
     return {
       en: doc.definitions.en ?? hoverDefs?.en,
@@ -58,11 +65,19 @@ function resolveRawDefinitions(
 }
 
 /**
- * 簡明中文 card acceptance: only render when the Dictionary PRD verdict is
- * `"leveled"`. Missing or `"above-cap"` definitions are dropped.
+ * 簡明中文 card acceptance.
+ *
+ * - Dictionary PRD {@link MonoDefinition}: accepted when `gloss` is non-empty.
+ * - Encoding PRD {@link Definition}: accepted only when `leveledVerdict` is
+ *   `"leveled"`.
  */
-export function acceptZhDefinition(def?: Definition): Definition | undefined {
+export function acceptZhDefinition(
+  def?: Definition | MonoDefinition,
+): Definition | MonoDefinition | undefined {
   if (!def) return undefined;
+  if (isMonoDefinition(def)) {
+    return def.gloss?.trim() ? def : undefined;
+  }
   if (def.leveledVerdict === "leveled") return def;
 
   const reason =
@@ -86,10 +101,10 @@ export function acceptExampleRows(rows: ExampleSentence[] | undefined): ExampleS
  */
 export function acceptExamples(
   primary: ExampleSentence[] | undefined,
-  fallback?: ExampleSentence[] | string[],
+  fallback?: ExampleSentence[],
 ): ExampleSentence[] {
   const accepted = acceptExampleRows(primary);
-  const fallbackRows = acceptExampleRows(normalizeExampleRows(fallback));
+  const fallbackRows = acceptExampleRows(fallback);
 
   if (accepted.length >= 3 || fallbackRows.length === 0) {
     return accepted.slice(0, 6);
@@ -123,9 +138,8 @@ export function acceptEncodingContent(
     zh: acceptZhDefinition(raw.zh),
   };
 
-  const primaryExamples = doc?.examples ?? normalizeExampleRows(hover.examples);
-  const fallbackExamples =
-    doc?.examples !== undefined ? normalizeExampleRows(hover.examples) : undefined;
+  const primaryExamples = doc?.examples ?? hover.examples;
+  const fallbackExamples = doc?.examples !== undefined ? hover.examples : undefined;
   const examples = acceptExamples(primaryExamples, fallbackExamples);
 
   const etymology = acceptEtymology(doc?.etymology);

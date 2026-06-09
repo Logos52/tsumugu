@@ -10,6 +10,13 @@ export {
   wordTokens,
 } from "./prepared.js";
 
+export {
+  normalizePreparedContent,
+  normalizePrebakedEntry,
+  normalizeExampleRows,
+} from "./schema.js";
+export type { RawPreparedContent, RawPrebakedEntry } from "./schema.js";
+
 export { isEncodingPageDoc, parseEncodingPage } from "./encodingPage.js";
 
 export { mergeHover } from "./hover.js";
