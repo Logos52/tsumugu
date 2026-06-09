@@ -1,6 +1,7 @@
 /**
  * Deterministic verification pass (PRD §5.3): OpenCC Simplified→Traditional
- * guard, CI re-score, missing-glossary check, and target-word recycle check.
+ * guard, CI re-score, missing-glossary check, target-word recycle check,
+ * monolingual zh band verification, circularity/emptiness, and license assertion.
  * No LLM — pure machine checks the model's output must survive.
  */
 import {
@@ -13,7 +14,29 @@ import {
   type BridgeInfo,
   type BridgeMorpheme,
   type KnownPolicy,
+  type MonoDefinition,
 } from "@tsumugu/engine";
+import { checkDefLevel, type DefLevelViolation } from "./defLevel.js";
+import {
+  loadDefLevelIndex,
+  tocflOrdinal,
+  type DefLevelIndex,
+} from "./defLevelData.js";
+import { isCircularZhDef, isEmptyZhDef } from "./zhDefGuards.js";
+import {
+  assertMonolingualSeedLicenses,
+  type ProvenanceManifest,
+} from "./licenseAssert.js";
+
+export interface DefLevelEntryStats {
+  term: string;
+  ceiling: string;
+  achievedLevel?: string;
+  levelEscalated?: boolean;
+  violationCount: number;
+  circular: boolean;
+  empty: boolean;
+}
 
 export interface VerifyOptions {
   lang: string;
@@ -23,6 +46,10 @@ export interface VerifyOptions {
   targetWords?: string[];
   ciTarget?: number;
   policy?: KnownPolicy;
+  /** Optional pre-loaded band index (tests). */
+  defLevelIndex?: DefLevelIndex;
+  /** Monolingual-generation provenance manifest for license assertion. */
+  provenance?: ProvenanceManifest;
 }
 
 export interface VerifyReport {
@@ -36,6 +63,18 @@ export interface VerifyReport {
   missingGlossary: string[];
   /** Recycle check for directed target words (≥3× recommended). */
   recycle: { word: string; count: number; ok: boolean }[];
+  /** Band-ceiling violations across zh definition + example fields. */
+  defLevelViolations: DefLevelViolation[];
+  /** Per-entry band / guard stats (zh-Hant entries with `definitions.zh`). */
+  defLevelByEntry: Record<string, DefLevelEntryStats>;
+  /** Entries with circular zh definitions. */
+  zhDefCircular: string[];
+  /** Entries with empty zh definitions. */
+  zhDefEmpty: string[];
+  /** License assertion hard-fail messages. */
+  licenseErrors: string[];
+  /** Fraction of zh defs with zero band violations (0..1; 1 when none checked). */
+  defLevelPassRate: number;
   /** Content with all strings normalized + `ciMeasured` set. Use with --fix. */
   normalized: PreparedContent;
 }
@@ -49,6 +88,21 @@ async function normalize(
   const after = await pack.scriptNormalizer(s);
   if (after !== s) changes.push({ before: s, after });
   return after;
+}
+
+async function normalizeMonoDefinition(
+  pack: LanguagePack,
+  zh: MonoDefinition,
+  changes: { before: string; after: string }[],
+): Promise<MonoDefinition> {
+  const out: MonoDefinition = {
+    ...zh,
+    gloss: await normalize(pack, zh.gloss, changes),
+  };
+  if (zh.illustration !== undefined) {
+    out.illustration = await normalize(pack, zh.illustration, changes);
+  }
+  return out;
 }
 
 async function normalizeBridge(
@@ -90,6 +144,19 @@ async function normalizeEntry(
   if (e.reading !== undefined) out.reading = await normalize(pack, e.reading, changes);
   if (e.explanation !== undefined)
     out.explanation = await normalize(pack, e.explanation, changes);
+  if (e.definitions) {
+    out.definitions = { ...e.definitions };
+    if (e.definitions.en) {
+      const en = { ...e.definitions.en };
+      en.gloss = await normalize(pack, en.gloss, changes);
+      if (en.explanation !== undefined)
+        en.explanation = await normalize(pack, en.explanation, changes);
+      out.definitions.en = en;
+    }
+    if (e.definitions.zh) {
+      out.definitions.zh = await normalizeMonoDefinition(pack, e.definitions.zh, changes);
+    }
+  }
   if (e.examples) {
     out.examples = await Promise.all(
       e.examples.map(async (ex) => ({
@@ -105,6 +172,135 @@ async function normalizeEntry(
   }
   if (e.bridge !== undefined) out.bridge = await normalizeBridge(pack, e.bridge, changes);
   return out;
+}
+
+function resolveDefIndex(lang: string, explicit?: DefLevelIndex): DefLevelIndex | undefined {
+  if (explicit !== undefined) return explicit;
+  if (lang !== "zh-Hant") return undefined;
+  try {
+    return loadDefLevelIndex();
+  } catch {
+    return undefined;
+  }
+}
+
+function verifyZhDefs(
+  glossary: Record<string, PrebakedEntry>,
+  lang: string,
+  defIndex: DefLevelIndex | undefined,
+): {
+  violations: DefLevelViolation[];
+  byEntry: Record<string, DefLevelEntryStats>;
+  circular: string[];
+  empty: string[];
+  passRate: number;
+  stamped: Record<string, PrebakedEntry>;
+} {
+  const violations: DefLevelViolation[] = [];
+  const byEntry: Record<string, DefLevelEntryStats> = {};
+  const circular: string[] = [];
+  const empty: string[] = [];
+  const stamped: Record<string, PrebakedEntry> = { ...glossary };
+
+  if (defIndex === undefined) {
+    return { violations, byEntry, circular, empty, passRate: 1, stamped };
+  }
+
+  let checked = 0;
+  let passed = 0;
+
+  for (const [key, entry] of Object.entries(glossary)) {
+    const zh = entry.definitions?.zh;
+    if (zh === undefined) continue;
+
+    const ceiling = zh.level;
+    const term = entry.term;
+    const circ = isCircularZhDef(term, zh.gloss, zh.illustration);
+    const emp = isEmptyZhDef(term, zh.gloss);
+    if (circ) circular.push(term);
+    if (emp) empty.push(term);
+    if (emp) {
+      byEntry[key] = {
+        term,
+        ceiling,
+        violationCount: 0,
+        circular: circ,
+        empty: true,
+      };
+      continue;
+    }
+
+    checked += 1;
+
+    const entryViolations: DefLevelViolation[] = [];
+
+    const glossCheck = checkDefLevel({
+      text: zh.gloss,
+      ceiling,
+      index: defIndex,
+      field: "definitions.zh.gloss",
+    });
+    entryViolations.push(...glossCheck.violations);
+
+    let achievedOrd = tocflOrdinal(glossCheck.achievedLevel);
+    if (zh.illustration !== undefined && zh.illustration.trim() !== "") {
+      const illCheck = checkDefLevel({
+        text: zh.illustration,
+        ceiling,
+        index: defIndex,
+        field: "definitions.zh.illustration",
+      });
+      entryViolations.push(...illCheck.violations);
+      achievedOrd = Math.max(achievedOrd, tocflOrdinal(illCheck.achievedLevel));
+    }
+
+    if (entry.examples) {
+      for (let i = 0; i < entry.examples.length; i++) {
+        const ex = entry.examples[i]!;
+        if (ex.text.trim() === "") continue;
+        const exCheck = checkDefLevel({
+          text: ex.text,
+          ceiling,
+          index: defIndex,
+          field: `examples[${i}].text`,
+        });
+        entryViolations.push(...exCheck.violations);
+        achievedOrd = Math.max(achievedOrd, tocflOrdinal(exCheck.achievedLevel));
+      }
+    }
+
+    const achievedLevel = `TOCFL-${Math.min(7, Math.max(1, achievedOrd))}`;
+    const levelEscalated =
+      tocflOrdinal(achievedLevel) > tocflOrdinal(ceiling) || entryViolations.length > 0;
+
+    if (entryViolations.length === 0) passed += 1;
+    violations.push(...entryViolations);
+
+    byEntry[key] = {
+      term,
+      ceiling,
+      achievedLevel,
+      levelEscalated,
+      violationCount: entryViolations.length,
+      circular: circ,
+      empty: emp,
+    };
+
+    stamped[key] = {
+      ...entry,
+      definitions: {
+        ...entry.definitions,
+        zh: {
+          ...zh,
+          achievedLevel,
+          levelEscalated,
+        },
+      },
+    };
+  }
+
+  const passRate = checked === 0 ? 1 : passed / checked;
+  return { violations, byEntry, circular, empty, passRate, stamped };
 }
 
 export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> {
@@ -157,10 +353,17 @@ export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> 
     ok: r.ok,
   }));
 
+  const defIndex = resolveDefIndex(lang, opts.defLevelIndex);
+  const zhDef = verifyZhDefs(glossary, lang, defIndex);
+
+  const licenseResult = opts.provenance
+    ? assertMonolingualSeedLicenses(opts.provenance)
+    : { ok: true, errors: [], notes: [] };
+
   const normalized: PreparedContent = {
     ...content,
     tokens,
-    glossary,
+    glossary: zhDef.stamped,
     ciMeasured: ci.coverage,
   };
 
@@ -172,6 +375,12 @@ export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> 
     openccChanged: changes.length > 0,
     missingGlossary: [...missing],
     recycle,
+    defLevelViolations: zhDef.violations,
+    defLevelByEntry: zhDef.byEntry,
+    zhDefCircular: zhDef.circular,
+    zhDefEmpty: zhDef.empty,
+    licenseErrors: licenseResult.errors,
+    defLevelPassRate: zhDef.passRate,
     normalized,
   };
 }

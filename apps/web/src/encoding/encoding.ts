@@ -370,7 +370,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       type: "button",
       on: {
         click: () => {
-          app.updateSettings({ explanationLang: "en" });
+          app.updateSettings({ dictDefault: "en" });
           renderDefPins();
           updateToggle();
         },
@@ -382,7 +382,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       type: "button",
       on: {
         click: () => {
-          app.updateSettings({ explanationLang: "zh" });
+          app.updateSettings({ dictDefault: "zh" });
           renderDefPins();
           updateToggle();
         },
@@ -432,7 +432,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       const cap =
         ("monolingual" in definitions.zh && definitions.zh.monolingual
           ? definitions.zh.level
-          : definitions.zh.levelCap) ?? level ?? "B1";
+          : undefined) ?? level ?? "B1";
       const zhBlurb =
         "monolingual" in definitions.zh && definitions.zh.monolingual
           ? definitions.zh.illustration

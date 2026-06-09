@@ -617,7 +617,9 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     // Examples.
     if (hover.examples && hover.examples.length > 0) {
       const ex = el("ul", { class: CLS.popupExamples });
-      for (const e of hover.examples) ex.append(el("li", { text: exampleLine(e) }));
+      for (const e of hover.examples.slice(0, 2)) {
+        ex.append(el("li", { text: exampleLine(e) }));
+      }
       host.append(ex);
     }
 

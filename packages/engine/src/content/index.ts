@@ -21,3 +21,5 @@ export { isEncodingPageDoc, parseEncodingPage } from "./encodingPage.js";
 
 export { mergeHover } from "./hover.js";
 export type { ResolvedHover, HoverSource } from "./hover.js";
+
+export { enDefinitionFromCedictGlosses, senseFromCedictGloss } from "./cedict.js";

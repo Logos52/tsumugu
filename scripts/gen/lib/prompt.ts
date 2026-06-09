@@ -21,6 +21,12 @@ export interface PromptContext {
   unknownWords: string[];
   targetWords?: string[];
   agent?: string;
+  /** Monolingual zh floor band (zh-Hant dictionary fill). */
+  defFloorBand?: string;
+  /** Staged defining-vocabulary allow-list word count. */
+  allowListCount?: number;
+  /** Path to the monolingual zh prompt template. */
+  dictMonoPrompt?: string;
 }
 
 export function contextBlock(c: PromptContext): string {
@@ -39,6 +45,17 @@ export function contextBlock(c: PromptContext): string {
   }
   lines.push(
     `- words needing resolution (${c.unknownWords.length}): ${c.unknownWords.join("、") || "(none)"}`,
+  );
+  if (c.defFloorBand !== undefined) {
+    lines.push(`- defFloorBand: ${c.defFloorBand}`);
+  }
+  if (c.allowListCount !== undefined) {
+    lines.push(`- allowList: ${c.allowListCount} words staged (see skeleton sidecar / dict-mono-zh prompt)`);
+  }
+  if (c.dictMonoPrompt !== undefined) {
+    lines.push(`- monolingual zh prompt: \`${c.dictMonoPrompt}\``);
+  }
+  lines.push(
     "",
     "After filling the skeleton, run `pnpm gen verify --in " + c.skeletonPath + "` (OpenCC + CI re-score).",
     "",

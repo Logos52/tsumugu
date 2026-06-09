@@ -101,10 +101,9 @@ async function waitForPage(root: HTMLElement): Promise<void> {
 }
 
 describe("resolveDictDefault", () => {
-  it("migrates target → zh and keeps en", () => {
-    expect(resolveDictDefault({ explanationLang: "target" })).toBe("zh");
-    expect(resolveDictDefault({ explanationLang: "en" })).toBe("en");
-    expect(resolveDictDefault({ explanationLang: "zh" })).toBe("zh");
+  it("reads dictDefault directly", () => {
+    expect(resolveDictDefault({ dictDefault: "zh" })).toBe("zh");
+    expect(resolveDictDefault({ dictDefault: "en" })).toBe("en");
   });
 });
 
@@ -164,6 +163,23 @@ describe("mountEncoding — 熱鬧 fixture", () => {
     mountEncoding(root, appWithRenao({ vault, withFixture: false }), "熱鬧");
     await waitForPage(root);
     expect(root.textContent).toContain("fallback explanation");
+  });
+
+  it("writes dictDefault when the definition pill is toggled", async () => {
+    const app = appWithRenao();
+    const root = document.createElement("div");
+    mountEncoding(root, app, "熱鬧");
+    await waitForPage(root);
+
+    expect(app.settings.dictDefault).toBe("zh");
+
+    const english = [...root.querySelectorAll("button")].find((b) => b.textContent === "English");
+    english?.click();
+    expect(app.settings.dictDefault).toBe("en");
+
+    const zh = [...root.querySelectorAll("button")].find((b) => b.textContent === "簡明中文");
+    zh?.click();
+    expect(app.settings.dictDefault).toBe("zh");
   });
 
   it("grades from the rail and persists SRS without auto-grading on open", async () => {
