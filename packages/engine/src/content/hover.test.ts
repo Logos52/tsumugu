@@ -88,7 +88,9 @@ describe("mergeHover — prebaked-only fields", () => {
       bridge,
     };
     const hover = mergeHover({ word: "發展", prebaked });
-    expect(hover.examples).toEqual(["經濟發展很快。"]);
+    expect(hover.examples).toEqual([
+      { text: "經濟發展很快。", translation: "" },
+    ]);
     expect(hover.explanation).toBe(
       "A Sino-Vietnamese compound meaning development.",
     );
@@ -163,7 +165,7 @@ describe("mergeHover — sources", () => {
       prebaked: { term: "x", gloss: "p", examples: ["ex"] },
     });
     expect(hover.sources).toEqual(["custom", "prebaked"]);
-    expect(hover.examples).toEqual(["ex"]);
+    expect(hover.examples).toEqual([{ text: "ex", translation: "" }]);
   });
 
   it("returns an empty sources array when every layer is empty/absent", () => {
@@ -285,6 +287,98 @@ describe("mergeHover — input integrity (purity)", () => {
     expect(round).toEqual(hover);
     expect(round.bridge?.morphemes).toHaveLength(2);
     expect(round.sources).toEqual(["prebaked"]);
+  });
+});
+
+describe("mergeHover — encoding-layer lifts", () => {
+  it("lifts legacy gloss into definitions.en.gloss", () => {
+    const hover = mergeHover({
+      word: "熱鬧",
+      dict: { term: "熱鬧", gloss: "lively and noisy" },
+    });
+    expect(hover.gloss).toBe("lively and noisy");
+    expect(hover.definitions?.en?.gloss).toBe("lively and noisy");
+    expect(hover.definitions?.zh).toBeUndefined();
+  });
+
+  it("lifts legacy string[] examples into ExampleSentence rows", () => {
+    const hover = mergeHover({
+      word: "熱鬧",
+      prebaked: {
+        term: "熱鬧",
+        gloss: "lively",
+        examples: ["夜市很熱鬧。", "過年很熱鬧。"],
+      },
+    });
+    expect(hover.examples).toEqual([
+      { text: "夜市很熱鬧。", translation: "" },
+      { text: "過年很熱鬧。", translation: "" },
+    ]);
+  });
+
+  it("feeds dict senses into definitions.en.senses", () => {
+    const hover = mergeHover({
+      word: "熱鬧",
+      dict: {
+        term: "熱鬧",
+        gloss: "lively",
+        senses: [{ gloss: "festive bustle" }, { gloss: "noisy crowd" }],
+      },
+    });
+    expect(hover.definitions?.en?.senses).toEqual([
+      { gloss: "festive bustle" },
+      { gloss: "noisy crowd" },
+    ]);
+  });
+
+  it("resolves definitions.zh symmetrically across custom, prebaked, and dict", () => {
+    const zhDef = {
+      gloss: "人多又吵",
+      leveledVerdict: "leveled" as const,
+      levelCap: "TOCFL-B1",
+    };
+    const fromDict = mergeHover({
+      word: "熱鬧",
+      dict: {
+        term: "熱鬧",
+        gloss: "lively",
+        definitions: { zh: zhDef },
+      },
+    });
+    expect(fromDict.definitions?.zh).toEqual(zhDef);
+
+    const fromPrebaked = mergeHover({
+      word: "熱鬧",
+      prebaked: {
+        term: "熱鬧",
+        gloss: "lively",
+        definitions: { zh: zhDef },
+      },
+    });
+    expect(fromPrebaked.definitions?.zh).toEqual(zhDef);
+
+    const fromCustom = mergeHover({
+      word: "熱鬧",
+      custom: { definitions: { zh: { gloss: "custom zh" } } },
+      prebaked: { term: "熱鬧", gloss: "lively", definitions: { zh: zhDef } },
+    });
+    expect(fromCustom.definitions?.zh?.gloss).toBe("custom zh");
+  });
+
+  it("prefers structured examples over lifting when already objects", () => {
+    const hover = mergeHover({
+      word: "熱鬧",
+      prebaked: {
+        term: "熱鬧",
+        gloss: "lively",
+        examples: [
+          { text: "夜市很熱鬧。", translation: "The night market is lively." },
+        ],
+      },
+    });
+    expect(hover.examples).toEqual([
+      { text: "夜市很熱鬧。", translation: "The night market is lively." },
+    ]);
   });
 });
 

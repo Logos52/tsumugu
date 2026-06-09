@@ -9,10 +9,16 @@
 
 import {
   PREPARED_CONTENT_SCHEMA,
+  PREPARED_CONTENT_SCHEMA_V2,
   type PreparedContent,
   type PreparedToken,
   type PrebakedEntry,
 } from "../types.js";
+
+const ACCEPTED_PREPARED_SCHEMAS: readonly string[] = [
+  PREPARED_CONTENT_SCHEMA,
+  PREPARED_CONTENT_SCHEMA_V2,
+];
 
 /**
  * Structural type guard for one prepared token (`{ text, isWord }`).
@@ -33,7 +39,7 @@ function isPlainObject(x: unknown): x is Record<string, unknown> {
  * Runtime schema check for {@link PreparedContent}.
  *
  * Validates the locked-down shape a batch generator emits:
- *  - `schema` is exactly {@link PREPARED_CONTENT_SCHEMA}
+ *  - `schema` is {@link PREPARED_CONTENT_SCHEMA} or {@link PREPARED_CONTENT_SCHEMA_V2}
  *  - `lang` is a string
  *  - `tokens` is an array of `{ text, isWord }`
  *  - `glossary` is a plain object (word → prebaked entry)
@@ -44,7 +50,7 @@ function isPlainObject(x: unknown): x is Record<string, unknown> {
  */
 export function isPreparedContent(x: unknown): x is PreparedContent {
   if (!isPlainObject(x)) return false;
-  if (x.schema !== PREPARED_CONTENT_SCHEMA) return false;
+  if (!ACCEPTED_PREPARED_SCHEMAS.includes(x.schema as string)) return false;
   if (typeof x.lang !== "string") return false;
   if (!Array.isArray(x.tokens)) return false;
   if (!x.tokens.every(isPreparedToken)) return false;
@@ -71,9 +77,9 @@ export function parsePreparedContent(input: string | unknown): PreparedContent {
   }
   if (!isPreparedContent(value)) {
     throw new Error(
-      `Invalid prepared content: expected schema "${PREPARED_CONTENT_SCHEMA}" ` +
-        `with a string "lang", a "tokens" array of {text,isWord}, and a ` +
-        `"glossary" object.`,
+      `Invalid prepared content: expected schema "${PREPARED_CONTENT_SCHEMA}" or ` +
+        `"${PREPARED_CONTENT_SCHEMA_V2}" with a string "lang", a "tokens" array ` +
+        `of {text,isWord}, and a "glossary" object.`,
     );
   }
   return value;
