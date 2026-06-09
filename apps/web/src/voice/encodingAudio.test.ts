@@ -64,12 +64,19 @@ describe("resolve audio paths", () => {
   it("resolves sentence audio by index with doc fallback", () => {
     expect(resolveSentenceAudioPath(binding, null, 0)).toBe("zh-Hant/encoding/audio/ex-0.mp3");
     expect(
-      resolveSentenceAudioPath(binding, {
-        schema: ENCODING_AUDIO_SCHEMA,
-        lang: "zh-Hant",
-        term: "熱鬧",
-        examples: [{ text: "x", translation: "y", audio: "legacy/ex-1.mp3" }],
-      }, 1),
+      resolveSentenceAudioPath(
+        binding,
+        {
+          schema: ENCODING_AUDIO_SCHEMA,
+          lang: "zh-Hant",
+          term: "熱鬧",
+          examples: [
+            { text: "a", translation: "A" },
+            { text: "b", translation: "B", audio: "legacy/ex-1.mp3" },
+          ],
+        },
+        1,
+      ),
     ).toBe("legacy/ex-1.mp3");
   });
 });

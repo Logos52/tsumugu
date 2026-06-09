@@ -30,6 +30,13 @@ import {
   formatEncodingCoverageLine,
 } from "./coverage.js";
 import { mountSentenceWaveforms, type SentenceWaveforms } from "../voice/sentenceWaveform.js";
+import {
+  discoverEncodingAudio,
+  resolveSentenceAudioPath,
+  resolveTermAudioPath,
+  type EncodingAudioBinding,
+} from "../voice/encodingAudio.js";
+import { exportEncodingAnki } from "./ankiExport.js";
 import { acceptEncodingContent } from "./accept.js";
 
 const CIRCLED = ["⓪", "①", "②", "③", "④"] as const;
@@ -153,6 +160,8 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
   let waveforms: SentenceWaveforms | null = null;
   let keyHandler: ((ev: KeyboardEvent) => void) | null = null;
   let disposed = false;
+  let termAudioEl: HTMLAudioElement | null = null;
+  let termAudioUrl: string | null = null;
 
   const onKey = (ev: KeyboardEvent): void => {
     if (disposed) return;
@@ -239,6 +248,31 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     railHost.append(
       el("p", { class: CLS.encodingCoverage, text: coverage }),
     );
+
+    railHost.append(
+      el("button", {
+        class: "tsg-btn tsg-encoding-rail-export",
+        text: "Export encoding Anki",
+        type: "button",
+        title: "Export learning words as sentence-mining cards (term-keyed guids)",
+        on: {
+          click: () => {
+            void exportEncodingAnki(app)
+              .then((msg) => {
+                if (msg) app.setStatusMessage(msg);
+                else {
+                  app.setStatusMessage(
+                    "No encoding cards to export — generate encoding artifacts first.",
+                  );
+                }
+              })
+              .catch((err) => {
+                app.setStatusMessage(`Encoding Anki export failed: ${String(err)}`);
+              });
+          },
+        },
+      }),
+    );
   }
 
   async function renderPage(): Promise<void> {
@@ -248,6 +282,11 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
 
     const entry = app.getEntry(word);
     const doc = await loadEncodingPage(app, word);
+    const audioBinding: EncodingAudioBinding | null = await discoverEncodingAudio(
+      app.vault,
+      app.lang,
+      word,
+    );
     const prebaked = app.content ? lookupPrebaked(app.content, word) : undefined;
     const custom = entry?.custom;
     const dict = await app.pack.dictionaryProvider(word);
@@ -285,12 +324,17 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     if (posLevel) meta.append(el("div", { class: CLS.encodingPosLevel, text: posLevel }));
     header.append(meta);
 
+    const termAudioPath = resolveTermAudioPath(audioBinding, doc);
     const termAudio = el("button", {
       class: "tsg-encoding-audio",
       text: "🔊",
       type: "button",
       title: "Play term audio",
-      on: { click: () => app.speak(word) },
+      on: {
+        click: () => {
+          void playTermAudio(termAudioPath, word);
+        },
+      },
     });
     header.append(termAudio);
 
@@ -474,7 +518,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
         waveEls.push(waveEl);
         playBtns.push(pp);
         loopBtns.push(lp);
-        audioPaths.push(ex.audio);
+        audioPaths.push(resolveSentenceAudioPath(audioBinding, doc, i) ?? ex.audio);
         texts.push(ex.text);
       });
 
@@ -550,6 +594,33 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
     );
   }
 
+  async function playTermAudio(path: string | null, fallbackText: string): Promise<void> {
+    if (!path || !app.vault?.readBytes) {
+      app.speak(fallbackText);
+      return;
+    }
+    let bytes: Uint8Array | null;
+    try {
+      bytes = await app.vault.readBytes(path);
+    } catch {
+      bytes = null;
+    }
+    if (!bytes) {
+      app.speak(fallbackText);
+      return;
+    }
+    if (termAudioUrl) {
+      URL.revokeObjectURL(termAudioUrl);
+      termAudioUrl = null;
+    }
+    if (!termAudioEl) termAudioEl = new Audio();
+    const part = new Uint8Array(bytes);
+    termAudioUrl = URL.createObjectURL(new Blob([part.buffer]));
+    termAudioEl.src = termAudioUrl;
+    termAudioEl.playbackRate = 1;
+    void termAudioEl.play().catch(() => app.speak(fallbackText));
+  }
+
   void renderRail();
   void renderPage();
 
@@ -558,6 +629,14 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
       disposed = true;
       if (keyHandler) document.removeEventListener("keydown", keyHandler);
       waveforms?.destroy();
+      if (termAudioEl) {
+        termAudioEl.pause();
+        termAudioEl = null;
+      }
+      if (termAudioUrl) {
+        URL.revokeObjectURL(termAudioUrl);
+        termAudioUrl = null;
+      }
       clear(root);
     },
   };

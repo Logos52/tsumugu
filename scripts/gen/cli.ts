@@ -16,20 +16,29 @@ import {
   WordStore,
   BridgeRegistry,
   parsePreparedContent,
+  parseEncodingPage,
   getDue,
+  isKnown,
   systemClock,
 } from "@tsumugu/engine";
 import { demoPack } from "@tsumugu/demo-pack";
 import { parseArgs, str, num, list, flag } from "./lib/args.js";
-import { readText, readJson, writeJson, writeText, slugify, encodingBasename } from "./lib/io.js";
+import { readText, readJson, writeJson, writeText, slugify, encodingFilename } from "./lib/io.js";
 import { lintEncodingTwin } from "./lib/wikiLint.js";
 import { buildRegistry, resolvePack } from "./lib/packs.js";
 import { buildSkeleton } from "./lib/skeleton.js";
 import { buildTranscriptSkeleton, parseYouTubeId, type TranscriptFormat } from "./lib/transcript.js";
 import { verifyContent } from "./lib/verify.js";
+import { verifyEncodingPage } from "./lib/verifyEncoding.js";
 import { selectAutonomousTargets } from "./lib/targets.js";
 import { loadPrompt, contextBlock } from "./lib/prompt.js";
-import { buildWikiPage, buildEncodingPage, wikiInputFromStore } from "./lib/wiki.js";
+import {
+  buildWikiPage,
+  buildEncodingPage,
+  buildEncodingPageJson,
+  encodingArtifactPaths,
+  wikiInputFromStore,
+} from "./lib/wiki.js";
 import {
   knownHanziFromStore,
   cacheBridges,
@@ -221,7 +230,7 @@ async function cmdTranscript(opts: Record<string, string | boolean>): Promise<vo
   );
 }
 
-async function cmdVerifyEncoding(opts: Record<string, string | boolean>): Promise<void> {
+async function cmdVerifyEncodingTwin(opts: Record<string, string | boolean>): Promise<void> {
   const inPath = str(opts, "in") ?? fail("verify-encoding needs --in <encoding-twin.md>");
   const md = await readText(inPath);
   const filename = basename(inPath, ".md");
@@ -234,7 +243,73 @@ async function cmdVerifyEncoding(opts: Record<string, string | boolean>): Promis
   console.error("\n✓ encoding twin lint passed");
 }
 
+async function cmdVerifyEncodingJson(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("verify --encoding needs --in <encoding.json>");
+  const raw = await readJson<unknown>(inPath);
+  const doc = parseEncodingPage(raw);
+  if (!doc) fail(`invalid encoding-page artifact: ${inPath}`);
+
+  const lang = str(opts, "lang") ?? doc.lang;
+  const store = await loadStore(str(opts, "store"));
+  const reg = await buildRegistry(str(opts, "pack-module"));
+  let pack: LanguagePack;
+  try {
+    pack = resolvePack(reg, lang, str(opts, "pack"));
+  } catch {
+    console.error(`! no pack for "${lang}"; OpenCC guard skipped (CI + gates still checked).`);
+    pack = demoPack;
+  }
+
+  const ciTarget = num(opts, "target") ?? 0.95;
+  const report = await verifyEncodingPage({ lang, pack, store, doc, ciTarget });
+
+  console.log(`CI target: ${(report.ciTarget * 100).toFixed(0)}%`);
+  for (const s of report.ciScores) {
+    console.log(
+      `  ${s.label}: ${(s.coverage * 100).toFixed(0)}% — ${s.meetsTarget ? "meets" : "below"} target` +
+        (s.unknownWords.length ? ` (unknown: ${s.unknownWords.map((u) => u.word).join("、")})` : ""),
+    );
+  }
+  console.log(
+    `OpenCC: ${report.openccChanged ? `${report.openccChanges.length} Simplified→Traditional change(s)` : "clean"}`,
+  );
+  for (const c of report.openccChanges) console.log(`   ${c.before} → ${c.after}`);
+  if (report.knownWordRecycleRatio !== null) {
+    console.log(`Known-word recycle ratio: ${(report.knownWordRecycleRatio * 100).toFixed(0)}%`);
+  }
+  if (report.groundingErrors.length) {
+    console.log("Grounding:");
+    for (const e of report.groundingErrors) console.log(`   ${e}`);
+  }
+  if (report.selectionErrors.length) {
+    console.log("Selection:");
+    for (const e of report.selectionErrors) console.log(`   ${e}`);
+  }
+  if (report.levelingErrors.length) {
+    console.log("Leveling:");
+    for (const e of report.levelingErrors) console.log(`   ${e}`);
+  }
+
+  if (flag(opts, "fix")) {
+    await writeJson(inPath, report.normalized);
+    console.error(`✓ wrote normalized encoding-page back to ${inPath}`);
+  }
+
+  if (report.blocked && report.openccChanged && !flag(opts, "fix")) {
+    console.error("\n✗ not ready: re-run with --fix to apply OpenCC");
+    process.exit(1);
+  }
+  if (report.blocked) {
+    for (const r of report.blockReasons) console.error(`✗ ${r}`);
+    console.error(`\n✗ encoding verify failed (${report.blockReasons.length} issue(s))`);
+    process.exit(1);
+  }
+  console.error("\n✓ encoding-page verified — ready to read.");
+}
+
 async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> {
+  if (flag(opts, "encoding")) return cmdVerifyEncodingJson(opts);
+
   const inPath = str(opts, "in") ?? fail("verify needs --in <prepared.json>");
   let content;
   try {
@@ -328,21 +403,72 @@ async function cmdWiki(opts: Record<string, string | boolean>, encoding: boolean
     fail("no words selected — use --words a,b, or --flagged/--srs, or grade some words first.");
   }
   const outDir = str(opts, "out-dir") ?? "wiki/Inbox";
+  const slugOverride = str(opts, "slug");
+  const ciTarget = num(opts, "target") ?? 0.95;
+  const knownWords = store
+    .all(lang)
+    .filter((e) => isKnown(e.status))
+    .map((e) => e.word);
+
+  const artifactPaths: { md: string; json: string }[] = [];
+
   for (const word of words) {
     const entry = store.get(lang, word) ?? { lang, word, status: "new" as WordStatus };
     const dict = pack ? await pack.dictionaryProvider(word) : undefined;
     const input = wikiInputFromStore(entry, dict);
-    const md = encoding
-      ? buildEncodingPage({ ...input, ...(entry.flagNote ? { flagNote: entry.flagNote } : {}) })
-      : buildWikiPage(input);
-    const basename = encoding ? encodingBasename(word) : slugify(word);
-    const outPath = `${outDir}/${lang}/${encoding ? "encoding/" : ""}${basename}.md`;
-    await writeText(outPath, md);
+    if (encoding) {
+      const wikiInput = { ...input, ...(entry.flagNote ? { flagNote: entry.flagNote } : {}) };
+      const paths = encodingArtifactPaths(outDir, lang, word, slugOverride);
+      const md = buildEncodingPage(wikiInput);
+      const json = buildEncodingPageJson(wikiInput);
+      await writeText(paths.mdPath, md);
+      await writeJson(paths.jsonPath, json);
+      artifactPaths.push({ md: paths.mdPath, json: paths.jsonPath });
+    } else {
+      const md = buildWikiPage(input);
+      const outPath = `${outDir}/${lang}/${slugify(word)}.md`;
+      await writeText(outPath, md);
+    }
   }
+
   console.log(await loadPrompt(encoding ? "encoding-page.md" : "wiki-page.md"));
-  console.error(
-    `\n✓ ${words.length} ${encoding ? "encoding" : "wiki"} page skeleton(s) → ${outDir}/${lang}/. Fill the TODO sections, then promote on your confirm.`,
-  );
+
+  if (encoding) {
+    const levelCap =
+      words.length === 1
+        ? (store.get(lang, words[0]!)?.custom?.level ??
+          (pack ? (await pack.dictionaryProvider(words[0]!))?.level : undefined) ??
+          "(resolve from pack)")
+        : "(per-word — see each skeleton)";
+    console.log(
+      [
+        "",
+        "---",
+        "## Run context (filled by `pnpm gen encoding`)",
+        `- agent: ${str(opts, "agent") ?? "(unspecified)"}`,
+        `- lang: ${lang}`,
+        `- ciTarget: ${ciTarget}`,
+        `- level cap (for 簡明中文 leveling): ${levelCap}`,
+        `- known words (${knownWords.length}): ${knownWords.slice(0, 40).join("、") || "(none)"}${knownWords.length > 40 ? "…" : ""}`,
+        `- words (${words.length}): ${words.join("、")}`,
+        ...artifactPaths.flatMap((p, i) => [
+          `- word ${words[i]}:`,
+          `  - Markdown twin: \`${p.md}\``,
+          `  - encoding-page@1 JSON: \`${p.json}\``,
+        ]),
+        "",
+        "Fill both artifacts, then run `pnpm gen verify --encoding --in <path>.encoding.json`.",
+        "",
+      ].join("\n"),
+    );
+    console.error(
+      `\n✓ ${words.length} encoding skeleton(s) → ${outDir}/${lang}/encoding/ (.md + .encoding.json). Fill both, then verify.`,
+    );
+  } else {
+    console.error(
+      `\n✓ ${words.length} wiki page skeleton(s) → ${outDir}/${lang}/. Fill the TODO sections, then promote on your confirm.`,
+    );
+  }
 }
 
 async function cmdBridge(opts: Record<string, string | boolean>): Promise<void> {
@@ -1010,7 +1136,7 @@ async function main(): Promise<void> {
     case "verify":
       return cmdVerify(opts);
     case "verify-encoding":
-      return cmdVerifyEncoding(opts);
+      return cmdVerifyEncodingTwin(opts);
     case "auto":
       return cmdAuto(opts);
     case "wiki":

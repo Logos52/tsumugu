@@ -53,6 +53,9 @@ export function encodingBasename(term: string, slug?: string): string {
   return nfc;
 }
 
+/** Alias for {@link encodingBasename} (PRD §6.4 / ARCHITECTURE.md §3). */
+export const encodingFilename = encodingBasename;
+
 /** A filesystem-safe slug from a title/source (keeps CJK/Latin letters). */
 export function slugify(s: string): string {
   const trimmed = nfcTerm(s)
