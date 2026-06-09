@@ -34,6 +34,11 @@ export interface AnkiNote {
   front: string;
   back: string;
   tags?: string[];
+  /**
+   * When set, derive the note guid from this stable seed instead of
+   * `front + back`, so regenerated sentence/back content updates the same card.
+   */
+  guidSeed?: string;
 }
 
 /**
@@ -91,7 +96,7 @@ const BASE91_TABLE =
  * a non-negative integer hash of the joined fields. We derive the hash from
  * the SHA-1 hex of the fields (first 13 hex chars → < 2^52, safe in a double).
  */
-function guidFor(...fields: string[]): string {
+export function guidFor(...fields: string[]): string {
   const hex = sha1Hex(fields.join("__")).slice(0, 13);
   let num = parseInt(hex, 16);
   if (!Number.isFinite(num) || num < 0) num = 0;
@@ -445,7 +450,10 @@ export async function buildApkg(
         const flds = joinFields(front, back);
         const sfld = sortField(front);
         const csum = fieldChecksum(sfld);
-        const guid = guidFor(front, back);
+        const guid =
+          note.guidSeed != null && note.guidSeed.length > 0
+            ? guidFor(note.guidSeed)
+            : guidFor(front, back);
 
         insertNote.run([
           noteId,

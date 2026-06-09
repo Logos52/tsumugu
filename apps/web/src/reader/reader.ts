@@ -172,7 +172,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
   // active-cue token spans are reused, so the layouts can never drift.
   if (app.transcript) {
     const layout = app.settings.transcriptLayout;
-    const hasVideo = !!app.transcript.videoId;
+    // Layout gates on a video PICTURE, not merely "has a transcript" (PRD §13, FR-F7).
+    const hasVideo = transcriptCtl?.capabilities().hasPicture ?? !!app.transcript.videoId;
     const playerEl = hasVideo ? container.querySelector(".tsg-player") : null;
     if (layout === "theater" && playerEl) {
       // The playing line rides on the bottom of the video (no-fill underline
@@ -691,7 +692,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       app.updateSettings({ showTranslation: !app.settings.showTranslation });
       return;
     }
-    // `v` flips the click/Space audio source: video clip ↔ Serena's voice.
+    // `v` switches playback to Serena (voice-led): ▶ and clicks play her per-cue
+    // clips and park the video. Press again to return to video-led (PRD §13.4).
     if ((ev.key === "v" || ev.key === "V") && transcriptCtl) {
       ev.preventDefault();
       transcriptCtl.toggleSerenaSource();

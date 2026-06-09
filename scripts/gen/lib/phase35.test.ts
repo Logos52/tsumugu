@@ -35,6 +35,8 @@ describe("wiki builders", () => {
       tags: ["topic/atmosphere"],
     });
     expect(md).toContain("type: encoding");
+    expect(md).toContain("word: 熱鬧");
+    expect(md).toContain("term: 熱鬧");
     expect(md).toContain("熱鬧 — encoding-layer page");
     expect(md).toContain("keep confusing it with 鬧鐘");
     expect(md).toMatch(/tags: \[.*encoding.*\]/);

@@ -1,7 +1,7 @@
 /**
  * `pnpm gen <command>` — the deterministic harness around batch generation.
  * No LLM call lives here; commands segment / score / OpenCC-guard / validate
- * and brief the agent (Claude Code / Grok Build) via the shipped prompts.
+ * and brief your own coding agent via the shipped prompts.
  *
  *   pnpm gen prep   --lang zh-Hant --in src.txt [--store ws.json] [--target 0.95]
  *                   [--mode directed --words 夜市,小吃] [--pack-module ./packs/index.ts]
@@ -21,7 +21,8 @@ import {
 } from "@tsumugu/engine";
 import { demoPack } from "@tsumugu/demo-pack";
 import { parseArgs, str, num, list, flag } from "./lib/args.js";
-import { readText, readJson, writeJson, writeText, slugify } from "./lib/io.js";
+import { readText, readJson, writeJson, writeText, slugify, encodingBasename } from "./lib/io.js";
+import { lintEncodingTwin } from "./lib/wikiLint.js";
 import { buildRegistry, resolvePack } from "./lib/packs.js";
 import { buildSkeleton } from "./lib/skeleton.js";
 import { buildTranscriptSkeleton, parseYouTubeId, type TranscriptFormat } from "./lib/transcript.js";
@@ -201,7 +202,7 @@ async function cmdTranscript(opts: Record<string, string | boolean>): Promise<vo
       "",
       "---",
       "## Run context (filled by `pnpm gen transcript`)",
-      `- agent: ${str(opts, "agent") ?? "claude"}`,
+      `- agent: ${str(opts, "agent") ?? "(unspecified)"}`,
       `- lang: ${lang}`,
       `- mode: transcript`,
       `- format: ${format}`,
@@ -218,6 +219,19 @@ async function cmdTranscript(opts: Record<string, string | boolean>): Promise<vo
   console.error(
     `\n✓ transcript skeleton written: ${outPath} (${content.tokens.filter((t) => t.isWord).length} word-tokens, ${cues.length} cues, ${unknownWords.length} to resolve)\n  cues sidecar: ${cuesPath}`,
   );
+}
+
+async function cmdVerifyEncoding(opts: Record<string, string | boolean>): Promise<void> {
+  const inPath = str(opts, "in") ?? fail("verify-encoding needs --in <encoding-twin.md>");
+  const md = await readText(inPath);
+  const filename = basename(inPath, ".md");
+  const result = lintEncodingTwin(md, { filename });
+  for (const err of result.errors) console.error(`✗ ${err}`);
+  if (!result.ok) {
+    console.error(`\n✗ encoding twin lint failed (${result.errors.length} error(s))`);
+    process.exit(1);
+  }
+  console.error("\n✓ encoding twin lint passed");
 }
 
 async function cmdVerify(opts: Record<string, string | boolean>): Promise<void> {
@@ -321,7 +335,8 @@ async function cmdWiki(opts: Record<string, string | boolean>, encoding: boolean
     const md = encoding
       ? buildEncodingPage({ ...input, ...(entry.flagNote ? { flagNote: entry.flagNote } : {}) })
       : buildWikiPage(input);
-    const outPath = `${outDir}/${lang}/${encoding ? "encoding/" : ""}${slugify(word)}.md`;
+    const basename = encoding ? encodingBasename(word) : slugify(word);
+    const outPath = `${outDir}/${lang}/${encoding ? "encoding/" : ""}${basename}.md`;
     await writeText(outPath, md);
   }
   console.log(await loadPrompt(encoding ? "encoding-page.md" : "wiki-page.md"));
@@ -531,7 +546,10 @@ async function cmdVoiceNotes(opts: Record<string, string | boolean>): Promise<vo
   const raw = await readJson<CuesDoc | VoiceCue[]>(inPath);
   const cues: VoiceCue[] = Array.isArray(raw) ? raw : raw.cues ?? [];
   if (cues.length === 0) fail(`no cues in ${inPath}`);
-  const lang = str(opts, "lang") ?? (Array.isArray(raw) ? "zh-Hant" : raw.lang ?? "zh-Hant");
+  const lang =
+    str(opts, "lang") ??
+    (Array.isArray(raw) ? undefined : raw.lang) ??
+    fail("voice-notes needs --lang (or a `lang` field in the cues file)");
 
   const slug = deriveSlug(inPath);
   const model = str(opts, "model") ?? DEFAULT_MODEL;
@@ -840,7 +858,10 @@ async function cmdSectionAudio(opts: Record<string, string | boolean>): Promise<
   const raw = await readJson<CuesDoc>(inPath);
   const sections = raw.sections ?? [];
   if (sections.length === 0) fail(`no sections in ${inPath} (run the transcript commentary fill first)`);
-  const lang = str(opts, "lang") ?? raw.lang ?? "zh-Hant";
+  const lang =
+    str(opts, "lang") ??
+    raw.lang ??
+    fail("section-audio needs --lang (or a `lang` field in the cues file)");
   const slug = deriveSlug(inPath);
   const model = str(opts, "model") ?? DEFAULT_MODEL;
   const voice = str(opts, "voice") ?? DEFAULT_VOICE;
@@ -950,12 +971,13 @@ function usage(): void {
       "",
       "  pnpm gen prep   --lang <id> --in <source.txt> [--store ws.json] [--target 0.95]",
       "                  [--mode directed --words a,b] [--title T] [--out path]",
-      "                  [--pack <id>] [--pack-module <path>] [--agent claude|grok]",
+      "                  [--pack <id>] [--pack-module <path>] [--agent <name>]   (--agent is a free-text provenance tag; it does not change the prompt or behavior)",
       "  pnpm gen transcript --lang <id> --in <transcript> [--video <youtube url|id>] [--store ws.json] [--target 0.95]",
       "                  [--format auto|srt|vtt|youtube|plain] [--title T] [--out path]",
       "                  [--pack <id>] [--pack-module <path>]",
       "  pnpm gen verify --in <prepared.json> [--store ws.json] [--lang <id>] [--fix]",
       "                  [--target 0.95] [--words a,b] [--pack-module <path>]",
+      "  pnpm gen verify-encoding --in <encoding-twin.md>   (ARCHITECTURE.md invariants #4/#5 + NFC filename)",
       "  pnpm gen auto     --lang <id> --store ws.json [--limit 8] [--out path]",
       "  pnpm gen wiki     --lang <id> --store ws.json [--words a,b|--flagged|--srs] [--out-dir wiki/Inbox]",
       "  pnpm gen encoding --lang <id> --store ws.json [--words a,b|--flagged|--srs] [--out-dir wiki/Inbox]",
@@ -987,6 +1009,8 @@ async function main(): Promise<void> {
       return cmdTranscript(opts);
     case "verify":
       return cmdVerify(opts);
+    case "verify-encoding":
+      return cmdVerifyEncoding(opts);
     case "auto":
       return cmdAuto(opts);
     case "wiki":

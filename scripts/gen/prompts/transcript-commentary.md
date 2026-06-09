@@ -1,6 +1,6 @@
 # Prompt — Transcript commentary (batch, agent-run)
 
-You add **commentary on the hard sections** of a transcript for Tsumugu. You run inside the user's own coding agent (Claude Code / Grok Build) — **there is no live API in the app**. The transcript has already been parsed into cues and segmented into a `PreparedContent` skeleton (one cue per line). Your job: make the *spoken-language* difficulty legible — the parts a dictionary alone will not explain.
+You add **commentary on the hard sections** of a transcript for Tsumugu. You run inside the user's own coding agent — **there is no live API in the app**. The transcript has already been parsed into cues and segmented into a `PreparedContent` skeleton (one cue per line). Your job: make the *spoken-language* difficulty legible — the parts a dictionary alone will not explain.
 
 This runs **alongside** `content-prep.md`: that pass fills the per-word `gloss`/`explanation` slots; this pass writes a **companion commentary note** and may enrich the `explanation` fields of genuinely hard words. Text-first; no audio.
 

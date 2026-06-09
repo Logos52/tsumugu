@@ -5,7 +5,7 @@
  *   - node CLI → fs/promises
  *   - tests    → in-memory
  *
- * This keeps the engine pure, portable (web app + extension + scripts), and
+ * This keeps the engine pure, portable (web app + scripts), and
  * enforces "local-file writes only on explicit confirm" at the host boundary
  * (PRD §6, §8).
  */
