@@ -32,9 +32,9 @@ function dualDefContent(): PreparedContent {
           },
           zh: {
             gloss: "人多、又吵又有活力。",
-            explanation: "像夜市、廟會那種氣氛。",
-            leveledVerdict: "leveled",
-            levelCap: "TOCFL B1",
+            illustration: "像夜市、廟會那種氣氛。",
+            level: "TOCFL-B1",
+            monolingual: true,
           },
         },
       },

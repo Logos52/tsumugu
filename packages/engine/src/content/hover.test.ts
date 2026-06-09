@@ -83,7 +83,7 @@ describe("mergeHover — prebaked-only fields", () => {
     const prebaked: PrebakedEntry = {
       term: "發展",
       gloss: "to develop",
-      examples: ["經濟發展很快。"],
+      examples: [{ text: "經濟發展很快。", translation: "" }],
       explanation: "A Sino-Vietnamese compound meaning development.",
       bridge,
     };
@@ -115,7 +115,12 @@ describe("mergeHover — sources", () => {
       word: "x",
       custom: { gloss: "c" },
       // gloss shadowed by custom, but reading is a net contribution
-      prebaked: { term: "x", gloss: "p", reading: "r", examples: ["ex"] },
+      prebaked: {
+        term: "x",
+        gloss: "p",
+        reading: "r",
+        examples: [{ text: "ex", translation: "" }],
+      },
       dict: { term: "x", gloss: "d", pos: "p" },
     });
     expect(hover.sources).toEqual(["custom", "prebaked", "dict"]);
@@ -162,7 +167,11 @@ describe("mergeHover — sources", () => {
     const hover = mergeHover({
       word: "x",
       custom: { gloss: "c", reading: "cr", pos: "cp", level: "cl", term: "x" },
-      prebaked: { term: "x", gloss: "p", examples: ["ex"] },
+      prebaked: {
+        term: "x",
+        gloss: "p",
+        examples: [{ text: "ex", translation: "" }],
+      },
     });
     expect(hover.sources).toEqual(["custom", "prebaked"]);
     expect(hover.examples).toEqual([{ text: "ex", translation: "" }]);
@@ -245,7 +254,7 @@ describe("mergeHover — input integrity (purity)", () => {
     const prebaked: PrebakedEntry = {
       term: "x",
       gloss: "p",
-      examples: ["a"],
+      examples: [{ text: "a", translation: "" }],
       bridge,
     };
     const custom: Partial<DictEntry> = { gloss: "c" };
@@ -278,7 +287,7 @@ describe("mergeHover — input integrity (purity)", () => {
       prebaked: {
         term: "發展",
         gloss: "to develop",
-        examples: ["經濟發展很快。"],
+        examples: [{ text: "經濟發展很快。", translation: "" }],
         explanation: "compound",
         bridge: richBridge,
       },
@@ -301,20 +310,7 @@ describe("mergeHover — encoding-layer lifts", () => {
     expect(hover.definitions?.zh).toBeUndefined();
   });
 
-  it("lifts legacy string[] examples into ExampleSentence rows", () => {
-    const hover = mergeHover({
-      word: "熱鬧",
-      prebaked: {
-        term: "熱鬧",
-        gloss: "lively",
-        examples: ["夜市很熱鬧。", "過年很熱鬧。"],
-      },
-    });
-    expect(hover.examples).toEqual([
-      { text: "夜市很熱鬧。", translation: "" },
-      { text: "過年很熱鬧。", translation: "" },
-    ]);
-  });
+
 
   it("feeds dict senses into definitions.en.senses", () => {
     const hover = mergeHover({
@@ -334,8 +330,8 @@ describe("mergeHover — encoding-layer lifts", () => {
   it("resolves definitions.zh symmetrically across custom, prebaked, and dict", () => {
     const zhDef = {
       gloss: "人多又吵",
-      leveledVerdict: "leveled" as const,
-      levelCap: "TOCFL-B1",
+      level: "TOCFL-B1",
+      monolingual: true as const,
     };
     const fromDict = mergeHover({
       word: "熱鬧",
@@ -359,10 +355,33 @@ describe("mergeHover — encoding-layer lifts", () => {
 
     const fromCustom = mergeHover({
       word: "熱鬧",
-      custom: { definitions: { zh: { gloss: "custom zh" } } },
+      custom: {
+        definitions: {
+          zh: { gloss: "custom zh", level: "TOCFL-2", monolingual: true },
+        },
+      },
       prebaked: { term: "熱鬧", gloss: "lively", definitions: { zh: zhDef } },
     });
     expect(fromCustom.definitions?.zh?.gloss).toBe("custom zh");
+  });
+
+  it("custom.examples wins over prebaked.examples", () => {
+    const hover = mergeHover({
+      word: "熱鬧",
+      custom: {
+        examples: [{ text: "我的例句。", translation: "My example." }],
+      },
+      prebaked: {
+        term: "熱鬧",
+        gloss: "lively",
+        examples: [{ text: "夜市很熱鬧。", translation: "The night market is lively." }],
+      },
+    });
+    expect(hover.examples).toEqual([
+      { text: "我的例句。", translation: "My example." },
+    ]);
+    expect(hover.gloss).toBe("lively");
+    expect(hover.sources).toEqual(["custom", "prebaked"]);
   });
 
   it("prefers structured examples over lifting when already objects", () => {
@@ -399,7 +418,7 @@ describe("mergeHover — shape", () => {
       prebaked: {
         term: "發展",
         gloss: "to develop",
-        examples: ["經濟發展很快。"],
+        examples: [{ text: "經濟發展很快。", translation: "" }],
         bridge,
       },
       dict: { term: "發展", gloss: "develop", reading: "fā zhǎn" },

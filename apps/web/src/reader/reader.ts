@@ -15,7 +15,9 @@ import {
   lookupPrebaked,
   mergeHover,
   type Definition,
+  type EnDefinition,
   type ExampleSentence,
+  type MonoDefinition,
   type PreparedToken,
   type ResolvedHover,
 } from "@tsumugu/engine";
@@ -447,7 +449,7 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
 
   function resolvePopupDefinitions(
     hover: ResolvedHover,
-  ): { en?: Definition; zh?: Definition } {
+  ): { en?: Definition | EnDefinition; zh?: Definition | MonoDefinition } {
     const en =
       hover.definitions?.en ??
       (hover.gloss
@@ -463,8 +465,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     return out;
   }
 
-  function exampleLine(example: string | ExampleSentence): string {
-    return typeof example === "string" ? example : example.text;
+  function exampleLine(example: ExampleSentence): string {
+    return example.text;
   }
 
   /** Paint a resolved hover into the popup host. */
@@ -530,11 +532,20 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
     const explainEl = el("div", { class: CLS.popupExplain });
     meaning.append(glossEl, explainEl);
 
+    function secondaryBlurb(
+      def: Definition | EnDefinition | MonoDefinition | undefined,
+    ): string {
+      if (!def) return "";
+      if ("monolingual" in def && def.monolingual) return def.illustration ?? "";
+      return def.explanation ?? "";
+    }
+
     function paintDefinition(lang: "en" | "zh"): void {
       const def = definitions[lang];
       glossEl.textContent = def?.gloss ?? "";
-      explainEl.textContent = def?.explanation ?? "";
-      explainEl.style.display = def?.explanation ? "" : "none";
+      const blurb = secondaryBlurb(def);
+      explainEl.textContent = blurb;
+      explainEl.style.display = blurb ? "" : "none";
     }
 
     const hasBoth = !!definitions.en && !!definitions.zh;

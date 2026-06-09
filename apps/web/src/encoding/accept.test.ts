@@ -1,5 +1,10 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import type { Definition, EncodingPageDoc, ResolvedHover } from "@tsumugu/engine";
+import type {
+  Definition,
+  EncodingPageDoc,
+  MonoDefinition,
+  ResolvedHover,
+} from "@tsumugu/engine";
 import {
   acceptEncodingContent,
   acceptExampleRows,
@@ -32,6 +37,18 @@ describe("acceptZhDefinition", () => {
     expect(acceptZhDefinition(leveledZh)).toEqual(leveledZh);
     expect(acceptZhDefinition(unleveledZh)).toBeUndefined();
     expect(acceptZhDefinition(aboveCapZh)).toBeUndefined();
+  });
+
+  it("accepts Dictionary PRD MonoDefinition rows with non-empty gloss", () => {
+    const mono: MonoDefinition = {
+      gloss: "人多又吵",
+      level: "TOCFL-2",
+      monolingual: true,
+    };
+    expect(acceptZhDefinition(mono)).toEqual(mono);
+    expect(
+      acceptZhDefinition({ gloss: "  ", level: "TOCFL-2", monolingual: true }),
+    ).toBeUndefined();
   });
 
   it("logs a dev-only reason when zh is dropped", () => {
