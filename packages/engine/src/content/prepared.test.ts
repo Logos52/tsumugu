@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
   PREPARED_CONTENT_SCHEMA,
+  PREPARED_CONTENT_SCHEMA_V2,
   type PreparedContent,
   type PrebakedEntry,
 } from "../types.js";
@@ -58,11 +59,14 @@ describe("isPreparedContent", () => {
     expect(isPreparedContent([])).toBe(false);
   });
 
+  it("accepts prepared-content@2", () => {
+    expect(
+      isPreparedContent({ ...makeContent(), schema: PREPARED_CONTENT_SCHEMA_V2 }),
+    ).toBe(true);
+  });
+
   it("rejects a wrong or missing schema", () => {
     expect(isPreparedContent({ ...makeContent(), schema: "wrong" })).toBe(false);
-    expect(
-      isPreparedContent({ ...makeContent(), schema: "tsumugu/prepared-content@2" }),
-    ).toBe(false);
     const { schema: _omit, ...noSchema } = makeContent();
     void _omit;
     expect(isPreparedContent(noSchema)).toBe(false);
@@ -185,6 +189,34 @@ describe("parsePreparedContent", () => {
     );
     expect(() => parsePreparedContent([])).toThrowError(
       /Invalid prepared content/,
+    );
+  });
+
+  it("parses a prepared-content@2 fixture with structured glossary fields", () => {
+    const v2 = makeContent({
+      schema: PREPARED_CONTENT_SCHEMA_V2,
+      glossary: {
+        熱鬧: {
+          term: "熱鬧",
+          gloss: "lively and noisy",
+          definitions: {
+            en: { gloss: "lively and noisy" },
+            zh: {
+              gloss: "人多又吵又有活力",
+              leveledVerdict: "leveled",
+              levelCap: "TOCFL-B1",
+            },
+          },
+          examples: [
+            { text: "夜市很熱鬧。", translation: "The night market is lively." },
+          ],
+        },
+      },
+    });
+    const parsed = parsePreparedContent(JSON.stringify(v2));
+    expect(parsed.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
+    expect(lookupPrebaked(parsed, "熱鬧")?.definitions?.zh?.levelCap).toBe(
+      "TOCFL-B1",
     );
   });
 

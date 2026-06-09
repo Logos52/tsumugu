@@ -10,5 +10,7 @@ export {
   wordTokens,
 } from "./prepared.js";
 
+export { isEncodingPageDoc, parseEncodingPage } from "./encodingPage.js";
+
 export { mergeHover } from "./hover.js";
 export type { ResolvedHover, HoverSource } from "./hover.js";

@@ -11,7 +11,13 @@
  * precedence order, so the UI can show provenance.
  */
 
-import type { PrebakedEntry, DictEntry, BridgeInfo } from "../types.js";
+import type {
+  PrebakedEntry,
+  DictEntry,
+  BridgeInfo,
+  Definition,
+  ExampleSentence,
+} from "../types.js";
 
 /** Provenance label for a hover layer. */
 export type HoverSource = "custom" | "prebaked" | "dict";
@@ -22,9 +28,11 @@ export type HoverSource = "custom" | "prebaked" | "dict";
  */
 export interface ResolvedHover {
   term: string;
+  /** Legacy single gloss — mirrors `definitions.en.gloss` when present. */
   gloss?: string;
+  definitions?: { en?: Definition; zh?: Definition };
   reading?: string;
-  examples?: string[];
+  examples?: ExampleSentence[] | string[];
   explanation?: string;
   bridge?: BridgeInfo;
   pos?: string;
@@ -39,6 +47,75 @@ function pick<T>(...candidates: (T | undefined)[]): T | undefined {
     if (c !== undefined) return c;
   }
   return undefined;
+}
+
+function isStringExamples(
+  examples: string[] | ExampleSentence[],
+): examples is string[] {
+  return examples.length > 0 && typeof examples[0] === "string";
+}
+
+/** Lift legacy `string[]` examples to structured rows on read. */
+function normalizeExamples(
+  examples: string[] | ExampleSentence[] | undefined,
+): ExampleSentence[] | undefined {
+  if (examples === undefined) return undefined;
+  if (examples.length === 0) return [];
+  if (isStringExamples(examples)) {
+    return examples.map((text) => ({ text, translation: "" }));
+  }
+  return examples;
+}
+
+function resolveDefinitionEn(
+  custom?: Partial<DictEntry>,
+  prebaked?: PrebakedEntry,
+  dict?: DictEntry,
+): Definition | undefined {
+  const picked = pick(
+    custom?.definitions?.en,
+    prebaked?.definitions?.en,
+    dict?.definitions?.en,
+  );
+  const gloss = pick(custom?.gloss, prebaked?.gloss, dict?.gloss);
+  const senses = pick(custom?.senses, picked?.senses, dict?.senses);
+
+  if (picked) {
+    if (senses !== undefined && picked.senses === undefined) {
+      return { ...picked, senses };
+    }
+    return picked;
+  }
+  if (gloss !== undefined) {
+    return senses !== undefined ? { gloss, senses } : { gloss };
+  }
+  return undefined;
+}
+
+function resolveDefinitionZh(
+  custom?: Partial<DictEntry>,
+  prebaked?: PrebakedEntry,
+  dict?: DictEntry,
+): Definition | undefined {
+  return pick(
+    custom?.definitions?.zh,
+    prebaked?.definitions?.zh,
+    dict?.definitions?.zh,
+  );
+}
+
+function resolveDefinitions(
+  custom?: Partial<DictEntry>,
+  prebaked?: PrebakedEntry,
+  dict?: DictEntry,
+): { en?: Definition; zh?: Definition } | undefined {
+  const en = resolveDefinitionEn(custom, prebaked, dict);
+  const zh = resolveDefinitionZh(custom, prebaked, dict);
+  if (en === undefined && zh === undefined) return undefined;
+  const out: { en?: Definition; zh?: Definition } = {};
+  if (en !== undefined) out.en = en;
+  if (zh !== undefined) out.zh = zh;
+  return out;
 }
 
 /**
@@ -57,19 +134,19 @@ export function mergeHover(args: {
 }): ResolvedHover {
   const { word, prebaked, custom, dict } = args;
 
-  // `examples` and `explanation` live only on the prebaked layer in the
-  // domain types; `bridge` likewise. Custom/dict carry the lexical fields.
   const term = pick(custom?.term, prebaked?.term, dict?.term) ?? word;
-  const gloss = pick(custom?.gloss, prebaked?.gloss, dict?.gloss);
+  const definitions = resolveDefinitions(custom, prebaked, dict);
+  const gloss = definitions?.en?.gloss ?? pick(custom?.gloss, prebaked?.gloss, dict?.gloss);
   const reading = pick(custom?.reading, prebaked?.reading, dict?.reading);
   const pos = pick(custom?.pos, prebaked?.pos, dict?.pos);
   const level = pick(custom?.level, prebaked?.level, dict?.level);
-  const examples = prebaked?.examples;
+  const examples = normalizeExamples(prebaked?.examples);
   const explanation = prebaked?.explanation;
   const bridge = prebaked?.bridge;
 
   const hover: ResolvedHover = { term, sources: [] };
   if (gloss !== undefined) hover.gloss = gloss;
+  if (definitions !== undefined) hover.definitions = definitions;
   if (reading !== undefined) hover.reading = reading;
   if (examples !== undefined) hover.examples = examples;
   if (explanation !== undefined) hover.explanation = explanation;
@@ -77,13 +154,30 @@ export function mergeHover(args: {
   if (pos !== undefined) hover.pos = pos;
   if (level !== undefined) hover.level = level;
 
-  // Record provenance in precedence order. A layer counts only if it
-  // contributed an actual value to one of the resolved fields above.
   if (contributesCustom(custom, hover)) hover.sources.push("custom");
   if (contributesPrebaked(prebaked, custom, hover)) hover.sources.push("prebaked");
   if (contributesDict(dict, custom, prebaked, hover)) hover.sources.push("dict");
 
   return hover;
+}
+
+function definitionHasValue(def?: Definition): boolean {
+  if (!def) return false;
+  return (
+    def.gloss !== undefined ||
+    def.senses !== undefined ||
+    def.explanation !== undefined ||
+    def.levelCap !== undefined ||
+    def.leveledVerdict !== undefined ||
+    def.offendingWord !== undefined
+  );
+}
+
+function definitionsHaveValue(
+  defs?: { en?: Definition; zh?: Definition },
+): boolean {
+  if (!defs) return false;
+  return definitionHasValue(defs.en) || definitionHasValue(defs.zh);
 }
 
 /** The lexical fields the custom layer can provide. */
@@ -94,7 +188,9 @@ function customHasValue(custom: Partial<DictEntry> | undefined): boolean {
     custom.gloss !== undefined ||
     custom.reading !== undefined ||
     custom.pos !== undefined ||
-    custom.level !== undefined
+    custom.level !== undefined ||
+    custom.senses !== undefined ||
+    definitionsHaveValue(custom.definitions)
   );
 }
 
@@ -104,6 +200,17 @@ function contributesCustom(
   _hover: ResolvedHover,
 ): boolean {
   return customHasValue(custom);
+}
+
+function prebakedLexicalFields(prebaked: PrebakedEntry): boolean {
+  return (
+    prebaked.term !== undefined ||
+    prebaked.gloss !== undefined ||
+    prebaked.reading !== undefined ||
+    prebaked.pos !== undefined ||
+    prebaked.level !== undefined ||
+    definitionsHaveValue(prebaked.definitions)
+  );
 }
 
 /**
@@ -123,13 +230,39 @@ function contributesPrebaked(
   ) {
     return true;
   }
+  if (!prebakedLexicalFields(prebaked)) return false;
   return (
     (prebaked.term !== undefined && custom?.term === undefined) ||
     (prebaked.gloss !== undefined && custom?.gloss === undefined) ||
     (prebaked.reading !== undefined && custom?.reading === undefined) ||
     (prebaked.pos !== undefined && custom?.pos === undefined) ||
-    (prebaked.level !== undefined && custom?.level === undefined)
+    (prebaked.level !== undefined && custom?.level === undefined) ||
+    (definitionsHaveValue(prebaked.definitions) &&
+      !definitionsHaveValue(custom?.definitions))
   );
+}
+
+function dictLexicalTaken(
+  dict: DictEntry,
+  custom: Partial<DictEntry> | undefined,
+  prebaked: PrebakedEntry | undefined,
+  key: "term" | "gloss" | "reading" | "pos" | "level",
+): boolean {
+  return custom?.[key] !== undefined || prebaked?.[key] !== undefined;
+}
+
+function dictDefinitionsTaken(
+  custom: Partial<DictEntry> | undefined,
+  prebaked: PrebakedEntry | undefined,
+): { en: boolean; zh: boolean } {
+  return {
+    en:
+      definitionHasValue(custom?.definitions?.en) ||
+      definitionHasValue(prebaked?.definitions?.en),
+    zh:
+      definitionHasValue(custom?.definitions?.zh) ||
+      definitionHasValue(prebaked?.definitions?.zh),
+  };
 }
 
 /**
@@ -143,14 +276,20 @@ function contributesDict(
   _hover: ResolvedHover,
 ): boolean {
   if (!dict) return false;
-  const taken = (
-    key: "term" | "gloss" | "reading" | "pos" | "level",
-  ): boolean => custom?.[key] !== undefined || prebaked?.[key] !== undefined;
+  const takenDefs = dictDefinitionsTaken(custom, prebaked);
+  const sensesTaken =
+    custom?.senses !== undefined ||
+    definitionHasValue(custom?.definitions?.en) ||
+    definitionHasValue(prebaked?.definitions?.en);
   return (
-    (dict.term !== undefined && !taken("term")) ||
-    (dict.gloss !== undefined && !taken("gloss")) ||
-    (dict.reading !== undefined && !taken("reading")) ||
-    (dict.pos !== undefined && !taken("pos")) ||
-    (dict.level !== undefined && !taken("level"))
+    (dict.term !== undefined && !dictLexicalTaken(dict, custom, prebaked, "term")) ||
+    (dict.gloss !== undefined && !dictLexicalTaken(dict, custom, prebaked, "gloss")) ||
+    (dict.reading !== undefined &&
+      !dictLexicalTaken(dict, custom, prebaked, "reading")) ||
+    (dict.pos !== undefined && !dictLexicalTaken(dict, custom, prebaked, "pos")) ||
+    (dict.level !== undefined && !dictLexicalTaken(dict, custom, prebaked, "level")) ||
+    (definitionHasValue(dict.definitions?.en) && !takenDefs.en) ||
+    (definitionHasValue(dict.definitions?.zh) && !takenDefs.zh) ||
+    (dict.senses !== undefined && !sensesTaken)
   );
 }

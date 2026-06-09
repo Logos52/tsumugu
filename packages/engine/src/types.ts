@@ -118,11 +118,61 @@ export interface Sense {
   register?: string;
 }
 
+/** A leveled or English definition (Encoding PRD §6.2; Dictionary PRD shared contract). */
+export interface Definition {
+  gloss: string;
+  senses?: Sense[];
+  explanation?: string;
+  /** Band the zh definition was leveled under (e.g. "TOCFL-B1"). */
+  levelCap?: string;
+  /** Verdict from the Dictionary PRD leveling verifier; consumed, not produced here. */
+  leveledVerdict?: "leveled" | "above-cap";
+  /** Offending word named by the upstream leveling verdict. */
+  offendingWord?: string;
+}
+
+/** A structured example sentence (Encoding PRD §5.3). */
+export interface ExampleSentence {
+  text: string;
+  translation: string;
+  reading?: string;
+  audio?: string;
+  source?: string;
+  sense?: string;
+}
+
+/** Character-story / etymology block (Encoding PRD §5.4). */
+export interface Etymology {
+  parts: { char: string; reading?: string; gloss?: string; note?: string }[];
+  payoff: string;
+  grounding: "sourced" | "mnemonic-device" | "speculative";
+  confidence?: number;
+  source?: string;
+}
+
+export interface Mnemonic {
+  text: string;
+  grounding: "mnemonic-device" | "speculative";
+  confidence?: number;
+}
+
+export interface Tricky {
+  text: string;
+  confusable?: string;
+}
+
+export interface RelatedLink {
+  word: string;
+  relation?: "antonym" | "confusable" | "neighbour";
+}
+
 /** A resolved dictionary entry. `source` distinguishes provenance/precedence. */
 export interface DictEntry {
   term: string;
   /** Primary gloss (monolingual-leveled default, or L2 toggle). */
   gloss: string;
+  /** Dual-definition payload (@2); preferred over legacy `gloss` when present. */
+  definitions?: { en?: Definition; zh?: Definition };
   reading?: string;
   senses?: Sense[];
   pos?: string;
@@ -278,11 +328,13 @@ export const WORD_STORE_SCHEMA_V1 = "tsumugu/word-store@1" as const;
 export interface PrebakedEntry {
   term: string;
   gloss: string;
+  /** Dual-definition payload (@2); preferred over legacy `gloss` when present. */
+  definitions?: { en?: Definition; zh?: Definition };
   reading?: string;
   pos?: string;
   level?: string;
-  /** Example sentences (ideally drawn from the user's reading). */
-  examples?: string[];
+  /** Example sentences — legacy `string[]` or structured `ExampleSentence[]`. */
+  examples?: string[] | ExampleSentence[];
   /** Pre-baked AI explanation (PRD §2.1) — shown on hover, NO live call. */
   explanation?: string;
   /** vi: the Hán-Việt bridge box (PRD §5.8). */
@@ -297,7 +349,7 @@ export interface PreparedToken {
 
 /** A unit of reader content produced by a batch generation run. */
 export interface PreparedContent {
-  schema: "tsumugu/prepared-content@1";
+  schema: "tsumugu/prepared-content@1" | "tsumugu/prepared-content@2";
   lang: string;
   title?: string;
   /** Source descriptor (clipped URL, transcript name, or "directed"/"auto"). */
@@ -315,6 +367,38 @@ export interface PreparedContent {
 }
 
 export const PREPARED_CONTENT_SCHEMA = "tsumugu/prepared-content@1" as const;
+/** Current prepared-content schema written by new generators. `@1` still accepted on load. */
+export const PREPARED_CONTENT_SCHEMA_V2 = "tsumugu/prepared-content@2" as const;
+
+// ───────────────────────────────────────────────────────────────────────────
+// Encoding page — per-word memory artifact (Encoding PRD §6.2).
+// ───────────────────────────────────────────────────────────────────────────
+
+export const ENCODING_PAGE_SCHEMA = "tsumugu/encoding-page@1" as const;
+
+/** App-consumed per-word encoding artifact (Encoding PRD §6.2). */
+export interface EncodingPageDoc {
+  schema: typeof ENCODING_PAGE_SCHEMA;
+  lang: string;
+  /** NFC CJK term; == the wiki twin's `word:` audit key. */
+  term: string;
+  reading?: { zhuyin?: string; pinyin?: string };
+  pos?: string;
+  level?: string;
+  audio?: string;
+  definitions?: { en?: Definition; zh?: Definition };
+  /** Generation-time fallback hint; app setting wins once ever set. */
+  defaultDefinition?: "en" | "zh";
+  examples?: ExampleSentence[];
+  etymology?: Etymology;
+  mnemonic?: Mnemonic;
+  tricky?: Tricky;
+  related?: RelatedLink[];
+  vividExample?: ExampleSentence;
+  bridge?: BridgeInfo;
+  flagNote?: string;
+  generatedAt?: string;
+}
 
 // ───────────────────────────────────────────────────────────────────────────
 // CI coverage report (PRD §5.4, §5.9).
