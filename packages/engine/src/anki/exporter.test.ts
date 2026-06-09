@@ -275,6 +275,31 @@ describe("buildApkg", () => {
     }
   });
 
+  it("uses guidSeed when provided instead of front+back", async () => {
+    const seed = "zh-Hant\x1f熱鬧";
+    const apkg = await buildApkg(
+      {
+        name: "Seed",
+        notes: [
+          { front: "sentence A", back: "gloss A", guidSeed: seed },
+          { front: "sentence B", back: "gloss B", guidSeed: seed },
+        ],
+      },
+      { now: ANKI_DEFAULT_NOW },
+    );
+    const unzipped = unzipSync(apkg);
+    const SQL = await initSqlJs();
+    const db = new SQL.Database(unzipped["collection.anki2"] as Uint8Array);
+    try {
+      const guids = (db.exec("SELECT guid FROM notes ORDER BY id")[0]?.values ?? []).map(
+        (r) => r[0] as string,
+      );
+      expect(guids[0]).toBe(guids[1]);
+    } finally {
+      db.close();
+    }
+  });
+
   it("gives identical notes the same guid and distinct notes different guids", async () => {
     const apkg = await buildApkg(
       {

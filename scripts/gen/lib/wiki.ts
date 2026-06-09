@@ -5,8 +5,16 @@
  * mnemonics) via prompts/{wiki-page,encoding-page}.md. One canonical page per
  * item — links, not copies.
  */
-import type { DictEntry, WordEntry, BridgeInfo } from "@tsumugu/engine";
-import { nfcTerm } from "./io.js";
+import {
+  ENCODING_PAGE_SCHEMA,
+  type DictEntry,
+  type WordEntry,
+  type BridgeInfo,
+  type ExampleSentence,
+  type EncodingPageDoc,
+  type RelatedLink,
+} from "@tsumugu/engine";
+import { nfcTerm, encodingFilename } from "./io.js";
 
 export interface WikiInput {
   term: string;
@@ -20,7 +28,7 @@ export interface WikiInput {
   source?: string;
   related?: string[];
   meaning?: string;
-  examples?: string[];
+  examples?: string[] | ExampleSentence[];
   bridge?: BridgeInfo;
 }
 
@@ -60,9 +68,18 @@ function bridgeBox(b: BridgeInfo): string {
     .join("\n");
 }
 
-function examplesBlock(examples?: string[]): string {
-  if (!examples?.length) return `## Examples (from your reading)\n${TODO}`;
-  return "## Examples (from your reading)\n" + examples.map((e) => `- ${e}`).join("\n");
+function formatExampleLine(ex: string | ExampleSentence): string {
+  if (typeof ex === "string") return `- ${ex}`;
+  const tr = ex.translation?.trim();
+  return tr ? `- ${ex.text} — ${tr}` : `- ${ex.text}`;
+}
+
+function examplesBlock(examples?: string[] | ExampleSentence[], encoding = false): string {
+  const heading = encoding
+    ? "## 例句 · Example sentences"
+    : "## Examples (from your reading)";
+  if (!examples?.length) return `${heading}\n${TODO}`;
+  return heading + "\n" + examples.map(formatExampleLine).join("\n");
 }
 
 export function buildWikiPage(input: WikiInput): string {
@@ -124,6 +141,13 @@ export function buildEncodingPage(input: WikiInput & { flagNote?: string }): str
     "",
     "> Memory-encoding page (PRD §5.5): etymology, mnemonics, associations, *why it's tricky*.",
     "",
+    "## Definitions",
+    "### English",
+    TODO,
+    "",
+    "### 簡明中文",
+    TODO,
+    "",
     "## Etymology / character story",
     TODO,
     "",
@@ -138,18 +162,70 @@ export function buildEncodingPage(input: WikiInput & { flagNote?: string }): str
     "## Why it's tricky",
     input.flagNote ? `Your flag: *${input.flagNote}*\n\n${TODO}` : TODO,
     "",
-    examplesBlock(input.examples),
+    examplesBlock(input.examples, true),
     input.bridge ? "\n" + bridgeBox(input.bridge) : "",
     "",
   ].join("\n");
   return fm + body;
 }
 
+function readingFromString(reading?: string): EncodingPageDoc["reading"] {
+  if (!reading?.trim()) return undefined;
+  return { pinyin: reading.trim() };
+}
+
+function relatedFromStrings(related?: string[]): RelatedLink[] | undefined {
+  if (!related?.length) return undefined;
+  return related.map((word) => ({ word }));
+}
+
+/** Skeleton `encoding-page@1` JSON for agent fill (Encoding PRD §6.2). */
+export function buildEncodingPageJson(input: WikiInput & { flagNote?: string }): EncodingPageDoc {
+  const term = nfcTerm(input.term);
+  const doc: EncodingPageDoc = {
+    schema: ENCODING_PAGE_SCHEMA,
+    lang: input.lang,
+    term,
+    generatedAt: new Date().toISOString(),
+  };
+  const reading = readingFromString(input.reading);
+  if (reading) doc.reading = reading;
+  if (input.pos !== undefined) doc.pos = input.pos;
+  if (input.level !== undefined) doc.level = input.level;
+  if (input.flagNote !== undefined) doc.flagNote = input.flagNote;
+  const related = relatedFromStrings(input.related);
+  if (related) doc.related = related;
+  if (input.bridge !== undefined) doc.bridge = input.bridge;
+  return doc;
+}
+
+export interface EncodingArtifactPaths {
+  mdPath: string;
+  jsonPath: string;
+  basename: string;
+}
+
+/** Resolve co-located Markdown twin + encoding-page@1 JSON paths. */
+export function encodingArtifactPaths(
+  outDir: string,
+  lang: string,
+  term: string,
+  slug?: string,
+): EncodingArtifactPaths {
+  const basename = encodingFilename(term, slug);
+  const dir = `${outDir}/${lang}/encoding`;
+  return {
+    basename,
+    mdPath: `${dir}/${basename}.md`,
+    jsonPath: `${dir}/${basename}.encoding.json`,
+  };
+}
+
 /** Derive a WikiInput from a store entry + optional dictionary entry. */
 export function wikiInputFromStore(
   entry: WordEntry,
   dict?: DictEntry,
-  examples?: string[],
+  examples?: string[] | ExampleSentence[],
 ): WikiInput {
   const input: WikiInput = { term: entry.word, lang: entry.lang, status: entry.status };
   const reading = entry.custom?.reading ?? dict?.reading;

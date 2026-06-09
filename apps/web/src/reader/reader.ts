@@ -14,11 +14,15 @@ import {
   isKnown,
   lookupPrebaked,
   mergeHover,
+  type Definition,
+  type ExampleSentence,
   type PreparedToken,
   type ResolvedHover,
 } from "@tsumugu/engine";
 
 import type { AppState, ViewController } from "../state.js";
+import { resolveDictDefault } from "../state.js";
+import { acceptZhDefinition } from "../encoding/accept.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS, toneClass } from "../ui/classes.js";
 import { mountTranscriptSync, type TranscriptController } from "./transcript.js";
@@ -441,6 +445,28 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       });
   }
 
+  function resolvePopupDefinitions(
+    hover: ResolvedHover,
+  ): { en?: Definition; zh?: Definition } {
+    const en =
+      hover.definitions?.en ??
+      (hover.gloss
+        ? {
+            gloss: hover.gloss,
+            ...(hover.explanation ? { explanation: hover.explanation } : {}),
+          }
+        : undefined);
+    const zh = acceptZhDefinition(hover.definitions?.zh);
+    const out: { en?: Definition; zh?: Definition } = {};
+    if (en?.gloss) out.en = en;
+    if (zh) out.zh = zh;
+    return out;
+  }
+
+  function exampleLine(example: string | ExampleSentence): string {
+    return typeof example === "string" ? example : example.text;
+  }
+
   /** Paint a resolved hover into the popup host. */
   function renderPopup(
     host: HTMLElement,
@@ -491,16 +517,67 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       host.append(el("div", { class: CLS.popupReading, text: hover.reading }));
     }
 
-    // Gloss + explanation. Under guess-first these are concealed until reveal.
-    const meaning = el("div", {});
-    if (hover.gloss) {
-      meaning.append(el("div", { class: CLS.popupGloss, text: hover.gloss }));
-    }
-    if (hover.explanation) {
-      meaning.append(el("div", { class: CLS.popupExplain, text: hover.explanation }));
+    // One definition card at a time (default + inline flip). Guess-first conceals
+    // the visible gloss until reveal.
+    const definitions = resolvePopupDefinitions(hover);
+    let visibleLang: "en" | "zh" = resolveDictDefault(app.settings);
+    if (!definitions[visibleLang]) {
+      visibleLang = definitions.en ? "en" : "zh";
     }
 
-    if (app.settings.guessFirst && (hover.gloss || hover.explanation)) {
+    const meaning = el("div", {});
+    const glossEl = el("div", { class: CLS.popupGloss });
+    const explainEl = el("div", { class: CLS.popupExplain });
+    meaning.append(glossEl, explainEl);
+
+    function paintDefinition(lang: "en" | "zh"): void {
+      const def = definitions[lang];
+      glossEl.textContent = def?.gloss ?? "";
+      explainEl.textContent = def?.explanation ?? "";
+      explainEl.style.display = def?.explanation ? "" : "none";
+    }
+
+    const hasBoth = !!definitions.en && !!definitions.zh;
+    if (hasBoth) {
+      const toggle = el("div", { class: CLS.defToggle });
+      const segEn = el("button", {
+        class: `${CLS.defSeg}${visibleLang === "en" ? ` ${CLS.defSegOn}` : ""}`,
+        text: "English",
+        type: "button",
+        on: {
+          click: (ev) => {
+            ev.stopPropagation();
+            visibleLang = "en";
+            paintDefinition("en");
+            segEn.classList.add(CLS.defSegOn);
+            segZh.classList.remove(CLS.defSegOn);
+          },
+        },
+      });
+      const segZh = el("button", {
+        class: `${CLS.defSeg}${visibleLang === "zh" ? ` ${CLS.defSegOn}` : ""}`,
+        text: "簡明中文",
+        type: "button",
+        on: {
+          click: (ev) => {
+            ev.stopPropagation();
+            visibleLang = "zh";
+            paintDefinition("zh");
+            segZh.classList.add(CLS.defSegOn);
+            segEn.classList.remove(CLS.defSegOn);
+          },
+        },
+      });
+      toggle.append(segEn, segZh);
+      meaning.prepend(toggle);
+    }
+
+    if (definitions.en || definitions.zh) {
+      paintDefinition(visibleLang);
+    }
+
+    const hasMeaning = !!(definitions.en || definitions.zh);
+    if (app.settings.guessFirst && hasMeaning) {
       meaning.classList.add(CLS.popupHidden);
       const reveal = el("button", {
         class: CLS.btn,
@@ -524,12 +601,12 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       });
       host.append(reveal);
     }
-    host.append(meaning);
+    if (hasMeaning) host.append(meaning);
 
     // Examples.
     if (hover.examples && hover.examples.length > 0) {
       const ex = el("ul", { class: CLS.popupExamples });
-      for (const e of hover.examples) ex.append(el("li", { text: e }));
+      for (const e of hover.examples) ex.append(el("li", { text: exampleLine(e) }));
       host.append(ex);
     }
 
