@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { WordStore, BridgeRegistry, type WordEntry, type DictEntry } from "@tsumugu/engine";
-import { buildWikiPage, buildEncodingPage, wikiInputFromStore } from "./wiki.js";
+import {
+  buildWikiPage,
+  buildEncodingPage,
+  buildEncodingPageJson,
+  wikiInputFromStore,
+} from "./wiki.js";
 import { cacheBridges, knownHanziFromStore } from "./bridge.js";
 import { importExternal, reconcileAgainstStore, applyToStore } from "./crossref.js";
 
@@ -40,6 +45,26 @@ describe("wiki builders", () => {
     expect(md).toContain("熱鬧 — encoding-layer page");
     expect(md).toContain("keep confusing it with 鬧鐘");
     expect(md).toMatch(/tags: \[.*encoding.*\]/);
+  });
+
+  it("buildEncodingPageJson returns encoding-page@1 skeleton for agent fill", () => {
+    const doc = buildEncodingPageJson({
+      term: "熱鬧",
+      lang: "zh-Hant",
+      reading: "rènào",
+      level: "TOCFL B1",
+      flagNote: "confuses with 鬧鐘",
+      related: ["夜市"],
+    });
+    expect(doc.schema).toBe("tsumugu/encoding-page@1");
+    expect(doc.term).toBe("熱鬧");
+    expect(doc.reading?.pinyin).toBe("rènào");
+    expect(doc.level).toBe("TOCFL B1");
+    expect(doc.flagNote).toBe("confuses with 鬧鐘");
+    expect(doc.related?.map((r) => r.word)).toEqual(["夜市"]);
+    expect(doc.definitions).toBeUndefined();
+    expect(doc.examples).toBeUndefined();
+    expect(doc.etymology).toBeUndefined();
   });
 
   it("wikiInputFromStore derives from a store entry + dict", () => {
