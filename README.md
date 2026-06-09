@@ -10,6 +10,14 @@ First two (private) language packs: **Traditional Mandarin (Taiwan)** and **Viet
 
 > **Status:** Phases 0–7 implemented — engine + offline reader + agent-run generation CLI + wiki/bridge/cross-reference + transcript ingestion with a synced reader. **Phase 8 (voice): M1 shipped** — local batch TTS, cue-synced playback, shadowing mode, and Anki-with-audio; see [`PRD-Voice-Notes.md`](./PRD-Voice-Notes.md). We're also building a **metalayer** — an asbplayer-style watching layer over local + streaming video ([see below](#metalayer--the-watching-layer-building)). See [`STATUS.md`](./STATUS.md) for the audited coverage. Read [`PRD.md`](./PRD.md) (the source of truth) and [`AGENTS.md`](./AGENTS.md) (build guide) first.
 
+## Documentation
+
+New here? Start with the **[documentation guide](./docs/README.md)** — a coherent, cross-linked walkthrough of what Tsumugu is, the parts, and how they come together:
+
+1. [Overview — what & why](./docs/01-overview.md) · 2. [Core concepts](./docs/02-concepts.md) · 3. [Architecture](./docs/03-architecture.md) · 4. [The loop](./docs/04-the-loop.md) · 5. [Feature tour](./docs/05-features.md) · 6. [Extending Tsumugu](./docs/06-extending.md)
+
+The reference docs ([`PRD.md`](./PRD.md) for intent, [`STATUS.md`](./STATUS.md) for the audited reality, [`AGENTS.md`](./AGENTS.md) for the build guide) sit alongside that guide.
+
 ## Structure — two public repos + one private folder
 
 - **engine** (this repo, public, Apache-2.0) — core logic, pack interface, demo pack, agent generation scripts, docs. Language-agnostic, **no bundled dictionary data, no personal data, no keys**.

@@ -2,7 +2,7 @@
 
 A **pack** teaches the engine a new language. Packs are *not* part of this public engine — they live in a private/separate folder and reference their own dictionary data (mind licenses; don't commit CC-BY-SA data into this Apache repo).
 
-> Stub — flesh this out once the pack interface lands in Phase 1.
+> This is the interface reference. For the fuller walkthrough — the reference implementation, the data-out-of-the-bundle pattern, and the ground rules — see **[`docs/06-extending.md`](./docs/06-extending.md)**.
 
 ## Interface (implement these)
 
