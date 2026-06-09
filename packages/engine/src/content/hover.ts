@@ -15,9 +15,12 @@ import type {
   PrebakedEntry,
   DictEntry,
   BridgeInfo,
-  Definition,
+  EnDefinition,
+  MonoDefinition,
+  Definitions,
   ExampleSentence,
 } from "../types.js";
+import { normalizeExampleRows } from "./schema.js";
 
 /** Provenance label for a hover layer. */
 export type HoverSource = "custom" | "prebaked" | "dict";
@@ -30,9 +33,9 @@ export interface ResolvedHover {
   term: string;
   /** Legacy single gloss — mirrors `definitions.en.gloss` when present. */
   gloss?: string;
-  definitions?: { en?: Definition; zh?: Definition };
+  definitions?: Definitions;
   reading?: string;
-  examples?: ExampleSentence[] | string[];
+  examples?: ExampleSentence[];
   explanation?: string;
   bridge?: BridgeInfo;
   pos?: string;
@@ -49,29 +52,36 @@ function pick<T>(...candidates: (T | undefined)[]): T | undefined {
   return undefined;
 }
 
-function isStringExamples(
-  examples: string[] | ExampleSentence[],
-): examples is string[] {
-  return examples.length > 0 && typeof examples[0] === "string";
+function enDefinitionHasValue(def?: EnDefinition): boolean {
+  if (!def) return false;
+  return (
+    def.gloss !== undefined ||
+    def.explanation !== undefined ||
+    (def.senses !== undefined && def.senses.length > 0)
+  );
 }
 
-/** Lift legacy `string[]` examples to structured rows on read. */
-function normalizeExamples(
-  examples: string[] | ExampleSentence[] | undefined,
-): ExampleSentence[] | undefined {
-  if (examples === undefined) return undefined;
-  if (examples.length === 0) return [];
-  if (isStringExamples(examples)) {
-    return examples.map((text) => ({ text, translation: "" }));
-  }
-  return examples;
+function monoDefinitionHasValue(def?: MonoDefinition): boolean {
+  if (!def) return false;
+  return (
+    def.gloss !== undefined ||
+    def.illustration !== undefined ||
+    def.level !== undefined ||
+    def.achievedLevel !== undefined ||
+    def.source !== undefined
+  );
+}
+
+function definitionsHaveValue(defs?: Definitions): boolean {
+  if (!defs) return false;
+  return enDefinitionHasValue(defs.en) || monoDefinitionHasValue(defs.zh);
 }
 
 function resolveDefinitionEn(
   custom?: Partial<DictEntry>,
   prebaked?: PrebakedEntry,
   dict?: DictEntry,
-): Definition | undefined {
+): EnDefinition | undefined {
   const picked = pick(
     custom?.definitions?.en,
     prebaked?.definitions?.en,
@@ -79,15 +89,26 @@ function resolveDefinitionEn(
   );
   const gloss = pick(custom?.gloss, prebaked?.gloss, dict?.gloss);
   const senses = pick(custom?.senses, picked?.senses, dict?.senses);
+  const explanation = pick(
+    picked?.explanation,
+    prebaked?.definitions?.en?.explanation,
+    prebaked?.explanation,
+    dict?.definitions?.en?.explanation,
+  );
 
   if (picked) {
-    if (senses !== undefined && picked.senses === undefined) {
-      return { ...picked, senses };
+    const out: EnDefinition = { ...picked };
+    if (senses !== undefined && picked.senses === undefined) out.senses = senses;
+    if (explanation !== undefined && picked.explanation === undefined) {
+      out.explanation = explanation;
     }
-    return picked;
+    return out;
   }
-  if (gloss !== undefined) {
-    return senses !== undefined ? { gloss, senses } : { gloss };
+  if (gloss !== undefined || explanation !== undefined || senses !== undefined) {
+    const out: EnDefinition = { gloss: gloss ?? "" };
+    if (explanation !== undefined) out.explanation = explanation;
+    if (senses !== undefined) out.senses = senses;
+    return out;
   }
   return undefined;
 }
@@ -96,7 +117,7 @@ function resolveDefinitionZh(
   custom?: Partial<DictEntry>,
   prebaked?: PrebakedEntry,
   dict?: DictEntry,
-): Definition | undefined {
+): MonoDefinition | undefined {
   return pick(
     custom?.definitions?.zh,
     prebaked?.definitions?.zh,
@@ -108,11 +129,11 @@ function resolveDefinitions(
   custom?: Partial<DictEntry>,
   prebaked?: PrebakedEntry,
   dict?: DictEntry,
-): { en?: Definition; zh?: Definition } | undefined {
+): Definitions | undefined {
   const en = resolveDefinitionEn(custom, prebaked, dict);
   const zh = resolveDefinitionZh(custom, prebaked, dict);
   if (en === undefined && zh === undefined) return undefined;
-  const out: { en?: Definition; zh?: Definition } = {};
+  const out: Definitions = {};
   if (en !== undefined) out.en = en;
   if (zh !== undefined) out.zh = zh;
   return out;
@@ -140,8 +161,15 @@ export function mergeHover(args: {
   const reading = pick(custom?.reading, prebaked?.reading, dict?.reading);
   const pos = pick(custom?.pos, prebaked?.pos, dict?.pos);
   const level = pick(custom?.level, prebaked?.level, dict?.level);
-  const examples = normalizeExamples(prebaked?.examples);
-  const explanation = prebaked?.explanation;
+  const examples = normalizeExampleRows(
+    pick(custom?.examples, prebaked?.examples, dict?.examples),
+  );
+  const explanation = pick(
+    custom?.definitions?.en?.explanation,
+    prebaked?.definitions?.en?.explanation,
+    prebaked?.explanation,
+    dict?.definitions?.en?.explanation,
+  );
   const bridge = prebaked?.bridge;
 
   const hover: ResolvedHover = { term, sources: [] };
@@ -161,25 +189,6 @@ export function mergeHover(args: {
   return hover;
 }
 
-function definitionHasValue(def?: Definition): boolean {
-  if (!def) return false;
-  return (
-    def.gloss !== undefined ||
-    def.senses !== undefined ||
-    def.explanation !== undefined ||
-    def.levelCap !== undefined ||
-    def.leveledVerdict !== undefined ||
-    def.offendingWord !== undefined
-  );
-}
-
-function definitionsHaveValue(
-  defs?: { en?: Definition; zh?: Definition },
-): boolean {
-  if (!defs) return false;
-  return definitionHasValue(defs.en) || definitionHasValue(defs.zh);
-}
-
 /** The lexical fields the custom layer can provide. */
 function customHasValue(custom: Partial<DictEntry> | undefined): boolean {
   if (!custom) return false;
@@ -190,6 +199,7 @@ function customHasValue(custom: Partial<DictEntry> | undefined): boolean {
     custom.pos !== undefined ||
     custom.level !== undefined ||
     custom.senses !== undefined ||
+    custom.examples !== undefined ||
     definitionsHaveValue(custom.definitions)
   );
 }
@@ -223,11 +233,14 @@ function contributesPrebaked(
   _hover: ResolvedHover,
 ): boolean {
   if (!prebaked) return false;
+  if (prebaked.bridge !== undefined) return true;
   if (
-    prebaked.examples !== undefined ||
-    prebaked.explanation !== undefined ||
-    prebaked.bridge !== undefined
+    prebaked.explanation !== undefined &&
+    custom?.definitions?.en?.explanation === undefined
   ) {
+    return true;
+  }
+  if (prebaked.examples !== undefined && custom?.examples === undefined) {
     return true;
   }
   if (!prebakedLexicalFields(prebaked)) return false;
@@ -257,12 +270,19 @@ function dictDefinitionsTaken(
 ): { en: boolean; zh: boolean } {
   return {
     en:
-      definitionHasValue(custom?.definitions?.en) ||
-      definitionHasValue(prebaked?.definitions?.en),
+      enDefinitionHasValue(custom?.definitions?.en) ||
+      enDefinitionHasValue(prebaked?.definitions?.en),
     zh:
-      definitionHasValue(custom?.definitions?.zh) ||
-      definitionHasValue(prebaked?.definitions?.zh),
+      monoDefinitionHasValue(custom?.definitions?.zh) ||
+      monoDefinitionHasValue(prebaked?.definitions?.zh),
   };
+}
+
+function examplesTaken(
+  custom: Partial<DictEntry> | undefined,
+  prebaked: PrebakedEntry | undefined,
+): boolean {
+  return custom?.examples !== undefined || prebaked?.examples !== undefined;
 }
 
 /**
@@ -279,8 +299,8 @@ function contributesDict(
   const takenDefs = dictDefinitionsTaken(custom, prebaked);
   const sensesTaken =
     custom?.senses !== undefined ||
-    definitionHasValue(custom?.definitions?.en) ||
-    definitionHasValue(prebaked?.definitions?.en);
+    enDefinitionHasValue(custom?.definitions?.en) ||
+    enDefinitionHasValue(prebaked?.definitions?.en);
   return (
     (dict.term !== undefined && !dictLexicalTaken(dict, custom, prebaked, "term")) ||
     (dict.gloss !== undefined && !dictLexicalTaken(dict, custom, prebaked, "gloss")) ||
@@ -288,8 +308,9 @@ function contributesDict(
       !dictLexicalTaken(dict, custom, prebaked, "reading")) ||
     (dict.pos !== undefined && !dictLexicalTaken(dict, custom, prebaked, "pos")) ||
     (dict.level !== undefined && !dictLexicalTaken(dict, custom, prebaked, "level")) ||
-    (definitionHasValue(dict.definitions?.en) && !takenDefs.en) ||
-    (definitionHasValue(dict.definitions?.zh) && !takenDefs.zh) ||
-    (dict.senses !== undefined && !sensesTaken)
+    (enDefinitionHasValue(dict.definitions?.en) && !takenDefs.en) ||
+    (monoDefinitionHasValue(dict.definitions?.zh) && !takenDefs.zh) ||
+    (dict.senses !== undefined && !sensesTaken) ||
+    (dict.examples !== undefined && !examplesTaken(custom, prebaked))
   );
 }
