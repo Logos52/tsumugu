@@ -1,74 +1,186 @@
 // @vitest-environment happy-dom
-import { describe, it, expect } from "vitest";
-import { WordStore, type LanguagePack, type PreparedContent } from "@tsumugu/engine";
-import { AppState } from "../state.js";
-import { mountEncoding } from "./encoding.js";
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, it, expect, vi } from "vitest";
+import {
+  WordStore,
+  ensureSrs,
+  reviewSrs,
+  initSrsState,
+  type LanguagePack,
+  type PreparedContent,
+  type Clock,
+  type WordEntry,
+} from "@tsumugu/engine";
+import { AppState, resolveDictDefault } from "../state.js";
+import { MemoryVault } from "../host/fsVault.js";
+import { CLS } from "../ui/classes.js";
+import { encodingArtifactPath, mountEncoding } from "./encoding.js";
 
-const fakePack: LanguagePack = {
-  id: "vi",
-  name: "fake vi",
-  segmenter: () => [],
+const fixturePath = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "../../../../examples/encoding/熱鬧.encoding.json",
+);
+const RENAO_FIXTURE = readFileSync(fixturePath, "utf8");
+
+const zhPack: LanguagePack = {
+  id: "zh-Hant",
+  name: "zh-Hant test",
+  segmenter: (text) => [{ text, start: 0, end: text.length, isWord: true }],
   dictionaryProvider: () => undefined,
   phoneticLayer: { id: "none", reading: () => undefined },
   levelingModel: () => undefined,
 };
 
-const content: PreparedContent = {
+const nightMarketContent: PreparedContent = {
   schema: "tsumugu/prepared-content@1",
-  lang: "vi",
-  tokens: [{ text: "phát triển", isWord: true }],
+  lang: "zh-Hant",
+  tokens: [{ text: "熱鬧", isWord: true }],
   glossary: {
-    "phát triển": {
-      term: "phát triển",
-      gloss: "to develop",
-      reading: "phát triển",
-      explanation: "Sino-Vietnamese from 發展.",
-      examples: ["Việt Nam đang phát triển."],
-      bridge: {
-        bridgeLang: "zh-Hant",
-        etymon: "發展",
-        bridgeReading: "fā zhǎn",
-        morphemes: [{ surface: "phát", etymon: "發", gloss: "emit" }],
-      },
+    熱鬧: {
+      term: "熱鬧",
+      gloss: "lively; bustling",
+      reading: "ㄖㄜˋ ㄋㄠˋ / rè nào",
+      explanation: "fallback explanation",
+      examples: ["那裡很熱鬧。"],
     },
   },
 };
 
-function appWith(): AppState {
-  const store = new WordStore();
-  store.upsert({
-    lang: "vi",
-    word: "phát triển",
-    status: "l1",
-    flagNote: "keep mixing up the tones",
-    related: [{ lang: "zh-Hant", word: "發展" }],
-  });
-  return new AppState({ pack: fakePack, store, content });
+function fixedClock(at: Date): Clock {
+  return { now: () => at };
 }
 
-describe("mountEncoding", () => {
-  it("renders an offline encoding page from store + pre-baked data", async () => {
+function appWithRenao(opts?: {
+  guessFirst?: boolean;
+  vault?: MemoryVault;
+  srs?: WordEntry["srs"];
+  withFixture?: boolean;
+}): AppState {
+  const vault = opts?.vault ?? new MemoryVault();
+  if (opts?.withFixture !== false) {
+    vault.writeText(encodingArtifactPath("zh-Hant", "熱鬧"), RENAO_FIXTURE);
+  }
+
+  const store = new WordStore();
+  const entry: WordEntry = {
+    lang: "zh-Hant",
+    word: "熱鬧",
+    status: "l2",
+    flagNote: "confuses with 鬧鐘",
+    related: [
+      { lang: "zh-Hant", word: "夜市" },
+      { lang: "zh-Hant", word: "安靜" },
+      { lang: "zh-Hant", word: "鬧鐘" },
+    ],
+  };
+  if (opts?.srs) entry.srs = opts.srs;
+  else ensureSrs(entry, fixedClock(new Date("2020-01-01T00:00:00Z")));
+  store.upsert(entry);
+
+  // A second due word for the SRS rail queue.
+  const other: WordEntry = { lang: "zh-Hant", word: "夜市", status: "l1" };
+  ensureSrs(other, fixedClock(new Date("2020-01-01T00:00:00Z")));
+  store.upsert(other);
+
+  return new AppState({
+    pack: zhPack,
+    store,
+    content: nightMarketContent,
+    vault,
+    clock: fixedClock(new Date("2026-06-09T12:00:00Z")),
+    settings: opts?.guessFirst ? { guessFirst: true } : undefined,
+  });
+}
+
+async function waitForPage(root: HTMLElement): Promise<void> {
+  await vi.waitFor(() => {
+    expect(root.querySelector(`.${CLS.encodingPage}`)?.childElementCount).toBeGreaterThan(2);
+  });
+}
+
+describe("resolveDictDefault", () => {
+  it("migrates target → zh and keeps en", () => {
+    expect(resolveDictDefault({ explanationLang: "target" })).toBe("zh");
+    expect(resolveDictDefault({ explanationLang: "en" })).toBe("en");
+    expect(resolveDictDefault({ explanationLang: "zh" })).toBe("zh");
+  });
+});
+
+describe("mountEncoding — 熱鬧 fixture", () => {
+  it("renders defgrid, four sentence rows, grounding marker, and flag end-to-end", async () => {
     const root = document.createElement("div");
-    mountEncoding(root, appWith(), "phát triển");
-    await Promise.resolve();
-    await Promise.resolve();
-    const text = root.textContent ?? "";
-    expect(text).toContain("phát triển");
-    expect(text).toContain("Sino-Vietnamese from 發展"); // explanation
-    expect(text).toContain("keep mixing up the tones"); // flag note
-    expect(text).toContain("發展"); // bridge etymon
-    expect(text).toContain("Việt Nam đang phát triển"); // example
-    // related link routes to another encoding page
-    const link = root.querySelector('a[href^="#/encoding/"]');
-    expect(link).not.toBeNull();
+    mountEncoding(root, appWithRenao(), "熱鬧");
+    await waitForPage(root);
+
+    expect(root.querySelector(`.${CLS.defGrid}`)).not.toBeNull();
+    expect(root.querySelectorAll(`.${CLS.sentRow}`).length).toBe(4);
+    expect(root.querySelector(`.${CLS.groundingMarker}`)?.textContent).toBe("memory device");
+    expect(root.textContent).toContain("confuses with 鬧鐘");
+    expect(root.textContent).toContain("lively · bustling · buzzing with activity");
+    expect(root.textContent).toContain("人多、又吵又有活力");
+    expect(root.textContent).toContain("heat + market-noise");
+    expect(root.querySelector(`.${CLS.relatedLink}[href="#/encoding/%E5%AE%89%E9%9D%9C"]`)).not.toBeNull();
+    expect(root.querySelector(`.${CLS.encodingRail}`)).not.toBeNull();
+    expect(root.querySelector(`.${CLS.encodingPage}`)).not.toBeNull();
   });
 
-  it("back button clears the hash", () => {
-    location.hash = "#/encoding/x";
+  it("guessFirst hides definitions until reveal", async () => {
     const root = document.createElement("div");
-    mountEncoding(root, appWith(), "phát triển");
-    const back = root.querySelector("button");
-    back?.dispatchEvent(new Event("click"));
-    expect(location.hash).toBe("");
+    mountEncoding(root, appWithRenao({ guessFirst: true }), "熱鬧");
+    await waitForPage(root);
+
+    const grid = root.querySelector(`.${CLS.defGrid}`);
+    expect(grid?.classList.contains(CLS.encodingHidden)).toBe(true);
+
+    const reveal = [...root.querySelectorAll("button")].find((b) =>
+      b.textContent?.includes("Reveal definitions"),
+    );
+    expect(reveal).not.toBeNull();
+    reveal?.click();
+    expect(grid?.classList.contains(CLS.encodingHidden)).toBe(false);
+  });
+
+  it("opening encoding does not change SRS state", async () => {
+    const clock = fixedClock(new Date("2026-06-09T12:00:00Z"));
+    const srs = initSrsState(clock);
+    const reviewed = reviewSrs(srs, "good", clock);
+    const app = appWithRenao({ srs: reviewed });
+    app.clock = clock;
+
+    const before = JSON.stringify(app.getEntry("熱鬧")?.srs);
+    const root = document.createElement("div");
+    mountEncoding(root, app, "熱鬧");
+    await waitForPage(root);
+    const after = JSON.stringify(app.getEntry("熱鬧")?.srs);
+
+    expect(after).toBe(before);
+  });
+
+  it("falls back to mergeHover when no encoding artifact is present", async () => {
+    const vault = new MemoryVault();
+    const root = document.createElement("div");
+    mountEncoding(root, appWithRenao({ vault, withFixture: false }), "熱鬧");
+    await waitForPage(root);
+    expect(root.textContent).toContain("fallback explanation");
+  });
+
+  it("grades from the rail and persists SRS without auto-grading on open", async () => {
+    const clock = fixedClock(new Date("2026-06-09T12:00:00Z"));
+    const app = appWithRenao();
+    app.clock = clock;
+    const before = app.getEntry("熱鬧")?.srs?.reps ?? 0;
+
+    const root = document.createElement("div");
+    mountEncoding(root, app, "熱鬧");
+    await waitForPage(root);
+    expect(app.getEntry("熱鬧")?.srs?.reps).toBe(before);
+
+    const good = [...root.querySelectorAll("button")].find((b) => b.textContent?.startsWith("Good"));
+    good?.click();
+    await vi.waitFor(() => {
+      expect((app.getEntry("熱鬧")?.srs?.reps ?? 0)).toBeGreaterThan(before);
+    });
   });
 });

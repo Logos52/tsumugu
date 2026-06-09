@@ -143,6 +143,7 @@ function persistSettings(): void {
       showTranslation,
       voiceNotesEnabled,
       voiceSlow,
+      explanationLang,
     } = app.settings;
     localStorage.setItem(
       SETTINGS_KEY,
@@ -156,6 +157,7 @@ function persistSettings(): void {
         showTranslation,
         voiceNotesEnabled,
         voiceSlow,
+        explanationLang,
       }),
     );
   } catch {
