@@ -1,0 +1,4538 @@
+{
+  "最近": {
+    "zh": {
+      "gloss": "不久前到現在這段時間。",
+      "illustration": "幾天或幾週內。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "最近我在試Looki",
+        "translation": "Recently I've been trying Looki",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最近生活很滿",
+        "translation": "Life has been full lately",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你最近好嗎？",
+        "translation": "How have you been lately?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最近常拍vlog",
+        "translation": "Been vlogging a lot lately",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "最近",
+        "translation": "recently",
+        "pattern": "最近",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "最近在",
+        "translation": "recently at",
+        "pattern": "最近+在",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "最近很",
+        "translation": "lately very",
+        "pattern": "最近+很",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "看起來": {
+    "zh": {
+      "gloss": "外表給人的印象。",
+      "illustration": "一眼的感受。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "看起來很輕",
+        "translation": "Looks very light",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看起來像遊戲",
+        "translation": "Looks like a game",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這樣看起來不錯",
+        "translation": "This looks pretty good",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看起來很簡單",
+        "translation": "Looks very simple",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "看起來",
+        "translation": "looks",
+        "pattern": "看起來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看起來很",
+        "translation": "looks very",
+        "pattern": "看起來+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看起來像",
+        "translation": "looks like",
+        "pattern": "看起來+像",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "其實": {
+    "zh": {
+      "gloss": "事實上、並非表面那樣。",
+      "illustration": "把真相說出來。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "其實不難",
+        "translation": "Actually it's not hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "其實我喜歡",
+        "translation": "Actually I like it",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "其實很日常",
+        "translation": "Actually it's very daily",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "其實你懂",
+        "translation": "Actually you understand",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "其實",
+        "translation": "actually",
+        "pattern": "其實",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "其實很",
+        "translation": "actually very",
+        "pattern": "其實+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "其實不",
+        "translation": "actually not",
+        "pattern": "其實+不",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "它": {
+    "zh": {
+      "gloss": "指前面提到的那個東西。",
+      "illustration": "裝置、想法都行。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "它戴在脖子上",
+        "translation": "It wears on the neck",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "它幫我記",
+        "translation": "It helps me record",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "它很輕",
+        "translation": "It's very light",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "它會提醒",
+        "translation": "It will remind",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "它很",
+        "translation": "it is",
+        "pattern": "它+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "它會",
+        "translation": "it will",
+        "pattern": "它+會",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "用它",
+        "translation": "use it",
+        "pattern": "用+它",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "多": {
+    "zh": {
+      "gloss": "數量比平常大。",
+      "illustration": "程度很高。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "多模態輸入",
+        "translation": "Multimodal input",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "功能很多",
+        "translation": "Many features",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "多記一點",
+        "translation": "Record more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "多試幾天",
+        "translation": "Try a few more days",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "很多",
+        "translation": "many",
+        "pattern": "很+多",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "多一點",
+        "translation": "a bit more",
+        "pattern": "多+一點",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "功能多",
+        "translation": "many features",
+        "pattern": "功能+多",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "簡單": {
+    "zh": {
+      "gloss": "步驟少、不費力。",
+      "illustration": "容易上手。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "操作很簡單",
+        "translation": "Operation is simple",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "簡單設定就好",
+        "translation": "Simple setup is enough",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "其實很簡單",
+        "translation": "Actually it's simple",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "簡單嗎？",
+        "translation": "Is it simple?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "很簡單",
+        "translation": "very simple",
+        "pattern": "很+簡單",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "簡單的",
+        "translation": "simple (attr)",
+        "pattern": "簡單+的",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "簡單設定",
+        "translation": "simple setup",
+        "pattern": "簡單+設定",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "說": {
+    "zh": {
+      "gloss": "用話語表達。",
+      "illustration": "告訴別人。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我來說說",
+        "translation": "Let me explain",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "說說看",
+        "translation": "Say and see",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "怎麼說呢？",
+        "translation": "How to put it?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友這樣說",
+        "translation": "Friends say it this way",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "說說",
+        "translation": "talk about",
+        "pattern": "說+說",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "來說",
+        "translation": "come say",
+        "pattern": "來+說",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "怎麼說",
+        "translation": "how to say",
+        "pattern": "怎麼+說",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "並且": {
+    "zh": {
+      "gloss": "而且、另外還。",
+      "illustration": "接續補充。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "記錄並且分析",
+        "translation": "Record and analyze",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "戴著並且充電",
+        "translation": "Wear and charge",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "寫下並且整理",
+        "translation": "Write and organize",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "理解並且使用",
+        "translation": "Understand and use",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "並且",
+        "translation": "and also",
+        "pattern": "並且",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "並且會",
+        "translation": "and also will",
+        "pattern": "並且+會",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "並且給",
+        "translation": "and also give",
+        "pattern": "並且+給",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "讓": {
+    "zh": {
+      "gloss": "使別人得到某種結果。",
+      "illustration": "造成變化。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "讓生活像遊戲",
+        "translation": "Let life feel like a game",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "讓我記下來",
+        "translation": "Let me write it down",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "讓朋友更懂",
+        "translation": "Let friends understand more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這樣讓人安心",
+        "translation": "This makes people feel at ease",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "讓我",
+        "translation": "let me",
+        "pattern": "讓+我",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "讓人",
+        "translation": "let people",
+        "pattern": "讓+人",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "讓生活",
+        "translation": "let life",
+        "pattern": "讓+生活",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "理解": {
+    "zh": {
+      "gloss": "弄懂意思。",
+      "illustration": "知道為什麼。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "理解這個模式",
+        "translation": "Understand this mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "更好理解生活",
+        "translation": "Better understand life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "慢慢理解",
+        "translation": "Understand gradually",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你理解嗎？",
+        "translation": "Do you understand?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "理解",
+        "translation": "understand",
+        "pattern": "理解",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "理解這",
+        "translation": "understand this",
+        "pattern": "理解+這",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "更好理解",
+        "translation": "better understand",
+        "pattern": "更好+理解",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "生活": {
+    "zh": {
+      "gloss": "每天過的日子。",
+      "illustration": "工作、休息都算。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "記錄生活",
+        "translation": "Record life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "生活像開放世界",
+        "translation": "Life like open world",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日常生活",
+        "translation": "Daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "生活很精彩",
+        "translation": "Life is exciting",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "生活",
+        "translation": "life",
+        "pattern": "生活",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "日常生活",
+        "translation": "daily life",
+        "pattern": "日常+生活",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記錄生活",
+        "translation": "record life",
+        "pattern": "記錄+生活",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "有": {
+    "zh": {
+      "gloss": "東西在那、拿得到。",
+      "illustration": "表示具備。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "有兩種模式",
+        "translation": "Has two modes",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "有故事模式",
+        "translation": "Has story mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "有沒有時間？",
+        "translation": "Do you have time?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "心裡有很多話",
+        "translation": "Have a lot to say inside",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "有兩",
+        "translation": "have two",
+        "pattern": "有+兩",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "有沒有",
+        "translation": "have or not",
+        "pattern": "有+沒有",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "有時間",
+        "translation": "have time",
+        "pattern": "有+時間",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "兩": {
+    "zh": {
+      "gloss": "數量是二。",
+      "illustration": "比一多、比三少。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "有兩種模式",
+        "translation": "Has two modes",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "兩個朋友",
+        "translation": "Two friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "兩天試用",
+        "translation": "Two days trial",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "分成兩部分",
+        "translation": "Split into two parts",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "兩種",
+        "translation": "two kinds",
+        "pattern": "兩+種",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "兩個",
+        "translation": "two (items)",
+        "pattern": "兩+個",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "兩天",
+        "translation": "two days",
+        "pattern": "兩+天",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "個": {
+    "zh": {
+      "gloss": "放在數詞後面的量詞。",
+      "illustration": "數詞後面接量詞。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "一個工具",
+        "translation": "One tool",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "兩個模式",
+        "translation": "Two modes",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個裝置",
+        "translation": "This device",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "幾個朋友",
+        "translation": "A few friends",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "一個",
+        "translation": "one",
+        "pattern": "一+個",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "兩個",
+        "translation": "two",
+        "pattern": "兩+個",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "這個",
+        "translation": "this one",
+        "pattern": "這+個",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "主要": {
+    "zh": {
+      "gloss": "最重要、占核心。",
+      "illustration": "其他是附帶。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "主要模式",
+        "translation": "Main mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "主要是記錄",
+        "translation": "Mainly for recording",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "兩個主要功能",
+        "translation": "Two main features",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "主要給建議",
+        "translation": "Mainly gives advice",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "主要",
+        "translation": "main",
+        "pattern": "主要",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "主要是",
+        "translation": "mainly is",
+        "pattern": "主要+是",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "主要模式",
+        "translation": "main mode",
+        "pattern": "主要+模式",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "模式": {
+    "zh": {
+      "gloss": "固定的運作方式。",
+      "illustration": "選一種用。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "故事模式",
+        "translation": "Story mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "兩種主要模式",
+        "translation": "Two main modes",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "切換模式",
+        "translation": "Switch mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個模式很好",
+        "translation": "This mode is good",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "模式",
+        "translation": "mode",
+        "pattern": "模式",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "故事模式",
+        "translation": "story mode",
+        "pattern": "故事+模式",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "切換模式",
+        "translation": "switch mode",
+        "pattern": "切換+模式",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "故事": {
+    "zh": {
+      "gloss": "有開頭結尾的情節。",
+      "illustration": "像遊戲任務。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "故事模式",
+        "translation": "Story mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "把生活當故事",
+        "translation": "Treat life as a story",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "每天有小故事",
+        "translation": "Small story each day",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事很精彩",
+        "translation": "Story is exciting",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "故事",
+        "translation": "story",
+        "pattern": "故事",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "故事模式",
+        "translation": "story mode",
+        "pattern": "故事+模式",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "小故事",
+        "translation": "little story",
+        "pattern": "小+故事",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "和": {
+    "zh": {
+      "gloss": "連接兩件事。",
+      "illustration": "跟、與。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "朋友和我",
+        "translation": "Friends and I",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄和分析",
+        "translation": "Record and analyze",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "Looki和手機",
+        "translation": "Looki and phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日常和精彩",
+        "translation": "Daily and exciting",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "和我",
+        "translation": "and I",
+        "pattern": "和+我",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "和手機",
+        "translation": "and phone",
+        "pattern": "和+手機",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "和日常",
+        "translation": "and daily",
+        "pattern": "和+日常",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "用": {
+    "zh": {
+      "gloss": "拿來達成目的。",
+      "illustration": "拿來操作裝置。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "用手機上傳",
+        "translation": "Upload with phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "用起來很順",
+        "translation": "Easy to use",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "用這個模式",
+        "translation": "Use this mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "用AI分析",
+        "translation": "Analyze with AI",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "用起來",
+        "translation": "to use",
+        "pattern": "用+起來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "用手機",
+        "translation": "use phone",
+        "pattern": "用+手機",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "用這",
+        "translation": "use this",
+        "pattern": "用+這",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "起來": {
+    "zh": {
+      "gloss": "放在動詞後，表示動作開始。",
+      "illustration": "或狀態出現。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "用起來很順",
+        "translation": "Easy to use",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "戴起來很輕",
+        "translation": "Light to wear",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記起來方便",
+        "translation": "Easy to remember",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看起來不錯",
+        "translation": "Looks not bad",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "用起來",
+        "translation": "use (feel)",
+        "pattern": "用+起來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "戴起來",
+        "translation": "wear (feel)",
+        "pattern": "戴+起來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記起來",
+        "translation": "remember",
+        "pattern": "記+起來",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "只要": {
+    "zh": {
+      "gloss": "條件滿足就夠。",
+      "illustration": "不必再多。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "只要戴著",
+        "translation": "As long as you wear it",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只要按照設定",
+        "translation": "Just follow settings",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只要充電就好",
+        "translation": "Just charge it",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只要每天記",
+        "translation": "Just record daily",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "只要",
+        "translation": "as long as",
+        "pattern": "只要",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "只要戴",
+        "translation": "as long as wear",
+        "pattern": "只要+戴",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "只要按照",
+        "translation": "just follow",
+        "pattern": "只要+按照",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "按照": {
+    "zh": {
+      "gloss": "照著規定或步驟。",
+      "illustration": "不自己亂改。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "按照設定",
+        "translation": "According to settings",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "按照頻率進行",
+        "translation": "Proceed at set frequency",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "按照建議做",
+        "translation": "Do as advised",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "按照模式用",
+        "translation": "Use per mode",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "按照",
+        "translation": "according to",
+        "pattern": "按照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "按照設定",
+        "translation": "per settings",
+        "pattern": "按照+設定",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "按照頻率",
+        "translation": "per frequency",
+        "pattern": "按照+頻率",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "設定": {
+    "zh": {
+      "gloss": "把參數或規則定好。",
+      "illustration": "在裝置裡調。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "按照設定",
+        "translation": "Per settings",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "設定頻率",
+        "translation": "Set frequency",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "先做好設定",
+        "translation": "Set up first",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "設定很簡單",
+        "translation": "Settings are simple",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "設定",
+        "translation": "settings",
+        "pattern": "設定",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "設定頻率",
+        "translation": "set frequency",
+        "pattern": "設定+頻率",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "做好設定",
+        "translation": "finish setup",
+        "pattern": "做好+設定",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "頻率": {
+    "zh": {
+      "gloss": "重複發生的快慢。",
+      "illustration": "多久一次。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "設定頻率",
+        "translation": "Set frequency",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "按照頻率進行",
+        "translation": "Proceed at frequency",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "頻率不用高",
+        "translation": "Frequency needn't be high",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "調整頻率",
+        "translation": "Adjust frequency",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "頻率",
+        "translation": "frequency",
+        "pattern": "頻率",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "設定頻率",
+        "translation": "set frequency",
+        "pattern": "設定+頻率",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "調整頻率",
+        "translation": "adjust frequency",
+        "pattern": "調整+頻率",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "進行": {
+    "zh": {
+      "gloss": "持續做、往下走。",
+      "illustration": "事情在推進。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "按照頻率進行",
+        "translation": "Proceed at frequency",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "進行記錄",
+        "translation": "Carry on recording",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事在進行",
+        "translation": "Story is progressing",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天還在進行",
+        "translation": "Still ongoing today",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "進行",
+        "translation": "proceed",
+        "pattern": "進行",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在進行",
+        "translation": "in progress",
+        "pattern": "在+進行",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "進行記錄",
+        "translation": "proceed record",
+        "pattern": "進行+記錄",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "這樣": {
+    "zh": {
+      "gloss": "像前面說的那種方式。",
+      "illustration": "如此。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "這樣戴著",
+        "translation": "Wear it this way",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這樣記生活",
+        "translation": "Record life this way",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友也這樣",
+        "translation": "Friends do too",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這樣很好",
+        "translation": "This way is good",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "這樣",
+        "translation": "this way",
+        "pattern": "這樣",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "這樣戴",
+        "translation": "wear this way",
+        "pattern": "這樣+戴",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "也這樣",
+        "translation": "also this way",
+        "pattern": "也+這樣",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "戴": {
+    "zh": {
+      "gloss": "把東西附在身上帶著。",
+      "illustration": "像項鍊、眼鏡。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "戴在脖子上",
+        "translation": "Wear on neck",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只要戴著",
+        "translation": "As long as worn",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "戴起來很輕",
+        "translation": "Light to wear",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "先戴上再開",
+        "translation": "Put on before starting",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "戴著",
+        "translation": "wearing",
+        "pattern": "戴+著",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "戴上",
+        "translation": "put on",
+        "pattern": "戴+上",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "戴在",
+        "translation": "wear on",
+        "pattern": "戴+在",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "上": {
+    "zh": {
+      "gloss": "方位在表面或高處。",
+      "illustration": "也可表動作完成。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "戴上去",
+        "translation": "Put on",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "充電座上",
+        "translation": "On charging dock",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "上傳到手機",
+        "translation": "Upload to phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "第一天上手",
+        "translation": "Get started day one",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "戴上",
+        "translation": "put on",
+        "pattern": "戴+上",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "上去",
+        "translation": "go up",
+        "pattern": "上+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "手上",
+        "translation": "on hand",
+        "pattern": "手+上",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "第一": {
+    "zh": {
+      "gloss": "順序排最前。",
+      "illustration": "最先的那個。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "第一視角",
+        "translation": "First-person view",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "第一天試用",
+        "translation": "First day trial",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "第一個模式",
+        "translation": "First mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "先戴第一個",
+        "translation": "Wear the first one first",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "第一",
+        "translation": "first",
+        "pattern": "第一",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "第一天",
+        "translation": "first day",
+        "pattern": "第一+天",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "第一視角",
+        "translation": "first-person view",
+        "pattern": "第一+視角",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "充電": {
+    "zh": {
+      "gloss": "把電力補足。",
+      "illustration": "讓裝置能用。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "充電座上",
+        "translation": "On charging dock",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記得充電",
+        "translation": "Remember to charge",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "充電狀態",
+        "translation": "Charging status",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "晚上充電",
+        "translation": "Charge at night",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "充電",
+        "translation": "charge",
+        "pattern": "充電",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "充電座",
+        "translation": "charging dock",
+        "pattern": "充電+座",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記得充電",
+        "translation": "remember charge",
+        "pattern": "記得+充電",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "狀態": {
+    "zh": {
+      "gloss": "此刻的情況。",
+      "illustration": "好壞、在不在運作。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "充電狀態",
+        "translation": "Charging status",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "狀態很好",
+        "translation": "Status is good",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看看狀態",
+        "translation": "Check status",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "狀態結束了",
+        "translation": "Status ended",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "狀態",
+        "translation": "status",
+        "pattern": "狀態",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "充電狀態",
+        "translation": "charging status",
+        "pattern": "充電+狀態",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看看狀態",
+        "translation": "check status",
+        "pattern": "看看+狀態",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "結束": {
+    "zh": {
+      "gloss": "停止、告一段落。",
+      "illustration": "不再繼續。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "一天結束",
+        "translation": "Day ends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "狀態結束",
+        "translation": "Status ends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事結束了",
+        "translation": "Story ended",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "結束再覆盤",
+        "translation": "Review when done",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "結束",
+        "translation": "end",
+        "pattern": "結束",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "結束了",
+        "translation": "ended",
+        "pattern": "結束+了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一天結束",
+        "translation": "day ends",
+        "pattern": "一天+結束",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "最終": {
+    "zh": {
+      "gloss": "最後階段。",
+      "illustration": "走到盡頭。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "最終問你",
+        "translation": "Finally ask you",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最終結果",
+        "translation": "Final result",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最終還是寫",
+        "translation": "Finally still write",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最終給建議",
+        "translation": "Finally give advice",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "最終",
+        "translation": "finally",
+        "pattern": "最終",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "最終還",
+        "translation": "finally still",
+        "pattern": "最終+還",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "最終問",
+        "translation": "finally ask",
+        "pattern": "最終+問",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "問": {
+    "zh": {
+      "gloss": "向人請教想知道的事。",
+      "illustration": "想知道答案。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "問朋友",
+        "translation": "Ask friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最終問你",
+        "translation": "Finally ask you",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "問了幾個人",
+        "translation": "Asked a few people",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "可以問嗎？",
+        "translation": "May I ask?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "問朋友",
+        "translation": "ask friends",
+        "pattern": "問+朋友",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "問你",
+        "translation": "ask you",
+        "pattern": "問+你",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "可以問",
+        "translation": "may ask",
+        "pattern": "可以+問",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "工具": {
+    "zh": {
+      "gloss": "幫忙完成工作的器具。",
+      "illustration": "實體或軟體。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "一個工具",
+        "translation": "A tool",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄工具",
+        "translation": "Recording tool",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "好工具",
+        "translation": "Good tool",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "工具不同",
+        "translation": "Tools differ",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "工具",
+        "translation": "tool",
+        "pattern": "工具",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記錄工具",
+        "translation": "recording tool",
+        "pattern": "記錄+工具",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "好工具",
+        "translation": "good tool",
+        "pattern": "好+工具",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "不同": {
+    "zh": {
+      "gloss": "跟別的有差異。",
+      "illustration": "不一樣。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "工具不同",
+        "translation": "Tools differ",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "模式不同",
+        "translation": "Modes differ",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "感受不同",
+        "translation": "Feelings differ",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友看法不同",
+        "translation": "Friends' views differ",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "不同",
+        "translation": "different",
+        "pattern": "不同",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很不同",
+        "translation": "very different",
+        "pattern": "很+不同",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看法不同",
+        "translation": "views differ",
+        "pattern": "看法+不同",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "做": {
+    "zh": {
+      "gloss": "動手完成某件事。",
+      "illustration": "實際行動。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "做手帳",
+        "translation": "Keep a journal",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "做vlog",
+        "translation": "Make a vlog",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "怎麼做？",
+        "translation": "How to do it?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友也做",
+        "translation": "Friends do too",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "做手帳",
+        "translation": "keep journal",
+        "pattern": "做+手帳",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "怎麼做",
+        "translation": "how to do",
+        "pattern": "怎麼+做",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "也做",
+        "translation": "also do",
+        "pattern": "也+做",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "並": {
+    "zh": {
+      "gloss": "同時、一起。",
+      "illustration": "兩件事接著。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "記錄並整理",
+        "translation": "Record and organize",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "戴並充電",
+        "translation": "Wear and charge",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "寫並給建議",
+        "translation": "Write and advise",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "理解並使用",
+        "translation": "Understand and use",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "並整理",
+        "translation": "and organize",
+        "pattern": "並+整理",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "並給",
+        "translation": "and give",
+        "pattern": "並+給",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "並使用",
+        "translation": "and use",
+        "pattern": "並+使用",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "給": {
+    "zh": {
+      "gloss": "把東西交到對方手上。",
+      "illustration": "提供。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "給建議",
+        "translation": "Give advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "給朋友看",
+        "translation": "Show friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "AI給提醒",
+        "translation": "AI gives reminders",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "最終給你",
+        "translation": "Finally give you",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "給建議",
+        "translation": "give advice",
+        "pattern": "給+建議",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "給你",
+        "translation": "give you",
+        "pattern": "給+你",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "給朋友",
+        "translation": "give friends",
+        "pattern": "給+朋友",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "出": {
+    "zh": {
+      "gloss": "由內往外移動或產生。",
+      "illustration": "由內到外、顯現。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "給出建議",
+        "translation": "Give out advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "情緒出來",
+        "translation": "Emotions come out",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "做出vlog",
+        "translation": "Produce a vlog",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄出來",
+        "translation": "Record out",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "給出",
+        "translation": "give out",
+        "pattern": "給+出",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "出來",
+        "translation": "come out",
+        "pattern": "出+來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "做出",
+        "translation": "make out",
+        "pattern": "做+出",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "建議": {
+    "zh": {
+      "gloss": "提出想法供參考。",
+      "illustration": "幫你決定。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "給出建議",
+        "translation": "Give advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "及時建議",
+        "translation": "Timely advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "AI建議",
+        "translation": "AI advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "聽建議",
+        "translation": "Listen to advice",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "建議",
+        "translation": "advice",
+        "pattern": "建議",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "給建議",
+        "translation": "give advice",
+        "pattern": "給+建議",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "聽建議",
+        "translation": "listen advice",
+        "pattern": "聽+建議",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還": {
+    "zh": {
+      "gloss": "仍然、另外也。",
+      "illustration": "持續或追加。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "還在錄",
+        "translation": "Still recording",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還是寫手帳",
+        "translation": "Still write journal",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還需要嗎？",
+        "translation": "Still need it?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還給建議",
+        "translation": "Also gives advice",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還是",
+        "translation": "still/or",
+        "pattern": "還+是",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還在",
+        "translation": "still at",
+        "pattern": "還+在",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還需要",
+        "translation": "still need",
+        "pattern": "還+需要",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "寫": {
+    "zh": {
+      "gloss": "用文字記下。",
+      "illustration": "筆墨或鍵盤留下文字。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "寫手帳",
+        "translation": "Write journal",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "寫下來",
+        "translation": "Write down",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還是寫",
+        "translation": "Still write",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "寫今天的事",
+        "translation": "Write today's events",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "寫下",
+        "translation": "write down",
+        "pattern": "寫+下",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "寫手帳",
+        "translation": "write journal",
+        "pattern": "寫+手帳",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "寫下來",
+        "translation": "write down",
+        "pattern": "寫+下來",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "手機": {
+    "zh": {
+      "gloss": "掌上通訊裝置。",
+      "illustration": "上傳、看畫面。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "用手機上傳",
+        "translation": "Upload with phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看手機時間",
+        "translation": "Check phone time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "拿起手機",
+        "translation": "Pick up phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "手機裡有素材",
+        "translation": "Phone has material",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "手機",
+        "translation": "phone",
+        "pattern": "手機",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "用手機",
+        "translation": "use phone",
+        "pattern": "用+手機",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "拿起手機",
+        "translation": "pick up phone",
+        "pattern": "拿起+手機",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "時間": {
+    "zh": {
+      "gloss": "某段日子的長度。",
+      "illustration": "幾點到幾點。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "沒有時間",
+        "translation": "No time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "一段時間",
+        "translation": "A period of time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "看手機時間",
+        "translation": "Check phone time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "時間下來",
+        "translation": "Time passes",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "時間",
+        "translation": "time",
+        "pattern": "時間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一段時間",
+        "translation": "a period",
+        "pattern": "一段+時間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "沒時間",
+        "translation": "no time",
+        "pattern": "沒+時間",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "下來": {
+    "zh": {
+      "gloss": "由高處往低處。",
+      "illustration": "或動作完成固定。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "寫下來",
+        "translation": "Write down",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記下來",
+        "translation": "Write down",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "時間下來",
+        "translation": "Time goes by",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "感覺下來",
+        "translation": "Feeling settles",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "寫下來",
+        "translation": "write down",
+        "pattern": "寫+下來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記下來",
+        "translation": "record down",
+        "pattern": "記+下來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "下來了",
+        "translation": "came down",
+        "pattern": "下來+了",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "感覺": {
+    "zh": {
+      "gloss": "心裡或身體的感受。",
+      "illustration": "舒服、奇怪都算。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "感覺像遊戲",
+        "translation": "Feels like a game",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "感覺很真實",
+        "translation": "Feels very real",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "感覺下來",
+        "translation": "Feeling settles",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你有感覺嗎？",
+        "translation": "Do you feel it?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "感覺",
+        "translation": "feel",
+        "pattern": "感覺",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "感覺像",
+        "translation": "feel like",
+        "pattern": "感覺+像",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "有感覺",
+        "translation": "have feeling",
+        "pattern": "有+感覺",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "記": {
+    "zh": {
+      "gloss": "把資訊保留下來。",
+      "illustration": "文字或影像。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "記生活",
+        "translation": "Record life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記下來",
+        "translation": "Write down",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "幫我記",
+        "translation": "Help me record",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記今天的事",
+        "translation": "Record today's events",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "記下",
+        "translation": "write down",
+        "pattern": "記+下",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記下來",
+        "translation": "record down",
+        "pattern": "記+下來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "幫我記",
+        "translation": "help record",
+        "pattern": "幫我+記",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "不": {
+    "zh": {
+      "gloss": "否定後面的意思。",
+      "illustration": "否定後面說的事。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "不需要",
+        "translation": "Don't need",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "不難",
+        "translation": "Not hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "不記也行",
+        "translation": "Not recording is OK",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "不一樣",
+        "translation": "Not the same",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "不是",
+        "translation": "is not",
+        "pattern": "不+是",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "不要",
+        "translation": "don't want",
+        "pattern": "不+要",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "不需要",
+        "translation": "don't need",
+        "pattern": "不+需要",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "需要": {
+    "zh": {
+      "gloss": "有必要、少不了。",
+      "illustration": "缺了不行。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "不需要",
+        "translation": "Don't need",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還需要嗎？",
+        "translation": "Still need it?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "需要時間",
+        "translation": "Need time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "需要手機",
+        "translation": "Need phone",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "需要",
+        "translation": "need",
+        "pattern": "需要",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "不需要",
+        "translation": "don't need",
+        "pattern": "不+需要",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還需要",
+        "translation": "still need",
+        "pattern": "還+需要",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "或": {
+    "zh": {
+      "gloss": "二選一。",
+      "illustration": "這個那個。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "精彩或平凡",
+        "translation": "Exciting or ordinary",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "手寫或打字",
+        "translation": "Handwrite or type",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事或日常",
+        "translation": "Story or daily",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "戴著或放下",
+        "translation": "Wear or put down",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "或",
+        "translation": "or",
+        "pattern": "或",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "或精彩",
+        "translation": "or exciting",
+        "pattern": "或+精彩",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "或日常",
+        "translation": "or daily",
+        "pattern": "或+日常",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "精彩": {
+    "zh": {
+      "gloss": "特別好看、出色。",
+      "illustration": "值得記下。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "很精彩",
+        "translation": "Very exciting",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "精彩或平凡",
+        "translation": "Exciting or ordinary",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天很精彩",
+        "translation": "Today was exciting",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "精彩的一天",
+        "translation": "Exciting day",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "精彩",
+        "translation": "exciting",
+        "pattern": "精彩",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很精彩",
+        "translation": "very exciting",
+        "pattern": "很+精彩",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "精彩的",
+        "translation": "exciting (attr)",
+        "pattern": "精彩+的",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "日常": {
+    "zh": {
+      "gloss": "天天都會遇到的事。",
+      "illustration": "平淡但真實。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "日常生活",
+        "translation": "Daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日常或精彩",
+        "translation": "Daily or exciting",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "觀察日常",
+        "translation": "Observe daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日常裡的小事",
+        "translation": "Small daily matters",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "日常",
+        "translation": "daily",
+        "pattern": "日常",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "日常生活",
+        "translation": "daily life",
+        "pattern": "日常+生活",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "日常裡",
+        "translation": "in daily",
+        "pattern": "日常+裡",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "裡": {
+    "zh": {
+      "gloss": "在內部、範圍之中。",
+      "illustration": "內部、範圍之內。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "日常裡",
+        "translation": "In daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "心裡",
+        "translation": "In heart/mind",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "手機裡",
+        "translation": "In phone",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "生活裡",
+        "translation": "In life",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "裡面",
+        "translation": "inside",
+        "pattern": "裡+面",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "心裡",
+        "translation": "in mind",
+        "pattern": "心+裡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "日常裡",
+        "translation": "in daily",
+        "pattern": "日常+裡",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "等": {
+    "zh": {
+      "gloss": "耐心待對方回應；或列舉同類。",
+      "illustration": "以及類似。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "等等",
+        "translation": "Wait a bit",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友等",
+        "translation": "Friends etc.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日常等小事",
+        "translation": "Daily and such small things",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你等我",
+        "translation": "You wait for me",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "等等",
+        "translation": "wait",
+        "pattern": "等+等",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "等朋友",
+        "translation": "wait friends",
+        "pattern": "等+朋友",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "你等",
+        "translation": "you wait",
+        "pattern": "你+等",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "但": {
+    "zh": {
+      "gloss": "轉折、可是。",
+      "illustration": "後面說相反。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "但很真實",
+        "translation": "But very real",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "但朋友更懂",
+        "translation": "But friends understand more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "簡單但有用",
+        "translation": "Simple but useful",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "但還是寫",
+        "translation": "But still write",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "但是",
+        "translation": "but",
+        "pattern": "但+是",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "但很",
+        "translation": "but very",
+        "pattern": "但+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "但還",
+        "translation": "but still",
+        "pattern": "但+還",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "真實": {
+    "zh": {
+      "gloss": "符合實際、不假。",
+      "illustration": "真的發生過。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "很真實",
+        "translation": "Very real",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "真實感受",
+        "translation": "Real feeling",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "但更真實",
+        "translation": "But more real",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "真實的日常",
+        "translation": "Real daily life",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "真實",
+        "translation": "real",
+        "pattern": "真實",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很真實",
+        "translation": "very real",
+        "pattern": "很+真實",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "真實的",
+        "translation": "real (attr)",
+        "pattern": "真實+的",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還是": {
+    "zh": {
+      "gloss": "仍然；或在兩項中選其一。",
+      "illustration": "持續或抉擇。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "還是寫手帳",
+        "translation": "Still write journal",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友還是更懂",
+        "translation": "Friends still understand more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "真實還是不一樣",
+        "translation": "Real is still different",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你要還是不要？",
+        "translation": "Do you want it or not?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還是",
+        "translation": "still/or",
+        "pattern": "還是",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還是寫",
+        "translation": "still write",
+        "pattern": "還是+寫",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還是更",
+        "translation": "still more",
+        "pattern": "還是+更",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "不一樣": {
+    "zh": {
+      "gloss": "彼此有差異。",
+      "illustration": "跟預期不同。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "很不一樣",
+        "translation": "Quite different",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "真實還是不一樣",
+        "translation": "Real is still different",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "感受不一樣",
+        "translation": "Feelings differ",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友不一樣",
+        "translation": "Friends differ",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "不一樣",
+        "translation": "not same",
+        "pattern": "不一樣",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很不一樣",
+        "translation": "quite different",
+        "pattern": "很+不一樣",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還是不一樣",
+        "translation": "still different",
+        "pattern": "還是+不一樣",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "朋友": {
+    "zh": {
+      "gloss": "親近、常往來的人。",
+      "illustration": "會聊天分享。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "問朋友",
+        "translation": "Ask friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友更懂",
+        "translation": "Friends understand more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "日記朋友",
+        "translation": "Diary-loving friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "和朋友聊",
+        "translation": "Chat with friends",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "朋友",
+        "translation": "friend",
+        "pattern": "朋友",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "問朋友",
+        "translation": "ask friends",
+        "pattern": "問+朋友",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "和朋友",
+        "translation": "with friends",
+        "pattern": "和+朋友",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "更": {
+    "zh": {
+      "gloss": "程度再高一點。",
+      "illustration": "比較級。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "更好理解",
+        "translation": "Understand better",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友更懂",
+        "translation": "Friends understand more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "更需要",
+        "translation": "Need more",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "更真實",
+        "translation": "More real",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "更好",
+        "translation": "better",
+        "pattern": "更+好",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "更懂",
+        "translation": "understand more",
+        "pattern": "更+懂",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "更需要",
+        "translation": "need more",
+        "pattern": "更+需要",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "過程": {
+    "zh": {
+      "gloss": "從開始到結束的路徑。",
+      "illustration": "中間的步驟。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "一種過程",
+        "translation": "A kind of process",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄過程",
+        "translation": "Recording process",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "成長過程",
+        "translation": "Growth process",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "過程很難",
+        "translation": "Process is hard",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "過程",
+        "translation": "process",
+        "pattern": "過程",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "成長過程",
+        "translation": "growth process",
+        "pattern": "成長+過程",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記錄過程",
+        "translation": "recording process",
+        "pattern": "記錄+過程",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "這個": {
+    "zh": {
+      "gloss": "離說話人近的那個。",
+      "illustration": "指眼前事物。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "這個模式",
+        "translation": "This mode",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "理解這個",
+        "translation": "Understand this",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個工具",
+        "translation": "This tool",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個過程",
+        "translation": "This process",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "這個",
+        "translation": "this",
+        "pattern": "這個",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "這個模式",
+        "translation": "this mode",
+        "pattern": "這個+模式",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "理解這個",
+        "translation": "understand this",
+        "pattern": "理解+這個",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "中": {
+    "zh": {
+      "gloss": "在裡面、進行當下。",
+      "illustration": "當下正在進行。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "進行中",
+        "translation": "In progress",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "生活中",
+        "translation": "In life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個中",
+        "translation": "In this (process)",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "充電中",
+        "translation": "Charging",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "進行中",
+        "translation": "in progress",
+        "pattern": "進行+中",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "生活中",
+        "translation": "in life",
+        "pattern": "生活+中",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "充電中",
+        "translation": "charging",
+        "pattern": "充電+中",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "出來": {
+    "zh": {
+      "gloss": "由內而外出現。",
+      "illustration": "從裡到外。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "情緒出來",
+        "translation": "Emotions come out",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄出來",
+        "translation": "Record out",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "想法出來",
+        "translation": "Ideas come out",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "突然出來",
+        "translation": "Suddenly appear",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "出來",
+        "translation": "come out",
+        "pattern": "出來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "情緒出來",
+        "translation": "emotions out",
+        "pattern": "情緒+出來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "突然出來",
+        "translation": "suddenly out",
+        "pattern": "突然+出來",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "情緒": {
+    "zh": {
+      "gloss": "心裡的高低起伏。",
+      "illustration": "開心、難過都算。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "情緒出來",
+        "translation": "Emotions emerge",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "疏導情緒",
+        "translation": "Release emotions",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "小情緒",
+        "translation": "Small emotions",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "情緒很難",
+        "translation": "Emotions are hard",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "情緒",
+        "translation": "emotion",
+        "pattern": "情緒",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "情緒出來",
+        "translation": "emotions out",
+        "pattern": "情緒+出來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "小情緒",
+        "translation": "small emotions",
+        "pattern": "小+情緒",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "的話": {
+    "zh": {
+      "gloss": "要是那樣、假設如此。",
+      "illustration": "提出條件。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "的話就寫",
+        "translation": "If so then write",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友的話",
+        "translation": "Friends' words",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天的話",
+        "translation": "As for today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這樣的話",
+        "translation": "In that case",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "的話",
+        "translation": "if/so",
+        "pattern": "的話",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "這樣的話",
+        "translation": "in that case",
+        "pattern": "這樣+的話",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "今天的話",
+        "translation": "as for today",
+        "pattern": "今天+的話",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "今天": {
+    "zh": {
+      "gloss": "本日、此刻這天。",
+      "illustration": "從早到晚。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "今天發生什麼",
+        "translation": "What happened today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "回顧今天",
+        "translation": "Review today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天很精彩",
+        "translation": "Today is exciting",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "寫今天的事",
+        "translation": "Write today's events",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "今天",
+        "translation": "today",
+        "pattern": "今天",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "今天發生",
+        "translation": "today happen",
+        "pattern": "今天+發生",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "回顧今天",
+        "translation": "review today",
+        "pattern": "回顧+今天",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "發生": {
+    "zh": {
+      "gloss": "事情出現、出現了。",
+      "illustration": "真的上演。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "今天發生什麼",
+        "translation": "What happened today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "發生事情",
+        "translation": "Something happened",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "剛剛發生",
+        "translation": "Just happened",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "可能發生",
+        "translation": "May happen",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "發生",
+        "translation": "happen",
+        "pattern": "發生",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "發生什麼",
+        "translation": "what happen",
+        "pattern": "發生+什麼",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "剛發生",
+        "translation": "just happened",
+        "pattern": "剛+發生",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "事情": {
+    "zh": {
+      "gloss": "發生的事、狀況。",
+      "illustration": "大大小小都算。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "發生事情",
+        "translation": "Something happened",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天的事情",
+        "translation": "Today's matters",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記下事情",
+        "translation": "Record matters",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "事情很多",
+        "translation": "Many matters",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "事情",
+        "translation": "matter",
+        "pattern": "事情",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "發生事情",
+        "translation": "happen matter",
+        "pattern": "發生+事情",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "今天的事情",
+        "translation": "today's matters",
+        "pattern": "今天+的事情",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "以及": {
+    "zh": {
+      "gloss": "還有、再加上。",
+      "illustration": "並列補充。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "朋友以及日常",
+        "translation": "Friends and daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記錄以及整理",
+        "translation": "Record and organize",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事以及建議",
+        "translation": "Story and advice",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天以及昨天",
+        "translation": "Today and yesterday",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "以及",
+        "translation": "as well as",
+        "pattern": "以及",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "以及日常",
+        "translation": "and daily",
+        "pattern": "以及+日常",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "以及整理",
+        "translation": "and organize",
+        "pattern": "以及+整理",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "當時": {
+    "zh": {
+      "gloss": "那個時候。",
+      "illustration": "過去某一刻。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "當時覺得",
+        "translation": "Felt at the time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "回想當時",
+        "translation": "Recall back then",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "當時很難",
+        "translation": "Hard at the time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "當時發生什麼",
+        "translation": "What happened then",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "當時",
+        "translation": "at that time",
+        "pattern": "當時",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "當時覺得",
+        "translation": "felt then",
+        "pattern": "當時+覺得",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "回想當時",
+        "translation": "recall then",
+        "pattern": "回想+當時",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "覺得": {
+    "zh": {
+      "gloss": "心裡認為、感到。",
+      "illustration": "個人看法。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "當時覺得",
+        "translation": "Felt at the time",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "覺得很難",
+        "translation": "Feel it's hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友覺得",
+        "translation": "Friends feel",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我覺得可以",
+        "translation": "I think it's OK",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "覺得",
+        "translation": "feel/think",
+        "pattern": "覺得",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "當時覺得",
+        "translation": "felt then",
+        "pattern": "當時+覺得",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我覺得",
+        "translation": "I feel",
+        "pattern": "我+覺得",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "可能": {
+    "zh": {
+      "gloss": "有機會、也許會。",
+      "illustration": "不確定但可行。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "可能只記一點",
+        "translation": "May only record a bit",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "可能很難",
+        "translation": "May be hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "可能發生",
+        "translation": "May happen",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你可能懂",
+        "translation": "You may understand",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "可能",
+        "translation": "maybe",
+        "pattern": "可能",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "可能只",
+        "translation": "may only",
+        "pattern": "可能+只",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很可能",
+        "translation": "very likely",
+        "pattern": "很+可能",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "只": {
+    "zh": {
+      "gloss": "僅僅、限定範圍。",
+      "illustration": "範圍很小。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "只記重點",
+        "translation": "Only record highlights",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "可能只記一點",
+        "translation": "May only record a bit",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只做手帳",
+        "translation": "Only keep journal",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "只看日常",
+        "translation": "Only watch daily",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "只記",
+        "translation": "only record",
+        "pattern": "只+記",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "只做",
+        "translation": "only do",
+        "pattern": "只+做",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "可能只",
+        "translation": "may only",
+        "pattern": "可能+只",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "比如說": {
+    "zh": {
+      "gloss": "舉個例子來講。",
+      "illustration": "打比方。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "比如說今天",
+        "translation": "For example today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "比如說情緒",
+        "translation": "For example emotions",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "比如說朋友",
+        "translation": "For example friends",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "比如說手帳",
+        "translation": "For example journaling",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "比如說",
+        "translation": "for example",
+        "pattern": "比如說",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "比如說今天",
+        "translation": "e.g. today",
+        "pattern": "比如說+今天",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "比如說朋友",
+        "translation": "e.g. friends",
+        "pattern": "比如說+朋友",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "心裡": {
+    "zh": {
+      "gloss": "內心的想法與感受。",
+      "illustration": "別人看不見。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "心裡很多話",
+        "translation": "A lot inside",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "心裡突然難過",
+        "translation": "Suddenly sad inside",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "記在心裡",
+        "translation": "Keep in heart",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "心裡覺得",
+        "translation": "Feel inside",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "心裡",
+        "translation": "in mind",
+        "pattern": "心裡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "心裡覺得",
+        "translation": "feel inside",
+        "pattern": "心裡+覺得",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "記在心裡",
+        "translation": "keep in heart",
+        "pattern": "記在+心裡",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "突然": {
+    "zh": {
+      "gloss": "沒預料到、一下子。",
+      "illustration": "來得很快。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "突然出來",
+        "translation": "Suddenly appear",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "心裡突然難過",
+        "translation": "Suddenly sad inside",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "突然覺得",
+        "translation": "Suddenly feel",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "突然很難",
+        "translation": "Suddenly hard",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "突然",
+        "translation": "suddenly",
+        "pattern": "突然",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "突然出來",
+        "translation": "suddenly out",
+        "pattern": "突然+出來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "突然覺得",
+        "translation": "suddenly feel",
+        "pattern": "突然+覺得",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "或者": {
+    "zh": {
+      "gloss": "二選一、也可以是別的。",
+      "illustration": "另一種可能。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "手寫或者打字",
+        "translation": "Handwrite or type",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "故事或者日常",
+        "translation": "Story or daily",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "朋友或者AI",
+        "translation": "Friends or AI",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "或者再等等",
+        "translation": "Or wait a bit more",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "或者",
+        "translation": "or",
+        "pattern": "或者",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "或者再",
+        "translation": "or again",
+        "pattern": "或者+再",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "或者日常",
+        "translation": "or daily",
+        "pattern": "或者+日常",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "難": {
+    "zh": {
+      "gloss": "不容易做到。",
+      "illustration": "需要花力氣。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "不難",
+        "translation": "Not hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "覺得很難",
+        "translation": "Feel it's hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "情緒很難",
+        "translation": "Emotions are hard",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "從難到易",
+        "translation": "From hard to easy",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "不難",
+        "translation": "not hard",
+        "pattern": "不+難",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很難",
+        "translation": "very hard",
+        "pattern": "很+難",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "覺得難",
+        "translation": "feel hard",
+        "pattern": "覺得+難",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "從": {
+    "zh": {
+      "gloss": "起點、由某處開始。",
+      "illustration": "自。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "從今天開始",
+        "translation": "Starting from today",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "從難到易",
+        "translation": "From hard to easy",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "從日常裡",
+        "translation": "From daily life",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "從朋友那",
+        "translation": "From friends",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "從今天",
+        "translation": "from today",
+        "pattern": "從+今天",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "從日常",
+        "translation": "from daily",
+        "pattern": "從+日常",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "從難",
+        "translation": "from hard",
+        "pattern": "從+難",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  }
+}

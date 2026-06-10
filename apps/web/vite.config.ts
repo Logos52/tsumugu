@@ -125,6 +125,12 @@ function devVault(): Plugin {
 // above exists only under `vite dev`. sql.js wasm is loaded via a ?url import.
 export default defineConfig({
   root: ".",
+  resolve: {
+    alias: {
+      // Vite-friendly build: wasm is bundled and initialized on first import.
+      "jieba-wasm": resolve(HERE, "../../node_modules/jieba-wasm/pkg/bundler/jieba_rs_wasm.js"),
+    },
+  },
   // GitHub Pages serves the reader under /tsumugu/app/ (the /tsumugu/ root is a
   // landing hub). The CI build sets GH_PAGES=1 so asset URLs resolve there;
   // local `pnpm dev`/build stay at "/".
@@ -142,6 +148,7 @@ export default defineConfig({
     emptyOutDir: true,
   },
   optimizeDeps: {
-    exclude: ["@tsumugu/engine", "@tsumugu/demo-pack"],
+    exclude: ["@tsumugu/engine", "@tsumugu/demo-pack", "jieba-wasm"],
   },
+  assetsInclude: ["**/*.wasm"],
 });

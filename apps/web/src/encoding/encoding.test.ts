@@ -113,8 +113,59 @@ describe("mountEncoding — 熱鬧 fixture", () => {
     mountEncoding(root, appWithRenao(), "熱鬧");
     await waitForPage(root);
 
-    const cn = [...root.querySelectorAll(`.${CLS.sentCn}`)].map((el) => el.innerHTML);
-    expect(cn.some((html) => html.includes("<em>熱鬧</em>"))).toBe(true);
+    await vi.waitFor(() => {
+      const marked = [...root.querySelectorAll(`.${CLS.sents} .tsg-sent-headword`)];
+      expect(marked.length).toBeGreaterThan(0);
+      expect(marked.map((el) => el.textContent).join("")).toContain("熱");
+    });
+  });
+
+  it("opens a hover popup and encoding link for words inside 例句", async () => {
+    const packWithDict: LanguagePack = {
+      ...zhPack,
+      dictionaryProvider: (word) =>
+        word === "夜市"
+          ? { term: word, gloss: "night market", reading: "ㄧㄝˋ ㄕˋ" }
+          : undefined,
+    };
+    const vault = new MemoryVault();
+    vault.writeText(encodingArtifactPath("zh-Hant", "熱鬧"), RENAO_FIXTURE);
+    const store = new WordStore();
+    store.upsert({
+      lang: "zh-Hant",
+      word: "熱鬧",
+      status: "l2",
+    });
+    const app = new AppState({
+      pack: packWithDict,
+      store,
+      vault,
+      clock: fixedClock(new Date("2026-06-09T12:00:00Z")),
+      settings: { hoverMode: "all" },
+    });
+
+    const root = document.createElement("div");
+    mountEncoding(root, app, "熱鬧");
+    await waitForPage(root);
+
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.sentCn} .${CLS.word}[data-word="夜市"]`)).toBeTruthy();
+    });
+
+    const market = root.querySelector<HTMLElement>(
+      `.${CLS.sentCn} .${CLS.word}[data-word="夜市"]`,
+    )!;
+    market.click();
+
+    await vi.waitFor(() => {
+      expect(document.body.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe(
+        "night market",
+      );
+    });
+    const encodingLink = document.body.querySelector<HTMLAnchorElement>(
+      `.${CLS.popup} a[href="#/encoding/%E5%A4%9C%E5%B8%82"]`,
+    );
+    expect(encodingLink?.textContent).toBe("↗");
   });
 
   it("renders defgrid, four sentence rows, grounding marker, and flag end-to-end", async () => {

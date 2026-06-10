@@ -2,8 +2,8 @@
  * Pull-SRS review view (PRD §5, §8).
  *
  * Queue = level 1–4 words from the vault word store (`studyLang`), FSRS-initialized
- * on first encounter, then due-now cards. Reveal shows gloss + loopable term/sentence
- * waveforms (encoding-layer audio when present).
+ * on first encounter, then due-now cards. Reveal shows toggleable definitions
+ * (簡明中文 default · English), loopable term/sentence waveforms, and Pass/Fail grading.
  */
 
 import {
@@ -12,6 +12,9 @@ import {
   mergeHover,
   prepareReviewQueue,
   reviewSrs,
+  type Definition,
+  type EnDefinition,
+  type MonoDefinition,
   type SrsRating,
   type WordEntry,
 } from "@tsumugu/engine";
@@ -30,11 +33,101 @@ import {
 } from "../encoding/audioUi.js";
 import { resolveTermAudioPath } from "../voice/encodingAudio.js";
 import type { SentenceWaveforms } from "../voice/sentenceWaveform.js";
+import type { AcceptedDefinitions } from "../encoding/accept.js";
 import type { AppState, ViewController } from "../state.js";
+import { resolveDictDefault } from "../state.js";
 import { el, clear } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
 
 const REVEAL_EXAMPLE_LIMIT = 2;
+
+function resolveRevealDefinitions(
+  accepted: AcceptedDefinitions,
+  gloss?: string,
+  explanation?: string,
+): AcceptedDefinitions {
+  const en =
+    accepted.en ??
+    (gloss
+      ? {
+          gloss,
+          ...(explanation ? { explanation } : {}),
+        }
+      : undefined);
+  return { en, zh: accepted.zh };
+}
+
+function definitionBlurb(
+  def: Definition | EnDefinition | MonoDefinition | undefined,
+): string {
+  if (!def) return "";
+  if ("monolingual" in def && def.monolingual) return def.illustration ?? "";
+  return def.explanation ?? "";
+}
+
+function appendRevealDefinitions(
+  host: HTMLElement,
+  app: AppState,
+  definitions: AcceptedDefinitions,
+): void {
+  let visibleLang: "en" | "zh" = resolveDictDefault(app.settings);
+  if (!definitions[visibleLang]) {
+    visibleLang = definitions.en ? "en" : "zh";
+  }
+
+  const block = el("div", { class: "tsg-review-reveal-def" });
+  const glossEl = el("div", { class: CLS.popupGloss });
+  const explainEl = el("div", { class: CLS.popupExplain });
+  block.append(glossEl, explainEl);
+
+  function paintDefinition(lang: "en" | "zh"): void {
+    const def = definitions[lang];
+    glossEl.textContent = def?.gloss ?? "";
+    const blurb = definitionBlurb(def);
+    explainEl.textContent = blurb;
+    explainEl.style.display = blurb ? "" : "none";
+  }
+
+  const hasBoth = !!definitions.en && !!definitions.zh;
+  if (hasBoth) {
+    const toggle = el("div", { class: CLS.defToggle });
+    const segEn = el("button", {
+      class: `${CLS.defSeg}${visibleLang === "en" ? ` ${CLS.defSegOn}` : ""}`,
+      text: "English",
+      type: "button",
+      on: {
+        click: () => {
+          app.updateSettings({ dictDefault: "en" });
+          visibleLang = "en";
+          paintDefinition("en");
+          segEn.classList.add(CLS.defSegOn);
+          segZh.classList.remove(CLS.defSegOn);
+        },
+      },
+    });
+    const segZh = el("button", {
+      class: `${CLS.defSeg}${visibleLang === "zh" ? ` ${CLS.defSegOn}` : ""}`,
+      text: "簡明中文",
+      type: "button",
+      on: {
+        click: () => {
+          app.updateSettings({ dictDefault: "zh" });
+          visibleLang = "zh";
+          paintDefinition("zh");
+          segZh.classList.add(CLS.defSegOn);
+          segEn.classList.remove(CLS.defSegOn);
+        },
+      },
+    });
+    toggle.append(segEn, segZh);
+    block.prepend(toggle);
+  }
+
+  if (definitions.en || definitions.zh) {
+    paintDefinition(visibleLang);
+    host.append(block);
+  }
+}
 
 export function mountReview(root: HTMLElement, app: AppState): ViewController {
   const lang = app.studyLang;
@@ -118,18 +211,10 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
   async function reveal(entry: WordEntry, back: HTMLElement): Promise<void> {
     clear(back);
     const custom = entry.custom;
-    let reading = custom?.reading;
-    let gloss = custom?.gloss;
-    if (gloss == null) {
-      const dict = await app.pack.dictionaryProvider(entry.word);
-      if (dict) {
-        if (reading == null) reading = dict.reading;
-        gloss = dict.gloss;
-      }
-    }
-    if (reading) back.append(el("div", { class: CLS.popupReading, text: reading }));
-    if (gloss) back.append(el("div", { class: CLS.popupGloss, text: gloss }));
-
+    const dict =
+      custom?.gloss == null || custom?.reading == null
+        ? await app.pack.dictionaryProvider(entry.word)
+        : undefined;
     const doc = await loadEncodingDoc(app, entry.word);
     const audioBinding = await loadEncodingAudioBinding(app, entry.word);
     const prebaked = app.content ? lookupPrebaked(app.content, entry.word) : undefined;
@@ -137,8 +222,15 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
       word: entry.word,
       ...(prebaked ? { prebaked } : {}),
       ...(custom ? { custom } : {}),
+      ...(dict ? { dict } : {}),
     });
-    const { examples } = acceptEncodingContent(doc, hover);
+    const { definitions: acceptedDefs, examples } = acceptEncodingContent(doc, hover);
+    const definitions = resolveRevealDefinitions(acceptedDefs, hover.gloss, hover.explanation);
+
+    if (hover.reading) {
+      back.append(el("div", { class: CLS.popupReading, text: hover.reading }));
+    }
+    appendRevealDefinitions(back, app, definitions);
     const termPath = resolveTermAudioPath(audioBinding, doc);
     const hasAudio = Boolean(termPath) || examples.length > 0;
 
@@ -228,10 +320,8 @@ export function mountReview(root: HTMLElement, app: AppState): ViewController {
     const controls = el(
       "div",
       { class: CLS.cardControls },
-      gradeButton("Again", "again", entry.word),
-      gradeButton("Hard", "hard", entry.word),
-      gradeButton("Good", "good", entry.word),
-      gradeButton("Easy", "easy", entry.word),
+      gradeButton("Fail", "again", entry.word),
+      gradeButton("Pass", "good", entry.word),
     );
 
     root.append(el("div", { class: CLS.card }, term, revealBtn, back, controls));

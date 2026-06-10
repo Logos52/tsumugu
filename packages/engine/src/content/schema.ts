@@ -7,6 +7,7 @@
 
 import {
   PREPARED_CONTENT_SCHEMA_V2,
+  type Collocation,
   type Definitions,
   type EnDefinition,
   type ExampleSentence,
@@ -26,6 +27,7 @@ export interface RawPrebakedEntry {
   level?: string;
   /** Legacy @1 bare strings or structured @2 rows. */
   examples?: string[] | ExampleSentence[];
+  collocations?: Collocation[];
   /** Legacy @1 leveled blurb — lifted to `definitions.en.explanation`. */
   explanation?: string;
   bridge?: PrebakedEntry["bridge"];
@@ -148,6 +150,7 @@ export function normalizePrebakedEntry(
   if (entry.pos !== undefined) out.pos = entry.pos;
   if (entry.level !== undefined) out.level = entry.level;
   if (examples !== undefined) out.examples = examples;
+  if (entry.collocations !== undefined) out.collocations = entry.collocations;
   if (entry.bridge !== undefined) out.bridge = entry.bridge;
   return out;
 }

@@ -450,6 +450,16 @@ button {
 
 /* ── reader ───────────────────────────────────────────────────────────────── */
 
+.tsg-boot-error {
+  padding: 1.25rem 1.5rem;
+  margin: 1rem;
+  color: var(--tsg-danger, #c44);
+  background: color-mix(in oklab, var(--tsg-danger, #c44) 8%, var(--tsg-surface));
+  border: 1px solid color-mix(in oklab, var(--tsg-danger, #c44) 35%, transparent);
+  border-radius: var(--tsg-radius);
+  font-family: var(--tsg-font-ui);
+}
+
 .tsg-reader {
   display: block;
 }
@@ -607,6 +617,12 @@ button {
   font-size: var(--type-base);
   line-height: 1.45;
   color: var(--tsg-ink);
+}
+
+/* Encoding 例句 popups mount on document.body so overflow:auto cannot clip them. */
+.tsg-popup-portal {
+  position: fixed;
+  z-index: 10000;
 }
 
 .tsg-popup-term {
@@ -1496,10 +1512,15 @@ html {
   flex: 1 1 auto;
   min-width: 10rem;
 }
-.tsg-sent-cn em {
+.tsg-sent-cn em,
+.tsg-sent-cn .tsg-sent-headword {
   font-style: normal;
   color: var(--tsg-accent-bright);
   border-bottom: 2px solid color-mix(in oklab, var(--tsg-accent-bright) 55%, transparent);
+}
+.tsg-sent-cn .tsg-token {
+  position: relative;
+  cursor: pointer;
 }
 .tsg-sent-en { font-size: 0.8rem; color: var(--tsg-ink-faint); flex: 1 1 12rem; }
 

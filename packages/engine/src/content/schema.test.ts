@@ -150,12 +150,18 @@ describe("normalizePreparedContent", () => {
           examples: [
             { text: "夜市很熱鬧。", translation: "The night market is lively." },
           ],
+          collocations: [
+            { phrase: "很熱鬧", translation: "very lively", shared: true, source: "generated" },
+          ],
         },
       },
     };
     const out = normalizePreparedContent(raw);
     expect(out.schema).toBe(PREPARED_CONTENT_SCHEMA_V2);
     expect(lookupPrebaked(out, "熱鬧")?.definitions?.zh?.level).toBe("TOCFL-2");
+    expect(lookupPrebaked(out, "熱鬧")?.collocations).toEqual([
+      { phrase: "很熱鬧", translation: "very lively", shared: true, source: "generated" },
+    ]);
   });
 });
 

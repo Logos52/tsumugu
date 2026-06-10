@@ -40,6 +40,7 @@ import {
 } from "./audioUi.js";
 import { exportEncodingAnki } from "./ankiExport.js";
 import { acceptEncodingContent } from "./accept.js";
+import { createSentenceHover } from "./sentenceHover.js";
 
 const CIRCLED = ["⓪", "①", "②", "③", "④"] as const;
 
@@ -143,6 +144,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
   let waveforms: SentenceWaveforms | null = null;
   let keyHandler: ((ev: KeyboardEvent) => void) | null = null;
   let disposed = false;
+  const sentenceHover = createSentenceHover(app);
 
   const onKey = (ev: KeyboardEvent): void => {
     if (disposed) return;
@@ -508,6 +510,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
           doc,
           app,
           collections: waveformCollections,
+          sentenceHover,
         });
       });
 
@@ -582,6 +585,7 @@ export function mountEncoding(root: HTMLElement, app: AppState, word: string): V
   return {
     unmount(): void {
       disposed = true;
+      sentenceHover.destroy();
       if (keyHandler) document.removeEventListener("keydown", keyHandler);
       waveforms?.destroy();
       clear(root);

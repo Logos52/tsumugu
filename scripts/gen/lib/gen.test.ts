@@ -197,6 +197,37 @@ describe("verifyContent — CI, missing glossary, recycle", () => {
     expect(report.recycle).toEqual([{ word: "world", count: 1, ok: false }]);
   });
 
+  it("accepts monolingual zh gloss when legacy gloss is empty", async () => {
+    const store = new WordStore();
+    const content: PreparedContent = {
+      schema: "tsumugu/prepared-content@2",
+      lang: "zh-Hant",
+      ciTarget: 0.95,
+      tokens: [{ text: "做些", isWord: true }],
+      glossary: {
+        做些: {
+          term: "做些",
+          gloss: "",
+          definitions: {
+            zh: {
+              gloss: "做一點事情。",
+              level: "TOCFL-3",
+              monolingual: true,
+              source: "generated",
+            },
+          },
+        },
+      },
+    };
+    const report = await verifyContent({
+      lang: "zh-Hant",
+      pack: demoPack,
+      store,
+      content,
+    });
+    expect(report.missingGlossary).toEqual([]);
+  });
+
   it("honors an explicit ciTarget (overrides content.ciTarget)", async () => {
     const store = new WordStore();
     store.setStatus("demo", "hello", "known");

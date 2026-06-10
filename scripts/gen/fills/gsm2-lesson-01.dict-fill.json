@@ -1,0 +1,3530 @@
+{
+  "休假": {
+    "zh": {
+      "gloss": "不用上班和上學的日子。",
+      "illustration": "公司或學校放假的時候。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你休假的時候做什麼？",
+        "translation": "What do you do on your days off?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我上次休假去了臺東。",
+        "translation": "I went to Taitung on my last vacation.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "休假去旅行，心情很好。",
+        "translation": "Traveling on vacation puts you in a good mood.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今年我的休假有五天。",
+        "translation": "I have five days off this year.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "休假的時候",
+        "translation": "when on vacation",
+        "pattern": "休假+的時候",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去休假",
+        "translation": "take time off",
+        "pattern": "去+休假",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "休假去",
+        "translation": "go on vacation",
+        "pattern": "休假+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "安排休假",
+        "translation": "plan time off",
+        "pattern": "安排+休假",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "做些": {
+    "zh": {
+      "gloss": "做一點事情。",
+      "illustration": "問別人想做什麼時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你會做些什麼？",
+        "translation": "What will you do?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "放假時我想做些輕鬆的事。",
+        "translation": "On holidays I want to do some relaxing things.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "到臺東可以做些什麼？",
+        "translation": "What can you do some of in Taitung?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你喜歡做些什麼？",
+        "translation": "What do you like to do?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "做些什麼",
+        "translation": "do what",
+        "pattern": "做些+什麼",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "會做些",
+        "translation": "will do some",
+        "pattern": "會+做些",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "喜歡做些",
+        "translation": "like to do some",
+        "pattern": "喜歡+做些",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "做些事",
+        "translation": "do some things",
+        "pattern": "做些+事",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "臺東": {
+    "zh": {
+      "gloss": "臺灣東邊的一個地方，風景很美。",
+      "illustration": "很多人去那裡旅行。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我上次去了臺東。",
+        "translation": "I went to Taitung last time.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "臺東的風景很美。",
+        "translation": "Taitung's scenery is beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們打算去臺東。",
+        "translation": "We plan to go to Taitung.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想去臺東嗎？",
+        "translation": "Do you want to go to Taitung?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "去臺東",
+        "translation": "go to Taitung",
+        "pattern": "去+臺東",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "臺東的",
+        "translation": "Taitung's",
+        "pattern": "臺東+的",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在臺東",
+        "translation": "in Taitung",
+        "pattern": "在+臺東",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "到臺東",
+        "translation": "arrive in Taitung",
+        "pattern": "到+臺東",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "那裡": {
+    "zh": {
+      "gloss": "離說話的人遠一點的地方。",
+      "illustration": "談論去過的地方時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "臺東那裡的風景很美。",
+        "translation": "The scenery there in Taitung is beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "那裡的人很好。",
+        "translation": "The people there are nice.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們在那裡住了三天。",
+        "translation": "We stayed there for three days.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想再去那裡嗎？",
+        "translation": "Do you want to go there again?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "去那裡",
+        "translation": "go there",
+        "pattern": "去+那裡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在那裡",
+        "translation": "over there",
+        "pattern": "在+那裡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "那裡的",
+        "translation": "there's",
+        "pattern": "那裡+的",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "到那裡",
+        "translation": "arrive there",
+        "pattern": "到+那裡",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "風": {
+    "zh": {
+      "gloss": "空氣流動的感覺。",
+      "illustration": "有時和「景」連在一起說外面的畫面。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "那裡的風很涼。",
+        "translation": "The wind there is cool.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "風大了，我們回去吧。",
+        "translation": "The wind is strong; let's go back.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "海邊的風很舒服。",
+        "translation": "The wind by the sea is pleasant.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天風不大。",
+        "translation": "The wind isn't strong today.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "風很大",
+        "translation": "windy",
+        "pattern": "風+很+大",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "海邊的風",
+        "translation": "sea breeze",
+        "pattern": "海邊+的+風",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "風很涼",
+        "translation": "cool breeze",
+        "pattern": "風+很+涼",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "風景",
+        "translation": "scenery",
+        "pattern": "風+景",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "景美": {
+    "zh": {
+      "gloss": "風景看起來很漂亮。",
+      "illustration": "說一個地方很好看時會這樣說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "那裡的風景美極了。",
+        "translation": "The scenery there is extremely beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "山上風景美，空氣也好。",
+        "translation": "The mountain scenery is beautiful and the air is nice too.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "海邊風景美，我想再去。",
+        "translation": "The seaside scenery is beautiful; I want to go again.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡風景美，我們多拍幾張。",
+        "translation": "The scenery here is beautiful; let's take a few more photos.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "風景美",
+        "translation": "beautiful scenery",
+        "pattern": "風景+美",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "風景美極了",
+        "translation": "extremely beautiful",
+        "pattern": "風景美+極了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "山上風景美",
+        "translation": "beautiful mountain views",
+        "pattern": "山上+風景美",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "海邊風景美",
+        "translation": "beautiful seaside views",
+        "pattern": "海邊+風景美",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "極了": {
+    "zh": {
+      "gloss": "放在形容詞後面，表示程度很高。",
+      "illustration": "放在「美」後面，就是程度很高。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "那裡的風景美極了。",
+        "translation": "The scenery there is extremely beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "好吃極了，我還想吃。",
+        "translation": "It's extremely delicious; I want more.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天熱極了。",
+        "translation": "It's extremely hot today.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他高興極了。",
+        "translation": "He's extremely happy.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "美極了",
+        "translation": "extremely beautiful",
+        "pattern": "美+極了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "好吃極了",
+        "translation": "extremely tasty",
+        "pattern": "好吃+極了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "熱極了",
+        "translation": "extremely hot",
+        "pattern": "熱+極了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "高興極了",
+        "translation": "extremely happy",
+        "pattern": "高興+極了",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "哪些地方": {
+    "zh": {
+      "gloss": "問對方去了哪些地點。",
+      "illustration": "旅行回來後朋友會這樣問。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你去了哪些地方？",
+        "translation": "Which places did you go to?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "臺東有哪些地方好玩？",
+        "translation": "What places in Taitung are fun?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想去哪些地方？",
+        "translation": "Which places do you want to go to?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他說了哪些地方？",
+        "translation": "Which places did he mention?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "去了哪些",
+        "translation": "went to which",
+        "pattern": "去了+哪些",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "哪些地方",
+        "translation": "which places",
+        "pattern": "哪些+地方",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "到哪些",
+        "translation": "to which",
+        "pattern": "到+哪些",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "哪些好玩",
+        "translation": "which are fun",
+        "pattern": "哪些+好玩",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "仙台": {
+    "zh": {
+      "gloss": "臺東有名的地方，前面常加「三」。",
+      "illustration": "可以看海和石頭。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我去了仙台。",
+        "translation": "I went to Xiantai.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "仙台很有名。",
+        "translation": "Xiantai is famous.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想去仙台看看嗎？",
+        "translation": "Do you want to visit Xiantai?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們在仙台看海。",
+        "translation": "We watched the sea at Xiantai.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "去仙台",
+        "translation": "go to Xiantai",
+        "pattern": "去+仙台",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在仙台",
+        "translation": "at Xiantai",
+        "pattern": "在+仙台",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "到仙台",
+        "translation": "arrive at Xiantai",
+        "pattern": "到+仙台",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "仙台的",
+        "translation": "Xiantai's",
+        "pattern": "仙台+的",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "鹿野": {
+    "zh": {
+      "gloss": "臺東的一個地方。",
+      "illustration": "可以看熱氣球。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我也到了鹿野。",
+        "translation": "I also arrived in Luye.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "鹿野很漂亮。",
+        "translation": "Luye is beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們在鹿野玩了一天。",
+        "translation": "We spent a day in Luye.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想去鹿野嗎？",
+        "translation": "Do you want to go to Luye?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "到鹿野",
+        "translation": "arrive in Luye",
+        "pattern": "到+鹿野",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在鹿野",
+        "translation": "in Luye",
+        "pattern": "在+鹿野",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去鹿野",
+        "translation": "go to Luye",
+        "pattern": "去+鹿野",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "鹿野的",
+        "translation": "Luye's",
+        "pattern": "鹿野+的",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還順": {
+    "zh": {
+      "gloss": "做一件事，也做另一件。",
+      "illustration": "做完這件，也做那件。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "他說還順，我就同意。",
+        "translation": "He said it's also convenient, and I agreed.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "她問還順嗎？我說好。",
+        "translation": "She asked if it's also convenient; I said yes.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我說還順，他就走了。",
+        "translation": "I said it's also convenient, and he left.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你說還順，我也同意。",
+        "translation": "You said it's also convenient; I agree too.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還順便",
+        "translation": "also on the way",
+        "pattern": "還順+便",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還順便去",
+        "translation": "also go",
+        "pattern": "還順便+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還順便做",
+        "translation": "also do",
+        "pattern": "還順便+做",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還順便買",
+        "translation": "also buy",
+        "pattern": "還順便+買",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "泡": {
+    "zh": {
+      "gloss": "把身體放在溫水裡。",
+      "illustration": "冬天這樣很舒服。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我去泡了溫泉。",
+        "translation": "I went to soak in a hot spring.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "冬天泡溫泉很舒服。",
+        "translation": "Soaking in hot springs is comfortable in winter.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想泡溫泉嗎？",
+        "translation": "Do you want to soak in a hot spring?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們晚上去泡溫泉。",
+        "translation": "We went to soak in a hot spring at night.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "泡溫泉",
+        "translation": "soak in hot spring",
+        "pattern": "泡+溫泉",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去泡",
+        "translation": "go soak",
+        "pattern": "去+泡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "想泡",
+        "translation": "want to soak",
+        "pattern": "想+泡",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "晚上泡",
+        "translation": "soak at night",
+        "pattern": "晚上+泡",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "溫泉": {
+    "zh": {
+      "gloss": "從地下冒出來的熱水。",
+      "illustration": "可以泡澡。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我去泡了溫泉。",
+        "translation": "I went to soak in a hot spring.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "臺東有很多溫泉。",
+        "translation": "Taitung has many hot springs.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "溫泉很舒服。",
+        "translation": "Hot springs are comfortable.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們去泡溫泉。",
+        "translation": "We went to soak in hot springs.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "泡溫泉",
+        "translation": "soak in hot spring",
+        "pattern": "泡+溫泉",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去溫泉",
+        "translation": "go to hot springs",
+        "pattern": "去+溫泉",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很多溫泉",
+        "translation": "many hot springs",
+        "pattern": "很多+溫泉",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "溫泉區",
+        "translation": "hot spring area",
+        "pattern": "溫泉+區",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "聽起": {
+    "zh": {
+      "gloss": "聽了之後給人的感覺。",
+      "illustration": "後面常接「來」字。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "聽起來真有趣！",
+        "translation": "That sounds really interesting!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "聽起來不錯。",
+        "translation": "That sounds good.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "聽起來很好玩。",
+        "translation": "That sounds fun.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "聽起來你想去。",
+        "translation": "It sounds like you want to go.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "聽起來",
+        "translation": "sounds like",
+        "pattern": "聽起+來",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "聽起來好",
+        "translation": "sounds good",
+        "pattern": "聽起來+好",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "聽起來有趣",
+        "translation": "sounds interesting",
+        "pattern": "聽起來+有趣",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "聽起來想",
+        "translation": "sounds like wanting",
+        "pattern": "聽起來+想",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "那幾天": {
+    "zh": {
+      "gloss": "說到的那些日子。",
+      "illustration": "旅行時住過的幾天。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "那幾天你都住在哪兒？",
+        "translation": "Where did you stay those few days?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "那幾天天氣很好。",
+        "translation": "The weather was good those few days.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "那幾天我們很忙。",
+        "translation": "We were busy those few days.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "那幾天我玩得很開心。",
+        "translation": "I had a lot of fun those few days.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "那幾天",
+        "translation": "those few days",
+        "pattern": "固定",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "那幾天住",
+        "translation": "stayed those days",
+        "pattern": "那幾天+住",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "那幾天去",
+        "translation": "went those days",
+        "pattern": "那幾天+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "那幾天的",
+        "translation": "of those days",
+        "pattern": "那幾天+的",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "一間": {
+    "zh": {
+      "gloss": "數房子、店、房間用的詞。",
+      "illustration": "住旅館時會說「一家」。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我住在一間小旅館。",
+        "translation": "I stayed in a small hotel.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡有一間咖啡店。",
+        "translation": "There is a coffee shop here.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們找一間餐廳吃飯。",
+        "translation": "We found a restaurant to eat at.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "一間房間夠我們住。",
+        "translation": "One room is enough for us.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "一間旅館",
+        "translation": "one hotel",
+        "pattern": "一間+旅館",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一間房間",
+        "translation": "one room",
+        "pattern": "一間+房間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一間店",
+        "translation": "one shop",
+        "pattern": "一間+店",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "住一間",
+        "translation": "stay in one",
+        "pattern": "住+一間",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "旅館": {
+    "zh": {
+      "gloss": "給過夜的人住的地方。",
+      "illustration": "旅行時常住在這裡。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我住在一間小旅館。",
+        "translation": "I stayed in a small hotel.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這家旅館很乾淨。",
+        "translation": "This hotel is very clean.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "旅館在車站附近。",
+        "translation": "The hotel is near the station.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們訂了旅館。",
+        "translation": "We booked a hotel.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "小旅館",
+        "translation": "small hotel",
+        "pattern": "小+旅館",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "住旅館",
+        "translation": "stay at hotel",
+        "pattern": "住+旅館",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "旅館的",
+        "translation": "hotel's",
+        "pattern": "旅館+的",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "訂旅館",
+        "translation": "book a hotel",
+        "pattern": "訂+旅館",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "房間": {
+    "zh": {
+      "gloss": "房子裡的一個空間。",
+      "illustration": "旅館裡睡覺的地方。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "房間很乾淨。",
+        "translation": "The room is very clean.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們的房間不大。",
+        "translation": "Our room is not big.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "房間有兩張床。",
+        "translation": "The room has two beds.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你喜歡這個房間嗎？",
+        "translation": "Do you like this room?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "房間很",
+        "translation": "room is",
+        "pattern": "房間+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我的房間",
+        "translation": "my room",
+        "pattern": "我的+房間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "乾淨的房間",
+        "translation": "clean room",
+        "pattern": "乾淨+房間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "訂房間",
+        "translation": "book a room",
+        "pattern": "訂+房間",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "附近": {
+    "zh": {
+      "gloss": "離這裡不遠的地方。",
+      "illustration": "走路或開車一下子就到。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "附近交通很方便。",
+        "translation": "Transportation nearby is convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "附近有很多店。",
+        "translation": "There are many shops nearby.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我住在學校附近。",
+        "translation": "I live near the school.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "附近有公車站。",
+        "translation": "There is a bus stop nearby.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "附近交通",
+        "translation": "nearby transport",
+        "pattern": "附近+交通",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "在附近",
+        "translation": "nearby",
+        "pattern": "在+附近",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "附近有很多",
+        "translation": "many nearby",
+        "pattern": "附近+有很多",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "學校附近",
+        "translation": "near school",
+        "pattern": "學校+附近",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "交通": {
+    "zh": {
+      "gloss": "人、車移動的方式。",
+      "illustration": "公車、火車都算。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "附近交通很方便。",
+        "translation": "Transportation nearby is convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡交通不好。",
+        "translation": "Transportation here is not good.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡的交通很方便。",
+        "translation": "Transportation here is convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "坐公車，交通很方便。",
+        "translation": "Taking the bus is convenient.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "交通方便",
+        "translation": "convenient transport",
+        "pattern": "交通+方便",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "附近交通",
+        "translation": "nearby transport",
+        "pattern": "附近+交通",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "交通費",
+        "translation": "transport cost",
+        "pattern": "交通+費",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "坐公車",
+        "translation": "take bus",
+        "pattern": "坐+公車",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "方便": {
+    "zh": {
+      "gloss": "做起來不麻煩、很順。",
+      "illustration": "走路、坐車都很順。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "附近交通很方便。",
+        "translation": "Transportation nearby is very convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡買東西很方便。",
+        "translation": "Shopping here is very convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "有公車很方便。",
+        "translation": "Having buses is convenient.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "住這裡很方便。",
+        "translation": "Living here is convenient.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "很方便",
+        "translation": "very convenient",
+        "pattern": "很+方便",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "交通方便",
+        "translation": "convenient transport",
+        "pattern": "交通+方便",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "買東西方便",
+        "translation": "easy to shop",
+        "pattern": "買東西+方便",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "住很方便",
+        "translation": "convenient to live",
+        "pattern": "住+很方便",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "櫃臺": {
+    "zh": {
+      "gloss": "旅館、店裡接待客人的地方。",
+      "illustration": "問問題、拿鑰匙都在這裡。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "櫃臺的服務也很熱情。",
+        "translation": "The front desk service was also warm.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我到櫃臺問路。",
+        "translation": "I asked for directions at the front desk.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "有問題可以問櫃臺。",
+        "translation": "You can ask the front desk if you have questions.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "櫃臺的人很好。",
+        "translation": "The people at the front desk are nice.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "櫃臺的人",
+        "translation": "front desk staff",
+        "pattern": "櫃臺+的人",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "到櫃臺",
+        "translation": "to the desk",
+        "pattern": "到+櫃臺",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "問櫃臺",
+        "translation": "ask the desk",
+        "pattern": "問+櫃臺",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "櫃臺服務",
+        "translation": "desk service",
+        "pattern": "櫃臺+服務",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "熱情": {
+    "zh": {
+      "gloss": "對人很好、很願意幫忙。",
+      "illustration": "服務人員對你很好。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "櫃臺的服務也很熱情。",
+        "translation": "The front desk service was also warm and welcoming.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "老闆很熱情。",
+        "translation": "The owner is very warm.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他對我們很熱情。",
+        "translation": "He was very warm to us.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "店員很熱情地介紹。",
+        "translation": "The clerk introduced things warmly.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "很熱情",
+        "translation": "very warm",
+        "pattern": "很+熱情",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "服務熱情",
+        "translation": "warm service",
+        "pattern": "服務+熱情",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "對人熱情",
+        "translation": "warm to people",
+        "pattern": "對人+熱情",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "熱情地",
+        "translation": "warmly",
+        "pattern": "熱情+地",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "好吃": {
+    "zh": {
+      "gloss": "食物味道很好。",
+      "illustration": "吃了還想再吃。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "好吃極了，我還想吃。",
+        "translation": "It's extremely delicious; I want more.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這家菜很好吃。",
+        "translation": "This place's food is delicious.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "臺東的食物很好吃。",
+        "translation": "Taitung's food is delicious.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你覺得好吃嗎？",
+        "translation": "Do you think it's tasty?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "很好吃",
+        "translation": "very tasty",
+        "pattern": "很+好吃",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "好吃極了",
+        "translation": "extremely tasty",
+        "pattern": "好吃+極了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "覺得好吃",
+        "translation": "think it's tasty",
+        "pattern": "覺得+好吃",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "食物好吃",
+        "translation": "food is tasty",
+        "pattern": "食物+好吃",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "炒": {
+    "zh": {
+      "gloss": "在鍋裡用油快速做食物。",
+      "illustration": "在鍋裡用油做菜。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "媽媽炒了青菜。",
+        "translation": "Mom stir-fried vegetables.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他會炒飯。",
+        "translation": "He can stir-fry rice.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們晚上炒了兩個菜。",
+        "translation": "We stir-fried two dishes tonight.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "店裡的炒青菜很好吃。",
+        "translation": "The stir-fried greens here are tasty.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "炒野菜",
+        "translation": "stir-fry greens",
+        "pattern": "炒+野菜",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "炒青菜",
+        "translation": "stir-fry veggies",
+        "pattern": "炒+青菜",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "炒飯",
+        "translation": "fried rice",
+        "pattern": "炒+飯",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "會炒",
+        "translation": "can stir-fry",
+        "pattern": "會+炒",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "野菜": {
+    "zh": {
+      "gloss": "山上或田裡長的菜。",
+      "illustration": "在田裡長的菜。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我最喜歡他們的炒野菜。",
+        "translation": "I like their stir-fried wild greens best.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "野菜很好吃。",
+        "translation": "Wild greens are tasty.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們吃了野菜。",
+        "translation": "We ate wild greens.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "店裡有炒野菜。",
+        "translation": "The restaurant has stir-fried wild greens.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "炒野菜",
+        "translation": "stir-fried greens",
+        "pattern": "炒+野菜",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "吃野菜",
+        "translation": "eat wild greens",
+        "pattern": "吃+野菜",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "野菜很",
+        "translation": "greens are",
+        "pattern": "野菜+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "有野菜",
+        "translation": "has wild greens",
+        "pattern": "有+野菜",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "放假": {
+    "zh": {
+      "gloss": "不用上班、上學的日子。",
+      "illustration": "學校或公司休息。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "放假的時候你還喜歡做什麼？",
+        "translation": "What else do you like to do during holidays?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "下週我們放假。",
+        "translation": "We're off next week.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "放假我想去旅行。",
+        "translation": "On holiday I want to travel.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你放假做什麼？",
+        "translation": "What do you do on your days off?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "放假的時候",
+        "translation": "during holidays",
+        "pattern": "放假+的時候",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "下週放假",
+        "translation": "off next week",
+        "pattern": "下週+放假",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "放假去",
+        "translation": "go on holiday",
+        "pattern": "放假+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我們放假",
+        "translation": "we're off",
+        "pattern": "我們+放假",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還喜歡": {
+    "zh": {
+      "gloss": "除了前面說的，也喜歡別的。",
+      "illustration": "問對方還想做什麼。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "放假的時候你還喜歡做什麼？",
+        "translation": "What else do you like to do during holidays?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你還喜歡聽音樂嗎？",
+        "translation": "Do you also like listening to music?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他還喜歡爬山。",
+        "translation": "He also likes hiking.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我還喜歡拍照。",
+        "translation": "I also like taking photos.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還喜歡做",
+        "translation": "also like doing",
+        "pattern": "還喜歡+做",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還喜歡聽",
+        "translation": "also like listening",
+        "pattern": "還喜歡+聽",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還喜歡去",
+        "translation": "also like going",
+        "pattern": "還喜歡+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還喜歡吃",
+        "translation": "also like eating",
+        "pattern": "還喜歡+吃",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "音樂": {
+    "zh": {
+      "gloss": "好聽的聲音，可以讓人放鬆。",
+      "illustration": "在家戴上耳機聽。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我喜歡聽音樂。",
+        "translation": "I like listening to music.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你還喜歡聽音樂嗎？",
+        "translation": "Do you also like listening to music?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "晚上我聽音樂睡覺。",
+        "translation": "At night I listen to music to sleep.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個音樂很好聽。",
+        "translation": "This music sounds good.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "聽音樂",
+        "translation": "listen to music",
+        "pattern": "聽+音樂",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "喜歡音樂",
+        "translation": "like music",
+        "pattern": "喜歡+音樂",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "放音樂",
+        "translation": "play music",
+        "pattern": "放+音樂",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "好聽的音樂",
+        "translation": "nice music",
+        "pattern": "好聽+音樂",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "爬": {
+    "zh": {
+      "gloss": "用手腳往上走。",
+      "illustration": "往上走山路。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我喜歡爬爬山。",
+        "translation": "I like hiking up mountains.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們週末去爬山。",
+        "translation": "We go hiking on weekends.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他爬得很快。",
+        "translation": "He climbs quickly.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "小孩喜歡爬樓梯。",
+        "translation": "The child likes climbing stairs.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "爬山",
+        "translation": "hike",
+        "pattern": "爬+山",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "爬樓梯",
+        "translation": "climb stairs",
+        "pattern": "爬+樓梯",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去爬",
+        "translation": "go climb",
+        "pattern": "去+爬",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "喜歡爬",
+        "translation": "like climbing",
+        "pattern": "喜歡+爬",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "愛運動": {
+    "zh": {
+      "gloss": "喜歡跑步、游泳、打球這些活動。",
+      "illustration": "休假時常去運動。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我比較愛運動。",
+        "translation": "I prefer sports.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他很愛運動，每天跑步。",
+        "translation": "He loves sports and runs every day.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "愛運動的人身體好。",
+        "translation": "People who love sports are healthy.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你愛運動嗎？",
+        "translation": "Do you love sports?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "比較愛運動",
+        "translation": "prefer sports",
+        "pattern": "比較+愛運動",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很愛運動",
+        "translation": "love sports a lot",
+        "pattern": "很+愛運動",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "愛運動的人",
+        "translation": "sporty people",
+        "pattern": "愛運動+的人",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "休假愛運動",
+        "translation": "sports on vacation",
+        "pattern": "休假+愛運動",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "經常去": {
+    "zh": {
+      "gloss": "常常到某個地方。",
+      "illustration": "不是去一次就算了。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "他也經常去游泳。",
+        "translation": "He also often goes swimming.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他經常去公園跑步。",
+        "translation": "He often goes running in the park.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們經常去那家店。",
+        "translation": "We often go to that shop.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你經常去游泳嗎？",
+        "translation": "Do you often go swimming?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "經常去游泳",
+        "translation": "often go swim",
+        "pattern": "經常去+游泳",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "經常去公園",
+        "translation": "often go to park",
+        "pattern": "經常去+公園",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "也經常去",
+        "translation": "also often go",
+        "pattern": "也+經常去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "休假經常去",
+        "translation": "often go on vacation",
+        "pattern": "休假+經常去",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "遊得": {
+    "zh": {
+      "gloss": "說在水裡動的本領好不好。",
+      "illustration": "放在「得」前面問本領。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我遊得還可以。",
+        "translation": "I swim okay.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你遊得怎麼樣？",
+        "translation": "How well do you swim?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他遊得很快。",
+        "translation": "He swims fast.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "她遊得不好，還在學。",
+        "translation": "She doesn't swim well yet; still learning.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "遊得怎麼樣",
+        "translation": "how well swim",
+        "pattern": "遊得+怎麼樣",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "遊得很快",
+        "translation": "swim fast",
+        "pattern": "遊得+很快",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "遊得不好",
+        "translation": "swim poorly",
+        "pattern": "遊得+不好",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "遊得還可以",
+        "translation": "swim okay",
+        "pattern": "遊得+還可以",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "我遊": {
+    "zh": {
+      "gloss": "說自己游泳的情況。",
+      "illustration": "說自己本領好不好。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我遊得不好。",
+        "translation": "I don't swim well.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我遊得還可以。",
+        "translation": "I swim okay.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我遊得很快。",
+        "translation": "I swim fast.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我遊得慢。",
+        "translation": "I swim slowly.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "我遊得",
+        "translation": "I swim (well)",
+        "pattern": "我遊+得",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我遊不好",
+        "translation": "I swim poorly",
+        "pattern": "我遊+不好",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我遊很快",
+        "translation": "I swim fast",
+        "pattern": "我遊+很快",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "我遊還可以",
+        "translation": "I swim okay",
+        "pattern": "我遊+還可以",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "馬": {
+    "zh": {
+      "gloss": "和後面兩個字連著說，表示普通、還可以。",
+      "illustration": "兩個字重複，程度普通。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "他說得馬馬。",
+        "translation": "He speaks so-so.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天考得馬馬。",
+        "translation": "Today's test went so-so.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我做得馬馬。",
+        "translation": "I did it so-so.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "馬馬還可以。",
+        "translation": "So-so, it's okay.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "馬馬虎虎",
+        "translation": "so-so",
+        "pattern": "馬+馬虎虎",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "說得馬馬",
+        "translation": "speak so-so",
+        "pattern": "說+馬馬",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "做得馬馬",
+        "translation": "do so-so",
+        "pattern": "做+馬馬",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "馬馬還可以",
+        "translation": "so-so okay",
+        "pattern": "馬馬+還可以",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "虎虎": {
+    "zh": {
+      "gloss": "和前面兩個字連著說，表示普通、還可以。",
+      "illustration": "兩個字重複，程度普通。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "他做得虎虎。",
+        "translation": "He did it so-so.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "今天虎虎。",
+        "translation": "Today was so-so.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "虎虎還行。",
+        "translation": "So-so, it's fine.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "說得虎虎。",
+        "translation": "Spoke so-so.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "馬馬虎虎",
+        "translation": "so-so",
+        "pattern": "馬馬+虎虎",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "做得虎虎",
+        "translation": "do so-so",
+        "pattern": "做得+虎虎",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "虎虎還行",
+        "translation": "so-so fine",
+        "pattern": "虎虎+還行",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "說得虎虎",
+        "translation": "speak so-so",
+        "pattern": "說得+虎虎",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還得": {
+    "zh": {
+      "gloss": "表示還需要做一件事。",
+      "illustration": "事情還沒做完。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我還得去。",
+        "translation": "I still need to go.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還得再試一次。",
+        "translation": "Still need to try again.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們還得早點出門。",
+        "translation": "We still need to leave early.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還得買一些東西。",
+        "translation": "Still need to buy some things.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還得多",
+        "translation": "still need more",
+        "pattern": "還得+多",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還得再",
+        "translation": "still need again",
+        "pattern": "還得+再",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還得早",
+        "translation": "still need early",
+        "pattern": "還得+早",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還得買",
+        "translation": "still need buy",
+        "pattern": "還得+買",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "多練": {
+    "zh": {
+      "gloss": "多做一些練習。",
+      "illustration": "想做得更好就要多做。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "還得多練！",
+        "translation": "Still need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你得多練！",
+        "translation": "You need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們得多練！",
+        "translation": "We need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他說得多練！",
+        "translation": "He said we need to practice more!",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還得多練",
+        "translation": "still need practice",
+        "pattern": "還得+多練",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "得多練",
+        "translation": "need more practice",
+        "pattern": "得+多練",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "多練幾次",
+        "translation": "practice more times",
+        "pattern": "多練+幾次",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "每天多練",
+        "translation": "practice more daily",
+        "pattern": "每天+多練",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "習練習": {
+    "zh": {
+      "gloss": "反覆做，讓自己更好。",
+      "illustration": "同樣的事多做幾次。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "還得習練習！",
+        "translation": "Still need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你還得習練習！",
+        "translation": "You still need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我還得習練習！",
+        "translation": "I still need to practice more!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他說還得習練習！",
+        "translation": "He said he still needs to practice more!",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "練習練習",
+        "translation": "practice practice",
+        "pattern": "練+習練習",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "多練習練習",
+        "translation": "practice more",
+        "pattern": "多+習練習",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一起練習練習",
+        "translation": "practice together",
+        "pattern": "一起+習練習",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "每天練習練習",
+        "translation": "practice daily",
+        "pattern": "每天+習練習",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "改天": {
+    "zh": {
+      "gloss": "不是今天，是別的一天。",
+      "illustration": "約下次再見面時會說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "改天我們一起去。",
+        "translation": "Let's go together another day.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "改天再說吧。",
+        "translation": "Let's talk another day.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "改天我請你吃飯。",
+        "translation": "I'll treat you another day.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "改天你有空嗎？",
+        "translation": "Are you free another day?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "改天去",
+        "translation": "go another day",
+        "pattern": "改天+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "改天再",
+        "translation": "again another day",
+        "pattern": "改天+再",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "改天一起",
+        "translation": "together another day",
+        "pattern": "改天+一起",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "改天見",
+        "translation": "see you later",
+        "pattern": "改天+見",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "主意": {
+    "zh": {
+      "gloss": "想到的好辦法。",
+      "illustration": "覺得對的想法。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "好主意！",
+        "translation": "Good idea!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這是個好主意。",
+        "translation": "That's a good idea.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你有什麼主意？",
+        "translation": "What idea do you have?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我覺得你的主意很好。",
+        "translation": "I think your idea is good.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "好主意",
+        "translation": "good idea",
+        "pattern": "好+主意",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "有主意",
+        "translation": "have an idea",
+        "pattern": "有+主意",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "你的主意",
+        "translation": "your idea",
+        "pattern": "你的+主意",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "什麼主意",
+        "translation": "what idea",
+        "pattern": "什麼+主意",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "還有別": {
+    "zh": {
+      "gloss": "除了前面說的，還有其他的。",
+      "illustration": "問對方還有沒有其他的。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你還有別的興趣嗎？",
+        "translation": "Do you have other interests?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還有別的想法嗎？",
+        "translation": "Any other ideas?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他還有別的工作。",
+        "translation": "He has other work too.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "還有別的地方想去嗎？",
+        "translation": "Any other places you want to go?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "還有別的",
+        "translation": "also other",
+        "pattern": "還有別+的",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還有別嗎",
+        "translation": "any others?",
+        "pattern": "還有別+嗎",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還有別想",
+        "translation": "also want other",
+        "pattern": "還有別+想",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "還有別去",
+        "translation": "also go elsewhere",
+        "pattern": "還有別+去",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "下廚": {
+    "zh": {
+      "gloss": "到廚房做飯。",
+      "illustration": "自己動手做菜。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我很喜歡下廚。",
+        "translation": "I really like cooking.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他週末常下廚。",
+        "translation": "He often cooks on weekends.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "下廚讓我很快樂。",
+        "translation": "Cooking makes me happy.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想下廚嗎？",
+        "translation": "Do you want to cook?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "喜歡下廚",
+        "translation": "like cooking",
+        "pattern": "喜歡+下廚",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "常下廚",
+        "translation": "often cook",
+        "pattern": "常+下廚",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去下廚",
+        "translation": "go cook",
+        "pattern": "去+下廚",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "下廚做",
+        "translation": "cook and make",
+        "pattern": "下廚+做",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "愛煮義": {
+    "zh": {
+      "gloss": "喜歡做一種長長的麵。",
+      "illustration": "在廚房做麵給大家吃。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我很愛煮義。",
+        "translation": "I really love cooking it.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他很愛煮義。",
+        "translation": "He really loves cooking it.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "愛煮義的人不少。",
+        "translation": "Quite a few people love cooking it.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你愛煮義嗎？",
+        "translation": "Do you love cooking it?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "愛煮義大利",
+        "translation": "love cooking Italian",
+        "pattern": "愛煮義+大利",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "特別愛煮義",
+        "translation": "especially love cooking Italian",
+        "pattern": "特別+愛煮義",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很愛煮義",
+        "translation": "really love cooking Italian",
+        "pattern": "很+愛煮義",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "愛煮義麵",
+        "translation": "love cooking pasta",
+        "pattern": "愛煮義+麵",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "麵": {
+    "zh": {
+      "gloss": "用粉做的長條食物。",
+      "illustration": "做好加醬就可以吃。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我想吃麵。",
+        "translation": "I want to eat noodles.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這碗麵很好吃。",
+        "translation": "This bowl of noodles is tasty.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想吃麵嗎？",
+        "translation": "Do you want to eat noodles?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們晚上吃麵。",
+        "translation": "We ate noodles tonight.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "義大利麵",
+        "translation": "Italian pasta",
+        "pattern": "義大利+麵",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "吃麵",
+        "translation": "eat noodles",
+        "pattern": "吃+麵",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "煮麵",
+        "translation": "cook noodles",
+        "pattern": "煮+麵",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一碗麵",
+        "translation": "a bowl of noodles",
+        "pattern": "一碗+麵",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "拍照": {
+    "zh": {
+      "gloss": "用相機或手機把畫面留下來。",
+      "illustration": "看到好看的就想留著。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我喜歡拍照。",
+        "translation": "I like taking photos.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們在臺東拍照。",
+        "translation": "We took photos in Taitung.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想拍照嗎？",
+        "translation": "Do you want to take photos?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他拍照很好看。",
+        "translation": "His photos look good.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "喜歡拍照",
+        "translation": "like photos",
+        "pattern": "喜歡+拍照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "去拍照",
+        "translation": "go take photos",
+        "pattern": "去+拍照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一起拍照",
+        "translation": "take photos together",
+        "pattern": "一起+拍照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "拍照好看",
+        "translation": "photos look good",
+        "pattern": "拍照+好看",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "偶爾會": {
+    "zh": {
+      "gloss": "有時候會做，不是常常。",
+      "illustration": "有時做，有時不做。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我偶爾會拍一些照片。",
+        "translation": "I occasionally take some photos.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他偶爾會去跑步。",
+        "translation": "He occasionally goes running.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們偶爾會一起吃飯。",
+        "translation": "We occasionally eat together.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你偶爾會聽音樂嗎？",
+        "translation": "Do you occasionally listen to music?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "偶爾會去",
+        "translation": "occasionally go",
+        "pattern": "偶爾會+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "偶爾會拍",
+        "translation": "occasionally shoot",
+        "pattern": "偶爾會+拍",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "偶爾會吃",
+        "translation": "occasionally eat",
+        "pattern": "偶爾會+吃",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "偶爾會聽",
+        "translation": "occasionally listen",
+        "pattern": "偶爾會+聽",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "風景照": {
+    "zh": {
+      "gloss": "拍外面好看畫面的照片。",
+      "illustration": "山、海、田野都可以拍。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我偶爾會拍一些風景照。",
+        "translation": "I occasionally take some landscape photos.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這張風景照很好看。",
+        "translation": "This landscape photo looks great.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他送我一張風景照。",
+        "translation": "He gave me a landscape photo.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想拍風景照嗎？",
+        "translation": "Do you want to take landscape photos?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "拍風景照",
+        "translation": "take landscape photos",
+        "pattern": "拍+風景照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "一些風景照",
+        "translation": "some landscape photos",
+        "pattern": "一些+風景照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "風景照很",
+        "translation": "landscape photo is",
+        "pattern": "風景照+很",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "張風景照",
+        "translation": "a landscape photo",
+        "pattern": "張+風景照",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "拍過": {
+    "zh": {
+      "gloss": "以前用相機留下畫面。",
+      "illustration": "問別人以前有沒有照過相。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你拍過臺東的風景嗎？",
+        "translation": "Have you photographed Taitung's scenery?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我拍過很多照片。",
+        "translation": "I've taken many photos.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "他拍過這裡嗎？",
+        "translation": "Has he photographed this place?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們拍過很多張。",
+        "translation": "We've taken many shots.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "拍過照",
+        "translation": "have taken photos",
+        "pattern": "拍過+照",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "拍過風景",
+        "translation": "have shot scenery",
+        "pattern": "拍過+風景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "以前拍過",
+        "translation": "photographed before",
+        "pattern": "以前+拍過",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "拍過嗎",
+        "translation": "have you shot?",
+        "pattern": "拍過+嗎",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "風景": {
+    "zh": {
+      "gloss": "眼睛看到的山水、田野等畫面。",
+      "illustration": "山、海、田都可以看。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "臺東的風景很美。",
+        "translation": "Taitung's scenery is beautiful.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你拍過臺東的風景嗎？",
+        "translation": "Have you photographed Taitung's scenery?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡風景很好。",
+        "translation": "The scenery here is great.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們慢慢看風景。",
+        "translation": "We slowly enjoyed the scenery.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "風景很美",
+        "translation": "scenery beautiful",
+        "pattern": "風景+很美",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看風景",
+        "translation": "view scenery",
+        "pattern": "看+風景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "拍風景",
+        "translation": "shoot scenery",
+        "pattern": "拍+風景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "風景很好",
+        "translation": "scenery great",
+        "pattern": "風景+很好",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "太棒了": {
+    "zh": {
+      "gloss": "表示非常好、很開心。",
+      "illustration": "聽到好建議時會這樣說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "太棒了，我們一起去臺東吧。",
+        "translation": "Great, let's go to Taitung together.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "太棒了！",
+        "translation": "Awesome!",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這個主意太棒了。",
+        "translation": "This idea is awesome.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "聽到這個太棒了。",
+        "translation": "Great to hear this.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "太棒了",
+        "translation": "awesome",
+        "pattern": "固定",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "主意太棒了",
+        "translation": "idea awesome",
+        "pattern": "主意+太棒了",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "真的太棒",
+        "translation": "really awesome",
+        "pattern": "真的+太棒",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "太棒了吧",
+        "translation": "awesome right",
+        "pattern": "太棒了+吧",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "找個": {
+    "zh": {
+      "gloss": "找一個。",
+      "illustration": "找時間、找地方都可以說。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "找個週末我們一起去臺東吧。",
+        "translation": "Let's find a weekend to go to Taitung together.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們找個時間見面。",
+        "translation": "Let's find a time to meet.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "找個地方吃飯吧。",
+        "translation": "Let's find a place to eat.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想找個伴一起去嗎？",
+        "translation": "Do you want to find someone to go with?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "找個週末",
+        "translation": "find a weekend",
+        "pattern": "找個+週末",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "找個時間",
+        "translation": "find a time",
+        "pattern": "找個+時間",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "找個地方",
+        "translation": "find a place",
+        "pattern": "找個+地方",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "找個伴",
+        "translation": "find a companion",
+        "pattern": "找個+伴",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "欣賞": {
+    "zh": {
+      "gloss": "慢慢看，覺得很美、很好。",
+      "illustration": "看到好看的畫面時。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我們慢慢欣賞風景。",
+        "translation": "We slowly enjoyed the scenery.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我很欣賞這裡的風景。",
+        "translation": "I really appreciate the scenery here.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "大家一起欣賞照片。",
+        "translation": "Everyone admired the photos together.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想欣賞海邊嗎？",
+        "translation": "Do you want to enjoy the seaside view?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "欣賞美景",
+        "translation": "admire beautiful scenery",
+        "pattern": "欣賞+美景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "慢慢欣賞",
+        "translation": "slowly admire",
+        "pattern": "慢慢+欣賞",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "欣賞風景",
+        "translation": "enjoy scenery",
+        "pattern": "欣賞+風景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "很欣賞",
+        "translation": "really appreciate",
+        "pattern": "很+欣賞",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "美景": {
+    "zh": {
+      "gloss": "看起來很美的風景。",
+      "illustration": "山、海、田野都很好看。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "這裡美景很多。",
+        "translation": "There is a lot of beautiful scenery here.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "臺東的美景很多。",
+        "translation": "Taitung has lots of beautiful scenery.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "這裡的美景讓人開心。",
+        "translation": "The beautiful scenery here makes people happy.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你想看美景嗎？",
+        "translation": "Do you want to see beautiful scenery?",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "欣賞美景",
+        "translation": "admire beauty",
+        "pattern": "欣賞+美景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "美景很多",
+        "translation": "much beauty",
+        "pattern": "美景+很多",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "看美景",
+        "translation": "see beauty",
+        "pattern": "看+美景",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "臺東美景",
+        "translation": "Taitung beauty",
+        "pattern": "臺東+美景",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "行程": {
+    "zh": {
+      "gloss": "旅行要走的路和要做的事。",
+      "illustration": "出門前要先想好。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "我們先一起把行程計畫一下吧。",
+        "translation": "Let's plan the itinerary together first.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "你的行程想好了嗎？",
+        "translation": "Have you thought through your itinerary?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "行程不要太滿。",
+        "translation": "Don't pack the itinerary too full.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們改了行程。",
+        "translation": "We changed the itinerary.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "行程安排",
+        "translation": "plan itinerary",
+        "pattern": "行程+安排",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "改行程",
+        "translation": "change itinerary",
+        "pattern": "改+行程",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "行程計畫",
+        "translation": "itinerary plan",
+        "pattern": "行程+計畫",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "你的行程",
+        "translation": "your itinerary",
+        "pattern": "你的+行程",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  },
+  "計畫": {
+    "zh": {
+      "gloss": "事先想好要做什麼。",
+      "illustration": "出門前要先想好。",
+      "level": "TOCFL-3"
+    },
+    "examples": [
+      {
+        "text": "你計畫好了嗎？",
+        "translation": "Have you finished planning?",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們先一起把計畫寫下來吧。",
+        "translation": "Let's write down the plan together first.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "我們計畫週末去臺東。",
+        "translation": "We plan to go to Taitung this weekend.",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "text": "計畫不要太難。",
+        "translation": "Don't make the plan too hard.",
+        "shared": true,
+        "source": "generated"
+      }
+    ],
+    "collocations": [
+      {
+        "phrase": "計畫一下",
+        "translation": "plan a bit",
+        "pattern": "計畫+一下",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "行程計畫",
+        "translation": "itinerary plan",
+        "pattern": "行程+計畫",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "計畫去",
+        "translation": "plan to go",
+        "pattern": "計畫+去",
+        "shared": true,
+        "source": "generated"
+      },
+      {
+        "phrase": "先計畫",
+        "translation": "plan first",
+        "pattern": "先+計畫",
+        "shared": true,
+        "source": "generated"
+      }
+    ]
+  }
+}

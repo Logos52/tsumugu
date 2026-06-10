@@ -117,6 +117,7 @@ import {
 } from "./lib/dictPackaging.js";
 import {
   applyDictionaryFill,
+  expandGlossaryForTokens,
   listWordsNeedingFill,
   type DictionaryFillMap,
 } from "./lib/dictFill.js";
@@ -376,6 +377,28 @@ async function cmdDictFill(opts: Record<string, string | boolean>): Promise<void
   }
 
   const applyPath = str(opts, "apply");
+
+  if (flag(opts, "expand")) {
+    const reg = await buildRegistry(str(opts, "pack-module"));
+    let pack: LanguagePack;
+    try {
+      pack = resolvePack(reg, content.lang, str(opts, "pack"));
+    } catch {
+      pack = demoPack;
+    }
+    const { content: expanded, added } = await expandGlossaryForTokens({
+      content,
+      pack,
+      defFloorBand: str(opts, "def-floor"),
+    });
+    const outPath = str(opts, "out") ?? inPath;
+    await writeJson(outPath, expanded);
+    console.error(
+      `✓ glossary expanded: ${outPath} (+${added.length} token(s): ${added.slice(0, 12).join("、")}${added.length > 12 ? "…" : ""})`,
+    );
+    if (!applyPath) return;
+    content = expanded;
+  }
   if (!applyPath) {
     const needs = listWordsNeedingFill(content);
     console.log(`Dictionary fill status: ${needs.length} word(s) need content\n`);
@@ -1652,8 +1675,8 @@ function usage(): void {
       "                    [--no-term] [--force] [--dry-run]",
       "  pnpm gen example-audio --in <prepared.json> [--words all|glossary] [--voice Serena] [--model <id>] [--out audio/examples/]   (per-example Serena mp3 → examples[].audio)",
       "                    [--limit N] [--force] [--dry-run]",
-      "  pnpm gen dict-fill --in <prepared.json> [--apply fills.json] [--out path] [--verify]",
-      "                    (list dictionary gaps + prompts; --apply merges agent fill JSON)",
+      "  pnpm gen dict-fill --in <prepared.json> [--expand] [--apply fills.json] [--out path] [--verify]",
+      "                    (list gaps + prompts; --expand seeds missing token rows; --apply merges fill JSON)",
       "  pnpm gen pack-dict [--lang zh-Hant] [--data-dir packs/private/zh-hant/data] [--out dist/]",
       "                    [--mono dict.mono.zh.json]   (SQLite per license regime + JSON shards + size report)",
       "",

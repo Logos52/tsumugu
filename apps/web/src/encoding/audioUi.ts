@@ -14,6 +14,7 @@ import {
 import type { AppState } from "../state.js";
 import { el } from "../ui/dom.js";
 import { CLS } from "../ui/classes.js";
+import type { SentenceHoverController } from "./sentenceHover.js";
 import { mountSentenceWaveforms, type SentenceWaveforms } from "../voice/sentenceWaveform.js";
 import {
   discoverEncodingAudio,
@@ -94,17 +95,23 @@ export function appendExampleWaveformRow(
     app: AppState;
     collections: WaveformRowCollections;
     showNumber?: boolean;
+    sentenceHover?: SentenceHoverController;
   },
 ): void {
-  const { term, ex, index, audioBinding, doc, app, collections, showNumber = true } = opts;
+  const { term, ex, index, audioBinding, doc, app, collections, showNumber = true, sentenceHover } =
+    opts;
   const row = el("div", { class: CLS.sentRow });
   if (showNumber) row.append(el("span", { class: CLS.sentNum, text: String(index + 1) }));
-  row.append(
-    el("span", {
-      class: CLS.sentCn,
-      html: renderExampleHtml(ex.text, term, ex.highlightSpans),
-    }),
-  );
+  const cnHost = el("span", { class: CLS.sentCn });
+  if (sentenceHover) {
+    sentenceHover.mountSentence(cnHost, ex.text, {
+      headword: term,
+      highlightSpans: ex.highlightSpans,
+    });
+  } else {
+    cnHost.innerHTML = renderExampleHtml(ex.text, term, ex.highlightSpans);
+  }
+  row.append(cnHost);
   if (ex.translation) row.append(el("span", { class: CLS.sentEn, text: ex.translation }));
 
   const wrap = el("div", { class: CLS.sentWavewrap });

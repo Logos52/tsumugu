@@ -88,6 +88,14 @@ export interface VerifyReport {
   normalized: PreparedContent;
 }
 
+/** True when a glossary row has any non-empty sense gloss (bilingual or monolingual zh). */
+export function hasUsableGlossaryGloss(entry: PrebakedEntry): boolean {
+  if (entry.gloss?.trim()) return true;
+  if (entry.definitions?.en?.gloss?.trim()) return true;
+  if (entry.definitions?.zh?.gloss?.trim()) return true;
+  return false;
+}
+
 async function normalize(
   pack: LanguagePack,
   s: string,
@@ -372,13 +380,13 @@ export async function verifyContent(opts: VerifyOptions): Promise<VerifyReport> 
     ...(targetWords ? { targetWords } : {}),
   });
 
-  // Missing-glossary: every unknown word token needs a non-empty gloss.
+  // Missing-glossary: every unknown word token needs a usable gloss (en or zh).
   const missing = new Set<string>();
   for (const t of tokens) {
     if (!t.isWord) continue;
     if (isKnown(store.getStatus(lang, t.text), opts.policy)) continue;
     const g = glossary[t.text];
-    if (!g || g.gloss.trim() === "") missing.add(t.text);
+    if (!g || !hasUsableGlossaryGloss(g)) missing.add(t.text);
   }
 
   const recycle = (ci.targetRecycle ?? []).map((r) => ({

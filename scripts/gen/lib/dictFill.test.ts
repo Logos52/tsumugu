@@ -1,10 +1,13 @@
 import { describe, it, expect } from "vitest";
 import {
   applyDictionaryFill,
+  expandGlossaryForTokens,
+  listTokensMissingGlossary,
   listWordsNeedingFill,
   needsDictionaryFill,
 } from "./dictFill.js";
 import { PREPARED_CONTENT_SCHEMA_V2, type PreparedContent } from "@tsumugu/engine";
+import { demoPack } from "@tsumugu/demo-pack";
 
 function makeContent(): PreparedContent {
   return {
@@ -66,5 +69,27 @@ describe("dictFill", () => {
       { start: 6, end: 8 },
     ]);
     expect(needsDictionaryFill(filled.glossary["熱鬧"]!)).toBe(false);
+  });
+
+  it("expands glossary for word tokens missing a row", async () => {
+    const content: PreparedContent = {
+      schema: "tsumugu/prepared-content@1",
+      lang: "demo",
+      tokens: [
+        { text: "hello", isWord: true },
+        { text: "world", isWord: true },
+      ],
+      glossary: {
+        hello: { term: "hello", gloss: "greeting" },
+      },
+    };
+    expect(listTokensMissingGlossary(content)).toEqual(["world"]);
+    const { content: expanded, added } = await expandGlossaryForTokens({
+      content,
+      pack: demoPack,
+    });
+    expect(added).toEqual(["world"]);
+    expect(expanded.glossary.world?.term).toBe("world");
+    expect(expanded.glossary.world?.gloss).toContain("the earth");
   });
 });

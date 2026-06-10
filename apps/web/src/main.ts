@@ -8,7 +8,6 @@ import { primaryStoreLang, type AnkiDeck, type WordStatus, type VaultIO } from "
 import { AppState, migrateAppSettings, type AppSettings, type ViewController } from "./state.js";
 import { mountReader } from "./reader/reader.js";
 import { mountReview } from "./review/review.js";
-import { mountEncoding } from "./encoding/encoding.js";
 import { mountStyleguide } from "./styleguide/styleguide.js";
 import {
   MemoryVault,
@@ -77,6 +76,7 @@ const toolbarEl = $<HTMLElement>("#app-toolbar")!;
 const statusEl = $<HTMLElement>("#app-status")!;
 
 let view: ViewController | null = null;
+let remountSeq = 0;
 // True once the dev-server vault auto-loads; hides the manual grant button.
 let devVault = false;
 // Readings discovered in the dev vault (populated on init when devVault).
@@ -111,19 +111,27 @@ function encodingRoute(): string | null {
 }
 
 function remount(): void {
+  void remountAsync();
+}
+
+async function remountAsync(): Promise<void> {
+  const seq = ++remountSeq;
   syncPack();
   view?.unmount();
   clear(rootEl);
+  if (seq !== remountSeq) return;
   if (location.hash === "#/styleguide") {
     view = mountStyleguide(rootEl, app);
     return;
   }
   const word = encodingRoute();
   if (word) {
+    const { mountEncoding } = await import("./encoding/encoding.js");
+    if (seq !== remountSeq) return;
     view = mountEncoding(rootEl, app, word);
-  } else {
-    view = app.mode === "review" ? mountReview(rootEl, app) : mountReader(rootEl, app);
+    return;
   }
+  view = app.mode === "review" ? mountReview(rootEl, app) : mountReader(rootEl, app);
 }
 
 // Clicking an SRS word (review view) sets the hash; route to its encoding page.
@@ -792,4 +800,10 @@ async function init(): Promise<void> {
   }
   refreshStatus();
 }
-void init();
+function showBootError(err: unknown): void {
+  const msg = err instanceof Error ? err.message : String(err);
+  rootEl.innerHTML = `<p class="tsg-boot-error">Boot failed: ${msg}</p>`;
+  statusEl.textContent = "Boot failed — see message above.";
+}
+
+void init().catch(showBootError);

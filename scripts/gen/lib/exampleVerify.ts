@@ -83,6 +83,12 @@ export async function overlayKnownWordRecycleRatio(
   return total === 0 ? null : known / total;
 }
 
+/** Skip band checks on morphemes that appear inside the contiguous headword substring. */
+function isSubMorphemeOfTermInText(word: string, term: string, text: string): boolean {
+  if (word === term || term === "" || !text.includes(term)) return false;
+  return term.includes(word);
+}
+
 function verifyEntryExamples(
   entry: PrebakedEntry,
   defIndex: DefLevelIndex | undefined,
@@ -125,7 +131,11 @@ function verifyEntryExamples(
         index: defIndex,
         field: `examples[${i}].text`,
       });
-      exampleLevelViolations.push(...exCheck.violations.filter((v) => v.word !== term));
+      exampleLevelViolations.push(
+        ...exCheck.violations.filter(
+          (v) => v.word !== term && !isSubMorphemeOfTermInText(v.word, term, ex.text),
+        ),
+      );
     }
   }
 

@@ -69,7 +69,7 @@ describe("mountReview", () => {
     expect(root.children.length).toBe(0);
   });
 
-  it("reveals the back (reading + gloss) on Reveal, then advances on Good", async () => {
+  it("reveals the back (reading + gloss) on Reveal, then advances on Pass", async () => {
     const word = "你好";
     const store = dueStore(word);
     const app = new AppState({
@@ -103,11 +103,11 @@ describe("mountReview", () => {
     const before = app.getEntry(word)?.srs?.due;
     expect(before).toBeTruthy();
 
-    const goodBtn = [...root.querySelectorAll("button")].find(
-      (b) => b.textContent === "Good",
+    const passBtn = [...root.querySelectorAll("button")].find(
+      (b) => b.textContent === "Pass",
     );
-    expect(goodBtn).toBeTruthy();
-    goodBtn!.click();
+    expect(passBtn).toBeTruthy();
+    passBtn!.click();
 
     // The stored due advanced into the future.
     const after = app.getEntry(word)?.srs?.due;
@@ -153,9 +153,9 @@ describe("mountReview", () => {
     [...root.querySelectorAll("button")]
       .find((b) => b.textContent === "Reveal")!
       .click();
-    await Promise.resolve();
-
-    expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("alone");
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toBe("alone");
+    });
     expect(root.querySelector(`.${CLS.popupReading}`)?.textContent).toBe("ㄉㄨˊ ㄗˋ");
     expect(provider).not.toHaveBeenCalled();
   });
@@ -234,6 +234,78 @@ describe("mountReview", () => {
     const root = document.createElement("div");
     mountReview(root, app);
     expect(root.querySelector(`.${CLS.cardTerm}`)?.textContent).toBe("播客");
+  });
+
+  it("shows only Pass and Fail grading controls", () => {
+    const store = dueStore("你好");
+    const app = new AppState({
+      pack: fakePack(),
+      store,
+      settings: { studyLang: "demo" },
+      clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
+    });
+    const root = document.createElement("div");
+    mountReview(root, app);
+
+    const labels = [...root.querySelectorAll(`.${CLS.cardControls} button`)].map(
+      (b) => b.textContent,
+    );
+    expect(labels).toEqual(["Fail", "Pass"]);
+    expect(labels).not.toContain("Again");
+    expect(labels).not.toContain("Good");
+  });
+
+  it("toggles 簡明中文 and English definitions when both are present", async () => {
+    const { readFileSync } = await import("node:fs");
+    const { dirname, join } = await import("node:path");
+    const { fileURLToPath } = await import("node:url");
+    const { MemoryVault } = await import("../host/fsVault.js");
+    const { encodingArtifactPath } = await import("../encoding/encoding.js");
+
+    const fixturePath = join(
+      dirname(fileURLToPath(import.meta.url)),
+      "../../../../examples/encoding/熱鬧.encoding.json",
+    );
+    const vault = new MemoryVault();
+    vault.writeText(encodingArtifactPath("zh-Hant", "熱鬧"), readFileSync(fixturePath, "utf8"));
+
+    const store = new WordStore();
+    const entry: WordEntry = { lang: "zh-Hant", word: "熱鬧", status: "l1" };
+    ensureSrs(entry, fixedClock(new Date("2020-01-01T00:00:00Z")));
+    store.upsert(entry);
+
+    const app = new AppState({
+      pack: fakePack(),
+      store,
+      vault,
+      settings: { studyLang: "zh-Hant", dictDefault: "zh" },
+      clock: fixedClock(new Date("2026-06-04T00:00:00Z")),
+    });
+    const root = document.createElement("div");
+    mountReview(root, app);
+
+    [...root.querySelectorAll("button")].find((b) => b.textContent === "Reveal")!.click();
+    await vi.waitFor(() => {
+      expect(root.querySelector(`.${CLS.defToggle}`)).toBeTruthy();
+    });
+
+    const zhBtn = [...root.querySelectorAll(`.${CLS.defToggle} button`)].find(
+      (b) => b.textContent === "簡明中文",
+    );
+    const enBtn = [...root.querySelectorAll(`.${CLS.defToggle} button`)].find(
+      (b) => b.textContent === "English",
+    );
+    expect(zhBtn?.classList.contains(CLS.defSegOn)).toBe(true);
+    expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toContain("人多");
+
+    enBtn!.click();
+    expect(enBtn?.classList.contains(CLS.defSegOn)).toBe(true);
+    expect(root.querySelector(`.${CLS.popupGloss}`)?.textContent).toContain("lively");
+    expect(app.settings.dictDefault).toBe("en");
+
+    zhBtn!.click();
+    expect(zhBtn?.classList.contains(CLS.defSegOn)).toBe(true);
+    expect(app.settings.dictDefault).toBe("zh");
   });
 
   it("navigates to the encoding route when the card term is clicked", () => {

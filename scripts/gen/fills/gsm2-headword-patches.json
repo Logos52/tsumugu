@@ -1,0 +1,238 @@
+{
+  "臺東": null,
+  "櫃臺": null,
+  "遊得": null,
+  "我遊": null,
+  "仙台": {
+    "examples": [
+      { "text": "我去了三仙台。", "translation": "I went to Sanxiantai (in the lesson: 三仙台).", "shared": true, "source": "generated" },
+      { "text": "臺東的仙台很有名。", "translation": "Xiantai in Taitung is famous.", "shared": true, "source": "generated" },
+      { "text": "你想去仙台看看嗎？", "translation": "Do you want to visit Xiantai?", "shared": true, "source": "generated" },
+      { "text": "我們在仙台看海。", "translation": "We watched the sea at Xiantai.", "shared": true, "source": "generated" }
+    ]
+  },
+  "音樂": {
+    "examples": [
+      { "text": "我喜歡聽音樂。", "translation": "I like listening to music.", "shared": true, "source": "generated" },
+      { "text": "他下班後常聽音樂。", "translation": "He often listens to music after work.", "shared": true, "source": "generated" },
+      { "text": "我們一邊聽音樂一邊聊天。", "translation": "We chat while listening to music.", "shared": true, "source": "generated" },
+      { "text": "這首音樂很好聽。", "translation": "This music sounds great.", "shared": true, "source": "generated" }
+    ]
+  },
+  "爬": {
+    "examples": [
+      { "text": "我平常喜歡爬爬山。", "translation": "I usually like to hike.", "shared": true, "source": "generated" },
+      { "text": "他每天都爬樓梯上班。", "translation": "He climbs stairs to work every day.", "shared": true, "source": "generated" },
+      { "text": "週末我們去山上爬。", "translation": "On weekends we go climb in the mountains.", "shared": true, "source": "generated" },
+      { "text": "小孩喜歡爬公園的設施。", "translation": "Kids like climbing on playground equipment.", "shared": true, "source": "generated" }
+    ]
+  },
+  "愛運動": {
+    "examples": [
+      { "text": "我比較愛運動。", "translation": "I prefer sports.", "shared": true, "source": "generated" },
+      { "text": "他很愛運動，每天跑步。", "translation": "He loves sports and runs every day.", "shared": true, "source": "generated" },
+      { "text": "她愛運動，常去游泳。", "translation": "She loves sports and often goes swimming.", "shared": true, "source": "generated" },
+      { "text": "你愛運動嗎？", "translation": "Do you love sports?", "shared": true, "source": "generated" }
+    ]
+  },
+  "經常去": {
+    "examples": [
+      { "text": "休假時我經常去游泳。", "translation": "I often go swimming during vacation.", "shared": true, "source": "generated" },
+      { "text": "他經常去公園跑步。", "translation": "He often goes to the park to run.", "shared": true, "source": "generated" },
+      { "text": "我們經常去海邊走走。", "translation": "We often go walk by the sea.", "shared": true, "source": "generated" },
+      { "text": "她經常去圖書館看書。", "translation": "She often goes to the library to read.", "shared": true, "source": "generated" }
+    ]
+  },
+  "遊得": {
+    "examples": [
+      { "text": "你自己游得怎麼樣？", "translation": "How well do you swim yourself?", "shared": true, "source": "generated" },
+      { "text": "他游得很快。", "translation": "He swims very fast.", "shared": true, "source": "generated" },
+      { "text": "她游得很輕鬆。", "translation": "She swims very easily.", "shared": true, "source": "generated" },
+      { "text": "我游得還不太好。", "translation": "I don't swim very well yet.", "shared": true, "source": "generated" }
+    ]
+  },
+  "我遊": {
+    "examples": [
+      { "text": "我游得還不太好。", "translation": "I don't swim very well yet.", "shared": true, "source": "generated" },
+      { "text": "我游得馬馬虎虎。", "translation": "I swim so-so.", "shared": true, "source": "generated" },
+      { "text": "我游得還要多練。", "translation": "I still need more practice swimming.", "shared": true, "source": "generated" },
+      { "text": "我游得比他想像中好。", "translation": "I swim better than he expected.", "shared": true, "source": "generated" }
+    ]
+  },
+  "馬": {
+    "examples": [
+      { "text": "我游得馬馬虎虎。", "translation": "I swim so-so.", "shared": true, "source": "generated" },
+      { "text": "他做得馬馬虎虎。", "translation": "He does it so-so.", "shared": true, "source": "generated" },
+      { "text": "這次考試馬馬虎虎。", "translation": "This exam was so-so.", "shared": true, "source": "generated" },
+      { "text": "寫字寫得馬馬虎虎。", "translation": "My handwriting is so-so.", "shared": true, "source": "generated" }
+    ]
+  },
+  "虎虎": {
+    "examples": [
+      { "text": "我游得馬馬虎虎。", "translation": "I swim so-so.", "shared": true, "source": "generated" },
+      { "text": "他做得馬馬虎虎。", "translation": "He does it so-so.", "shared": true, "source": "generated" },
+      { "text": "寫字寫得馬馬虎虎。", "translation": "My handwriting is so-so.", "shared": true, "source": "generated" },
+      { "text": "馬馬虎虎，還得多練。", "translation": "So-so — still need more practice.", "shared": true, "source": "generated" }
+    ]
+  },
+  "還得": {
+    "examples": [
+      { "text": "我游得馬馬虎虎，還得多練。", "translation": "I swim so-so; I still need more practice.", "shared": true, "source": "generated" },
+      { "text": "還得再練幾次。", "translation": "Still need to practice a few more times.", "shared": true, "source": "generated" },
+      { "text": "還得再準備一下。", "translation": "Still need to prepare a bit more.", "shared": true, "source": "generated" },
+      { "text": "我們還得再想想。", "translation": "We still need to think it over.", "shared": true, "source": "generated" }
+    ]
+  },
+  "多練": {
+    "examples": [
+      { "text": "我游得馬馬虎虎，還得多練。", "translation": "I swim so-so; I still need more practice.", "shared": true, "source": "generated" },
+      { "text": "寫字要多練才會漂亮。", "translation": "You need more practice to write beautifully.", "shared": true, "source": "generated" },
+      { "text": "口說要多練才流利。", "translation": "Speaking needs more practice to be fluent.", "shared": true, "source": "generated" },
+      { "text": "游泳要多練才會好。", "translation": "Swimming needs more practice to get good.", "shared": true, "source": "generated" }
+    ]
+  },
+  "習練習": {
+    "examples": [
+      { "text": "我游得馬馬虎虎，還得多練習練習。", "translation": "I swim so-so; I still need to practice more.", "shared": true, "source": "generated" },
+      { "text": "寫字要多練習練習。", "translation": "Writing needs lots of practice.", "shared": true, "source": "generated" },
+      { "text": "每天練習練習就會進步。", "translation": "Practice every day and you'll improve.", "shared": true, "source": "generated" },
+      { "text": "口說要練習練習才流利。", "translation": "Speaking needs repeated practice to be fluent.", "shared": true, "source": "generated" }
+    ]
+  },
+  "改天": {
+    "examples": [
+      { "text": "改天我們可以約著一起去。", "translation": "We can make plans to go together another day.", "shared": true, "source": "generated" },
+      { "text": "改天再一起吃飯吧。", "translation": "Let's eat together another day.", "shared": true, "source": "generated" },
+      { "text": "今天不行，改天吧。", "translation": "Not today — another day.", "shared": true, "source": "generated" },
+      { "text": "改天你有空再聊。", "translation": "Chat again when you're free another day.", "shared": true, "source": "generated" }
+    ]
+  },
+  "主意": {
+    "examples": [
+      { "text": "好主意！我們就這麼做。", "translation": "Good idea! Let's do that.", "shared": true, "source": "generated" },
+      { "text": "你有什麼好主意嗎？", "translation": "Do you have any good ideas?", "shared": true, "source": "generated" },
+      { "text": "這個主意聽起來不錯。", "translation": "This idea sounds good.", "shared": true, "source": "generated" },
+      { "text": "我想到一個主意。", "translation": "I thought of an idea.", "shared": true, "source": "generated" }
+    ]
+  },
+  "還有別": {
+    "examples": [
+      { "text": "你還有別的興趣嗎？", "translation": "Do you have other interests?", "shared": true, "source": "generated" },
+      { "text": "除了旅行，還有別的嗎？", "translation": "Besides travel, anything else?", "shared": true, "source": "generated" },
+      { "text": "他還有別的愛好。", "translation": "He has other hobbies too.", "shared": true, "source": "generated" },
+      { "text": "我還有別的問題想問。", "translation": "I have other questions to ask.", "shared": true, "source": "generated" }
+    ]
+  },
+  "下廚": {
+    "examples": [
+      { "text": "我很喜歡下廚。", "translation": "I really like cooking.", "shared": true, "source": "generated" },
+      { "text": "他週末常下廚做晚餐。", "translation": "He often cooks dinner on weekends.", "shared": true, "source": "generated" },
+      { "text": "下廚做飯很開心。", "translation": "Cooking makes me happy.", "shared": true, "source": "generated" },
+      { "text": "今天換我下廚。", "translation": "It's my turn to cook today.", "shared": true, "source": "generated" }
+    ]
+  },
+  "愛煮義": {
+    "examples": [
+      { "text": "我特別愛煮義大利麵。", "translation": "I especially love cooking Italian noodles.", "shared": true, "source": "generated" },
+      { "text": "他很愛煮義大利料理。", "translation": "He loves cooking Italian food.", "shared": true, "source": "generated" },
+      { "text": "週末我常愛煮義式麵。", "translation": "On weekends I often cook Italian noodles.", "shared": true, "source": "generated" },
+      { "text": "你愛煮義大利菜嗎？", "translation": "Do you love cooking Italian dishes?", "shared": true, "source": "generated" }
+    ]
+  },
+  "麵": {
+    "examples": [
+      { "text": "我特別愛煮義大利麵。", "translation": "I especially love cooking Italian noodles.", "shared": true, "source": "generated" },
+      { "text": "這家店的牛肉麵很有名。", "translation": "This shop's beef noodles are famous.", "shared": true, "source": "generated" },
+      { "text": "你想吃湯麵還是拌麵？", "translation": "Do you want soup noodles or dry noodles?", "shared": true, "source": "generated" },
+      { "text": "他煮了一鍋麵給大家吃。", "translation": "He cooked a pot of noodles for everyone.", "shared": true, "source": "generated" }
+    ]
+  },
+  "拍照": {
+    "examples": [
+      { "text": "我喜歡拍照。", "translation": "I like taking photos.", "shared": true, "source": "generated" },
+      { "text": "我們在這裡拍照吧。", "translation": "Let's take photos here.", "shared": true, "source": "generated" },
+      { "text": "他用手機拍照。", "translation": "He takes photos with his phone.", "shared": true, "source": "generated" },
+      { "text": "夕陽很美，快拍照！", "translation": "The sunset is beautiful — take a photo!", "shared": true, "source": "generated" }
+    ]
+  },
+  "偶爾會": {
+    "examples": [
+      { "text": "我偶爾會拍一些風景照。", "translation": "I occasionally take some scenery photos.", "shared": true, "source": "generated" },
+      { "text": "他偶爾會去爬山。", "translation": "He occasionally goes hiking.", "shared": true, "source": "generated" },
+      { "text": "我偶爾會下廚請朋友。", "translation": "I occasionally cook for friends.", "shared": true, "source": "generated" },
+      { "text": "她偶爾會聽音樂。", "translation": "She occasionally listens to music.", "shared": true, "source": "generated" }
+    ]
+  },
+  "風景照": {
+    "examples": [
+      { "text": "我偶爾會拍一些風景照。", "translation": "I occasionally take some scenery photos.", "shared": true, "source": "generated" },
+      { "text": "這張風景照很漂亮。", "translation": "This scenery photo is beautiful.", "shared": true, "source": "generated" },
+      { "text": "他喜歡收集風景照。", "translation": "He likes collecting scenery photos.", "shared": true, "source": "generated" },
+      { "text": "我們在山上拍了很多風景照。", "translation": "We took many scenery photos in the mountains.", "shared": true, "source": "generated" }
+    ]
+  },
+  "拍過": {
+    "examples": [
+      { "text": "你拍過臺東的風景嗎？", "translation": "Have you photographed Taitung's scenery?", "shared": true, "source": "generated" },
+      { "text": "我去年拍過很多海邊的照片。", "translation": "Last year I took many seaside photos.", "shared": true, "source": "generated" },
+      { "text": "他從來沒拍過那邊。", "translation": "He's never photographed that area.", "shared": true, "source": "generated" },
+      { "text": "我們以前拍過那裡。", "translation": "We've photographed that place before.", "shared": true, "source": "generated" }
+    ]
+  },
+  "風景": {
+    "examples": [
+      { "text": "臺東的風景很漂亮。", "translation": "Taitung's scenery is beautiful.", "shared": true, "source": "generated" },
+      { "text": "山上的風景讓人放鬆。", "translation": "Mountain scenery is relaxing.", "shared": true, "source": "generated" },
+      { "text": "海邊的風景在夕陽時最美。", "translation": "Seaside scenery is best at sunset.", "shared": true, "source": "generated" },
+      { "text": "我們慢慢看沿途的風景。", "translation": "We slowly enjoyed the scenery along the way.", "shared": true, "source": "generated" }
+    ]
+  },
+  "太棒了": {
+    "examples": [
+      { "text": "太棒了，我們週末就去臺東！", "translation": "Awesome — let's go to Taitung this weekend!", "shared": true, "source": "generated" },
+      { "text": "這個主意太棒了！", "translation": "This idea is awesome!", "shared": true, "source": "generated" },
+      { "text": "聽起來太棒了！", "translation": "That sounds awesome!", "shared": true, "source": "generated" },
+      { "text": "太棒了，就這麼決定！", "translation": "Awesome — it's decided!", "shared": true, "source": "generated" }
+    ]
+  },
+  "找個": {
+    "examples": [
+      { "text": "找個週末我們就一起去臺東吧。", "translation": "Let's find a weekend and go to Taitung together.", "shared": true, "source": "generated" },
+      { "text": "找個時間一起吃飯吧。", "translation": "Let's find a time to eat together.", "shared": true, "source": "generated" },
+      { "text": "找個安靜的地方聊聊。", "translation": "Find a quiet place to chat.", "shared": true, "source": "generated" },
+      { "text": "找個好日子出門走走。", "translation": "Pick a good day to go out.", "shared": true, "source": "generated" }
+    ]
+  },
+  "欣賞": {
+    "examples": [
+      { "text": "我們慢慢欣賞那邊的美景。", "translation": "We slowly enjoyed the beautiful scenery there.", "shared": true, "source": "generated" },
+      { "text": "他喜歡欣賞畫。", "translation": "He likes appreciating paintings.", "shared": true, "source": "generated" },
+      { "text": "夕陽值得欣賞。", "translation": "The sunset is worth appreciating.", "shared": true, "source": "generated" },
+      { "text": "慢慢欣賞這裡的氣氛。", "translation": "Slowly take in the atmosphere here.", "shared": true, "source": "generated" }
+    ]
+  },
+  "美景": {
+    "examples": [
+      { "text": "臺東的美景真的很漂亮。", "translation": "Taitung's beautiful scenery is really pretty.", "shared": true, "source": "generated" },
+      { "text": "山上的美景讓人忘記時間。", "translation": "Mountain beauty makes you lose track of time.", "shared": true, "source": "generated" },
+      { "text": "海邊的美景適合慢慢看。", "translation": "Seaside beauty is best enjoyed slowly.", "shared": true, "source": "generated" },
+      { "text": "這裡的美景值得再來。", "translation": "The beautiful scenery here is worth revisiting.", "shared": true, "source": "generated" }
+    ]
+  },
+  "行程": {
+    "examples": [
+      { "text": "我們先一起把行程計畫一下吧。", "translation": "Let's plan the itinerary together first.", "shared": true, "source": "generated" },
+      { "text": "這次的行程很輕鬆。", "translation": "This trip's itinerary is relaxed.", "shared": true, "source": "generated" },
+      { "text": "行程第一天想去海邊。", "translation": "Day one of the itinerary: go to the seaside.", "shared": true, "source": "generated" },
+      { "text": "行程想好了就出發。", "translation": "Once the itinerary is set, we head out.", "shared": true, "source": "generated" }
+    ]
+  },
+  "計畫": {
+    "examples": [
+      { "text": "我們先一起把行程計畫一下吧。", "translation": "Let's plan the trip together first.", "shared": true, "source": "generated" },
+      { "text": "週末的計畫還沒想好。", "translation": "The weekend plan isn't set yet.", "shared": true, "source": "generated" },
+      { "text": "先想好行程計畫。", "translation": "Think through the itinerary plan first.", "shared": true, "source": "generated" },
+      { "text": "計畫好了就告訴大家。", "translation": "Tell everyone once the plan is ready.", "shared": true, "source": "generated" }
+    ]
+  }
+}

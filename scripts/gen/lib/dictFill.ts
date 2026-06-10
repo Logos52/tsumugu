@@ -8,10 +8,14 @@ import {
   type Collocation,
   type Definitions,
   type ExampleSentence,
+  type LanguagePack,
   type MonoDefinition,
   type PreparedContent,
   type PrebakedEntry,
 } from "@tsumugu/engine";
+import { seedCollocationSlots } from "./collocations.js";
+import { resolveDefFloorBand } from "./defLevelData.js";
+import { seedSharedExampleSlots } from "./examples.js";
 
 export interface DictionaryWordFill {
   /** Leveled monolingual definition. */
@@ -109,6 +113,10 @@ export function applyFillToEntry(
   if (fill.collocations?.length) {
     out.collocations = stampCollocations(fill.collocations);
   }
+  // Monolingual fills: mirror zh gloss so missing-glossary checks pass without English.
+  if (!out.gloss?.trim() && definitions.zh?.gloss?.trim()) {
+    out.gloss = definitions.zh.gloss.trim();
+  }
   return out;
 }
 
@@ -125,5 +133,74 @@ export function applyDictionaryFill(
     ...content,
     schema: PREPARED_CONTENT_SCHEMA_V2,
     glossary,
+  };
+}
+
+/** Word tokens in document order with no glossary row yet. */
+export function listTokensMissingGlossary(content: PreparedContent): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const t of content.tokens) {
+    if (!t.isWord || seen.has(t.text)) continue;
+    seen.add(t.text);
+    if (!content.glossary[t.text]) out.push(t.text);
+  }
+  return out;
+}
+
+/**
+ * Seed glossary slots for word tokens that lack a row (segmentation leftovers,
+ * partial prep). Uses the pack dictionary for English gloss anchors only.
+ */
+export async function expandGlossaryForTokens(opts: {
+  content: PreparedContent;
+  pack: LanguagePack;
+  defFloorBand?: string;
+}): Promise<{ content: PreparedContent; added: string[] }> {
+  const { content, pack } = opts;
+  const missing = listTokensMissingGlossary(content);
+  if (missing.length === 0) return { content, added: [] };
+
+  const defFloorBand =
+    content.lang === "zh-Hant"
+      ? resolveDefFloorBand(opts.defFloorBand)
+      : undefined;
+  const glossary: Record<string, PrebakedEntry> = { ...content.glossary };
+
+  for (const word of missing) {
+    const dict = await pack.dictionaryProvider(word);
+    const level = await pack.levelingModel(word);
+    const reading = dict?.reading ?? pack.phoneticLayer.reading(word, dict);
+    const entry: PrebakedEntry = {
+      term: word,
+      gloss: dict?.gloss ?? "",
+      examples: content.lang === "zh-Hant" ? seedSharedExampleSlots(word) : [],
+    };
+    if (content.lang === "zh-Hant") {
+      entry.collocations = seedCollocationSlots(word);
+    }
+    if (reading !== undefined) entry.reading = reading;
+    if (dict?.pos !== undefined) entry.pos = dict.pos;
+    if (level?.band !== undefined) entry.level = level.band;
+    if (defFloorBand !== undefined) {
+      entry.definitions = {
+        zh: {
+          gloss: "",
+          level: defFloorBand,
+          monolingual: true,
+          source: "generated",
+        },
+      };
+    }
+    glossary[word] = entry;
+  }
+
+  return {
+    content: {
+      ...content,
+      schema: PREPARED_CONTENT_SCHEMA_V2,
+      glossary,
+    },
+    added: missing,
   };
 }
