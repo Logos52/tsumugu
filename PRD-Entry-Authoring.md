@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.8 — word entries activate (§0.7 Round 6 + §2.10 contract, word-author@1): video-vocab batch is the unit; 拆解 rows anchored in known words, assembly fact only when characters don't add up, story by transparency triage, §2.5 slot mix with the source-reading sentence reusing its verified clip. v1.7 — §0.6.7 over-cut guard (the assembly fact is FORM's own fact — 造 regains "— zào, 'to arrive'"); v1.6 — §0.6 grows moves 7–8 (one home per fact — the row usually wins; no exposition: inferable action, summaries of the visible, restated contrasts stay unwritten) and the binding process rule: the eight moves are author-side checks on every rewrite — a fix that introduces a new clause of the same kind has failed the round. v1.5 added §0.6 Round 5 (show, don't tell, moves 1–6); v1.4 §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3; v1.1 round-2 + adversarial review."
+revision: "v1.9 — §8 QA tiers: quick (default — author-side sweep + lint, ~1k tok/item) vs thorough (parallel fresh-context QA, ~2–3k tok/item), tier + cost declared at batch start. v1.8 — word entries activate (§0.7 Round 6 + §2.10 contract, word-author@1): video-vocab batch is the unit; 拆解 rows anchored in known words, assembly fact only when characters don't add up, story by transparency triage, §2.5 slot mix with the source-reading sentence reusing its verified clip. v1.7 — §0.6.7 over-cut guard (the assembly fact is FORM's own fact — 造 regains "— zào, 'to arrive'"); v1.6 — §0.6 grows moves 7–8 (one home per fact — the row usually wins; no exposition: inferable action, summaries of the visible, restated contrasts stay unwritten) and the binding process rule: the eight moves are author-side checks on every rewrite — a fix that introduces a new clause of the same kind has failed the round. v1.5 added §0.6 Round 5 (show, don't tell, moves 1–6); v1.4 §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3; v1.1 round-2 + adversarial review."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -341,6 +341,11 @@ Per character, in order:
 8. **A8 — RELATED** with the "why" per item; series and component links wired; registry updated for any new component.
 9. **A9 — EVOLUTION** if there is real content; otherwise `null`.
 10. **A10 — Fresh-context QA.** In a context that did not author the entry: §4 checklist, §7.1 lint, then the deletion test and voice-of-page test over every rendered and voiced sentence. Emit the artifact.
+
+**QA tiers (Wedge, 2026-06-11 — "set a quick version and a thorough version"):** A10 runs at two depths, declared with a rough token cost at batch start.
+- **Quick (the default):** author-side §0.5–§0.6 sweep + machine lint + structural minima, no QA agents; Wedge's spot-review is the second layer. For small batches (≤ ~5 items), transparent compounds, and private-only artifacts. ~1k tokens per item.
+- **Thorough:** the full fresh-context pass, parallelized (~4 items per QA context), with fact spot-checks. For batches of ~10+, opaque or etymology-heavy entries, and anything that publishes. ~2–3k tokens per item.
+- Wedge can flip the tier either way in one word; escalate to thorough mid-batch only when quick finds a fact problem.
 
 **Batch order:**
 1. **Batch 0 — the demo set, regenerated to this standard:** 造, 射, 鬧, the 告 series page, and the first component pages their entries link (辶, 告, 寸, 鬥). The 熱鬧 word page joins when word authoring activates. This batch is the acceptance test for the whole PRD — Appendix A is its work order.
