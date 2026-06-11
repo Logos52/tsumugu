@@ -25,6 +25,7 @@ export const CLS = {
   transport: "tsg-transport",
   scrubber: "tsg-scrubber",
   translation: "tsg-translation", // the current line's sentence translation
+  cueTr: "tsg-cue-tr", // per-row English under a cue (譯 / `t`)
   section: "tsg-section", // the "now talking about…" section summary
   sectionTr: "tsg-section-tr", // the section summary's translation (譯 toggle)
   practiceBar: "tsg-practice", // segment-loop practice bar container (M2.1)

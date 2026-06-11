@@ -6,6 +6,8 @@
 
 import type { VaultIO } from "@tsumugu/engine";
 import { resolveAudioPath, type VoiceNotesBinding } from "./manifest.js";
+import { el } from "../ui/dom.js";
+import { CLS } from "../ui/classes.js";
 
 export interface CueWaveTrack {
   label: string;
@@ -14,6 +16,8 @@ export interface CueWaveTrack {
 
 export interface CueWaveforms {
   setActive(cueIndex: number): void;
+  /** Show/hide English under each sentence (譯 toolbar toggle / `t` hotkey). */
+  setTranslationVisible(on: boolean): void;
   key(ev: KeyboardEvent): boolean;
   playThrough(): void;
   stop(): void;
@@ -27,11 +31,15 @@ interface CueWaveformOpts {
   vault: VaultIO;
   /** One or more voice tracks — GSM dialogues show both stacked (no toggle). */
   tracks: readonly CueWaveTrack[];
+  /** One English line per cue (optional). */
+  translations?: readonly (string | undefined)[];
+  showTranslation?: boolean;
   onActivate?: (cueIndex: number) => void;
 }
 
 const NOOP: CueWaveforms = {
   setActive() {},
+  setTranslationVisible() {},
   key: () => false,
   playThrough() {},
   stop() {},
@@ -40,7 +48,8 @@ const NOOP: CueWaveforms = {
 };
 
 export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWaveforms> {
-  const { ranges, tokenEls, vault, tracks, onActivate } = opts;
+  const { ranges, tokenEls, vault, tracks, translations, onActivate } = opts;
+  let showTr = opts.showTranslation ?? false;
   if (!vault.readBytes || tracks.length === 0) return NOOP;
   const container = tokenEls.find((e) => e)?.parentElement;
   if (!container) return NOOP;
@@ -67,6 +76,7 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
   }
 
   container.classList.add("tsg-cue-rows");
+  if (showTr) container.classList.add("tsg-cue-tr-on");
   const frag = document.createDocumentFragment();
   const pendings: {
     cue: number;
@@ -89,6 +99,8 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       const node = tokenEls[i];
       if (node) textEl.append(node);
     }
+    const tr = translations?.[c]?.trim();
+    if (tr) textEl.append(el("div", { class: CLS.cueTr, text: tr }));
     row.append(textEl);
 
     const stack = document.createElement("div");
@@ -273,6 +285,10 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     setActive(cueIndex) {
       const i = idxByCue.get(cueIndex);
       if (i !== undefined) setActive(i);
+    },
+    setTranslationVisible(on: boolean) {
+      showTr = on;
+      container.classList.toggle("tsg-cue-tr-on", on);
     },
     key(ev) {
       if (!insts.length) return false;

@@ -818,7 +818,8 @@ export function mountReader(root: HTMLElement, app: AppState): ViewController {
       }
       return;
     }
-    // `t` toggles the current line's sentence translation.
+    // `t` toggles English translations (under each line in the transcript, or
+    // the current line under the player when waveforms are off).
     if (ev.key === "t" || ev.key === "T") {
       ev.preventDefault();
       app.updateSettings({ showTranslation: !app.settings.showTranslation });

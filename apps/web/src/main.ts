@@ -639,7 +639,7 @@ function buildToolbar(): void {
 
   const translate = el(
     "label",
-    { class: "tsg-btn", title: "Show the current line's translation (hotkey: t)" },
+    { class: "tsg-btn", title: "Show English under each sentence (hotkey: t)" },
     el("input", {
       attrs: app.settings.showTranslation ? { type: "checkbox", checked: "" } : { type: "checkbox" },
       on: {

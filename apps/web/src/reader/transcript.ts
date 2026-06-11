@@ -322,9 +322,12 @@ export function mountTranscriptSync(opts: {
   });
   panel.append(practicePanel);
 
+  let showTr = opts.showTranslation ?? false;
+  const inlineCueTr = caps.canWaveforms;
+
   // Per-sentence waveforms: an inline wavesurfer looper on every cue, inserted
-  // right after each cue's text. Opt-in by size (a long reading would spawn
-  // hundreds). Self-contained per line; interacting with one selects that cue.
+  // right after each cue's text. Self-contained per line; interacting with one
+  // selects that cue. English lines sit under each sentence when 譯 / `t` is on.
   let cueWaves: CueWaveforms | null = null;
   if (caps.canWaveforms) {
     const ordered =
@@ -346,6 +349,8 @@ export function mountTranscriptSync(opts: {
       tokenEls,
       vault: vault!,
       tracks: waveTracks,
+      translations: cues.map((c) => c.tr),
+      showTranslation: showTr,
       onActivate: (c) => selectCue(c),
     }).then((cw) => {
       cueWaves = cw;
@@ -389,9 +394,11 @@ export function mountTranscriptSync(opts: {
   const sectionEl = el("div", { class: CLS.section }, sectionPlayBtn, sectionLoopBtn, sectionTextEl, sectionTrEl);
   if (!caps.hasSections) sectionEl.style.display = "none";
   const trEl = el("div", { class: CLS.translation });
-  let showTr = opts.showTranslation ?? false;
-  trEl.style.display = showTr ? "block" : "none";
+  trEl.style.display = inlineCueTr ? "none" : showTr ? "block" : "none";
   trBtn.classList.toggle(CLS.btnActive, showTr);
+  trBtn.title = inlineCueTr
+    ? "Show English under each sentence (hotkey: t)"
+    : "Show English translation of the current line (hotkey: t)";
   // Order under the player: Serena practice bar → this line's English translation
   // → (very bottom) the section summary.
   panel.append(trEl, sectionEl);
@@ -976,7 +983,12 @@ export function mountTranscriptSync(opts: {
     },
     setTranslationVisible(on: boolean) {
       showTr = on;
-      trEl.style.display = on ? "block" : "none";
+      if (inlineCueTr) {
+        cueWaves?.setTranslationVisible(on);
+        trEl.style.display = "none";
+      } else {
+        trEl.style.display = on ? "block" : "none";
+      }
       trBtn.classList.toggle(CLS.btnActive, on);
       paint(currentTime());
     },
