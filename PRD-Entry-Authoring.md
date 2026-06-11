@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.2 — adds §0.4 Round 3 (Wedge): the four re-flagged demo lines, the distraction upgrade to the deletion-test rationale, and their exact phrases added to the §7.1 lint. v1.1 added round-2 decisions (HEAD definition line, attribution-language ban, component-scoped stroke order) and the four-lens adversarial review fixes."
+revision: "v1.3 — absorbs both Round 3 decisions (Wedge, 2026-06-11): the four re-flagged demo lines + the distraction upgrade to the deletion-test rationale (v1.2), and the zero-uncertainty-budget rule — §3 rewritten declarative, §1 fixtures updated to the shipped 鬧 lines, hedging vocabulary added to the §7.1 lint. v1.1 added round-2 decisions and the four-lens adversarial review fixes."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -58,6 +58,7 @@ Wedge re-flagged four demo lines verbatim — 射's "Wrong as history (the 字�
 
 - 🚫 **Meta is a distraction, not merely low signal.** A sentence in this register doesn't just spend attention and buy nothing — it pulls the student's attention off the character mid-encoding. The cost is negative, not zero ("everything I flagged is not just low signal but a distraction to the student").
 - 🚫 **This register never appears in the dictionary, in any phrasing** ("please don't ever say things like this in the dictionary"). The ban applies at authoring time, in every voice and language, on every student-facing surface — not as a lint cleanup after the fact.
+- 🚫 **The uncertainty budget on student surfaces is zero** (same day, separate session; supersedes v1.1's §3 one-sentence budget). Epistemic hedging — "uncertain", "unclear", "historically unverified" — is the same distraction wearing scholarly clothes. FORM states the surface reading declaratively; a component with no claimed role renders bare (no chip, no color, no comment); everything about the open question lives in `meta.openQuestions`. §3 is rewritten to match; 鬧 ships this way.
 
 ---
 
@@ -75,18 +76,18 @@ Why the demo's meta lines fail this test, written out so that new inventions of 
 1. **Attention is the budget** (Memory Rule #5, Attention: encoding requires attention on the thing to be encoded; the rules are mapped in v2 §5.7). A student gives the page a fixed amount of attention; every sentence spends some. "Queued for a sourced expert fill" spends attention and buys zero encoding. At five entries a session, the waste compounds.
 2. **Meta breaks the spell.** Stories encode through immersion (Rules #4 Visualization, #7 Interest): the student inhabits the scene of a body drawing a bow, and the glyph sticks. A story that grades its own historicity — "(A memory hook, not history)" — un-casts itself; the student steps out of the scene and into our editorial meeting. The 故事 chip and its standing subtitle (§2.3) already tell them what kind of thing they are holding. Where the history genuinely matters to understanding the form, the 字源 card states it as a fact about the character ("the everyday senses ride the sound"), which is content.
 3. **Visible scaffolding reads as damage.** "Pending sourced fill" tells the student the page is unfinished — so they discount everything on it, including the finished sections. An entry either ships a section or omits it. No placeholder sections, no "image pending" labels, no empty-state apologies. Lint-clean scaffolding fails the same way: "a fuller account awaits future scholarship" contains no banned word and is still a construction sign.
-4. **The audience for the bookkeeping is us.** Grounding tags, pipeline stage, TTS engine, batch status, framework attribution — these answer producer questions. They belong where producers look: `meta` fields and CI output. Student-facing honesty is structural: 字源 states only what is known, 故事 is labeled a scene, and where uncertainty itself helps the student (鬧, §3), it appears as one plain sentence about the language. Process language stays in `meta`.
+4. **The audience for the bookkeeping is us.** Grounding tags, pipeline stage, TTS engine, batch status, framework attribution — these answer producer questions. They belong where producers look: `meta` fields and CI output. Student-facing honesty is structural: 字源 states only what is known, 故事 is labeled a scene, and a component with no claimed role renders bare — no chip, no color, no comment (§3). Process language and the state of the scholarship stay in `meta`.
 5. **Product and method self-talk fails the same way.** "That's the whole design", "the folk trap this dictionary exists to flag", "a thing no folk-mnemonic dictionary can give you", "the Expert-contract example" — the page defending, selling, or attributing itself. The student came for the character. One narrow carve-out: an observation the student can convert into a concrete future behavior — a prediction rule, a confusion to avoid — is content even when it mentions their learning ("after two or three series, you start predicting characters you've never studied" licenses a specific guessing behavior). Claims about the method's effectiveness or superiority stay banned in every phrasing.
 
 **Before → after, on real demo lines** (this table is the lint's test fixture — §7.1):
 
 | Demo line (rendered today) | Verdict | Replacement |
 |---|---|---|
-| 鬧: "Honesty layer: the surface reading … is a folk decomposition … tagged ⚠ speculative until a sourced fill lands…" | process talk | "On the surface, 鬧 reads as 鬥 *quarreling* wrapped around 市 *market*. What 市 contributed in the early form is uncertain." |
-| 鬧 component row: "'market' on the surface — original role unresolved ⚠ · queued for a sourced Expert fill" | process talk | "市 'market' — its original role here is uncertain" |
+| 鬧: "Honesty layer: the surface reading … is a folk decomposition … tagged ⚠ speculative until a sourced fill lands…" | process talk | "鬧 is 鬥 — quarreling — wrapped around 市 market: a quarrel's noise filling the marketplace." (declarative; the scholarship lives in `meta` — §0.4) |
+| 鬧 component row: "'market' on the surface — original role unresolved ⚠ · queued for a sourced Expert fill" | process talk | "市 'market' — the market square you draw inside the quarreling frame" (no role chip, no color — §3) |
 | 鬧 crumb: "· this entry leads with the story — its analysis is honestly unresolved" | self-reference | delete; `leadOrder` is a data field — the layout leads with the story |
 | 鬧 EXPERT section: "Queued for the sourced fill (G3) … renders empty-state honestly rather than inventing history…" | placeholder + process | section omitted until content exists |
-| 鬧 FORM sayText: "…我們先標記為待考。" ("we mark it as pending verification") | process talk, voiced | sayText regenerated to the §3 pattern — the uncertainty sentence and nothing more |
+| 鬧 FORM sayText: "…我們先標記為待考。" ("we mark it as pending verification") | process talk, voiced | sayText regenerated to the §3 pattern — declarative surface reading, no hedging |
 | 造 HEAD tags: "verb · the Expert-contract example" | attribution | "verb — to make; to build" |
 | 造 story: "(A memory hook, not history — the real link is sound, not logic.)" | story grading itself | delete from the story; the 字源 card already carries "the everyday senses … ride the sound" as content |
 | 射 story: "Wrong as history (the 字源 card just told you why), excellent as a hook. You get to choose … that's the whole design." | self-reference | delete; end the story inside the scene |
@@ -162,12 +163,12 @@ An entry keeps exactly two pieces of rendered apparatus: the component color leg
 Some characters have no settled analysis. The entry still ships full encoding content:
 
 1. `leadOrder: story` — the story carries the memory load and renders first.
-2. FORM presents the surface decomposition in plain words and spends **one sentence in the paragraph** on the uncertainty, using content vocabulary about the language: *uncertain*, *unclear*. ("Scholars disagree" belongs in EVOLUTION, where the history of the analysis is itself content.) The uncertain component's row may additionally carry its one-line uncertain identity — paragraph plus row is the full budget.
-3. Components that cannot be typed with confidence render **no role chip and no color** — 空 is a content claim ("this part does no work"), and an unknown function is a different fact. The identity line carries the uncertainty: "市 'market' — its original role here is uncertain."
+2. FORM presents the surface decomposition **declaratively** — what the parts are and how the surface reading fits together. The uncertainty budget on student surfaces is **zero** (§0.4): no *uncertain*, no *unclear*, no hedging in prose, rows, or sayText. A student encoding the character has no use for the state of the scholarship; hedging is a distraction in scholarly clothes. (Scholarly disagreement can appear in EVOLUTION when it ships, where the history of the analysis is itself content — §2.7.)
+3. Components that cannot be typed with confidence render **no role chip and no color** — 空 is a content claim ("this part does no work"), and an unknown function is a different fact. The bare row is the entire signal. The identity line stays declarative about the surface: "市 'market' — the market square you draw inside the quarreling frame."
 4. EVOLUTION is omitted until there is something to say.
 5. Everything we actually know about the open question — candidate analyses, which sources conflict, what would settle it — goes in `meta.openQuestions`, where the producer pass that revisits hard entries will find it.
 
-A hard entry reads as a confident page: a full story carrying the memory load, and one plain sentence of uncertainty.
+A hard entry reads as a confident page: a full story carrying the memory load, a declarative surface reading, and silence where the page makes no claim.
 
 ---
 
@@ -176,7 +177,7 @@ A hard entry reads as a confident page: a full story carrying the memory load, a
 An entry ships when every line is true. This closes the "missing extra content" review note: every entry passes this checklist before it ships, and §7.5 enforces the structural minima in CI.
 
 - [ ] HEAD: glyph, zhuyin + pinyin, definition (EN + 簡明中文; zh passes `checkDefLevel`), typed composition line.
-- [ ] FORM: paragraph + one row per visible component; every component typed or explicitly uncertain (§3); every identity names a concrete, drawable thing in one line; corruptions and loans stated plainly where present.
+- [ ] FORM: paragraph + one row per visible component; every component typed or left bare (§3); every identity names a concrete, drawable thing in one line; corruptions and loans stated plainly where present; zero hedging anywhere (§0.4).
 - [ ] STORY: zh line + EN scene; passes the rebuild test (§7.3).
 - [ ] MEANINGS: tree with original sense, base sense tagged COMMON, ≥ 1 extension; loan node where applicable.
 - [ ] EXAMPLES: 5–6 (floor 5), graded order, target highlighted, glosses present, ≥ 2 meaning-tree branches covered including one deep node, every sentence with EN + sayText.
@@ -268,7 +269,7 @@ Fable's artifact contains no HTML, no audio paths, no styling. The implementatio
 - Symbols: ⓢ ⓐ ⚠.
 
 **Banned in prose fields (identity, detail, why, definition, zhLine, all `*.prose`, all `sayText`), exempt in example sentence text/translations** — these are ordinary words that legitimate example sentences will contain ("fill in the form", "a batch of cookies", 誠實 sentences):
-- queued, pending, unresolved, fill, sourced, speculative, tagged, grounding, provenance, honesty, pipeline, batch, prototype, feedback, schema, expert, G0–G7 stage refs, "folk decomposition", empty-state; 待補, 待考, 尚未, 考證中, 暫缺, 佔位, 開放來源. (EVOLUTION prose may discuss the character's attested record and scholarly disagreement as content; it still never describes our process.)
+- queued, pending, unresolved, uncertain, unclear, fill, sourced, speculative, tagged, grounding, provenance, honesty, pipeline, batch, prototype, feedback, schema, expert, G0–G7 stage refs, "folk decomposition", empty-state; 待補, 待考, 尚未, 考證中, 暫缺, 佔位, 開放來源, 不確定, 未明. (EVOLUTION prose may discuss the character's attested record and scholarly disagreement as content; it still never describes our process.)
 
 The lint enforces the floor; the deletion test (§1) is the rule. A sentence can pass the lint and still be meta — reviewers strike it on the test, and the implementation agent extends the lint in the same change.
 
