@@ -6,6 +6,12 @@
     "kind": "youtube"
   },
   {
+    "path": "inbox/zh-Hant/ai-replaced-my-thinking.prepared.json",
+    "lang": "zh-Hant",
+    "title": "讓 AI 代替我思考七天 (小寧子)",
+    "kind": "youtube"
+  },
+  {
     "path": "inbox/zh-Hant/gsm2-lesson-01-dialogue.prepared.json",
     "lang": "zh-Hant",
     "title": "GSM2 L1 — Dialogue 甲/乙",
@@ -129,6 +135,12 @@
     "path": "inbox/zh-Hant/ios27-epic-update.prepared.json",
     "lang": "zh-Hant",
     "title": "iOS 27 上手體驗 (小寧子)",
+    "kind": "youtube"
+  },
+  {
+    "path": "inbox/zh-Hant/iphone-18-lineup-preview.prepared.json",
+    "lang": "zh-Hant",
+    "title": "今年的 iPhone (小寧子)",
     "kind": "youtube"
   },
   {
