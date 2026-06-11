@@ -23,6 +23,12 @@ import mlx_whisper
 import opencc
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "scripts/gen/voice"))
+try:
+    from thermal_guard import pace_before_cue
+except ImportError:
+    def pace_before_cue(_index=None):  # type: ignore[misc]
+        return
 INBOX = REPO / "personal/inbox/zh-Hant"
 VOICE_PY = REPO / "personal/research/bakeoff/.venv/bin/python"
 WHISPER = "mlx-community/whisper-large-v3-turbo"
@@ -98,6 +104,7 @@ def verify_slug(slug: str, threshold: float, rounds: int) -> int:
     for rnd in range(rounds):
         flagged: list[tuple[int, float, str]] = []
         for i in bad:
+            pace_before_cue(i)
             f = audio_path(slug, i)
             if not f.exists():
                 flagged.append((i, 0.0, "(missing)"))

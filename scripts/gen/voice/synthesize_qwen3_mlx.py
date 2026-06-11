@@ -89,11 +89,18 @@ def main() -> int:
         )
         return 2
 
+    try:
+        from thermal_guard import pace_before_cue
+    except ImportError:
+        pace_before_cue = None  # type: ignore[assignment]
+
     log(f"Loading {model_id} (first run downloads ~3.5 GB; then cached)…")
     model = load_model(model_id)
 
     results: list[dict] = []
     for it in items:
+        if pace_before_cue is not None:
+            pace_before_cue(it.get("index"))
         index = it.get("index")
         text = (it.get("text") or "").strip()
         out_wav = it["outWav"]
