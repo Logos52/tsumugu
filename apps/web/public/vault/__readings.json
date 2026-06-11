@@ -1,5 +1,11 @@
 [
   {
+    "path": "inbox/zh-Hant/2025-top-ten-gadgets.prepared.json",
+    "lang": "zh-Hant",
+    "title": "2025 年度十大科技產品 (小寧子)",
+    "kind": "youtube"
+  },
+  {
     "path": "inbox/zh-Hant/gsm2-lesson-01-dialogue.prepared.json",
     "lang": "zh-Hant",
     "title": "GSM2 L1 — Dialogue 甲/乙",
@@ -118,6 +124,12 @@
     "lang": "zh-Hant",
     "title": "GSM2 L24 — Dialogue 甲/乙",
     "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/ios27-epic-update.prepared.json",
+    "lang": "zh-Hant",
+    "title": "iOS 27 上手體驗 (小寧子)",
+    "kind": "youtube"
   },
   {
     "path": "inbox/zh-Hant/life-as-open-world-rpg.prepared.json",

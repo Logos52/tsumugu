@@ -17,8 +17,6 @@ VERIFY_PY="$TSUMUGU_VOICE_PYTHON"
 NICE_LEVEL="${TSUMUGU_NICE:-10}"
 
 SLUGS=(
-  ios27-epic-update
-  2025-top-ten-gadgets
   iphone-18-lineup-preview
   ai-replaced-my-thinking
 )
