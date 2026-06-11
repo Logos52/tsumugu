@@ -13,8 +13,8 @@
  * Pure + unit-tested; the controller wires the runtime objects to these flags.
  */
 
-/** Max cues for the always-on per-sentence waveforms (a long reading spawns too many). */
-export const CUE_WAVEFORM_LIMIT = 80;
+/** Cues above this get lazy waveform init (DOM rows always; wavesurfer on scroll). */
+export const CUE_WAVEFORM_LAZY_THRESHOLD = 80;
 
 export interface CapabilityInputs {
   /** The transcript carries a `videoId` (an embeddable picture + a video clock). */
@@ -40,7 +40,7 @@ export interface ReadingCapabilities {
   hasVoice: boolean;
   /** The segment-loop practice bar can load cue audio. */
   canPractice: boolean;
-  /** Per-sentence inline waveforms are viable (reading short enough). */
+  /** Per-sentence inline waveforms (lazy-init when cue count is large). */
   canWaveforms: boolean;
   /** ≥2 voice tracks → a per-speaker (甲/乙) voice picker. */
   hasDualVoice: boolean;
@@ -62,7 +62,7 @@ export function resolveCapabilities(i: CapabilityInputs): ReadingCapabilities {
     hasCues: i.cueCount > 0,
     hasVoice: i.hasVoicePlayer,
     canPractice,
-    canWaveforms: canPractice && i.cueCount > 0 && i.cueCount <= CUE_WAVEFORM_LIMIT,
+    canWaveforms: canPractice && i.cueCount > 0,
     hasDualVoice: i.voiceTrackCount >= 2,
     hasSections: i.sectionCount > 0,
     defaultVoiceLed: !i.hasVideoId,

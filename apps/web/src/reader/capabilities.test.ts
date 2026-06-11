@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 
-import { resolveCapabilities, CUE_WAVEFORM_LIMIT, type CapabilityInputs } from "./capabilities.js";
+import { resolveCapabilities, type CapabilityInputs } from "./capabilities.js";
 
 /** A reading with cues but nothing else bound (the baseline). */
 const base: CapabilityInputs = {
@@ -64,11 +64,10 @@ describe("resolveCapabilities", () => {
     expect(resolveCapabilities({ ...base, hasVault: true, hasVoiceNotes: true }).canPractice).toBe(false);
   });
 
-  it("waveforms switch off past the cue limit (and require practice audio)", () => {
+  it("waveforms require practice audio (no cue-count cap — lazy mount for long readings)", () => {
     const practice = { hasVoicePlayer: true, hasVault: true, hasVoiceNotes: true };
-    expect(resolveCapabilities({ ...base, ...practice, cueCount: CUE_WAVEFORM_LIMIT }).canWaveforms).toBe(true);
-    expect(resolveCapabilities({ ...base, ...practice, cueCount: CUE_WAVEFORM_LIMIT + 1 }).canWaveforms).toBe(false);
-    expect(resolveCapabilities({ ...base, cueCount: 10 }).canWaveforms).toBe(false); // no practice audio
+    expect(resolveCapabilities({ ...base, ...practice, cueCount: 1010 }).canWaveforms).toBe(true);
+    expect(resolveCapabilities({ ...base, cueCount: 10 }).canWaveforms).toBe(false);
   });
 
   it("sections and cues are presence flags driven by count", () => {
