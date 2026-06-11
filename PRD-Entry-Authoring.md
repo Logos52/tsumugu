@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.5 — adds §0.6 Round 5 (Wedge): show, don't tell — details in, reader's imagination fills the blanks; six banned moves with Batch 0 fixtures (instruction verbs, mood labels, interpretive paraphrase, label-openers, stating what the page shows, device commentary); 想像/Picture/Imagine lint line. v1.4 added §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3 (distraction ban + zero uncertainty budget); v1.1 round-2 + adversarial review."
+revision: "v1.6 — §0.6 grows moves 7–8 (one home per fact — the row usually wins; no exposition: inferable action, summaries of the visible, restated contrasts stay unwritten) and the binding process rule: the eight moves are author-side checks on every rewrite — a fix that introduces a new clause of the same kind has failed the round. v1.5 added §0.6 Round 5 (show, don't tell, moves 1–6); v1.4 §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3; v1.1 round-2 + adversarial review."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -76,6 +76,10 @@ Wedge re-flagged four demo lines verbatim — 射's "Wrong as history (the 字�
 4. **Label-openers.** "The original word: X." / "The everyday senses — make, build —…" → verbs carry the facts: "together they wrote "to arrive; to go to." Make and build ride the sound, not the picture."
 5. **Stating what the page shows.** "市 'market' — the square inside the quarreling frame" → "shì — market." The layout is on screen; identity lines carry invisible facts only — depiction, meaning, reading, function.
 6. **Device commentary.** "Feet first, walls after — the scene's order is the glyph's order." → "Feet first, walls after." The scene-to-glyph mapping is the story's job, done silently.
+7. **One home per fact.** "together they wrote 'to arrive; to go to.' Make and build ride the sound, not the picture" duplicated the meaning tree's (orig.) and 〇 nodes one screen below; "The left side is not a body" duplicated the 身 row; "a hand, releasing the string" duplicated the 寸 row ("avoid redundancy — that's already written below"). Every FORM/STORY/EVOLUTION sentence is checked against the composition line, the rows, the tree, and the neighboring sections; a fact stated twice keeps its best single home — and the row usually wins.
+8. **Exposition.** "everyone shouting at once" — the reader infers the shouting from a quarrel wrapped around a market ("stop giving me exposition. i need details and components only. enough for the user to fill in the blanks"). Scenes carry components and concrete details; inferable action, summaries of the visible ("one donor, four everyday words"), and restated contrasts ("Same shape, different jobs") stay unwritten.
+
+**Process rule (binding):** these eight moves are author-side checks, run on every rewrite before it ships — including rewrites made to fix a flagged line. A revision that removes one flagged clause and introduces a new clause of the same kind has failed the round. Wedge's strikes are not the QA loop.
 
 ---
 
@@ -206,6 +210,7 @@ An entry ships when every line is true. This closes the "missing extra content" 
 - [ ] `meta` populated: per-claim grounding, sources, open questions. Zero `meta` content rendered.
 - [ ] Every rendered and voiced sentence passes the deletion test (§1) and the voice-of-page test (§7.2) — run by Fable, fresh-context (§8 A10).
 - [ ] Prose passes the clause-level deletion test (§0.5): no announcements, no restatement, no scaffolding idioms, no pointer clauses — every sentence one load-bearing fact, stated clearly.
+- [ ] One home per fact, no exposition (§0.6.7–8): FORM/STORY/EVOLUTION state nothing the composition line, rows, tree, or neighboring sentences already carry, and nothing the reader can infer from the details.
 - [ ] Lint clean (§7.1) and OpenCC-clean (zh-Hant throughout).
 
 **Series pages:** donor HEAD complete; ≥ 3 members across ≥ 2 drift bands; per-member reading + gloss + drift note; 5 voiced donor examples; closing observation; same lint, deletion-test, and sayText lines as above.
