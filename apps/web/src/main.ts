@@ -92,10 +92,22 @@ const DEFAULT_VAULT_READING = "inbox/zh-Hant/why-friendship-differs.prepared.jso
 function readingKind(r: VaultReading): VaultReading["kind"] {
   if (r.kind) return r.kind;
   const slug = r.path.split("/").pop()?.replace(/\.prepared\.json$/, "") ?? "";
-  if (slug === "why-friendship-differs") return "youtube";
   if (/^gsm2-lesson-\d{2}-dialogue$/.test(slug)) return "gsm-dialogue";
   if (/^gsm2-lesson-\d{2}-rewrite$/.test(slug)) return "gsm-rewrite";
   return "other";
+}
+
+/** `?reading=why-friendship-differs` → vault path for deep links from the wiki. */
+function readingPathFromQuery(): string | null {
+  try {
+    const slug = new URLSearchParams(location.search).get("reading")?.trim();
+    if (!slug) return null;
+    const clean = slug.replace(/\.prepared\.json$/i, "").replace(/^\/+/, "");
+    if (!clean || clean.includes("/") || clean.includes("..")) return null;
+    return `inbox/zh-Hant/${clean}.prepared.json`;
+  } catch {
+    return null;
+  }
 }
 // Suffixed voice manifests probed beside a reading, in addition to the base
 // `.voice-notes.json`. Each becomes a track whose id IS the suffix.
@@ -810,18 +822,16 @@ async function init(): Promise<void> {
 
   let restored = false;
   if (devVault) {
+    const fromQuery = readingPathFromQuery();
     let last: string | null = null;
     try {
       last = localStorage.getItem(LAST_READING_KEY);
     } catch {
       last = null;
     }
-    const pick =
-      last && vaultReadings.some((r) => r.path === last)
-        ? last
-        : vaultReadings.some((r) => r.path === DEFAULT_VAULT_READING)
-          ? DEFAULT_VAULT_READING
-          : vaultReadings[0]?.path ?? null;
+    const pick = [fromQuery, last, DEFAULT_VAULT_READING, vaultReadings[0]?.path ?? null].find(
+      (p) => p && vaultReadings.some((r) => r.path === p),
+    );
     if (pick) {
       await loadVaultReading(pick);
       restored = true;
