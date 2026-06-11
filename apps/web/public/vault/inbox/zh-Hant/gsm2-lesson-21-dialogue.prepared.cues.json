@@ -1,0 +1,161 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-21-dialogue.txt",
+  "cues": [
+    {
+      "text": "第二十一課：你把這本書帶回去吧",
+      "tr": "Lesson 21: Take This Book Back With You",
+      "speaker": "",
+      "start": "0.000",
+      "end": "3.680"
+    },
+    {
+      "text": "小華，你上次借給我的這本書真的很有幫助！",
+      "tr": "Xiao Ming: Xiao Hua, the book you lent me last time was really helpful!",
+      "speaker": "小明",
+      "start": "4.030",
+      "end": "9.230"
+    },
+    {
+      "text": "是嗎？我記得那本書裡有一句話說「三人行，必有我師」，我覺得這句話特別有道理。",
+      "tr": "Xiao Hua: Really? I remember there’s a line in that book that says, “Among three people walking, there must be someone who can be my teacher.” I think this line is particularly meaningful.",
+      "speaker": "小華",
+      "start": "9.580",
+      "end": "22.060"
+    },
+    {
+      "text": "對啊，每個人都有可以學習的地方。看了這本書後，我也開始更認真地觀察身邊的人。",
+      "tr": "Xiao Ming: Exactly, everyone has something we can learn from. After reading this book, I’ve also started observing the people around me more seriously.",
+      "speaker": "小明",
+      "start": "22.410",
+      "end": "31.930"
+    },
+    {
+      "text": "沒錯！那本書不僅讓我學到很多知識，還改變了我的思考方式。我覺得它可能讓我更有耐心去理解別人。",
+      "tr": "Xiao Hua: That’s right! That book not only taught me a lot of knowledge but also changed the way I think. I feel like it’s made me more patient in understanding others.",
+      "speaker": "小華",
+      "start": "32.280",
+      "end": "47.320"
+    },
+    {
+      "text": "我也是！以前我很容易對別人的缺點感到不滿，但現在我會嘗試去理解他們的處境。",
+      "tr": "Xiao Ming: Me too! I used to get easily frustrated with other people’s flaws, but now I try to understand their circumstances.",
+      "speaker": "小明",
+      "start": "47.670",
+      "end": "57.510"
+    },
+    {
+      "text": "聽你這麼說，我真的很高興。既然這本書對你有幫助，你就把它帶回去再多看幾遍吧。",
+      "tr": "Xiao Hua: Hearing you say that makes me really happy. Since this book has been helpful to you, take it back and read it a few more times.",
+      "speaker": "小華",
+      "start": "57.860",
+      "end": "66.180"
+    },
+    {
+      "text": "真的嗎？這麼好的一本書，你捨得給我帶回去？",
+      "tr": "Xiao Ming: Really? Such a great book—are you sure you’re okay with me taking it back?",
+      "speaker": "小明",
+      "start": "66.530",
+      "end": "71.570"
+    },
+    {
+      "text": "當然了！如果能讓你進步，我怎麼會不捨得呢？",
+      "tr": "Xiao Hua: Of course! If it can help you improve, why wouldn’t I let you have it?",
+      "speaker": "小華",
+      "start": "71.920",
+      "end": "77.440"
+    },
+    {
+      "text": "謝謝你，小華！我覺得這本書對我的影響真的非常大，有些道理如果我不經歷，不可能理解得這麼深刻。",
+      "tr": "Xiao Ming: Thank you, Xiao Hua! I feel like this book has had a huge impact on me. Some truths are hard to understand deeply without personal experience.",
+      "speaker": "小明",
+      "start": "77.790",
+      "end": "88.510"
+    },
+    {
+      "text": "沒錯，有些東西真的是需要時間去體會。像這本書裡提到的事情，我也是看了好幾遍才慢慢領會的。",
+      "tr": "Xiao Hua: Exactly, some things really take time to fully grasp. Like the ideas mentioned in this book, I also had to read it several times before gradually understanding them.",
+      "speaker": "小華",
+      "start": "88.860",
+      "end": "99.980"
+    },
+    {
+      "text": "那你會不會後悔把這本書借給我？",
+      "tr": "Xiao Ming: Then won’t you regret lending me this book?",
+      "speaker": "小明",
+      "start": "100.330",
+      "end": "105.610"
+    },
+    {
+      "text": "哈哈，不會啦！我相信你會把這些道理應用到生活中去。",
+      "tr": "Xiao Hua: Haha, not at all! I trust that you’ll apply these lessons in your life.",
+      "speaker": "小華",
+      "start": "105.960",
+      "end": "111.560"
+    },
+    {
+      "text": "那我一定會好好讀，把這些內容學到心裡。",
+      "tr": "Xiao Ming: I definitely will read it carefully and take these lessons to heart.",
+      "speaker": "小明",
+      "start": "111.910",
+      "end": "115.990"
+    },
+    {
+      "text": "對對對，把它記在心裡，比什麼都重要。",
+      "tr": "Xiao Hua: Yes, yes, yes—keeping it in your heart is the most important thing.",
+      "speaker": "小華",
+      "start": "116.340",
+      "end": "121.860"
+    },
+    {
+      "text": "其實我覺得，這本書裡的一些觀點如果不細心體會，可能不會懂得那麼多。",
+      "tr": "Xiao Ming: Actually, I think that some of the perspectives in this book might not be fully understood without careful reflection.",
+      "speaker": "小明",
+      "start": "122.210",
+      "end": "131.490"
+    },
+    {
+      "text": "是啊，有些內容是要靠時間和經驗來體會的。",
+      "tr": "Xiao Hua: That’s true. Some content requires time and experience to truly appreciate.",
+      "speaker": "小華",
+      "start": "131.840",
+      "end": "137.120"
+    },
+    {
+      "text": "話說回來，小華，你怎麼會知道這本書的？",
+      "tr": "Xiao Ming: By the way, Xiao Hua, how did you come to know about this book?",
+      "speaker": "小明",
+      "start": "137.470",
+      "end": "142.990"
+    },
+    {
+      "text": "哦，是我朋友推薦給我的。他說這本書很適合我們這個年紀的人去學習一些人生的道理。",
+      "tr": "Xiao Hua: Oh, it was recommended by a friend. He said this book is perfect for people our age to learn some life lessons.",
+      "speaker": "小華",
+      "start": "143.340",
+      "end": "151.660"
+    },
+    {
+      "text": "看來他也是你的「師」啊！三人行，必有我師，這句話真的沒錯。",
+      "tr": "Xiao Ming: Looks like he’s also your “teacher”! “Among three people walking, there must be someone who can be my teacher.” That saying is absolutely true.",
+      "speaker": "小明",
+      "start": "152.010",
+      "end": "159.690"
+    },
+    {
+      "text": "對啊，我也從他身上學到不少。他經常和我分享書籍和經驗。",
+      "tr": "Xiao Hua: Exactly, I’ve also learned a lot from him. He often shares books and experiences with me.",
+      "speaker": "小華",
+      "start": "160.040",
+      "end": "166.040"
+    },
+    {
+      "text": "小華，那如果我把這本書看完，可能不會再還給你了，哈哈！",
+      "tr": "Xiao Ming: Xiao Hua, if I finish reading this book, I might never return it to you, haha!",
+      "speaker": "小明",
+      "start": "166.390",
+      "end": "174.150"
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-12-dialogue.txt",
+  "cues": [
+    {
+      "text": "我考慮考慮再告訴你",
+      "tr": "Lesson 12: I'll think about it and let you know",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.000"
+    },
+    {
+      "text": "你決定了嗎？要不要跟我們一起去旅行？",
+      "tr": "Have you made up your mind? Do you want to go on a trip with us?",
+      "speaker": "A",
+      "start": "2.350",
+      "end": "5.550"
+    },
+    {
+      "text": "我還沒有決定呢。",
+      "tr": "I haven't decided yet.",
+      "speaker": "B",
+      "start": "5.900",
+      "end": "7.500"
+    },
+    {
+      "text": "為什麼還沒決定呢？這個地方很好玩，風景也很美。",
+      "tr": "Why haven't you decided? This place is fun and the scenery is beautiful.",
+      "speaker": "A",
+      "start": "7.850",
+      "end": "12.650"
+    },
+    {
+      "text": "是啊，我知道。不過最近我工作越來越忙，可能沒時間去。",
+      "tr": "Yes, I know. I know, but I've been so busy with work lately that I may not have time to go.",
+      "speaker": "B",
+      "start": "13.000",
+      "end": "18.760"
+    },
+    {
+      "text": "喔，我覺得休息一下也很重要。你越是累，就越需要放鬆。",
+      "tr": "Well, I think it's important to take a break. The more tired you are, the more you need to relax.",
+      "speaker": "A",
+      "start": "19.110",
+      "end": "24.230"
+    },
+    {
+      "text": "你說得有道理。我知道放鬆很重要，但我擔心如果現在去旅行，回來會有更多工作等著我。",
+      "tr": "You have a point. I know it's important to relax, but I'm worried that if I go on a trip now, I'll come back with more work waiting for me.",
+      "speaker": "B",
+      "start": "24.580",
+      "end": "33.140"
+    },
+    {
+      "text": "其實，我和大明都跟你一樣，我們都很忙，但我們都覺得這次旅行是個好機會，可以放鬆一下。",
+      "tr": "Actually, Damien and I are just like you, we are both very busy, but we both think that this trip is a good opportunity to relax.",
+      "speaker": "A",
+      "start": "33.490",
+      "end": "39.970"
+    },
+    {
+      "text": "嗯，不過我的工作比你們的可能更麻煩一些。",
+      "tr": "Yes, but my job is a bit more complicated than yours.",
+      "speaker": "B",
+      "start": "40.320",
+      "end": "45.200"
+    },
+    {
+      "text": "不一定吧，我的工作也比以前更忙了。但是去旅行後，我覺得精神比之前好多了。",
+      "tr": "Not necessarily. My work is also busier than before. But after the trip, I feel better than before.",
+      "speaker": "A",
+      "start": "45.550",
+      "end": "53.230"
+    },
+    {
+      "text": "真的嗎？那你覺得旅行比在家休息好嗎？",
+      "tr": "Really? Do you think traveling is better than resting at home?",
+      "speaker": "B",
+      "start": "53.580",
+      "end": "57.420"
+    },
+    {
+      "text": "當然啊，旅行可以看到不一樣的風景，心情也會變得比待在家裡更好。",
+      "tr": "Of course. You can see different landscapes when you travel, and your mood will be better than at home.",
+      "speaker": "A",
+      "start": "57.770",
+      "end": "64.730"
+    },
+    {
+      "text": "聽起來不錯。不過，我還是要考慮考慮。",
+      "tr": "Sounds good. But I still need to think about it.",
+      "speaker": "B",
+      "start": "65.080",
+      "end": "69.800"
+    },
+    {
+      "text": "沒關係，你慢慢考慮。我覺得你越想越會覺得旅行是個好主意。",
+      "tr": "It's okay, take your time. I think the more you think about it, the more you'll realize that traveling is a good idea.",
+      "speaker": "A",
+      "start": "70.150",
+      "end": "75.510"
+    },
+    {
+      "text": "好的，我會再想想看。等我考慮清楚了，再告訴你們。",
+      "tr": "Okay, I'll think about it. I'll let you know when I've thought it over.",
+      "speaker": "B",
+      "start": "75.860",
+      "end": "81.220"
+    },
+    {
+      "text": "好的，我們等你的消息。希望你可以跟我們一起去。",
+      "tr": "Yes, we'll wait for your news. I hope you can come with us.",
+      "speaker": "A",
+      "start": "81.570",
+      "end": "85.010"
+    },
+    {
+      "text": "我會盡量！我考慮考慮再告訴你。",
+      "tr": "I'll try my best! I'll think about it and let you know.",
+      "speaker": "B",
+      "start": "85.360",
+      "end": "89.200"
+    },
+    {
+      "text": "沒問題，不管怎麼樣，我們都尊重你的決定。",
+      "tr": "No problem, no matter what, we respect your decision.",
+      "speaker": "A",
+      "start": "89.550",
+      "end": "93.310"
+    },
+    {
+      "text": "謝謝你們的理解，我會認真考慮的。",
+      "tr": "Thank you for your understanding, I'll think about it seriously.",
+      "speaker": "B",
+      "start": "93.660",
+      "end": "97.020"
+    }
+  ]
+}

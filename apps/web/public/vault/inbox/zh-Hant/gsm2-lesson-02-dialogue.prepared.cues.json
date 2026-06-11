@@ -1,0 +1,161 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-02-dialogue.txt",
+  "cues": [
+    {
+      "text": "好久不見！最近好嗎？",
+      "tr": "Long time no see! How have you been?",
+      "speaker": "A",
+      "start": "0.000",
+      "end": "2.240"
+    },
+    {
+      "text": "還不錯呀！我正在計劃我的假期。你呢？",
+      "tr": "Not too bad! I'm planning my vacation. How about you?",
+      "speaker": "B",
+      "start": "2.590",
+      "end": "6.590"
+    },
+    {
+      "text": "我也在想假期要怎麼安排。我想去海邊，你呢？",
+      "tr": "I'm also thinking about my vacation. I want to go to the beach.",
+      "speaker": "A",
+      "start": "6.940",
+      "end": "11.020"
+    },
+    {
+      "text": "我想去山上。山上的空氣很好。",
+      "tr": "I want to go to the mountains. The air in the mountains is good.",
+      "speaker": "B",
+      "start": "11.370",
+      "end": "14.250"
+    },
+    {
+      "text": "海邊也很漂亮，可以游泳和曬太陽。",
+      "tr": "The beach is also very beautiful. You can swim and sunbathe there.",
+      "speaker": "A",
+      "start": "14.600",
+      "end": "17.560"
+    },
+    {
+      "text": "那聽起來不錯！你準備去哪個海邊？",
+      "tr": "That sounds nice! Which beach are you going to?",
+      "speaker": "B",
+      "start": "17.910",
+      "end": "21.350"
+    },
+    {
+      "text": "我想去三亞，聽說那裡很美。",
+      "tr": "I want to go to Sanya. I heard it is very beautiful.",
+      "speaker": "A",
+      "start": "21.700",
+      "end": "24.420"
+    },
+    {
+      "text": "我去過三亞，那裡的海水很藍，沙灘很乾淨。",
+      "tr": "I've been to Sanya. The water is blue and the beaches are clean.",
+      "speaker": "B",
+      "start": "24.770",
+      "end": "28.770"
+    },
+    {
+      "text": "真的嗎？那太好了！你在三亞玩了什麼？",
+      "tr": "Really? That's great! What did you do in Sanya?",
+      "speaker": "A",
+      "start": "29.120",
+      "end": "33.040"
+    },
+    {
+      "text": "我在那裡游泳、曬太陽，還吃了很多海鮮。",
+      "tr": "I swam, sunbathed and ate a lot of seafood.",
+      "speaker": "B",
+      "start": "33.390",
+      "end": "36.750"
+    },
+    {
+      "text": "聽起來很開心！我最喜歡吃海鮮了。",
+      "tr": "Sounds like fun! I love eating seafood.",
+      "speaker": "A",
+      "start": "37.100",
+      "end": "40.940"
+    },
+    {
+      "text": "是啊，假期就應該放鬆，做自己喜歡的事。",
+      "tr": "Yes, you should relax and do what you like on vacation.",
+      "speaker": "B",
+      "start": "41.290",
+      "end": "44.810"
+    },
+    {
+      "text": "沒錯！那你去山上打算做什麼呢？",
+      "tr": "That's right! What are you going to do in the mountains?",
+      "speaker": "A",
+      "start": "45.160",
+      "end": "47.720"
+    },
+    {
+      "text": "我打算爬山、看日出，還要拍很多照片。",
+      "tr": "I'm going to climb mountains, watch the sunrise and take lots of pictures.",
+      "speaker": "B",
+      "start": "48.070",
+      "end": "52.390"
+    },
+    {
+      "text": "聽起來很棒！你準備什麼時候去？",
+      "tr": "Sounds great! When are you going to go?",
+      "speaker": "A",
+      "start": "52.740",
+      "end": "55.540"
+    },
+    {
+      "text": "我打算下個月去。你呢？",
+      "tr": "I plan to go next month. What about you?",
+      "speaker": "B",
+      "start": "55.890",
+      "end": "58.530"
+    },
+    {
+      "text": "我也是下個月，你去幾天？",
+      "tr": "I'm also going next month. How many days are you going?",
+      "speaker": "A",
+      "start": "58.880",
+      "end": "61.920"
+    },
+    {
+      "text": "應該是一個星期。",
+      "tr": "It should be a week.",
+      "speaker": "B",
+      "start": "62.270",
+      "end": "63.870"
+    },
+    {
+      "text": "可能我們可以一起計劃一下。",
+      "tr": "Maybe we can plan it together.",
+      "speaker": "A",
+      "start": "64.220",
+      "end": "66.700"
+    },
+    {
+      "text": "好啊！我們可以互相分享我們的旅行經驗。",
+      "tr": "Sure! We can share our travel experiences with each other.",
+      "speaker": "B",
+      "start": "67.050",
+      "end": "70.090"
+    },
+    {
+      "text": "那就這麼說定了！",
+      "tr": "That's settled then!",
+      "speaker": "A",
+      "start": "70.440",
+      "end": "71.960"
+    },
+    {
+      "text": "一定會很有趣的。",
+      "tr": "It's going to be fun.",
+      "speaker": "B",
+      "start": "72.310",
+      "end": "74.230"
+    }
+  ]
+}

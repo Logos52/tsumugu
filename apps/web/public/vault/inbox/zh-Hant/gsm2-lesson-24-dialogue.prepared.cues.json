@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-24-dialogue.txt",
+  "cues": [
+    {
+      "text": "第二十四課：我們來學書法吧",
+      "tr": "Lesson 24: Let's Learn Calligraphy",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.800"
+    },
+    {
+      "text": "小王，你對書法有興趣嗎？",
+      "tr": "Xiao Li: Xiao Wang, are you interested in calligraphy?",
+      "speaker": "小李",
+      "start": "3.150",
+      "end": "5.950"
+    },
+    {
+      "text": "有一點，但是我不太了解書法的歷史。",
+      "tr": "Xiao Wang: A little, but I don’t know much about its history.",
+      "speaker": "小王",
+      "start": "6.300",
+      "end": "10.780"
+    },
+    {
+      "text": "其實，書法是中國傳統文化的一部分，有幾千年的歷史呢！",
+      "tr": "Xiao Li: Actually, calligraphy is a part of traditional Chinese culture and has a history of thousands of years!",
+      "speaker": "小李",
+      "start": "11.130",
+      "end": "18.570"
+    },
+    {
+      "text": "幾千年？那真的很久啊！",
+      "tr": "Xiao Wang: Thousands of years? That’s really a long time!",
+      "speaker": "小王",
+      "start": "18.920",
+      "end": "23.160"
+    },
+    {
+      "text": "是啊，早在秦朝和漢朝的時候，書法就開始發展了。",
+      "tr": "Xiao Li: Yes, as early as the Qin and Han dynasties, calligraphy began to develop.",
+      "speaker": "小李",
+      "start": "23.510",
+      "end": "29.590"
+    },
+    {
+      "text": "那麼書法有幾種風格呢？",
+      "tr": "Xiao Wang: How many styles of calligraphy are there?",
+      "speaker": "小王",
+      "start": "29.940",
+      "end": "33.460"
+    },
+    {
+      "text": "一般來說，有篆書、隸書、楷書、行書和草書五種主要風格。",
+      "tr": "Xiao Li: Generally, there are five main styles: Seal Script, Clerical Script, Regular Script, Running Script, and Cursive Script.",
+      "speaker": "小李",
+      "start": "33.810",
+      "end": "40.210"
+    },
+    {
+      "text": "哇，還有這麼多種類啊！那練習書法有什麼好處呢？",
+      "tr": "Xiao Wang: Wow, there are so many types! What are the benefits of practicing calligraphy?",
+      "speaker": "小王",
+      "start": "40.560",
+      "end": "46.640"
+    },
+    {
+      "text": "練習書法不僅能提升我們的專注力，還可以培養耐心。",
+      "tr": "Xiao Li: Practicing calligraphy not only enhances our focus but also cultivates patience.",
+      "speaker": "小李",
+      "start": "46.990",
+      "end": "57.470"
+    },
+    {
+      "text": "我聽說書法也能讓人感到平靜，是這樣嗎？",
+      "tr": "Xiao Wang: I’ve heard that calligraphy can also make people feel calm. Is that true?",
+      "speaker": "小王",
+      "start": "57.820",
+      "end": "62.540"
+    },
+    {
+      "text": "對啊，當你專心寫字的時候，會覺得內心很安靜。",
+      "tr": "Xiao Li: Yes, when you focus on writing, you’ll feel very peaceful inside.",
+      "speaker": "小李",
+      "start": "62.890",
+      "end": "69.610"
+    },
+    {
+      "text": "我平常比較急躁，可能對我有幫助。",
+      "tr": "Xiao Wang: I’m usually quite impatient, so this might help me.",
+      "speaker": "小王",
+      "start": "69.960",
+      "end": "77.160"
+    },
+    {
+      "text": "那你一定要試試！而且書法還能增強我們的審美能力。",
+      "tr": "Xiao Li: Then you definitely need to give it a try! Additionally, calligraphy can also improve our aesthetic sense.",
+      "speaker": "小李",
+      "start": "77.510",
+      "end": "82.230"
+    },
+    {
+      "text": "審美能力？這跟書法有關嗎？",
+      "tr": "Xiao Wang: Aesthetic sense? Does that have to do with calligraphy?",
+      "speaker": "小王",
+      "start": "82.580",
+      "end": "89.140"
+    },
+    {
+      "text": "有的，書法的線條和結構都講究美感，能提升我們對藝術的感受力。",
+      "tr": "Xiao Li: Yes, the lines and structure in calligraphy emphasize beauty, which can enhance our appreciation for art.",
+      "speaker": "小李",
+      "start": "89.490",
+      "end": "97.010"
+    },
+    {
+      "text": "聽起來很有趣！我應該從哪種風格開始學呢？",
+      "tr": "Xiao Wang: That sounds interesting! Which style should I start with?",
+      "speaker": "小王",
+      "start": "97.360",
+      "end": "102.240"
+    },
+    {
+      "text": "大多數人從楷書開始學，因為它的筆劃清晰，結構完整。",
+      "tr": "Xiao Li: Most people start with Regular Script because its strokes are clear and its structure is complete.",
+      "speaker": "小李",
+      "start": "102.590",
+      "end": "108.350"
+    },
+    {
+      "text": "好的，那我也從楷書開始吧！需要什麼工具嗎？",
+      "tr": "Xiao Wang: Alright, then I’ll start with Regular Script too! What tools do I need?",
+      "speaker": "小王",
+      "start": "108.700",
+      "end": "113.820"
+    },
+    {
+      "text": "基本上，一支毛筆、一塊墨、一個硯台和一張紙就可以了。",
+      "tr": "Xiao Li: Basically, you just need a brush, an ink stick, an inkstone, and some paper.",
+      "speaker": "小李",
+      "start": "114.170",
+      "end": "125.210"
+    },
+    {
+      "text": "這些工具看起來很特別。毛筆難用嗎？",
+      "tr": "Xiao Wang: These tools look very special. Is the brush hard to use?",
+      "speaker": "小王",
+      "start": "125.560",
+      "end": "130.280"
+    },
+    {
+      "text": "一開始會有些不習慣，但練習久了就會慢慢上手了。",
+      "tr": "Xiao Li: At first, it might feel a bit unfamiliar, but with practice, you’ll gradually get the hang of it.",
+      "speaker": "小李",
+      "start": "130.630",
+      "end": "135.830"
+    },
+    {
+      "text": "嗯，我會努力練習的！就從明天開始吧！",
+      "tr": "Xiao Wang: Okay, I’ll work hard on practicing! I’ll start tomorrow!",
+      "speaker": "小王",
+      "start": "136.180",
+      "end": "144.020"
+    }
+  ]
+}

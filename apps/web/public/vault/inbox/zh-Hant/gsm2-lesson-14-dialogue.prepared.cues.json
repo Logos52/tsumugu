@@ -1,0 +1,154 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-14-dialogue.txt",
+  "cues": [
+    {
+      "text": "手機在桌上",
+      "tr": "Lesson 14: Cell phone on the table",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.120"
+    },
+    {
+      "text": "你看到我的手機了嗎？",
+      "tr": "Have you seen my cell phone?",
+      "speaker": "A",
+      "start": "1.470",
+      "end": "2.910"
+    },
+    {
+      "text": "不是在桌上嗎？",
+      "tr": "Isn't it on the table?",
+      "speaker": "B",
+      "start": "3.260",
+      "end": "5.100"
+    },
+    {
+      "text": "桌上哪裡？我怎麼沒看到？",
+      "tr": "Where is it on the table? Why don't I see it?",
+      "speaker": "A",
+      "start": "5.450",
+      "end": "8.250"
+    },
+    {
+      "text": "就在電腦旁邊，你把它移到那裡了不是嗎？",
+      "tr": "It's right next to the computer. You moved it there, didn't you?",
+      "speaker": "B",
+      "start": "8.600",
+      "end": "11.640"
+    },
+    {
+      "text": "可是我記得我把手機放在沙發上。",
+      "tr": "But I remember putting my cell phone on the couch.",
+      "speaker": "A",
+      "start": "11.990",
+      "end": "14.950"
+    },
+    {
+      "text": "不對，我剛剛看到你把手機拿到桌子上了。",
+      "tr": "No, I just saw you put it on the table.",
+      "speaker": "B",
+      "start": "15.300",
+      "end": "18.740"
+    },
+    {
+      "text": "可能是我忘記了，桌上東西太多了。",
+      "tr": "Maybe I forgot, there's too much stuff on the table.",
+      "speaker": "A",
+      "start": "19.090",
+      "end": "22.290"
+    },
+    {
+      "text": "你把書拿開看看，手機應該在下面。",
+      "tr": "Take the book and look at it, the cell phone should be underneath.",
+      "speaker": "B",
+      "start": "22.640",
+      "end": "25.680"
+    },
+    {
+      "text": "啊，看到了，手機被書壓住了。",
+      "tr": "Ah, I see, the cell phone is pressed by the book.",
+      "speaker": "A",
+      "start": "26.030",
+      "end": "31.070"
+    },
+    {
+      "text": "所以我說不用找，手機就在桌上啊。",
+      "tr": "That's why I said I don't need to look for it, it's on the table.",
+      "speaker": "B",
+      "start": "31.420",
+      "end": "34.460"
+    },
+    {
+      "text": "謝謝你幫我找，桌子上真的太亂了。",
+      "tr": "Thank you for helping me find it, the table is really messy.",
+      "speaker": "A",
+      "start": "34.810",
+      "end": "38.250"
+    },
+    {
+      "text": "你要不要把桌子整理一下？東西太多了容易找不到。",
+      "tr": "Do you want to organize the table? There are too many things to find.",
+      "speaker": "B",
+      "start": "38.600",
+      "end": "42.360"
+    },
+    {
+      "text": "也是，我應該把書本和雜物整理好。",
+      "tr": "Yes, I should organize my books and other things.",
+      "speaker": "A",
+      "start": "42.710",
+      "end": "46.070"
+    },
+    {
+      "text": "你把書本放回書架上吧，這樣桌面會清爽很多。",
+      "tr": "Why don't you put the books back on the bookshelf, so that the table will be much fresher.",
+      "speaker": "B",
+      "start": "46.420",
+      "end": "49.860"
+    },
+    {
+      "text": "好，我等一下就把那些書放回去。",
+      "tr": "Okay, I'll put those books back later.",
+      "speaker": "A",
+      "start": "50.210",
+      "end": "53.250"
+    },
+    {
+      "text": "還有那個杯子，把它也放到廚房吧。",
+      "tr": "And that cup, put it in the kitchen too.",
+      "speaker": "B",
+      "start": "53.600",
+      "end": "56.880"
+    },
+    {
+      "text": "對，這樣桌子就不會這麼亂了。",
+      "tr": "Yes, then the table will not be so messy.",
+      "speaker": "A",
+      "start": "57.230",
+      "end": "59.710"
+    },
+    {
+      "text": "把桌子整理好以後，東西就很容易找到了。",
+      "tr": "After the table is organized, things will be easy to find.",
+      "speaker": "B",
+      "start": "60.060",
+      "end": "63.420"
+    },
+    {
+      "text": "沒錯，我以後會記得把東西放回原位。",
+      "tr": "That's right. I'll remember to put things back where I found them.",
+      "speaker": "A",
+      "start": "63.770",
+      "end": "66.810"
+    },
+    {
+      "text": "這樣就不會再發生找不到手機的事了。",
+      "tr": "That way, you won't find your cell phone again.",
+      "speaker": "B",
+      "start": "67.160",
+      "end": "69.720"
+    }
+  ]
+}

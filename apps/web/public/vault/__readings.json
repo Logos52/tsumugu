@@ -1,0 +1,128 @@
+[
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-01-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L1 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-02-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L2 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-03-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L3 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-04-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L4 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-06-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L6 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-07-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L7 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-08-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L8 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-09-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L9 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-11-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L11 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-12-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L12 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-13-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L13 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-14-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L14 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-16-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L16 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-17-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L17 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-18-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L18 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-19-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L19 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-21-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L21 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-22-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L22 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-23-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L23 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/gsm2-lesson-24-dialogue.prepared.json",
+    "lang": "zh-Hant",
+    "title": "GSM2 L24 — Dialogue 甲/乙",
+    "kind": "gsm-dialogue"
+  },
+  {
+    "path": "inbox/zh-Hant/why-friendship-differs.prepared.json",
+    "lang": "zh-Hant",
+    "title": "why-friendship-differs",
+    "kind": "youtube"
+  }
+]

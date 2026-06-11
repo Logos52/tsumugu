@@ -1,0 +1,140 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-17-dialogue.txt",
+  "cues": [
+    {
+      "text": "第十七課：別忘了把燈關了",
+      "tr": "Lesson 17: Don’t Forget to Turn Off the Lights",
+      "speaker": "",
+      "start": "0.000",
+      "end": "3.200"
+    },
+    {
+      "text": "哎，小陳，你怎麼還在這裡？會議不是結束了嗎？",
+      "tr": "Hey, Xiao Chen, why are you still here? Didn’t the meeting end already?",
+      "speaker": "A",
+      "start": "3.550",
+      "end": "7.470"
+    },
+    {
+      "text": "對啊，會議剛結束，我正準備走，不過還有一些事沒做完。",
+      "tr": "Yeah, the meeting just ended. I was about to leave, but I still have a few things left to do.",
+      "speaker": "B",
+      "start": "7.820",
+      "end": "13.180"
+    },
+    {
+      "text": "哦，是什麼事？需不需要我幫忙？",
+      "tr": "Oh, what’s that? Do you need my help?",
+      "speaker": "A",
+      "start": "13.530",
+      "end": "16.410"
+    },
+    {
+      "text": "謝謝，不用了！我只是要把燈關了，然後再把文件借給小李。他剛好要用。",
+      "tr": "Thanks, but no need! I just need to turn off the lights and then lend a document to Xiao Li. He happens to need it.",
+      "speaker": "B",
+      "start": "16.760",
+      "end": "25.160"
+    },
+    {
+      "text": "啊，記得關燈！上次你忘了關，公司電費幾乎增加了一倍。",
+      "tr": "Ah, remember to turn off the lights! Last time you forgot, and the company’s electricity bill nearly doubled.",
+      "speaker": "A",
+      "start": "25.510",
+      "end": "30.710"
+    },
+    {
+      "text": "哈哈，對對對，我這個人就是常常丟三落四，真是個壞習慣。我一定不會再忘了！",
+      "tr": "Haha, yes, yes, yes, I’m someone who often forgets things—such a bad habit. I definitely won’t forget again!",
+      "speaker": "B",
+      "start": "31.060",
+      "end": "38.980"
+    },
+    {
+      "text": "這樣才對嘛！對了，今天開會的地方環境怎麼樣？",
+      "tr": "That’s the spirit! By the way, how was the environment at today’s meeting venue?",
+      "speaker": "A",
+      "start": "39.330",
+      "end": "44.130"
+    },
+    {
+      "text": "還不錯，燈光和設備都挺好，不過人多了點，差不多二十人左右。",
+      "tr": "Not bad. The lighting and equipment were pretty good, but there were quite a lot of people, about twenty or so.",
+      "speaker": "B",
+      "start": "44.480",
+      "end": "50.080"
+    },
+    {
+      "text": "那不少啊，環境會不會有點擠？",
+      "tr": "That’s quite a number! Was the place a bit crowded?",
+      "speaker": "A",
+      "start": "50.430",
+      "end": "53.310"
+    },
+    {
+      "text": "有一點，不過還可以。話說回來，小張說他一會兒會來拿你借的那本《商業管理》的書，你跟他借了對嗎？",
+      "tr": "A little, but it was manageable. Speaking of which, Xiao Zhang said he’d come by in a bit to get the book Business Management that you borrowed. You borrowed it from him, right?",
+      "speaker": "B",
+      "start": "53.660",
+      "end": "63.340"
+    },
+    {
+      "text": "嗯，我好像還給他了。不得不說，他借書的習慣真好，一向按時歸還。",
+      "tr": "Hmm, I think I already returned it to him. I have to say, he has a really good habit of borrowing books—always returning them on time.",
+      "speaker": "A",
+      "start": "63.690",
+      "end": "70.730"
+    },
+    {
+      "text": "是啊，我也習慣按時還書，這樣對大家都方便。",
+      "tr": "Yeah, I also make it a habit to return books on time—it’s convenient for everyone.",
+      "speaker": "B",
+      "start": "71.080",
+      "end": "76.840"
+    },
+    {
+      "text": "對對，我們都應該這樣。不過有時候事情多了就會忘記，所以提醒一下總是好的。",
+      "tr": "Exactly, we should all do that. But sometimes, when there’s too much going on, we forget things, so a little reminder is always helpful.",
+      "speaker": "A",
+      "start": "77.190",
+      "end": "83.510"
+    },
+    {
+      "text": "沒錯。我記得上個月我跟他借了一本書，結果忘了還他，真是不好意思。",
+      "tr": "True. I remember last month I borrowed a book from him and ended up forgetting to return it. It was so embarrassing.",
+      "speaker": "B",
+      "start": "83.860",
+      "end": "89.140"
+    },
+    {
+      "text": "哈哈，你還真的是貴人多忘事。對了，你今晚回家記得把門鎖好！",
+      "tr": "Haha, you really are forgetful! By the way, when you go home tonight, don’t forget to lock the door!",
+      "speaker": "A",
+      "start": "89.490",
+      "end": "95.810"
+    },
+    {
+      "text": "當然，放心吧。我一般九點左右就回家，不會太晚的。",
+      "tr": "Of course, don’t worry. I usually get home around nine o’clock, not too late.",
+      "speaker": "B",
+      "start": "96.160",
+      "end": "102.000"
+    },
+    {
+      "text": "好，那我們就一會兒見吧！記得關燈！",
+      "tr": "Alright, then I’ll see you in a bit! Remember to turn off the lights!",
+      "speaker": "A",
+      "start": "102.350",
+      "end": "105.630"
+    },
+    {
+      "text": "好的好的！放心吧！",
+      "tr": "Sure, sure! Don’t worry!",
+      "speaker": "B",
+      "start": "105.980",
+      "end": "108.220"
+    }
+  ]
+}

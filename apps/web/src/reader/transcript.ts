@@ -278,13 +278,12 @@ export function mountTranscriptSync(opts: {
       transportChildren.push(vBar);
     }
   }
-  // Per-speaker voice picker — only when the reading has ≥2 voice tracks. A 甲/乙
-  // dialogue gets one selector per speaker (so 甲 can be the native speaker and 乙
-  // Serena, or any mix); a single-speaker reading gets one global selector.
-  // Changing a selector recomposes the binding; the host rebuilds the player.
+  // Per-speaker voice picker — hidden when dual stacked waveforms show every track
+  // (GSM dialogues: Native + Serena side by side, no toggle).
   let voicePickerRow: HTMLElement | null = null;
   const vTracks = opts.voiceTracks ?? [];
-  if (caps.hasDualVoice && opts.onVoiceAssign) {
+  const showDualWaveforms = caps.canWaveforms && vTracks.length >= 2;
+  if (caps.hasDualVoice && opts.onVoiceAssign && !showDualWaveforms) {
     const assign = opts.voiceAssignment ?? {};
     const found = speakersOf(cues.map((c) => c.speaker));
     const speakerKeys = found.length ? found : [""];
@@ -328,12 +327,25 @@ export function mountTranscriptSync(opts: {
   // hundreds). Self-contained per line; interacting with one selects that cue.
   let cueWaves: CueWaveforms | null = null;
   if (caps.canWaveforms) {
-    // caps.canWaveforms ⟹ vault + voiceNotes are present (it implies canPractice).
+    const ordered =
+      vTracks.length >= 2
+        ? [...vTracks].sort((a, b) => {
+            if (a.id === "native") return -1;
+            if (b.id === "native") return 1;
+            return 0;
+          })
+        : vTracks;
+    const waveTracks =
+      ordered.length >= 2
+        ? ordered.map((t) => ({ label: t.label, binding: t.binding }))
+        : voiceNotes
+          ? [{ label: voiceNotes.manifest.voice || "Voice", binding: voiceNotes }]
+          : [];
     void mountCueWaveforms({
       ranges,
       tokenEls,
       vault: vault!,
-      binding: voiceNotes!,
+      tracks: waveTracks,
       onActivate: (c) => selectCue(c),
     }).then((cw) => {
       cueWaves = cw;

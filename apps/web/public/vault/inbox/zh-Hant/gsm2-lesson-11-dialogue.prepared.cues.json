@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-11-dialogue.txt",
+  "cues": [
+    {
+      "text": "這個工作是他幫我介紹的",
+      "tr": "Lesson 11: He introduced me to this job",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.240"
+    },
+    {
+      "text": "聽說你換工作了，你現在在做什麼工作？",
+      "tr": "I heard that you changed your job, what are you doing now?",
+      "speaker": "A",
+      "start": "2.590",
+      "end": "5.870"
+    },
+    {
+      "text": "我現在在一家電腦公司工作。這個工作是他幫我介紹的。",
+      "tr": "I am now working in a computer company. He introduced me to this job.",
+      "speaker": "B",
+      "start": "6.220",
+      "end": "10.860"
+    },
+    {
+      "text": "哦，這份工作聽起來不錯！你每天都做些什麼？",
+      "tr": "Oh, this job sounds good! What do you do every day?",
+      "speaker": "A",
+      "start": "11.210",
+      "end": "15.050"
+    },
+    {
+      "text": "我主要負責管理公司的網站，還有幫客戶解決一些跟電腦有關的問題。",
+      "tr": "I'm mainly responsible for managing the company's website and helping customers solve some computer-related problems.",
+      "speaker": "B",
+      "start": "15.400",
+      "end": "20.680"
+    },
+    {
+      "text": "真厲害！這份工作對你來說有挑戰嗎？",
+      "tr": "That's great! Is this job challenging for you?",
+      "speaker": "A",
+      "start": "21.030",
+      "end": "25.510"
+    },
+    {
+      "text": "有時候客戶的問題很複雜，需要花時間解決，不過我喜歡這樣的挑戰。",
+      "tr": "Sometimes clients' problems are very complicated and it takes time to solve them, but I like this challenge.",
+      "speaker": "B",
+      "start": "25.860",
+      "end": "31.860"
+    },
+    {
+      "text": "那就好，像我就沒什麼耐心。你以前學過電腦嗎？",
+      "tr": "That's good, I'm not very patient. Have you studied computer science before?",
+      "speaker": "A",
+      "start": "32.210",
+      "end": "36.610"
+    },
+    {
+      "text": "是的，我大學學的是電腦科學，這份工作跟我的專業很有關係。",
+      "tr": "Yes, I studied computer science in college, and this job is very related to my major.",
+      "speaker": "B",
+      "start": "36.960",
+      "end": "42.480"
+    },
+    {
+      "text": "那你對這份工作滿意嗎？",
+      "tr": "Are you satisfied with this job?",
+      "speaker": "A",
+      "start": "42.830",
+      "end": "44.830"
+    },
+    {
+      "text": "還不錯，工作內容挺有趣的，而且我也學到了很多新東西。",
+      "tr": "Not bad, the work is quite interesting and I have learned a lot of new things.",
+      "speaker": "B",
+      "start": "45.180",
+      "end": "50.380"
+    },
+    {
+      "text": "你平時的工作時間怎麼樣？忙嗎？",
+      "tr": "How are your working hours? Are you busy?",
+      "speaker": "A",
+      "start": "50.730",
+      "end": "54.410"
+    },
+    {
+      "text": "還好，通常是朝九晚五，不過有時候要加班。",
+      "tr": "Not bad, usually from nine to five, but sometimes I have to work overtime.",
+      "speaker": "B",
+      "start": "54.760",
+      "end": "60.120"
+    },
+    {
+      "text": "聽起來很不錯，加班多嗎？",
+      "tr": "Sounds good. Do you work a lot of overtime?",
+      "speaker": "A",
+      "start": "60.470",
+      "end": "62.870"
+    },
+    {
+      "text": "不算太多，一般一週一次左右吧。",
+      "tr": "Not too much, usually about once a week.",
+      "speaker": "B",
+      "start": "63.220",
+      "end": "67.300"
+    },
+    {
+      "text": "那也還好，以後有機會升職嗎？",
+      "tr": "That's not bad. Will there be a chance of promotion in the future?",
+      "speaker": "A",
+      "start": "67.650",
+      "end": "72.370"
+    },
+    {
+      "text": "應該有的，公司每年都有一次考核，表現好的人有機會升職。",
+      "tr": "Yes, there should be. The company has a yearly assessment, and those with good performance will have a chance to be promoted.",
+      "speaker": "B",
+      "start": "72.720",
+      "end": "80.080"
+    },
+    {
+      "text": "你覺得未來幾年會一直做這份工作嗎？",
+      "tr": "Do you think you'll be doing this job for the next few years?",
+      "speaker": "A",
+      "start": "80.430",
+      "end": "83.310"
+    },
+    {
+      "text": "我想會的，這份工作很符合我的興趣，再說只要有學習和發展的機會，我就會繼續做下去。",
+      "tr": "I think so. This job is very much in line with my interests, and as long as there are opportunities for learning and development, I will continue to do it.",
+      "speaker": "B",
+      "start": "83.660",
+      "end": "91.740"
+    },
+    {
+      "text": "真不錯！那你的朋友是怎麼幫你介紹這份工作的？",
+      "tr": "That's great! How did your friend introduce you to this job?",
+      "speaker": "A",
+      "start": "92.090",
+      "end": "96.410"
+    },
+    {
+      "text": "他認識公司的人，所以幫我推薦了這個工作機會。",
+      "tr": "He knows people in the company, so he recommended this job opportunity to me.",
+      "speaker": "B",
+      "start": "96.760",
+      "end": "100.040"
+    },
+    {
+      "text": "你真幸運，有這樣的朋友幫忙！",
+      "tr": "You are lucky to have such a friend to help you!",
+      "speaker": "A",
+      "start": "100.390",
+      "end": "103.910"
+    },
+    {
+      "text": "是啊，我也很感謝他幫我找到了這份合適的工作。",
+      "tr": "Yes, I'm also very grateful to him for helping me find this suitable job.",
+      "speaker": "B",
+      "start": "104.260",
+      "end": "108.180"
+    }
+  ]
+}

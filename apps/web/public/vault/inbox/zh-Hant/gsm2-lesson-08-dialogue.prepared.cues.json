@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-08-dialogue.txt",
+  "cues": [
+    {
+      "text": "你喜歡什麼類型的書？",
+      "tr": "Lesson 8: What kind of books do you like?",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.760"
+    },
+    {
+      "text": "聽說你很喜歡看書，你喜歡看什麼書呢？",
+      "tr": "I heard that you like reading a lot, what kind of books do you like to read?",
+      "speaker": "A",
+      "start": "2.110",
+      "end": "5.230"
+    },
+    {
+      "text": "我喜歡看小說，特別是武俠小說和愛情小說。你呢？",
+      "tr": "I like to read novels, especially martial arts novels and love novels. What about you?",
+      "speaker": "B",
+      "start": "5.580",
+      "end": "10.620"
+    },
+    {
+      "text": "我也喜歡小說，但是我更喜歡偵探小說。你覺得哪種類型的小說最好看？",
+      "tr": "I also like novels, but I prefer detective novels. What do you think is the best type of novel?",
+      "speaker": "A",
+      "start": "10.970",
+      "end": "18.170"
+    },
+    {
+      "text": "我覺得每種類型的小說都有意思，我喜歡故事內容又精彩又有趣的書。",
+      "tr": "I think every type of novel is interesting, and I like books with exciting and interesting stories.",
+      "speaker": "B",
+      "start": "18.520",
+      "end": "25.080"
+    },
+    {
+      "text": "那你有沒有什麼推薦的書？",
+      "tr": "Do you have any recommendations?",
+      "speaker": "A",
+      "start": "25.430",
+      "end": "27.190"
+    },
+    {
+      "text": "最近我剛看完一本經典小說，故事情節非常吸引人。我建議你也看看。",
+      "tr": "I just finished reading a classic novel with a very attractive storyline. I suggest you read it too.",
+      "speaker": "B",
+      "start": "27.540",
+      "end": "35.460"
+    },
+    {
+      "text": "那本書的作者是誰？",
+      "tr": "Who is the author of that book?",
+      "speaker": "A",
+      "start": "35.810",
+      "end": "37.490"
+    },
+    {
+      "text": "這本書的作者很有名，他得過很多獎，而且總是寫出很好的故事。",
+      "tr": "The author of this book is very famous, he has won many awards and always writes good stories.",
+      "speaker": "B",
+      "start": "37.840",
+      "end": "44.080"
+    },
+    {
+      "text": "聽起來不錯，等一下我去書店買一本。",
+      "tr": "Sounds good. I'll go to the bookstore and buy a copy later.",
+      "speaker": "A",
+      "start": "44.430",
+      "end": "47.870"
+    },
+    {
+      "text": "那你呢？你喜歡什麼主題的書？",
+      "tr": "What about you? What kind of books do you like?",
+      "speaker": "B",
+      "start": "48.220",
+      "end": "51.580"
+    },
+    {
+      "text": "我喜歡內容又有意思又有深度的書。你有沒有推薦的書呢？",
+      "tr": "I like books with interesting and deep contents. Do you have any recommendations?",
+      "speaker": "A",
+      "start": "51.930",
+      "end": "57.850"
+    },
+    {
+      "text": "如果你喜歡有深度的書，我建議你看看一些自傳。",
+      "tr": "If you like deep books, I suggest you read some autobiographies.",
+      "speaker": "B",
+      "start": "58.200",
+      "end": "61.720"
+    },
+    {
+      "text": "我也聽說自傳類型的書是不錯的選擇。",
+      "tr": "I've also heard that autobiography-type books are a good choice.",
+      "speaker": "A",
+      "start": "62.070",
+      "end": "64.790"
+    },
+    {
+      "text": "是的，我剛讀了一本非常好的名人自傳，內容豐富又感人。",
+      "tr": "Yes, I just read a very good autobiography of a famous person, which is rich and touching.",
+      "speaker": "B",
+      "start": "65.140",
+      "end": "70.900"
+    },
+    {
+      "text": "太好了！那我也來讀讀看。",
+      "tr": "That's great! I'll read it too.",
+      "speaker": "A",
+      "start": "71.250",
+      "end": "73.730"
+    },
+    {
+      "text": "你覺得這些書的情節重要嗎？",
+      "tr": "Do you think the plot of these books is important?",
+      "speaker": "B",
+      "start": "74.080",
+      "end": "76.320"
+    },
+    {
+      "text": "當然很重要。如果故事情節又緊張又有趣，我會一直讀下去。",
+      "tr": "Of course it's important. If the story is exciting and interesting, I'll read it all the way through.",
+      "speaker": "A",
+      "start": "76.670",
+      "end": "82.510"
+    },
+    {
+      "text": "完全同意。我這幾天看了一本書，情節很一般，所以沒看完。",
+      "tr": "I totally agree. I've read a book in the past few days, but the plot was so mediocre that I didn't finish it.",
+      "speaker": "B",
+      "start": "82.860",
+      "end": "89.180"
+    },
+    {
+      "text": "那你可以考慮我推薦的那些書，我相信你會喜歡的。",
+      "tr": "Then you can consider the books I recommend, I believe you will like them.",
+      "speaker": "A",
+      "start": "89.530",
+      "end": "94.170"
+    },
+    {
+      "text": "好的，我一定會去看看！謝謝你的建議！",
+      "tr": "Okay, I'll definitely check it out! Thank you for your suggestion!",
+      "speaker": "B",
+      "start": "94.520",
+      "end": "97.880"
+    },
+    {
+      "text": "不客氣，選擇一本好書真的很重要。希望你能找到你喜歡的書。",
+      "tr": "You're welcome, choosing a good book is really important. I hope you can find a book you like.",
+      "speaker": "A",
+      "start": "98.230",
+      "end": "104.390"
+    },
+    {
+      "text": "我們下次可以再一起聊聊我們讀過的書吧！",
+      "tr": "Let's talk about the books we've read next time!",
+      "speaker": "B",
+      "start": "104.740",
+      "end": "107.700"
+    }
+  ]
+}

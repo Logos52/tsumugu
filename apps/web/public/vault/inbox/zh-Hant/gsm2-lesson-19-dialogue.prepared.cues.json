@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-19-dialogue.txt",
+  "cues": [
+    {
+      "text": "第十九課：把重要的資料放我這兒吧",
+      "tr": "Lesson 19: Put the Important Documents with Me",
+      "speaker": "",
+      "start": "0.000",
+      "end": "3.200"
+    },
+    {
+      "text": "場景：兩個同事，王明和小李，正在辦公室準備出差需要的資料，兩人討論如何分工和保存重要文件。",
+      "tr": "Scene: Two colleagues, Wang Ming and Xiao Li, are in the office preparing the necessary materials for a business trip. They discuss how to divide tasks and secure important documents.",
+      "speaker": "",
+      "start": "3.550",
+      "end": "14.110"
+    },
+    {
+      "text": "小李，我們明天就要出差了，資料準備得怎麼樣了？",
+      "tr": "Xiao Li, we’re leaving for the business trip tomorrow. How’s the preparation coming along?",
+      "speaker": "A",
+      "start": "14.460",
+      "end": "19.340"
+    },
+    {
+      "text": "還在整理呢。我今天才把所有的會議文件印出來，還有一些資料還沒整理好。",
+      "tr": "Still organizing. I just printed out all the meeting documents today, but there are still some materials I haven’t sorted yet.",
+      "speaker": "B",
+      "start": "19.690",
+      "end": "26.810"
+    },
+    {
+      "text": "沒關係，我也才剛整理完我的部分。我們把所有的資料集中到一起吧，這樣比較方便。",
+      "tr": "No worries, I’ve just finished my part too. Let’s gather all the materials together; it’ll be more convenient that way.",
+      "speaker": "A",
+      "start": "27.160",
+      "end": "34.440"
+    },
+    {
+      "text": "好主意。這樣的話，不會有遺漏的風險。我把財務報表和客戶資料放在這個文件夾裡了。",
+      "tr": "Great idea. That way, we can avoid any risk of missing something. I’ve already put the financial reports and client information in this folder.",
+      "speaker": "B",
+      "start": "34.790",
+      "end": "41.590"
+    },
+    {
+      "text": "那重要的合同也給我吧，我幫你一起整理。",
+      "tr": "Hand me the important contracts too, and I’ll help you organize them.",
+      "speaker": "A",
+      "start": "41.940",
+      "end": "44.900"
+    },
+    {
+      "text": "好的。我習慣把合同放在右邊的抽屜裡，但這次出差還是交給你保管吧。",
+      "tr": "Sure. I usually keep the contracts in the right-hand drawer, but for this trip, I’ll leave them with you.",
+      "speaker": "B",
+      "start": "45.250",
+      "end": "52.690"
+    },
+    {
+      "text": "沒問題，我會好好保管的。這已經習慣成自然了，每次出差前都會檢查好所有資料。",
+      "tr": "No problem, I’ll take good care of them. I’m used to this—it’s second nature now. Before every trip, I always double-check all the documents.",
+      "speaker": "A",
+      "start": "53.040",
+      "end": "64.480"
+    },
+    {
+      "text": "嗯，王明，謝謝你這麼細心。你把會議日程表也印出來了嗎？",
+      "tr": "Thank you for being so meticulous, Wang Ming. Have you also printed out the meeting schedule?",
+      "speaker": "B",
+      "start": "64.830",
+      "end": "70.190"
+    },
+    {
+      "text": "對，已經印好了，我放在你的文件夾裡了。還有什麼資料需要準備嗎？",
+      "tr": "Yes, it’s already printed and placed in your folder. Is there anything else we need to prepare?",
+      "speaker": "A",
+      "start": "70.540",
+      "end": "75.820"
+    },
+    {
+      "text": "好像還差公司簡介。我去找一下，把它放到我們的資料夾裡。",
+      "tr": "It seems we’re missing the company profile. I’ll go find it and add it to our folder.",
+      "speaker": "B",
+      "start": "76.170",
+      "end": "82.090"
+    },
+    {
+      "text": "好。我覺得我們這次的準備算是充分了。",
+      "tr": "Alright. I think our preparation is pretty thorough this time.",
+      "speaker": "A",
+      "start": "82.440",
+      "end": "86.840"
+    },
+    {
+      "text": "也是。這樣一來，應該不會有什麼問題。我們要互相幫助，這樣才更有把握。",
+      "tr": "Agreed. This way, we shouldn’t encounter any issues. We need to help each other to be more confident.",
+      "speaker": "B",
+      "start": "87.190",
+      "end": "93.670"
+    },
+    {
+      "text": "說得對。既然我們資料都整理好了，明天就專心開會吧！",
+      "tr": "Absolutely. Since we’ve organized everything, let’s focus on the meeting tomorrow!",
+      "speaker": "A",
+      "start": "94.020",
+      "end": "99.700"
+    },
+    {
+      "text": "嗯，出門前我會再檢查一遍，看有沒有落下的東西。",
+      "tr": "Sure. Before leaving, I’ll double-check everything to make sure nothing is left behind.",
+      "speaker": "B",
+      "start": "100.050",
+      "end": "104.370"
+    },
+    {
+      "text": "那我們把資料放在一起吧，方便攜帶。",
+      "tr": "Let’s keep all the materials together for easy carrying.",
+      "speaker": "A",
+      "start": "104.720",
+      "end": "108.240"
+    },
+    {
+      "text": "好主意。我把我的資料放在你的公事包裡，這樣一路上你也可以隨時看一看。",
+      "tr": "Good idea. I’ll put my materials in your briefcase so you can review them anytime during the trip.",
+      "speaker": "B",
+      "start": "108.590",
+      "end": "114.030"
+    },
+    {
+      "text": "沒問題，那我把這些文件都收好。你幫我檢查一下是不是都帶齊了？",
+      "tr": "No problem. I’ll store all the documents properly. Can you check if we’ve got everything?",
+      "speaker": "A",
+      "start": "114.380",
+      "end": "119.820"
+    },
+    {
+      "text": "嗯，看起來都在了。我覺得這樣的準備方式真的很有效。",
+      "tr": "Looks like everything’s here. I think this preparation method is really effective.",
+      "speaker": "B",
+      "start": "120.170",
+      "end": "126.890"
+    },
+    {
+      "text": "是啊，習慣成自然嘛，每次有重要會議，我們都得這樣準備。",
+      "tr": "Exactly, it’s second nature by now. Every time we have an important meeting, we prepare like this.",
+      "speaker": "A",
+      "start": "127.240",
+      "end": "132.840"
+    },
+    {
+      "text": "對，我也覺得我們的合作很順利。希望明天的會議一切順利！",
+      "tr": "Right, I also think our collaboration is smooth. I hope tomorrow’s meeting goes well!",
+      "speaker": "B",
+      "start": "133.190",
+      "end": "137.590"
+    },
+    {
+      "text": "加油！明天我們早點出發，確保萬無一失。",
+      "tr": "Let’s do our best! We’ll leave early tomorrow to ensure everything goes off without a hitch.",
+      "speaker": "A",
+      "start": "137.940",
+      "end": "142.660"
+    }
+  ]
+}

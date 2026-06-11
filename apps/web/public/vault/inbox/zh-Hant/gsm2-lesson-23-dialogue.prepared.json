@@ -1,0 +1,2197 @@
+{
+  "schema": "tsumugu/prepared-content@1",
+  "lang": "zh-Hant",
+  "tokens": [
+    {
+      "text": "第二",
+      "isWord": true
+    },
+    {
+      "text": "十三",
+      "isWord": true
+    },
+    {
+      "text": "課",
+      "isWord": true
+    },
+    {
+      "text": "：",
+      "isWord": false
+    },
+    {
+      "text": "入鄉隨俗",
+      "isWord": true
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "王",
+      "isWord": true
+    },
+    {
+      "text": "經理",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "您好",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "我剛",
+      "isWord": true
+    },
+    {
+      "text": "搬",
+      "isWord": true
+    },
+    {
+      "text": "到",
+      "isWord": true
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "開始",
+      "isWord": true
+    },
+    {
+      "text": "新",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "還有",
+      "isWord": true
+    },
+    {
+      "text": "很多",
+      "isWord": true
+    },
+    {
+      "text": "事情",
+      "isWord": true
+    },
+    {
+      "text": "還在",
+      "isWord": true
+    },
+    {
+      "text": "適應",
+      "isWord": true
+    },
+    {
+      "text": "呢",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "歡迎",
+      "isWord": true
+    },
+    {
+      "text": "來",
+      "isWord": true
+    },
+    {
+      "text": "到",
+      "isWord": true
+    },
+    {
+      "text": "我們",
+      "isWord": true
+    },
+    {
+      "text": "公司",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "剛來",
+      "isWord": true
+    },
+    {
+      "text": "新",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "國家",
+      "isWord": true
+    },
+    {
+      "text": "確實",
+      "isWord": true
+    },
+    {
+      "text": "不",
+      "isWord": true
+    },
+    {
+      "text": "容易",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "不過",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "入鄉隨俗",
+      "isWord": true
+    },
+    {
+      "text": "嘛",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "慢慢",
+      "isWord": true
+    },
+    {
+      "text": "你會",
+      "isWord": true
+    },
+    {
+      "text": "習慣",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "謝謝",
+      "isWord": true
+    },
+    {
+      "text": "您",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "飲食",
+      "isWord": true
+    },
+    {
+      "text": "以外",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我覺得",
+      "isWord": true
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "環境",
+      "isWord": true
+    },
+    {
+      "text": "還算",
+      "isWord": true
+    },
+    {
+      "text": "適應",
+      "isWord": true
+    },
+    {
+      "text": "了",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "上",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "安排",
+      "isWord": true
+    },
+    {
+      "text": "也",
+      "isWord": true
+    },
+    {
+      "text": "沒什麼",
+      "isWord": true
+    },
+    {
+      "text": "問題",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "是",
+      "isWord": true
+    },
+    {
+      "text": "啊",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "每個",
+      "isWord": true
+    },
+    {
+      "text": "地方",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "飲",
+      "isWord": true
+    },
+    {
+      "text": "食",
+      "isWord": true
+    },
+    {
+      "text": "文化",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "有所不同",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "可以",
+      "isWord": true
+    },
+    {
+      "text": "試著",
+      "isWord": true
+    },
+    {
+      "text": "慢慢",
+      "isWord": true
+    },
+    {
+      "text": "接受",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "食物",
+      "isWord": true
+    },
+    {
+      "text": "可是",
+      "isWord": true
+    },
+    {
+      "text": "美味極了",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "是",
+      "isWord": true
+    },
+    {
+      "text": "嗎",
+      "isWord": true
+    },
+    {
+      "text": "？",
+      "isWord": false
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "點兒",
+      "isWord": true
+    },
+    {
+      "text": "想家",
+      "isWord": true
+    },
+    {
+      "text": "鄉",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "味道",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "不過",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "也",
+      "isWord": true
+    },
+    {
+      "text": "會",
+      "isWord": true
+    },
+    {
+      "text": "試試",
+      "isWord": true
+    },
+    {
+      "text": "看",
+      "isWord": true
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "特色",
+      "isWord": true
+    },
+    {
+      "text": "菜",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "好",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "其實",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "飲食",
+      "isWord": true
+    },
+    {
+      "text": "以外",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "其他",
+      "isWord": true
+    },
+    {
+      "text": "方面",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "還好",
+      "isWord": true
+    },
+    {
+      "text": "嗎",
+      "isWord": true
+    },
+    {
+      "text": "？",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "嗯",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "環境",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "乾淨",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "辦",
+      "isWord": true
+    },
+    {
+      "text": "公室",
+      "isWord": true
+    },
+    {
+      "text": "也",
+      "isWord": true
+    },
+    {
+      "text": "安靜得不得了",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "同事",
+      "isWord": true
+    },
+    {
+      "text": "們",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "非常",
+      "isWord": true
+    },
+    {
+      "text": "友好",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "只是",
+      "isWord": true
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "還在",
+      "isWord": true
+    },
+    {
+      "text": "適應",
+      "isWord": true
+    },
+    {
+      "text": "新",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "節奏",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "忙極",
+      "isWord": true
+    },
+    {
+      "text": "了",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "剛",
+      "isWord": true
+    },
+    {
+      "text": "開始",
+      "isWord": true
+    },
+    {
+      "text": "忙",
+      "isWord": true
+    },
+    {
+      "text": "一點",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "正常",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我們",
+      "isWord": true
+    },
+    {
+      "text": "公司",
+      "isWord": true
+    },
+    {
+      "text": "平常",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "安排",
+      "isWord": true
+    },
+    {
+      "text": "也是",
+      "isWord": true
+    },
+    {
+      "text": "滿緊",
+      "isWord": true
+    },
+    {
+      "text": "湊",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "對",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "時間",
+      "isWord": true
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "點長",
+      "isWord": true
+    },
+    {
+      "text": "以外",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "其他",
+      "isWord": true
+    },
+    {
+      "text": "我覺得",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "能",
+      "isWord": true
+    },
+    {
+      "text": "接受",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "聽",
+      "isWord": true
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "這麼",
+      "isWord": true
+    },
+    {
+      "text": "說",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我覺得",
+      "isWord": true
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "已經",
+      "isWord": true
+    },
+    {
+      "text": "適應",
+      "isWord": true
+    },
+    {
+      "text": "得",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "好",
+      "isWord": true
+    },
+    {
+      "text": "了",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "謝謝",
+      "isWord": true
+    },
+    {
+      "text": "您",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "鼓勵",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "還有",
+      "isWord": true
+    },
+    {
+      "text": "一個",
+      "isWord": true
+    },
+    {
+      "text": "小",
+      "isWord": true
+    },
+    {
+      "text": "問題",
+      "isWord": true
+    },
+    {
+      "text": "就是",
+      "isWord": true
+    },
+    {
+      "text": "語言",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "雖然",
+      "isWord": true
+    },
+    {
+      "text": "平時",
+      "isWord": true
+    },
+    {
+      "text": "能",
+      "isWord": true
+    },
+    {
+      "text": "聽",
+      "isWord": true
+    },
+    {
+      "text": "懂",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "但是",
+      "isWord": true
+    },
+    {
+      "text": "說",
+      "isWord": true
+    },
+    {
+      "text": "起來",
+      "isWord": true
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "時候",
+      "isWord": true
+    },
+    {
+      "text": "會",
+      "isWord": true
+    },
+    {
+      "text": "緊張",
+      "isWord": true
+    },
+    {
+      "text": "得",
+      "isWord": true
+    },
+    {
+      "text": "不得了",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "別",
+      "isWord": true
+    },
+    {
+      "text": "擔心",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "專業",
+      "isWord": true
+    },
+    {
+      "text": "用語",
+      "isWord": true
+    },
+    {
+      "text": "以外",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "日常",
+      "isWord": true
+    },
+    {
+      "text": "交流",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "話",
+      "isWord": true
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "可以",
+      "isWord": true
+    },
+    {
+      "text": "多練習",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "相信",
+      "isWord": true
+    },
+    {
+      "text": "很快",
+      "isWord": true
+    },
+    {
+      "text": "就",
+      "isWord": true
+    },
+    {
+      "text": "會",
+      "isWord": true
+    },
+    {
+      "text": "更",
+      "isWord": true
+    },
+    {
+      "text": "自然",
+      "isWord": true
+    },
+    {
+      "text": "了",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "好",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "我會",
+      "isWord": true
+    },
+    {
+      "text": "多",
+      "isWord": true
+    },
+    {
+      "text": "聽",
+      "isWord": true
+    },
+    {
+      "text": "、",
+      "isWord": false
+    },
+    {
+      "text": "多",
+      "isWord": true
+    },
+    {
+      "text": "說",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "盡量",
+      "isWord": true
+    },
+    {
+      "text": "入鄉隨俗",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "文化",
+      "isWord": true
+    },
+    {
+      "text": "、",
+      "isWord": false
+    },
+    {
+      "text": "習慣",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "有趣",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "讓",
+      "isWord": true
+    },
+    {
+      "text": "我覺得",
+      "isWord": true
+    },
+    {
+      "text": "學習",
+      "isWord": true
+    },
+    {
+      "text": "起來",
+      "isWord": true
+    },
+    {
+      "text": "也",
+      "isWord": true
+    },
+    {
+      "text": "有意思些",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "這種",
+      "isWord": true
+    },
+    {
+      "text": "態度",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "好",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "以外",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "考慮",
+      "isWord": true
+    },
+    {
+      "text": "到處走走",
+      "isWord": true
+    },
+    {
+      "text": "、",
+      "isWord": false
+    },
+    {
+      "text": "了解",
+      "isWord": true
+    },
+    {
+      "text": "這個",
+      "isWord": true
+    },
+    {
+      "text": "地方",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "文化",
+      "isWord": true
+    },
+    {
+      "text": "嗎",
+      "isWord": true
+    },
+    {
+      "text": "？",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "除了",
+      "isWord": true
+    },
+    {
+      "text": "公司",
+      "isWord": true
+    },
+    {
+      "text": "附近",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "地方",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "也",
+      "isWord": true
+    },
+    {
+      "text": "打算",
+      "isWord": true
+    },
+    {
+      "text": "週末",
+      "isWord": true
+    },
+    {
+      "text": "去",
+      "isWord": true
+    },
+    {
+      "text": "一些",
+      "isWord": true
+    },
+    {
+      "text": "景點",
+      "isWord": true
+    },
+    {
+      "text": "看看",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "聽說",
+      "isWord": true
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "風",
+      "isWord": true
+    },
+    {
+      "text": "景美",
+      "isWord": true
+    },
+    {
+      "text": "極了",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "那",
+      "isWord": true
+    },
+    {
+      "text": "太棒了",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "什麼",
+      "isWord": true
+    },
+    {
+      "text": "問題",
+      "isWord": true
+    },
+    {
+      "text": "隨時",
+      "isWord": true
+    },
+    {
+      "text": "問",
+      "isWord": true
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我",
+      "isWord": true
+    },
+    {
+      "text": "很",
+      "isWord": true
+    },
+    {
+      "text": "樂意",
+      "isWord": true
+    },
+    {
+      "text": "幫忙",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "謝謝",
+      "isWord": true
+    },
+    {
+      "text": "您",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "有",
+      "isWord": true
+    },
+    {
+      "text": "您",
+      "isWord": true
+    },
+    {
+      "text": "這樣",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "好",
+      "isWord": true
+    },
+    {
+      "text": "同事",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我覺得",
+      "isWord": true
+    },
+    {
+      "text": "適應",
+      "isWord": true
+    },
+    {
+      "text": "起來",
+      "isWord": true
+    },
+    {
+      "text": "輕",
+      "isWord": true
+    },
+    {
+      "text": "鬆",
+      "isWord": true
+    },
+    {
+      "text": "多",
+      "isWord": true
+    },
+    {
+      "text": "了",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "哈哈",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "不用",
+      "isWord": true
+    },
+    {
+      "text": "客氣",
+      "isWord": true
+    },
+    {
+      "text": "。",
+      "isWord": false
+    },
+    {
+      "text": "希望",
+      "isWord": true
+    },
+    {
+      "text": "你",
+      "isWord": true
+    },
+    {
+      "text": "能",
+      "isWord": true
+    },
+    {
+      "text": "在",
+      "isWord": true
+    },
+    {
+      "text": "這裡",
+      "isWord": true
+    },
+    {
+      "text": "生活",
+      "isWord": true
+    },
+    {
+      "text": "、",
+      "isWord": false
+    },
+    {
+      "text": "工作",
+      "isWord": true
+    },
+    {
+      "text": "都",
+      "isWord": true
+    },
+    {
+      "text": "開心",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    },
+    {
+      "text": "\n",
+      "isWord": false
+    },
+    {
+      "text": "謝謝",
+      "isWord": true
+    },
+    {
+      "text": "，",
+      "isWord": false
+    },
+    {
+      "text": "我會",
+      "isWord": true
+    },
+    {
+      "text": "努力",
+      "isWord": true
+    },
+    {
+      "text": "的",
+      "isWord": true
+    },
+    {
+      "text": "！",
+      "isWord": false
+    }
+  ],
+  "glossary": {
+    "您好": {
+      "term": "您好",
+      "gloss": "hello (polite)",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄋㄧㄣˊ ㄏㄠˇ",
+      "level": "B1"
+    },
+    "我剛": {
+      "term": "我剛",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "搬": {
+      "term": "搬",
+      "gloss": "to move (i.e. relocate oneself); to move (sth relatively heavy or bulky); to shift; to copy indiscriminately",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄅㄢ",
+      "level": "TOCFL-2"
+    },
+    "還在": {
+      "term": "還在",
+      "gloss": "still (be at)",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "適應": {
+      "term": "適應",
+      "gloss": "to adapt; to fit; to suit",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄕˋ ㄧㄥˋ",
+      "level": "TOCFL-4"
+    },
+    "剛來": {
+      "term": "剛來",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "C2"
+    },
+    "你會": {
+      "term": "你會",
+      "gloss": "you will; you can",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "謝謝": {
+      "term": "謝謝",
+      "gloss": "to thank; thanks; thank you",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄒㄧㄝˋ ˙ㄒㄧㄝ",
+      "level": "TOCFL-1"
+    },
+    "飲食": {
+      "term": "飲食",
+      "gloss": "eating and drinking; food and drink; diet",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧㄣˇ ㄕˊ",
+      "level": "TOCFL-4"
+    },
+    "以外": {
+      "term": "以外",
+      "gloss": "apart from; other than; except for; external; outside of; on the other side of; beyond",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧˇ ㄨㄞˋ",
+      "level": "B2"
+    },
+    "還算": {
+      "term": "還算",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "C2"
+    },
+    "每個": {
+      "term": "每個",
+      "gloss": "each; every",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄇㄟˇ ㄍㄜˋ",
+      "level": "B2"
+    },
+    "飲": {
+      "term": "飲",
+      "gloss": "to drink; to give (animals) water to drink",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧㄣˇ",
+      "level": "B1"
+    },
+    "有所不同": {
+      "term": "有所不同",
+      "gloss": "to differ to some extent (idiom)",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧㄡˇ ㄙㄨㄛˇ ㄅㄨˋ ㄊㄨㄥˊ",
+      "level": "C2"
+    },
+    "試著": {
+      "term": "試著",
+      "gloss": "(coll.) to try to",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄕˋ ˙ㄓㄜ",
+      "level": "B2"
+    },
+    "食物": {
+      "term": "食物",
+      "gloss": "food",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄕˊ ㄨˋ",
+      "level": "TOCFL-3"
+    },
+    "極了": {
+      "term": "極了",
+      "gloss": "extremely; exceedingly",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄐㄧˊ ˙ㄌㄜ",
+      "level": "unranked"
+    },
+    "點兒": {
+      "term": "點兒",
+      "gloss": "erhua variant of 點|点[dian3]",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄉㄧㄢˇ ˙ㄖ",
+      "level": "B1"
+    },
+    "想家": {
+      "term": "想家",
+      "gloss": "homesick",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄒㄧㄤˇ ㄐㄧㄚ",
+      "level": "C1"
+    },
+    "鄉": {
+      "term": "鄉",
+      "gloss": "country or countryside; native place; home village or town; township (PRC administrative unit)",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄒㄧㄤ",
+      "level": "TOCFL-5"
+    },
+    "味道": {
+      "term": "味道",
+      "gloss": "flavor; taste; (fig.) feeling (of ...); sense (of ...); hint (of ...); (fig.) interest; delight; (dialect) smell; odor",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄨㄟˋ ㄉㄠˋ",
+      "level": "TOCFL-2"
+    },
+    "試試": {
+      "term": "試試",
+      "gloss": "give it a try",
+      "explanation": "",
+      "examples": [],
+      "level": "B1"
+    },
+    "嗯": {
+      "term": "嗯",
+      "gloss": "(a groaning sound); (nonverbal grunt as interjection); OK, yeah; what?; interjection indicating approval, appreciation or agreement",
+      "explanation": "",
+      "examples": [],
+      "reading": "˙ㄣ",
+      "level": "TOCFL-4"
+    },
+    "辦": {
+      "term": "辦",
+      "gloss": "to take care of (a matter); to deal with (a task, procedure etc); to organize (an event); to establish; to set up; to manage; to run (an enterprise); (law) to handle; to investigate; to prosecute (a case or suspect); (bound form) office (as in 招辦|招办[zhao1 ban4], admissions office) (abbr. for 辦公室|办公室[ban4 gong1 shi4])",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄅㄢˋ",
+      "level": "TOCFL-3"
+    },
+    "公室": {
+      "term": "公室",
+      "gloss": "office (room); ruling families during Spring and Autumn period",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄍㄨㄥ ㄕˋ",
+      "level": "A2"
+    },
+    "不得了": {
+      "term": "不得了",
+      "gloss": "desperately serious; disastrous; extremely; exceedingly",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄅㄨˋ ㄉㄜˊ ㄌㄧㄠˇ",
+      "level": "TOCFL-3"
+    },
+    "友好": {
+      "term": "友好",
+      "gloss": "see 友好區|友好区[You3 hao3 Qu1]; friendly; amicable; close friend",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧㄡˇ ㄏㄠˇ",
+      "level": "TOCFL-5"
+    },
+    "節奏": {
+      "term": "節奏",
+      "gloss": "rhythm; tempo; musical pulse; cadence; beat",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄐㄧㄝˊ ㄗㄡˋ",
+      "level": "TOCFL-5"
+    },
+    "忙極": {
+      "term": "忙極",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "滿緊": {
+      "term": "滿緊",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "湊": {
+      "term": "湊",
+      "gloss": "to gather together, pool or collect; to happen by chance; to move close to; to exploit an opportunity",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄘㄡˋ",
+      "level": "TOCFL-6"
+    },
+    "點長": {
+      "term": "點長",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "C2"
+    },
+    "鼓勵": {
+      "term": "鼓勵",
+      "gloss": "to encourage",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄍㄨˇ ㄌㄧˋ",
+      "level": "TOCFL-4"
+    },
+    "一個": {
+      "term": "一個",
+      "gloss": "a; an; one; the whole (afternoon, summer vacation etc)",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄧ ˙ㄍㄜ",
+      "level": "C2"
+    },
+    "平時": {
+      "term": "平時",
+      "gloss": "ordinarily; in normal times; in peacetime",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄆㄧㄥˊ ㄕˊ",
+      "level": "TOCFL-4"
+    },
+    "緊張": {
+      "term": "緊張",
+      "gloss": "nervous; keyed up; intense; tense; strained; in short supply; scarce; CL:陣|阵[zhen4]",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄐㄧㄣˇ ㄓㄤ",
+      "level": "TOCFL-2"
+    },
+    "用語": {
+      "term": "用語",
+      "gloss": "choice of words; wording; phraseology; term",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄩㄥˋ ㄩˇ",
+      "level": "TOCFL-6"
+    },
+    "多練習": {
+      "term": "多練習",
+      "gloss": "practice more",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "很快": {
+      "term": "很快",
+      "gloss": "fast; soon",
+      "explanation": "",
+      "examples": [],
+      "level": "A1"
+    },
+    "我會": {
+      "term": "我會",
+      "gloss": "I will; I can",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "盡量": {
+      "term": "盡量",
+      "gloss": "as much as possible; to the greatest extent",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄐㄧㄣˋ ㄌㄧㄤˋ/ㄐㄧㄣˇ ㄌㄧㄤˋ",
+      "level": "TOCFL-5"
+    },
+    "這種": {
+      "term": "這種",
+      "gloss": "this kind of",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄓㄜˋ ㄓㄨㄥˇ",
+      "level": "A2"
+    },
+    "態度": {
+      "term": "態度",
+      "gloss": "manner; bearing; attitude; approach; CL:個|个[ge4]",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄊㄞˋ ㄉㄨˋ",
+      "level": "TOCFL-4"
+    },
+    "附近": {
+      "term": "附近",
+      "gloss": "nearby; neighboring; (in the) vicinity (of); neighborhood",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄈㄨˋ ㄐㄧㄣˋ",
+      "level": "TOCFL-1"
+    },
+    "景點": {
+      "term": "景點",
+      "gloss": "tourist attraction; scenic spot",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄐㄧㄥˇ ㄉㄧㄢˇ",
+      "level": "TOCFL-5"
+    },
+    "風": {
+      "term": "風",
+      "gloss": "wind; news; style; custom; manner; CL:陣|阵[zhen4],絲|丝[si1]",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄈㄥ",
+      "level": "TOCFL-1"
+    },
+    "景美": {
+      "term": "景美",
+      "gloss": "",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "太棒了": {
+      "term": "太棒了",
+      "gloss": "awesome; great",
+      "explanation": "",
+      "examples": [],
+      "level": "unranked"
+    },
+    "輕": {
+      "term": "輕",
+      "gloss": "light; easy; gentle; soft; reckless; unimportant; frivolous; small in number; unstressed; neutral; to disparage",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄑㄧㄥ",
+      "level": "TOCFL-2"
+    },
+    "鬆": {
+      "term": "鬆",
+      "gloss": "loose; to loosen; to relax; floss (dry, fluffy food product made from shredded, seasoned meat or fish, used as a topping or filling)",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄙㄨㄥ",
+      "level": "TOCFL-4"
+    },
+    "哈哈": {
+      "term": "哈哈",
+      "gloss": "(onom.) laughing out loud",
+      "explanation": "",
+      "examples": [],
+      "reading": "ㄏㄚ ㄏㄚ",
+      "level": "B2"
+    },
+    "美味極了": {
+      "term": "美味極了",
+      "gloss": "Extremely delicious",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "入鄉隨俗": {
+      "term": "入鄉隨俗",
+      "gloss": "\"When in Rome, do as the Romans do\" (adapt to local customs)",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "安靜得不得了": {
+      "term": "安靜得不得了",
+      "gloss": "Extremely quiet",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "也是": {
+      "term": "也是",
+      "gloss": "Also; too; as well",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "有意思些": {
+      "term": "有意思些",
+      "gloss": "A bit more interesting; somewhat meaningful or intriguing",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "我覺得": {
+      "term": "我覺得",
+      "gloss": "I feel; I think",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "聽說": {
+      "term": "聽說",
+      "gloss": "I heard that",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "到處走走": {
+      "term": "到處走走",
+      "gloss": "Walk around, explore",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "開始": {
+      "term": "開始",
+      "gloss": "to begin; beginning",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "隨時": {
+      "term": "隨時",
+      "gloss": "Anytime, at any time",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "特色": {
+      "term": "特色",
+      "gloss": "a characteristic; a distinctive feature or quality",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "第二": {
+      "term": "第二",
+      "gloss": "second; number two",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "文化": {
+      "term": "文化",
+      "gloss": "Culture",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "樂意": {
+      "term": "樂意",
+      "gloss": "Willing, gladly",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "什麼": {
+      "term": "什麼",
+      "gloss": "what?; something; anything",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "經理": {
+      "term": "經理",
+      "gloss": "manager; director",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    },
+    "十三": {
+      "term": "十三",
+      "gloss": "thirteen; 13",
+      "explanation": "",
+      "examples": [],
+      "reading": "",
+      "level": "unranked"
+    }
+  },
+  "ciTarget": 0.95,
+  "source": "transcript:gsm2-lesson-23-dialogue.txt",
+  "title": "GSM2 L23 — Dialogue 甲/乙"
+}

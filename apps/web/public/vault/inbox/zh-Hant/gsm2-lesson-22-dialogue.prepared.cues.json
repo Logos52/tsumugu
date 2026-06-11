@@ -1,0 +1,182 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-22-dialogue.txt",
+  "cues": [
+    {
+      "text": "第二十二課：時光飛逝",
+      "tr": "Lesson 22: Time Flies",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.880"
+    },
+    {
+      "text": "你還記得小李嗎？",
+      "tr": "Xiao Hua: Do you still remember Xiao Li?",
+      "speaker": "小華",
+      "start": "3.230",
+      "end": "5.550"
+    },
+    {
+      "text": "當然記得，我跟他都認識十年了！你呢？",
+      "tr": "Xiao Chen: Of course I remember! I've known him for ten years now! What about you?",
+      "speaker": "小陳",
+      "start": "5.900",
+      "end": "10.300"
+    },
+    {
+      "text": "我也是啊！我們一起在大學認識的。",
+      "tr": "Xiao Hua: Me too! We met in college.",
+      "speaker": "小華",
+      "start": "10.650",
+      "end": "14.650"
+    },
+    {
+      "text": "是啊，時光飛逝。十年了！你還記得我們一起參加的那些活動嗎？",
+      "tr": "Xiao Chen: Yeah, time flies. Ten years! Do you still remember those activities we participated in together?",
+      "speaker": "小陳",
+      "start": "15.000",
+      "end": "22.760"
+    },
+    {
+      "text": "當然記得！尤其是那次旅行，真是有趣。",
+      "tr": "Xiao Hua: Of course I remember! Especially that trip—it was so much fun.",
+      "speaker": "小華",
+      "start": "23.110",
+      "end": "29.030"
+    },
+    {
+      "text": "對，那次去山上露營，大家玩得很開心。",
+      "tr": "Xiao Chen: Right, that time we went camping in the mountains. Everyone had a great time.",
+      "speaker": "小陳",
+      "start": "29.380",
+      "end": "34.420"
+    },
+    {
+      "text": "我記得小李那時候還學做飯，給我們煮了幾道菜。",
+      "tr": "Xiao Hua: I remember Xiao Li was learning how to cook back then and made a few dishes for us.",
+      "speaker": "小華",
+      "start": "34.770",
+      "end": "39.890"
+    },
+    {
+      "text": "哈哈，對，他的菜還不錯！不過，有些太鹹了。當時大家還開玩笑說要給他一顆星的評價。",
+      "tr": "Xiao Chen: Haha, yes, his cooking was pretty good! But some dishes were too salty. Everyone joked about giving him a one-star rating.",
+      "speaker": "小陳",
+      "start": "40.240",
+      "end": "49.520"
+    },
+    {
+      "text": "是啊，我也記得這件事。我們那時候真的是無憂無慮。現在大家都忙著工作。",
+      "tr": "Xiao Hua: Yes, I remember that too. We were so carefree back then. Now, everyone is busy with work.",
+      "speaker": "小華",
+      "start": "49.870",
+      "end": "58.510"
+    },
+    {
+      "text": "我們偶爾還是要聚一聚比較好。小李說他這個月底回來，大家一起吃飯。",
+      "tr": "Xiao Chen: We should still meet up occasionally. Xiao Li said he’s coming back at the end of this month. We can all have dinner together.",
+      "speaker": "小陳",
+      "start": "58.860",
+      "end": "65.500"
+    },
+    {
+      "text": "真的嗎？那太好了！他現在還在國外工作嗎？",
+      "tr": "Xiao Hua: Really? That’s great! Is he still working abroad?",
+      "speaker": "小華",
+      "start": "65.850",
+      "end": "71.450"
+    },
+    {
+      "text": "對啊，他在美國已經工作好幾年了。",
+      "tr": "Xiao Chen: Yes, he’s been working in the US for several years now.",
+      "speaker": "小陳",
+      "start": "71.800",
+      "end": "76.680"
+    },
+    {
+      "text": "他變化大嗎？",
+      "tr": "Xiao Hua: Has he changed a lot?",
+      "speaker": "小華",
+      "start": "77.030",
+      "end": "79.830"
+    },
+    {
+      "text": "變化是有的，不過人還是很幽默。",
+      "tr": "Xiao Chen: There are some changes, but he’s still very humorous.",
+      "speaker": "小陳",
+      "start": "80.180",
+      "end": "84.020"
+    },
+    {
+      "text": "那就好，我真的很期待見到他。",
+      "tr": "Xiao Hua: That’s good. I’m really looking forward to seeing him.",
+      "speaker": "小華",
+      "start": "84.370",
+      "end": "89.330"
+    },
+    {
+      "text": "他應該也很想念我們，他說他準備了很多禮物。",
+      "tr": "Xiao Chen: He’s probably missing us too. He said he’s prepared a lot of gifts.",
+      "speaker": "小陳",
+      "start": "89.680",
+      "end": "94.320"
+    },
+    {
+      "text": "哇，那太好了！我也要準備一個小禮物給他。",
+      "tr": "Xiao Hua: Wow, that’s wonderful! I’ll also prepare a small gift for him.",
+      "speaker": "小華",
+      "start": "94.670",
+      "end": "102.030"
+    },
+    {
+      "text": "你準備送什麼？",
+      "tr": "Xiao Chen: What are you planning to give him?",
+      "speaker": "小陳",
+      "start": "102.380",
+      "end": "104.300"
+    },
+    {
+      "text": "我打算送他一張我們以前的合照，讓他回憶一下。",
+      "tr": "Xiao Hua: I’m thinking of giving him a photo of us from back then, so he can reminisce.",
+      "speaker": "小華",
+      "start": "104.650",
+      "end": "110.650"
+    },
+    {
+      "text": "好主意！這一定會讓他很感動。",
+      "tr": "Xiao Chen: Great idea! That will definitely move him.",
+      "speaker": "小陳",
+      "start": "111.000",
+      "end": "114.680"
+    },
+    {
+      "text": "我們真的都變了不少，但友誼還在。",
+      "tr": "Xiao Hua: We’ve all changed a lot, but our friendship remains.",
+      "speaker": "小華",
+      "start": "115.030",
+      "end": "118.870"
+    },
+    {
+      "text": "是啊，有些友誼，不管多久都不會改變。",
+      "tr": "Xiao Chen: Yes, some friendships never change, no matter how much time passes.",
+      "speaker": "小陳",
+      "start": "119.220",
+      "end": "123.460"
+    },
+    {
+      "text": "那我們到時候就約定好時間，一起去接他吧！",
+      "tr": "Xiao Hua: Then let’s set a time to meet and pick him up together!",
+      "speaker": "小華",
+      "start": "123.810",
+      "end": "127.250"
+    },
+    {
+      "text": "好的，到時候一起去吧！",
+      "tr": "Xiao Chen: Sure, let’s go together then!",
+      "speaker": "小陳",
+      "start": "127.600",
+      "end": "130.960"
+    }
+  ]
+}

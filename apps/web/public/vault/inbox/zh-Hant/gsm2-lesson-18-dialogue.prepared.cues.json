@@ -1,0 +1,133 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-18-dialogue.txt",
+  "cues": [
+    {
+      "text": "第十八課：我是坐車來的",
+      "tr": "Lesson 18: I Came by Car",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.320"
+    },
+    {
+      "text": "小明，你怎麼來的？我還以為你今天不來了呢！",
+      "tr": "Xiao Ming, how did you get here? I thought you weren’t coming today!",
+      "speaker": "A",
+      "start": "2.670",
+      "end": "6.910"
+    },
+    {
+      "text": "我也是剛到，路上堵車了。不過我終於到了！今天有點不一樣，我是坐車來的，一般我是坐地鐵來的。對了，這個送你。",
+      "tr": "I just arrived too. There was a traffic jam on the way, but I finally made it! Today is a bit different—I came by car. Usually, I take the subway. By the way, this is for you.",
+      "speaker": "B",
+      "start": "7.260",
+      "end": "17.100"
+    },
+    {
+      "text": "原來如此！沒關係的，人來就好了，怎麼還讓你破費了呢？",
+      "tr": "I see! That’s alright, as long as you’re here. But you didn’t have to spend money on this!",
+      "speaker": "A",
+      "start": "17.450",
+      "end": "23.050"
+    },
+    {
+      "text": "這沒什麼，禮輕情意重，一點小意思，希望你會喜歡。",
+      "tr": "It’s nothing. It’s the thought that counts. Just a little something—I hope you like it.",
+      "speaker": "B",
+      "start": "23.400",
+      "end": "30.280"
+    },
+    {
+      "text": "謝謝你，小明！你太客氣了。我開來看看，哦！這是我最喜歡的書！",
+      "tr": "Thank you, Xiao Ming! You’re so thoughtful. Let me take a look. Oh! This is my favorite book!",
+      "speaker": "A",
+      "start": "30.630",
+      "end": "38.630"
+    },
+    {
+      "text": "我知道你喜歡書，所以特意買了這本給你。我在書店裡發現它時，就想到你會喜歡。",
+      "tr": "I know you love books, so I specifically bought this one for you. When I saw it in the bookstore, I immediately thought you’d like it.",
+      "speaker": "B",
+      "start": "38.980",
+      "end": "46.020"
+    },
+    {
+      "text": "你真的很有心！今天的聚會我們還會遇到好多新朋友呢。",
+      "tr": "You’re really so considerate! We’ll be meeting a lot of new friends at today’s gathering.",
+      "speaker": "A",
+      "start": "46.370",
+      "end": "50.770"
+    },
+    {
+      "text": "是啊，過去我只聽說過他們，這次終於要見到了！你是怎麼認識他們的？",
+      "tr": "Yes, I’ve only heard about them before, and now I finally get to meet them! How did you get to know them?",
+      "speaker": "B",
+      "start": "51.120",
+      "end": "57.280"
+    },
+    {
+      "text": "有一次在學校的活動上遇到的，然後我們聊著聊著就成了朋友。對了，我還準備了一些點心給大家。",
+      "tr": "I met them once at a school event, and after chatting for a while, we became friends. By the way, I’ve also prepared some snacks for everyone.",
+      "speaker": "A",
+      "start": "57.630",
+      "end": "65.390"
+    },
+    {
+      "text": "太好了！需要我幫忙把點心擺在桌上嗎？",
+      "tr": "That’s great! Do you need help setting up the snacks on the table?",
+      "speaker": "B",
+      "start": "65.740",
+      "end": "69.820"
+    },
+    {
+      "text": "好啊，麻煩你把飲料放到桌子那邊，我把水果放在這裡。",
+      "tr": "Sure, could you place the drinks on that table over there? I’ll put the fruits over here.",
+      "speaker": "A",
+      "start": "70.170",
+      "end": "75.130"
+    },
+    {
+      "text": "這樣安排真不錯！",
+      "tr": "This arrangement is really nice!",
+      "speaker": "B",
+      "start": "75.480",
+      "end": "76.920"
+    },
+    {
+      "text": "一邊準備，一邊聊天，時間過得真快！",
+      "tr": "Preparing and chatting at the same time—time flies so fast!",
+      "speaker": "A",
+      "start": "77.270",
+      "end": "81.750"
+    },
+    {
+      "text": "今天真是充實的一天，見到朋友，收到禮物，還一起吃點心！",
+      "tr": "Today is such a fulfilling day—meeting friends, receiving gifts, and sharing snacks!",
+      "speaker": "B",
+      "start": "82.100",
+      "end": "87.060"
+    },
+    {
+      "text": "希望我們以後也能經常見面！",
+      "tr": "I hope we can meet more often in the future!",
+      "speaker": "A",
+      "start": "87.410",
+      "end": "90.290"
+    },
+    {
+      "text": "當然！以後我會常常過來找你，這樣我們可以一邊喝茶，一邊聊天。",
+      "tr": "Of course! I’ll visit you frequently so we can drink tea and chat together.",
+      "speaker": "B",
+      "start": "90.640",
+      "end": "96.640"
+    },
+    {
+      "text": "好啊！我很期待！",
+      "tr": "Sounds great! I’m looking forward to it!",
+      "speaker": "A",
+      "start": "96.990",
+      "end": "98.350"
+    }
+  ]
+}

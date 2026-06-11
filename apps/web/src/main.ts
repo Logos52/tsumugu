@@ -14,6 +14,8 @@ import {
   pickVaultFolder,
   createHttpVault,
   devVaultAvailable,
+  staticVaultAvailable,
+  staticVaultBase,
   listVaultReadings,
   type VaultReading,
   createWebAudio,
@@ -84,6 +86,17 @@ let vaultReadings: VaultReading[] = [];
 const LAST_READING_KEY = "tsg-last-reading";
 const VOICE_PREF_KEY = "tsg-voice-pref"; // global speaker→voice pref so a toggle sticks across readings
 const READING_PICKER_ID = "tsg-reading-picker";
+/** Default public homepage reading — Mandarin Corner split-pane YouTube reader. */
+const DEFAULT_VAULT_READING = "inbox/zh-Hant/why-friendship-differs.prepared.json";
+
+function readingKind(r: VaultReading): VaultReading["kind"] {
+  if (r.kind) return r.kind;
+  const slug = r.path.split("/").pop()?.replace(/\.prepared\.json$/, "") ?? "";
+  if (slug === "why-friendship-differs") return "youtube";
+  if (/^gsm2-lesson-\d{2}-dialogue$/.test(slug)) return "gsm-dialogue";
+  if (/^gsm2-lesson-\d{2}-rewrite$/.test(slug)) return "gsm-rewrite";
+  return "other";
+}
 // Suffixed voice manifests probed beside a reading, in addition to the base
 // `.voice-notes.json`. Each becomes a track whose id IS the suffix.
 const KNOWN_VOICE_SUFFIXES = ["native"] as const;
@@ -426,22 +439,36 @@ function buildToolbar(): void {
   const sampleOpts = SAMPLES.map((s) =>
     el("option", { attrs: { value: s.id }, text: s.label }),
   );
-  // Vault readings (discovered under personal/) appear above the bundled samples.
+  const vaultOpt = (r: VaultReading) =>
+    el("option", {
+      attrs: { value: "vault:" + r.path },
+      text:
+        (r.title ||
+          r.path.split("/").pop()?.replace(/\.prepared\.json$/, "") ||
+          r.path) + (r.lang ? ` (${r.lang})` : ""),
+    });
+  const youtube = vaultReadings.filter((r) => readingKind(r) === "youtube");
+  const gsmDialogue = vaultReadings.filter((r) => readingKind(r) === "gsm-dialogue");
+  const otherVault = vaultReadings.filter(
+    (r) => readingKind(r) !== "youtube" && readingKind(r) !== "gsm-dialogue",
+  );
   const pickerChildren = vaultReadings.length
     ? [
-        el(
-          "optgroup",
-          { attrs: { label: "Vault readings" } },
-          ...vaultReadings.map((r) =>
-            el("option", {
-              attrs: { value: "vault:" + r.path },
-              text:
-                (r.title ||
-                  r.path.split("/").pop()?.replace(/\.prepared\.json$/, "") ||
-                  r.path) + (r.lang ? ` (${r.lang})` : ""),
-            }),
-          ),
-        ),
+        ...(youtube.length
+          ? [el("optgroup", { attrs: { label: "YouTube — split pane" } }, ...youtube.map(vaultOpt))]
+          : []),
+        ...(gsmDialogue.length
+          ? [
+              el(
+                "optgroup",
+                { attrs: { label: "GSM — dialogues (dual waveforms)" } },
+                ...gsmDialogue.map(vaultOpt),
+              ),
+            ]
+          : []),
+        ...(otherVault.length
+          ? [el("optgroup", { attrs: { label: "Other readings" } }, ...otherVault.map(vaultOpt))]
+          : []),
         el("optgroup", { attrs: { label: "Samples" } }, ...sampleOpts),
       ]
     : sampleOpts;
@@ -756,19 +783,23 @@ async function exportVoiceAnki(): Promise<void> {
 
 // ── start ────────────────────────────────────────────────────────────────────
 async function init(): Promise<void> {
-  // Under `pnpm dev`, auto-load the real vault over the dev-server bridge — no
-  // File System Access click. Falls back silently (manual grant) otherwise.
-  devVault = await devVaultAvailable();
-  if (devVault) {
-    // Store lives at vault/tsumugu/word-store.json under the personal/ root.
+  // Auto-load vault: dev bridge (`pnpm dev`) or static publish (`public/vault/`).
+  let vaultBase = "/@vault/";
+  let autoVault = await devVaultAvailable();
+  if (!autoVault) {
+    vaultBase = staticVaultBase();
+    autoVault = await staticVaultAvailable();
+  }
+  devVault = autoVault;
+  if (autoVault) {
     app.updateSettings({ storePath: "vault/tsumugu/word-store.json" });
-    app.setVault(createHttpVault());
+    app.setVault(createHttpVault(vaultBase));
     try {
       await app.loadStore();
       const primary = primaryStoreLang(app.store);
       if (primary) app.updateSettings({ studyLang: primary });
       syncPack();
-      vaultReadings = await listVaultReadings();
+      vaultReadings = await listVaultReadings(vaultBase);
     } catch (err) {
       app.setStatusMessage(`Vault auto-load failed: ${String(err)}`);
       devVault = false;
@@ -777,7 +808,6 @@ async function init(): Promise<void> {
   syncPack();
   buildToolbar();
 
-  // Restore the last-opened vault reading so a reload doesn't reset the page.
   let restored = false;
   if (devVault) {
     let last: string | null = null;
@@ -786,8 +816,14 @@ async function init(): Promise<void> {
     } catch {
       last = null;
     }
-    if (last && vaultReadings.some((r) => r.path === last)) {
-      await loadVaultReading(last);
+    const pick =
+      last && vaultReadings.some((r) => r.path === last)
+        ? last
+        : vaultReadings.some((r) => r.path === DEFAULT_VAULT_READING)
+          ? DEFAULT_VAULT_READING
+          : vaultReadings[0]?.path ?? null;
+    if (pick) {
+      await loadVaultReading(pick);
       restored = true;
     }
   }

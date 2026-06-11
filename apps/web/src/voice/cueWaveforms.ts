@@ -1,28 +1,21 @@
 /**
- * Per-sentence waveforms — the transcript laid out as one ROW per cue: the
- * sentence's (already-rendered) word spans on the left, a compact wavesurfer
- * looper on the right. Drag across a waveform to highlight a slice, 🔁 / L to
- * A/B-loop it, ▶ / Space to play the SELECTED line, ↑/↓ to move the selection,
- * and a play-through that auto-advances line by line.
- *
- * The reader's flowing-paragraph layout can't place a waveform beside each line,
- * so this reparents the existing token spans into rows (keeping their coloring /
- * hover / cue-highlight bindings). Audio reads through the vault (object-URL
- * pattern from practiceBar.ts); wavesurfer is dynamically imported (bundled, no
- * CDN). Reader/host layer only.
+ * Per-sentence waveforms — one ROW per cue: sentence text left, one or more
+ * compact wavesurfer loopers on the right (e.g. Native TW + Serena stacked).
+ * Drag to A/B-loop; ▶ / Space plays the selected line's primary clip.
  */
 
 import type { VaultIO } from "@tsumugu/engine";
 import { resolveAudioPath, type VoiceNotesBinding } from "./manifest.js";
 
+export interface CueWaveTrack {
+  label: string;
+  binding: VoiceNotesBinding;
+}
+
 export interface CueWaveforms {
-  /** Select the row for a cue (outline) — follows reader cue navigation. */
   setActive(cueIndex: number): void;
-  /** Handle Space / ↑ / ↓ / L for the per-sentence waveforms; true if handled. */
   key(ev: KeyboardEvent): boolean;
-  /** Play every line in turn from the active one, auto-advancing. */
   playThrough(): void;
-  /** Stop playback + any play-through. */
   stop(): void;
   isPlaying(): boolean;
   destroy(): void;
@@ -32,28 +25,39 @@ interface CueWaveformOpts {
   ranges: readonly { startToken: number; endToken: number }[];
   tokenEls: readonly (HTMLElement | null)[];
   vault: VaultIO;
-  binding: VoiceNotesBinding;
+  /** One or more voice tracks — GSM dialogues show both stacked (no toggle). */
+  tracks: readonly CueWaveTrack[];
   onActivate?: (cueIndex: number) => void;
 }
 
-const NOOP: CueWaveforms = { setActive() {}, key: () => false, playThrough() {}, stop() {}, isPlaying: () => false, destroy() {} };
+const NOOP: CueWaveforms = {
+  setActive() {},
+  key: () => false,
+  playThrough() {},
+  stop() {},
+  isPlaying: () => false,
+  destroy() {},
+};
 
 export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWaveforms> {
-  const { ranges, tokenEls, vault, binding, onActivate } = opts;
-  if (!vault.readBytes) return NOOP;
+  const { ranges, tokenEls, vault, tracks, onActivate } = opts;
+  if (!vault.readBytes || tracks.length === 0) return NOOP;
   const container = tokenEls.find((e) => e)?.parentElement;
   if (!container) return NOOP;
 
   const { default: WaveSurfer } = await import("wavesurfer.js");
   const { default: RegionsPlugin } = await import("wavesurfer.js/plugins/regions");
   const cssVar = (n: string, f: string) =>
-    (typeof getComputedStyle === "function" && getComputedStyle(document.documentElement).getPropertyValue(n).trim()) || f;
+    (typeof getComputedStyle === "function" &&
+      getComputedStyle(document.documentElement).getPropertyValue(n).trim()) ||
+    f;
 
   interface Region {
     play: () => void;
   }
   interface Inst {
     cue: number;
+    trackIdx: number;
     row: HTMLElement;
     ws: import("wavesurfer.js").default;
     region: Region | null;
@@ -62,10 +66,19 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     url: string | null;
   }
 
-  // 1) Reparent each cue's spans into a row, waveform on the right.
   container.classList.add("tsg-cue-rows");
   const frag = document.createDocumentFragment();
-  const pendings: { cue: number; row: HTMLElement; waveEl: HTMLElement; pp: HTMLButtonElement; lp: HTMLButtonElement; audio: string }[] = [];
+  const pendings: {
+    cue: number;
+    row: HTMLElement;
+    waveEl: HTMLElement;
+    pp: HTMLButtonElement;
+    lp: HTMLButtonElement;
+    audio: string;
+    binding: VoiceNotesBinding;
+    trackIdx: number;
+  }[] = [];
+
   for (let c = 0; c < ranges.length; c++) {
     const range = ranges[c]!;
     const row = document.createElement("div");
@@ -77,29 +90,50 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       if (node) textEl.append(node);
     }
     row.append(textEl);
-    const note = binding.byCue.get(c);
-    if (note) {
+
+    const stack = document.createElement("div");
+    stack.className = "tsg-cue-wavestack";
+    let anyAudio = false;
+
+    for (let t = 0; t < tracks.length; t++) {
+      const track = tracks[t]!;
+      const note = track.binding.byCue.get(c);
+      if (!note) continue;
+      anyAudio = true;
       const wrap = document.createElement("div");
       wrap.className = "tsg-cue-wavewrap";
+      const label = document.createElement("span");
+      label.className = "tsg-cw-label";
+      label.textContent = track.label;
       const pp = document.createElement("button");
       pp.className = "tsg-cw-btn";
       pp.textContent = "▶";
-      pp.title = "Play / pause this line (Space)";
+      pp.title = `Play ${track.label} (Space on row)`;
       const waveEl = document.createElement("div");
       waveEl.className = "tsg-cw-wave";
       const lp = document.createElement("button");
       lp.className = "tsg-cw-btn";
       lp.textContent = "🔁";
       lp.title = "Loop highlighted region (L)";
-      wrap.append(pp, waveEl, lp);
-      row.append(wrap);
-      pendings.push({ cue: c, row, waveEl, pp, lp, audio: note.audio });
+      wrap.append(label, pp, waveEl, lp);
+      stack.append(wrap);
+      pendings.push({
+        cue: c,
+        row,
+        waveEl,
+        pp,
+        lp,
+        audio: note.audio,
+        binding: track.binding,
+        trackIdx: t,
+      });
     }
+
+    if (anyAudio) row.append(stack);
     frag.append(row);
   }
   container.replaceChildren(frag);
 
-  // 2) Mount a wavesurfer per cue.
   const insts: Inst[] = [];
   const idxByCue = new Map<number, number>();
   let active = 0;
@@ -107,15 +141,27 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
 
   function setActive(i: number): void {
     if (i < 0 || i >= insts.length) return;
-    insts[active]?.row.classList.remove("tsg-cw-active");
+    const cue = insts[i]!.cue;
+    document.querySelectorAll(".tsg-cue-row.tsg-cw-active").forEach((n) => n.classList.remove("tsg-cw-active"));
+    insts[i]!.row.classList.add("tsg-cw-active");
     active = i;
-    insts[active]!.row.classList.add("tsg-cw-active");
+    void cue;
   }
   function activateFrom(inst: Inst): void {
-    setActive(idxByCue.get(inst.cue)!);
+    const first = insts.findIndex((x) => x.cue === inst.cue);
+    if (first >= 0) setActive(first);
     onActivate?.(inst.cue);
   }
   function playInst(inst: Inst, fromStart: boolean): void {
+    for (const o of insts) {
+      if (o.cue === inst.cue && o !== inst) {
+        try {
+          o.ws.pause();
+        } catch {
+          /* no-op */
+        }
+      }
+    }
     if (inst.looping && inst.region) {
       inst.region.play();
       return;
@@ -129,10 +175,11 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       return;
     }
     if (chaining) {
-      const next = insts[idxByCue.get(inst.cue)! + 1];
+      const curIdx = idxByCue.get(inst.cue)!;
+      const nextCue = insts[curIdx + 1]?.cue;
+      const next = nextCue !== undefined ? insts.find((x) => x.cue === nextCue && x.trackIdx === 0) : undefined;
       if (next) {
-        setActive(idxByCue.get(next.cue)!);
-        onActivate?.(next.cue);
+        activateFrom(next);
         next.row.scrollIntoView({ block: "nearest", behavior: "smooth" });
         playInst(next, true);
       } else {
@@ -144,9 +191,12 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
   for (const p of pendings) {
     const ws = WaveSurfer.create({
       container: p.waveEl,
-      height: 30,
+      height: 28,
       waveColor: cssVar("--wnac-overlay0", "#2e466b"),
-      progressColor: cssVar("--wnac-blue", "#5089d8"),
+      progressColor:
+        p.trackIdx === 0
+          ? cssVar("--wnac-blue", "#5089d8")
+          : cssVar("--wnac-mauve", "#b36ef5"),
       cursorColor: cssVar("--wnac-blue-bright", "#66aaf7"),
       normalize: true,
       barWidth: 2,
@@ -155,7 +205,16 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     });
     const regions = ws.registerPlugin(RegionsPlugin.create());
     regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });
-    const inst: Inst = { cue: p.cue, row: p.row, ws, region: null, looping: false, lp: p.lp, url: null };
+    const inst: Inst = {
+      cue: p.cue,
+      trackIdx: p.trackIdx,
+      row: p.row,
+      ws,
+      region: null,
+      looping: false,
+      lp: p.lp,
+      url: null,
+    };
     regions.on("region-created", (r) => {
       for (const o of regions.getRegions()) if (o !== r) o.remove();
       inst.region = r as unknown as Region;
@@ -172,16 +231,18 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
 
     void (async () => {
       try {
-        const bytes = await vault.readBytes!(resolveAudioPath(binding.baseDir, p.audio));
+        const bytes = await vault.readBytes!(resolveAudioPath(p.binding.baseDir, p.audio));
         if (!bytes) return;
         inst.url = URL.createObjectURL(new Blob([new Uint8Array(bytes).buffer]));
         await ws.load(inst.url);
       } catch {
-        /* missing/unreadable clip — leave an empty waveform */
+        /* missing clip */
       }
     })();
 
     p.pp.onclick = () => {
+      const i = insts.findIndex((x) => x.cue === p.cue && x.trackIdx === p.trackIdx);
+      if (i >= 0) active = i;
       activateFrom(inst);
       chaining = false;
       inst.ws.isPlaying() ? inst.ws.pause() : playInst(inst, false);
@@ -192,13 +253,17 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       p.lp.classList.toggle("on", inst.looping);
       if (inst.looping) playInst(inst, true);
     };
-    idxByCue.set(p.cue, insts.length);
+    if (!idxByCue.has(p.cue)) idxByCue.set(p.cue, insts.length);
     insts.push(inst);
   }
   if (insts.length) setActive(0);
 
+  function primaryOnRow(cue: number): Inst | undefined {
+    return insts.find((x) => x.cue === cue && x.trackIdx === 0) ?? insts.find((x) => x.cue === cue);
+  }
+
   function playActive(): void {
-    const inst = insts[active];
+    const inst = insts[active] ?? primaryOnRow(insts[active]?.cue ?? 0);
     if (!inst) return;
     chaining = false;
     inst.ws.isPlaying() ? inst.ws.pause() : playInst(inst, false);
@@ -218,20 +283,27 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       }
       if (ev.key === "ArrowDown" || ev.key === ".") {
         ev.preventDefault();
-        setActive(active + 1);
-        insts[active]!.row.scrollIntoView({ block: "nearest", behavior: "smooth" });
-        onActivate?.(insts[active]!.cue);
+        const curCue = insts[active]?.cue ?? 0;
+        const next = insts.find((x) => x.cue > curCue && x.trackIdx === 0);
+        if (next) {
+          setActive(insts.indexOf(next));
+          next.row.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          onActivate?.(next.cue);
+        }
         return true;
       }
       if (ev.key === "ArrowUp" || ev.key === ",") {
         ev.preventDefault();
-        setActive(active - 1);
-        insts[active]!.row.scrollIntoView({ block: "nearest", behavior: "smooth" });
-        onActivate?.(insts[active]!.cue);
+        const curCue = insts[active]?.cue ?? 0;
+        const prev = [...insts].reverse().find((x) => x.cue < curCue && x.trackIdx === 0);
+        if (prev) {
+          setActive(insts.indexOf(prev));
+          prev.row.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          onActivate?.(prev.cue);
+        }
         return true;
       }
       if (ev.key === "L") {
-        // Shift+L loops the active line; lowercase `l` stays the reader's next-word.
         const inst = insts[active];
         if (inst) inst.lp.click();
         return true;
@@ -239,7 +311,7 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       return false;
     },
     playThrough() {
-      const inst = insts[active];
+      const inst = primaryOnRow(insts[active]?.cue ?? insts[0]!.cue);
       if (!inst) return;
       chaining = true;
       playInst(inst, true);

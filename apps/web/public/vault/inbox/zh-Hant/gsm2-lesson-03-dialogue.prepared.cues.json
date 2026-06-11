@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-03-dialogue.txt",
+  "cues": [
+    {
+      "text": "晚上吃什麼？",
+      "tr": "What should we eat tonight?",
+      "speaker": "A",
+      "start": "0.000",
+      "end": "1.280"
+    },
+    {
+      "text": "我也在想，我們要不要吃火鍋？",
+      "tr": "I was wondering if we should have hot pot.",
+      "speaker": "B",
+      "start": "1.630",
+      "end": "4.190"
+    },
+    {
+      "text": "聽起來不錯，不過還有什麼其他選擇？",
+      "tr": "Sounds good, but what other options are there?",
+      "speaker": "A",
+      "start": "4.540",
+      "end": "7.900"
+    },
+    {
+      "text": "我們還可以吃日式料理，或者去吃燒烤。",
+      "tr": "We can also eat Japanese food, or go to a barbecue.",
+      "speaker": "B",
+      "start": "8.250",
+      "end": "12.730"
+    },
+    {
+      "text": "我聽說那裡的燒烤很好吃，你想去嗎？",
+      "tr": "I heard that the barbecue there is very good, do you want to go?",
+      "speaker": "A",
+      "start": "13.080",
+      "end": "17.240"
+    },
+    {
+      "text": "是嗎？我也最喜歡燒烤，聽起來很棒！",
+      "tr": "Really? I like barbecue too, it sounds great!",
+      "speaker": "B",
+      "start": "17.590",
+      "end": "21.910"
+    },
+    {
+      "text": "除了燒烤，還有壽司。你喜歡壽司嗎？",
+      "tr": "besides barbecue, there is also sushi. Do you like sushi?",
+      "speaker": "A",
+      "start": "22.260",
+      "end": "25.860"
+    },
+    {
+      "text": "我也喜歡壽司，不過我更想吃燒烤。",
+      "tr": "I like sushi too, but I'd rather have barbecue.",
+      "speaker": "B",
+      "start": "26.210",
+      "end": "30.370"
+    },
+    {
+      "text": "那我們就應該去吃燒烤了。",
+      "tr": "Then we should go for barbecue.",
+      "speaker": "A",
+      "start": "30.720",
+      "end": "32.560"
+    },
+    {
+      "text": "你覺得這麼晚了，燒烤店會不會還開著？",
+      "tr": "Do you think the barbecue place will still be open at this late hour?",
+      "speaker": "B",
+      "start": "32.910",
+      "end": "37.310"
+    },
+    {
+      "text": "應該會開著，我們可以打電話問問。",
+      "tr": "It should be open, we can call and ask.",
+      "speaker": "A",
+      "start": "37.660",
+      "end": "41.340"
+    },
+    {
+      "text": "好，我打電話問一下。",
+      "tr": "Okay, I'll call and ask.",
+      "speaker": "B",
+      "start": "41.690",
+      "end": "44.410"
+    },
+    {
+      "text": "你問了嗎？他們還開著嗎？",
+      "tr": "Did you ask? are they still open?",
+      "speaker": "A",
+      "start": "44.760",
+      "end": "47.240"
+    },
+    {
+      "text": "還沒呢，正在撥號。",
+      "tr": "No, I'm dialing.",
+      "speaker": "B",
+      "start": "47.590",
+      "end": "49.590"
+    },
+    {
+      "text": "那我們等一下，希望他們還開著。",
+      "tr": "Let's wait and hope they're still on.",
+      "speaker": "A",
+      "start": "49.940",
+      "end": "53.060"
+    },
+    {
+      "text": "打通了！他們說還開著，我們可以過去。",
+      "tr": "I got through! They said they are still open and we can go there.",
+      "speaker": "B",
+      "start": "53.410",
+      "end": "57.490"
+    },
+    {
+      "text": "太好了！那我們就去吃燒烤吧。",
+      "tr": "Great! Let's go to a barbecue.",
+      "speaker": "A",
+      "start": "57.840",
+      "end": "60.400"
+    },
+    {
+      "text": "去之前，我們要不要先買點飲料？",
+      "tr": "Should we buy some drinks before we go?",
+      "speaker": "B",
+      "start": "60.750",
+      "end": "63.710"
+    },
+    {
+      "text": "好的，那我們去雜貨店買吧。",
+      "tr": "Yes, let's go get it at the grocery store.",
+      "speaker": "A",
+      "start": "64.060",
+      "end": "66.940"
+    },
+    {
+      "text": "好，我們順便買點零食吧，這樣等的時候可以吃。",
+      "tr": "Well, let's buy some snacks on the way, so that we can eat while we wait.",
+      "speaker": "B",
+      "start": "67.290",
+      "end": "71.130"
+    },
+    {
+      "text": "好主意，除了零食，還要不要帶點別的東西？",
+      "tr": "Good idea, in addition to snacks, do you want something else?",
+      "speaker": "A",
+      "start": "71.480",
+      "end": "76.440"
+    },
+    {
+      "text": "不用吧。",
+      "tr": "I don't think so.",
+      "speaker": "B",
+      "start": "76.790",
+      "end": "77.590"
+    },
+    {
+      "text": "那我們走吧。",
+      "tr": "Let's go.",
+      "speaker": "A",
+      "start": "77.940",
+      "end": "79.300"
+    }
+  ]
+}

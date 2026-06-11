@@ -1,0 +1,102 @@
+{
+  "schema": "tsumugu/voice-notes@1",
+  "lang": "zh-Hant",
+  "slug": "gsm2-lesson-19-dialogue",
+  "engine": "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16@mlx-audio",
+  "voice": "Serena",
+  "generatedAt": "2026-06-07T12:05:09.367Z",
+  "notes": [
+    {
+      "cueIndex": 0,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0000.mp3"
+    },
+    {
+      "cueIndex": 1,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0001.mp3"
+    },
+    {
+      "cueIndex": 2,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0002.mp3"
+    },
+    {
+      "cueIndex": 3,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0003.mp3"
+    },
+    {
+      "cueIndex": 4,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0004.mp3"
+    },
+    {
+      "cueIndex": 5,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0005.mp3"
+    },
+    {
+      "cueIndex": 6,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0006.mp3"
+    },
+    {
+      "cueIndex": 7,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0007.mp3"
+    },
+    {
+      "cueIndex": 8,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0008.mp3"
+    },
+    {
+      "cueIndex": 9,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0009.mp3"
+    },
+    {
+      "cueIndex": 10,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0010.mp3"
+    },
+    {
+      "cueIndex": 11,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0011.mp3"
+    },
+    {
+      "cueIndex": 12,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0012.mp3"
+    },
+    {
+      "cueIndex": 13,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0013.mp3"
+    },
+    {
+      "cueIndex": 14,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0014.mp3"
+    },
+    {
+      "cueIndex": 15,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0015.mp3"
+    },
+    {
+      "cueIndex": 16,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0016.mp3"
+    },
+    {
+      "cueIndex": 17,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0017.mp3"
+    },
+    {
+      "cueIndex": 18,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0018.mp3"
+    },
+    {
+      "cueIndex": 19,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0019.mp3"
+    },
+    {
+      "cueIndex": 20,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0020.mp3"
+    },
+    {
+      "cueIndex": 21,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0021.mp3"
+    },
+    {
+      "cueIndex": 22,
+      "audio": "audio/gsm2-lesson-19-dialogue/serena/cue-0022.mp3"
+    }
+  ]
+}

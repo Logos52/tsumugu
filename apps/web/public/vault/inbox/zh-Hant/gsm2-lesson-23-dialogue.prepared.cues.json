@@ -1,0 +1,147 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-23-dialogue.txt",
+  "cues": [
+    {
+      "text": "第二十三課：入鄉隨俗",
+      "tr": "Lesson 23: \"When in Rome\"",
+      "speaker": "",
+      "start": "0.000",
+      "end": "2.480"
+    },
+    {
+      "text": "王經理，您好！我剛搬到這裡，開始新的工作，還有很多事情還在適應呢。",
+      "tr": "Li Ming: Manager Wang, hello! I just moved here and started a new job. There are still many things I’m adjusting to.",
+      "speaker": "李明",
+      "start": "2.830",
+      "end": "11.230"
+    },
+    {
+      "text": "歡迎來到我們公司！剛來新的國家確實不容易，不過，入鄉隨俗嘛，慢慢你會習慣的。",
+      "tr": "Manager Wang: Welcome to our company! Moving to a new country is definitely not easy, but as the saying goes, “When in Rome, do as the Romans do.” You’ll get used to it gradually.",
+      "speaker": "王經理",
+      "start": "11.580",
+      "end": "20.540"
+    },
+    {
+      "text": "謝謝您！除了飲食以外，我覺得這裡的環境還算適應了，工作上的安排也沒什麼問題。",
+      "tr": "Li Ming: Thank you! Other than the food, I think I’ve adapted pretty well to the environment here, and there aren’t any issues with the work arrangements.",
+      "speaker": "李明",
+      "start": "20.890",
+      "end": "28.810"
+    },
+    {
+      "text": "是啊，每個地方的飲食文化都有所不同，你可以試著慢慢接受，這裡的食物可是美味極了！",
+      "tr": "Manager Wang: That’s great. Every place has its own unique food culture. You can try to gradually accept it. The food here is absolutely delicious!",
+      "speaker": "王經理",
+      "start": "29.160",
+      "end": "37.720"
+    },
+    {
+      "text": "是嗎？我有點兒想家鄉的味道，不過，我也會試試看這裡的特色菜。",
+      "tr": "Li Ming: Really? I do miss the flavors of my hometown a bit, but I’ll give the local specialties a try.",
+      "speaker": "李明",
+      "start": "38.070",
+      "end": "45.830"
+    },
+    {
+      "text": "很好！其實，除了飲食以外，其他方面都還好嗎？",
+      "tr": "Manager Wang: That’s the spirit! Actually, apart from food, how are you doing in other areas?",
+      "speaker": "王經理",
+      "start": "46.180",
+      "end": "53.060"
+    },
+    {
+      "text": "嗯，工作環境很乾淨，辦公室也安靜得不得了，同事們都非常友好。只是我還在適應新的工作節奏，忙極了。",
+      "tr": "Li Ming: Well, the work environment is very clean, and the office is extremely quiet. My colleagues are all very friendly. The only thing is I’m still adjusting to the new work pace, and I’m a bit overwhelmed.",
+      "speaker": "李明",
+      "start": "53.410",
+      "end": "64.530"
+    },
+    {
+      "text": "剛開始忙一點很正常，我們公司平常的工作安排也是滿緊湊的。",
+      "tr": "Manager Wang: Being a little busy at the start is normal. Our company’s work schedule is usually quite tight.",
+      "speaker": "王經理",
+      "start": "64.880",
+      "end": "71.280"
+    },
+    {
+      "text": "對，除了時間有點長以外，其他我覺得都能接受。",
+      "tr": "Li Ming: Yes, apart from the slightly long hours, everything else is acceptable.",
+      "speaker": "李明",
+      "start": "71.630",
+      "end": "76.990"
+    },
+    {
+      "text": "聽你這麼說，我覺得你已經適應得很好了！",
+      "tr": "Manager Wang: Hearing that, I think you’re adapting really well!",
+      "speaker": "王經理",
+      "start": "77.340",
+      "end": "83.260"
+    },
+    {
+      "text": "謝謝您的鼓勵！還有一個小問題就是語言，雖然平時能聽懂，但是說起來有時候會緊張得不得了。",
+      "tr": "Li Ming: Thank you for your encouragement! There’s just one small issue: language. While I can understand most things, I sometimes get really nervous when speaking.",
+      "speaker": "李明",
+      "start": "83.610",
+      "end": "94.650"
+    },
+    {
+      "text": "別擔心，除了專業用語以外，日常交流的話你可以多練習，相信很快就會更自然了。",
+      "tr": "Manager Wang: Don’t worry. Other than technical terms, you can practice your daily conversations more often. I’m sure you’ll become more natural soon.",
+      "speaker": "王經理",
+      "start": "95.000",
+      "end": "102.920"
+    },
+    {
+      "text": "好的！我會多聽、多說，盡量入鄉隨俗。這裡的文化、習慣都很有趣，讓我覺得學習起來也有意思些。",
+      "tr": "Li Ming: Got it! I’ll listen and speak more to integrate as much as possible. The culture and habits here are so interesting that learning them feels quite enjoyable.",
+      "speaker": "李明",
+      "start": "103.270",
+      "end": "114.630"
+    },
+    {
+      "text": "有這種態度很好！除了工作以外，你有考慮到處走走、了解這個地方的文化嗎？",
+      "tr": "Manager Wang: That’s a great attitude! Besides work, have you thought about exploring the area and learning about the local culture?",
+      "speaker": "王經理",
+      "start": "114.980",
+      "end": "123.140"
+    },
+    {
+      "text": "有的！除了公司附近的地方，我也打算週末去一些景點看看，聽說這裡的風景美極了！",
+      "tr": "Li Ming: Yes! In addition to the places near the company, I plan to visit some attractions on the weekends. I’ve heard the scenery here is stunning!",
+      "speaker": "李明",
+      "start": "123.490",
+      "end": "132.690"
+    },
+    {
+      "text": "那太棒了！有什麼問題隨時問我，我很樂意幫忙。",
+      "tr": "Manager Wang: That’s fantastic! If you have any questions, feel free to ask me. I’m happy to help.",
+      "speaker": "王經理",
+      "start": "133.040",
+      "end": "139.280"
+    },
+    {
+      "text": "謝謝您！有您這樣的好同事，我覺得適應起來輕鬆多了！",
+      "tr": "Li Ming: Thank you! With such a great colleague like you, adapting here feels much easier!",
+      "speaker": "李明",
+      "start": "139.630",
+      "end": "145.390"
+    },
+    {
+      "text": "哈哈，不用客氣。希望你能在這裡生活、工作都開心！",
+      "tr": "Manager Wang: Haha, you’re welcome. I hope you’ll be happy both living and working here!",
+      "speaker": "王經理",
+      "start": "145.740",
+      "end": "152.540"
+    },
+    {
+      "text": "謝謝，我會努力的！",
+      "tr": "Li Ming: Thank you! I’ll do my best!",
+      "speaker": "李明",
+      "start": "152.890",
+      "end": "155.610"
+    }
+  ]
+}

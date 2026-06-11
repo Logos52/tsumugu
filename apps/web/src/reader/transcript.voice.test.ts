@@ -521,7 +521,7 @@ describe("transcript fusion: capability-driven mode (PRD §13)", () => {
     const caps = ctl.capabilities();
     expect(caps.hasPicture && caps.hasVoice && caps.canPractice && caps.hasDualVoice).toBe(true);
     expect(caps.defaultVoiceLed).toBe(false); // a video reading starts video-led
-    expect(host.querySelector("select")).not.toBeNull(); // the 甲/乙 picker mounted (≥2 tracks)
+    expect(host.querySelector("select")).toBeNull(); // dual stacked waveforms — no voice toggle
     const playBtn = btn(host, "▶")!;
     playBtn.click(); // video-led ▶ → clock, not Serena
     expect(calls.some((c) => c[0] === "playFrom")).toBe(false);

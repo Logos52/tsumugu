@@ -1,0 +1,161 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-07-dialogue.txt",
+  "cues": [
+    {
+      "text": "晚上一起去看球賽嗎？",
+      "tr": "Do you want to go to the ball game tonight?",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.680"
+    },
+    {
+      "text": "當然要去啊！聽說這場比賽超級精彩。",
+      "tr": "Of course we will! I've heard that it's a great game.",
+      "speaker": "B",
+      "start": "2.030",
+      "end": "6.110"
+    },
+    {
+      "text": "是吧，我也聽說了。你覺得我們的球隊能贏嗎？",
+      "tr": "Yeah, I've heard that too. Do you think our team can win?",
+      "speaker": "A",
+      "start": "6.460",
+      "end": "10.060"
+    },
+    {
+      "text": "最近他們表現不錯，我還挺滿意的，但還是有點緊張。",
+      "tr": "They've been playing well lately, so I'm happy with them, but I'm still a little nervous.",
+      "speaker": "B",
+      "start": "10.410",
+      "end": "15.610"
+    },
+    {
+      "text": "這場比賽很重要，大家都在聊呢。",
+      "tr": "It's a big game, everyone's talking about it.",
+      "speaker": "A",
+      "start": "15.960",
+      "end": "18.760"
+    },
+    {
+      "text": "沒錯，所以我還有點害怕他們會不會輸啊。",
+      "tr": "That's right, so I'm still a little bit scared that they'll lose.",
+      "speaker": "B",
+      "start": "19.110",
+      "end": "22.790"
+    },
+    {
+      "text": "別擔心！他們上次比賽打得很好，又拿下一場勝利。",
+      "tr": "Don't worry! They played a good game last time and got another win.",
+      "speaker": "A",
+      "start": "23.140",
+      "end": "27.700"
+    },
+    {
+      "text": "真的希望這次能再贏一次，那我就放心了。",
+      "tr": "I really hope they can win again this time, that would be a relief.",
+      "speaker": "B",
+      "start": "28.050",
+      "end": "32.210"
+    },
+    {
+      "text": "是啊，要是再贏一次，我們肯定嗨翻天！",
+      "tr": "Yes, if they win again, we'll have a great time!",
+      "speaker": "A",
+      "start": "32.560",
+      "end": "36.160"
+    },
+    {
+      "text": "不過，要是他們真輸了，我們該怎麼辦？",
+      "tr": "But what if they do lose?",
+      "speaker": "B",
+      "start": "36.510",
+      "end": "40.190"
+    },
+    {
+      "text": "也沒什麼大不了的，反正他們這段時間變化挺大的。",
+      "tr": "No big deal. They've changed a lot in a while.",
+      "speaker": "A",
+      "start": "40.540",
+      "end": "45.100"
+    },
+    {
+      "text": "對，我也注意到了，他們進步明顯啊。這次應該能有更好的表現。",
+      "tr": "Yeah, I've noticed that they've improved a lot. They should be able to do better this time.",
+      "speaker": "B",
+      "start": "45.450",
+      "end": "51.130"
+    },
+    {
+      "text": "你覺得這場比賽會很安靜，還是會特別刺激？",
+      "tr": "Do you think the game will be quiet or exciting?",
+      "speaker": "A",
+      "start": "51.480",
+      "end": "55.320"
+    },
+    {
+      "text": "應該會超級刺激吧，因為大家都在期待啊！",
+      "tr": "I think it's going to be super exciting because everyone is looking forward to it!",
+      "speaker": "B",
+      "start": "55.670",
+      "end": "59.270"
+    },
+    {
+      "text": "我也覺得肯定很刺激。你知道座位在哪兒嗎？",
+      "tr": "I think it's going to be exciting too. Do you know where the seats are?",
+      "speaker": "A",
+      "start": "59.620",
+      "end": "62.980"
+    },
+    {
+      "text": "還不知道，我們馬上看看票吧！",
+      "tr": "No, let's check the tickets right away!",
+      "speaker": "B",
+      "start": "63.330",
+      "end": "65.090"
+    },
+    {
+      "text": "好呀！如果我們的位置靠近場地，那就太棒了。",
+      "tr": "Okay! It would be great if we were near the venue.",
+      "speaker": "A",
+      "start": "65.440",
+      "end": "70.320"
+    },
+    {
+      "text": "對啊，希望我們能看到球員的表情！",
+      "tr": "Yeah, I hope we can see the players' faces!",
+      "speaker": "B",
+      "start": "70.670",
+      "end": "73.630"
+    },
+    {
+      "text": "那我們趕快走吧，晚了人多了就擠不進去了。",
+      "tr": "Let's go quickly, if we're late, we won't be able to squeeze in.",
+      "speaker": "A",
+      "start": "73.980",
+      "end": "78.700"
+    },
+    {
+      "text": "沒錯，現在走最好，這樣可以找個安靜點的地方坐下。",
+      "tr": "Yes, it's best to leave now so we can find a quieter place to sit.",
+      "speaker": "B",
+      "start": "79.050",
+      "end": "84.410"
+    },
+    {
+      "text": "走吧走吧，希望今晚的比賽能讓我們滿意！",
+      "tr": "Let's go, let's go, I hope we can be satisfied with the game tonight!",
+      "speaker": "A",
+      "start": "84.760",
+      "end": "88.520"
+    },
+    {
+      "text": "我也是，今晚肯定精彩，等不及了！",
+      "tr": "Me too, it's going to be a great night, can't wait!",
+      "speaker": "B",
+      "start": "88.870",
+      "end": "91.590"
+    }
+  ]
+}

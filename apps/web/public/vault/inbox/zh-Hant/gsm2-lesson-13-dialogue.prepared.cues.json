@@ -1,0 +1,182 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-13-dialogue.txt",
+  "cues": [
+    {
+      "text": "他比我大八歲",
+      "tr": "Lesson 13: He's eight years older than me",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.040"
+    },
+    {
+      "text": "你有兄弟姐妹嗎？",
+      "tr": "Do you have any brothers or sisters?",
+      "speaker": "A",
+      "start": "1.390",
+      "end": "3.150"
+    },
+    {
+      "text": "有，我有一個哥哥，他比我大八歲。",
+      "tr": "Yes, I have a brother who is eight years older than me.",
+      "speaker": "B",
+      "start": "3.500",
+      "end": "7.660"
+    },
+    {
+      "text": "哇，八歲差距不小呢！你們的性格像不像？",
+      "tr": "Wow, eight years is a big difference! Are your personalities similar?",
+      "speaker": "A",
+      "start": "8.010",
+      "end": "12.330"
+    },
+    {
+      "text": "不太像，他比較外向一些，喜歡跟朋友出去玩。",
+      "tr": "Not really. He is more outgoing and likes to go out with his friends.",
+      "speaker": "B",
+      "start": "12.680",
+      "end": "17.400"
+    },
+    {
+      "text": "那你呢？",
+      "tr": "What about you?",
+      "speaker": "A",
+      "start": "17.750",
+      "end": "18.630"
+    },
+    {
+      "text": "我比較內向一點，喜歡在家看書或者畫畫。",
+      "tr": "I'm a bit more introverted, I like to read or draw at home.",
+      "speaker": "B",
+      "start": "18.980",
+      "end": "24.020"
+    },
+    {
+      "text": "這樣的話，你們的性格應該很不一樣吧？",
+      "tr": "In that case, your personalities should be very different, right?",
+      "speaker": "A",
+      "start": "24.370",
+      "end": "26.930"
+    },
+    {
+      "text": "對啊，他做事很果斷，而我很容易猶豫不決。",
+      "tr": "Yes, he is very decisive, while I am very hesitant.",
+      "speaker": "B",
+      "start": "27.280",
+      "end": "32.400"
+    },
+    {
+      "text": "那他會不會給你一些建議？",
+      "tr": "Will he give you some advice?",
+      "speaker": "A",
+      "start": "32.750",
+      "end": "34.750"
+    },
+    {
+      "text": "會的，他總是告訴我要多嘗試新東西，不要怕失敗。",
+      "tr": "Yes, he always tells me to try new things and not to be afraid of failure.",
+      "speaker": "B",
+      "start": "35.100",
+      "end": "40.300"
+    },
+    {
+      "text": "這是個不錯的優點啊！",
+      "tr": "That's a good point!",
+      "speaker": "A",
+      "start": "40.650",
+      "end": "42.330"
+    },
+    {
+      "text": "嗯，這讓我更有勇氣去做決定。",
+      "tr": "Well, it gives me more courage to make decisions.",
+      "speaker": "B",
+      "start": "42.680",
+      "end": "46.440"
+    },
+    {
+      "text": "你覺得你們兄弟間還有什麼優缺點呢？",
+      "tr": "What do you think are the other strengths and weaknesses of your brothers?",
+      "speaker": "A",
+      "start": "46.790",
+      "end": "49.510"
+    },
+    {
+      "text": "哥哥的優點是他很有責任心，總是照顧我。",
+      "tr": "My brother's strength is that he is very responsible and always takes care of me.",
+      "speaker": "B",
+      "start": "49.860",
+      "end": "54.420"
+    },
+    {
+      "text": "很好啊！但是缺點呢？",
+      "tr": "That's good! But what about the disadvantages?",
+      "speaker": "A",
+      "start": "54.770",
+      "end": "60.770"
+    },
+    {
+      "text": "有時候他太嚴肅了，我們的興趣不太一樣，溝通上有點困難。",
+      "tr": "Sometimes he is too serious, our interests are not quite the same, communication is a little difficult.",
+      "speaker": "B",
+      "start": "61.120",
+      "end": "66.720"
+    },
+    {
+      "text": "我明白，年齡差距比較大的時候，有時會有代溝。",
+      "tr": "I understand that when there is a big age difference, sometimes there is a generation gap.",
+      "speaker": "A",
+      "start": "67.070",
+      "end": "72.110"
+    },
+    {
+      "text": "對啊，他有時不太理解我的想法。不過他還是常常給我很好的建議。",
+      "tr": "Yes, sometimes he doesn't quite understand what I think. But he still gives me good advice.",
+      "speaker": "B",
+      "start": "72.460",
+      "end": "77.820"
+    },
+    {
+      "text": "那如果哥哥比你小呢？",
+      "tr": "What if your brother is younger than you?",
+      "speaker": "A",
+      "start": "78.170",
+      "end": "80.090"
+    },
+    {
+      "text": "如果他比我小，可能我就要照顧他，壓力會大一些吧。",
+      "tr": "If he is younger than me, I may have to take care of him, and the pressure will be greater.",
+      "speaker": "B",
+      "start": "80.440",
+      "end": "85.480"
+    },
+    {
+      "text": "說得對，每個年齡段都有不同的挑戰。",
+      "tr": "That's right, every age group has different challenges.",
+      "speaker": "A",
+      "start": "85.830",
+      "end": "90.070"
+    },
+    {
+      "text": "是啊，現在他比我成熟一些，讓我學到了很多。",
+      "tr": "Yes, now that he's more mature than me, I've learned a lot.",
+      "speaker": "B",
+      "start": "90.420",
+      "end": "94.420"
+    },
+    {
+      "text": "這樣聽起來，你們的關係還不錯。",
+      "tr": "So it sounds like you two have a good relationship.",
+      "speaker": "A",
+      "start": "94.770",
+      "end": "97.570"
+    },
+    {
+      "text": "是的，雖然有差異，但我們還是彼此的支柱。",
+      "tr": "Yes, despite the differences, we are still each other's pillars.",
+      "speaker": "B",
+      "start": "97.920",
+      "end": "103.440"
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-04-dialogue.txt",
+  "cues": [
+    {
+      "text": "你好，小陳！最近過得怎麼樣？",
+      "tr": "Hello, Xiao Chen! How have you been?",
+      "speaker": "A",
+      "start": "0.000",
+      "end": "3.600"
+    },
+    {
+      "text": "我最近睡得不太好，除了這個其他都還好。你呢？",
+      "tr": "I haven't been sleeping well lately, but aside from that, everything's okay. How about you?",
+      "speaker": "B",
+      "start": "3.950",
+      "end": "8.990"
+    },
+    {
+      "text": "我也不錯。我最近開始改變一些生活習慣。",
+      "tr": "I'm fine too. I have recently started to change some habits.",
+      "speaker": "A",
+      "start": "9.340",
+      "end": "12.860"
+    },
+    {
+      "text": "真的嗎？你改變了哪些呢？",
+      "tr": "Really? What have you changed?",
+      "speaker": "B",
+      "start": "13.210",
+      "end": "15.610"
+    },
+    {
+      "text": "比如每天早上六點起床去跑步。",
+      "tr": "For example, I got up at six o'clock in the morning and went for a run.",
+      "speaker": "A",
+      "start": "15.960",
+      "end": "18.360"
+    },
+    {
+      "text": "早上跑步聽起來不錯啊。感覺如何？",
+      "tr": "Running in the morning sounds good. How do you feel?",
+      "speaker": "B",
+      "start": "18.710",
+      "end": "21.750"
+    },
+    {
+      "text": "一開始有點累，不過現在感覺挺好的。",
+      "tr": "I was a little tired at first, but now I feel good.",
+      "speaker": "A",
+      "start": "22.100",
+      "end": "27.700"
+    },
+    {
+      "text": "我也想試試看。還有別的習慣嗎？",
+      "tr": "I'd like to try that too. Do you have any other habits?",
+      "speaker": "B",
+      "start": "28.050",
+      "end": "30.450"
+    },
+    {
+      "text": "我還開始每天喝八杯水。",
+      "tr": "I've also started drinking eight glasses of water a day.",
+      "speaker": "A",
+      "start": "30.800",
+      "end": "33.440"
+    },
+    {
+      "text": "喝足夠的水很重要呢。你覺得有什麼變化嗎？",
+      "tr": "It's important to drink enough water. Do you think there are any changes?",
+      "speaker": "B",
+      "start": "33.790",
+      "end": "37.150"
+    },
+    {
+      "text": "是啊，皮膚狀況改善了不少。",
+      "tr": "Yes, my skin condition has improved a lot.",
+      "speaker": "A",
+      "start": "37.500",
+      "end": "39.900"
+    },
+    {
+      "text": "我每天早上都起不來，你有什麼建議嗎？",
+      "tr": "I can't get up every morning, do you have any suggestions?",
+      "speaker": "B",
+      "start": "40.250",
+      "end": "43.850"
+    },
+    {
+      "text": "你可以晚上早點睡，不要太晚睡覺。",
+      "tr": "You can go to bed earlier at night, not too late to sleep.",
+      "speaker": "A",
+      "start": "44.200",
+      "end": "46.680"
+    },
+    {
+      "text": "這個主意不錯，但是我總是很難早睡。",
+      "tr": "This is a good idea, but I always have a hard time going to bed early.",
+      "speaker": "B",
+      "start": "47.030",
+      "end": "50.390"
+    },
+    {
+      "text": "沒關係，慢慢來，不要著急。",
+      "tr": "It's okay, take your time, don't be in a hurry.",
+      "speaker": "A",
+      "start": "50.740",
+      "end": "53.220"
+    },
+    {
+      "text": "其實我最近也開始試著運動了。",
+      "tr": "In fact, I have recently started to try to exercise.",
+      "speaker": "B",
+      "start": "53.570",
+      "end": "55.810"
+    },
+    {
+      "text": "感覺如何？",
+      "tr": "How do you feel?",
+      "speaker": "A",
+      "start": "56.160",
+      "end": "57.280"
+    },
+    {
+      "text": "還不錯。還有其他值得推薦的生活習慣嗎？",
+      "tr": "Not bad. Are there other recommended habits?",
+      "speaker": "B",
+      "start": "57.630",
+      "end": "61.150"
+    },
+    {
+      "text": "比如多吃蔬菜水果，盡量少吃垃圾食物。",
+      "tr": "Such as eating more fruits and vegetables, eat as little as possible of junk food.",
+      "speaker": "A",
+      "start": "61.500",
+      "end": "65.260"
+    },
+    {
+      "text": "對呀，我以前經常吃垃圾食物。",
+      "tr": "Yes, I used to eat a lot of junk food.",
+      "speaker": "B",
+      "start": "65.610",
+      "end": "67.930"
+    },
+    {
+      "text": "現在有改變嗎？",
+      "tr": "Have you changed?",
+      "speaker": "A",
+      "start": "68.280",
+      "end": "69.640"
+    },
+    {
+      "text": "是的，我已經不碰垃圾食物了。",
+      "tr": "Yes, I don't touch junk food anymore.",
+      "speaker": "B",
+      "start": "69.990",
+      "end": "72.390"
+    },
+    {
+      "text": "太棒了！堅持下去，你一定會更健康的。",
+      "tr": "That's great! If you keep it up, you'll be healthier for sure.",
+      "speaker": "A",
+      "start": "72.740",
+      "end": "76.820"
+    },
+    {
+      "text": "謝謝你的建議，我會繼續努力的。",
+      "tr": "Thank you for your advice, I will continue to work hard.",
+      "speaker": "B",
+      "start": "77.170",
+      "end": "80.130"
+    }
+  ]
+}

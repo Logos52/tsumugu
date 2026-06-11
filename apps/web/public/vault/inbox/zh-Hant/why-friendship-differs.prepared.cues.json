@@ -1,0 +1,6196 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:why-friendship-differs.zh-Hant.srt",
+  "videoId": "2idX7w0gs4k",
+  "cues": [
+    {
+      "text": "大家好,",
+      "start": "00:01:26,000",
+      "end": "00:01:27,000",
+      "tr": "Hi everyone,"
+    },
+    {
+      "text": "歡迎來到Mandarin Corner的播客節目,",
+      "start": "00:01:27,000",
+      "end": "00:01:30,000",
+      "tr": "welcome to the Mandarin Corner podcast,"
+    },
+    {
+      "text": "我是Eileen。",
+      "start": "00:01:30,000",
+      "end": "00:01:31,000",
+      "tr": "I'm Eileen."
+    },
+    {
+      "text": "我是Kerr。",
+      "start": "00:01:31,000",
+      "end": "00:01:32,000",
+      "tr": "I'm Kerr."
+    },
+    {
+      "text": "你說你去打籃球,",
+      "start": "00:01:33,000",
+      "end": "00:01:34,000",
+      "tr": "You said you went to play basketball,"
+    },
+    {
+      "text": "我記得你之前跟我說,",
+      "start": "00:01:34,000",
+      "end": "00:01:35,000",
+      "tr": "and I remember you told me before"
+    },
+    {
+      "text": "你打籃球的時候也碰到許多外國人,",
+      "start": "00:01:35,000",
+      "end": "00:01:38,000",
+      "tr": "that when you play basketball you run into a lot of foreigners,"
+    },
+    {
+      "text": "是吧?",
+      "start": "00:01:38,000",
+      "end": "00:01:39,000",
+      "tr": "right?"
+    },
+    {
+      "text": "我們小區裡面來了很多,",
+      "start": "00:01:39,000",
+      "end": "00:01:41,000",
+      "tr": "A lot of people have moved into our neighborhood,"
+    },
+    {
+      "text": "巴基斯坦,",
+      "start": "00:01:41,000",
+      "end": "00:01:43,000",
+      "tr": "from Pakistan,"
+    },
+    {
+      "text": "印度,",
+      "start": "00:01:43,000",
+      "end": "00:01:44,000",
+      "tr": "India,"
+    },
+    {
+      "text": "然後,",
+      "start": "00:01:44,000",
+      "end": "00:01:45,000",
+      "tr": "and,"
+    },
+    {
+      "text": "孟加拉,",
+      "start": "00:01:45,000",
+      "end": "00:01:46,000",
+      "tr": "Bangladesh,"
+    },
+    {
+      "text": "然後斯里蘭卡的人,",
+      "start": "00:01:46,000",
+      "end": "00:01:47,000",
+      "tr": "and people from Sri Lanka."
+    },
+    {
+      "text": "好像有很多外國公司,",
+      "start": "00:01:47,000",
+      "end": "00:01:49,000",
+      "tr": "It seems like a lot of foreign companies"
+    },
+    {
+      "text": "現在都僱那邊的人,",
+      "start": "00:01:49,000",
+      "end": "00:01:51,000",
+      "tr": "are now hiring people from over there"
+    },
+    {
+      "text": "到我們這來工作,",
+      "start": "00:01:51,000",
+      "end": "00:01:53,000",
+      "tr": "to come work here,"
+    },
+    {
+      "text": "大概是因為他們薪水比較便宜吧,",
+      "start": "00:01:53,000",
+      "end": "00:01:55,000",
+      "tr": "probably because their wages are cheaper,"
+    },
+    {
+      "text": "我猜。",
+      "start": "00:01:55,000",
+      "end": "00:01:56,000",
+      "tr": "I'm guessing."
+    },
+    {
+      "text": "中山欸,",
+      "start": "00:01:56,000",
+      "end": "00:01:57,000",
+      "tr": "Zhongshan, huh,"
+    },
+    {
+      "text": "怎麼會有人知道中山這個小城市?",
+      "start": "00:01:57,000",
+      "end": "00:01:59,000",
+      "tr": "how would anyone even know about a small city like Zhongshan?"
+    },
+    {
+      "text": "中山有很多工業在這裡,",
+      "start": "00:01:59,000",
+      "end": "00:02:01,000",
+      "tr": "Zhongshan has a lot of industry,"
+    },
+    {
+      "text": "有很多外國公司在這裡,",
+      "start": "00:02:01,000",
+      "end": "00:02:03,000",
+      "tr": "and a lot of foreign companies here,"
+    },
+    {
+      "text": "尤其是那個輕工產業嘛,",
+      "start": "00:02:03,000",
+      "end": "00:02:05,000",
+      "tr": "especially light manufacturing,"
+    },
+    {
+      "text": "他們在這做東西嘛,",
+      "start": "00:02:05,000",
+      "end": "00:02:06,000",
+      "tr": "they make stuff here,"
+    },
+    {
+      "text": "衣服什麼的,",
+      "start": "00:02:06,000",
+      "end": "00:02:07,000",
+      "tr": "clothing and things like that."
+    },
+    {
+      "text": "這些國家的人,",
+      "start": "00:02:07,000",
+      "end": "00:02:08,000",
+      "tr": "People from these countries"
+    },
+    {
+      "text": "他普遍都會講英文,",
+      "start": "00:02:08,000",
+      "end": "00:02:09,000",
+      "tr": "generally all speak English,"
+    },
+    {
+      "text": "然後他們薪水比較便宜,",
+      "start": "00:02:09,000",
+      "end": "00:02:11,000",
+      "tr": "and their wages are cheaper,"
+    },
+    {
+      "text": "從他們國家來的話。",
+      "start": "00:02:11,000",
+      "end": "00:02:13,000",
+      "tr": "coming from their countries."
+    },
+    {
+      "text": "那你跟他們算是籃球友嗎?",
+      "start": "00:02:13,000",
+      "end": "00:02:15,000",
+      "tr": "So would you count them as basketball buddies?"
+    },
+    {
+      "text": "還是,",
+      "start": "00:02:15,000",
+      "end": "00:02:16,000",
+      "tr": "Or,"
+    },
+    {
+      "text": "也後面慢慢成為朋友了?",
+      "start": "00:02:16,000",
+      "end": "00:02:18,000",
+      "tr": "did you gradually become friends later on?"
+    },
+    {
+      "text": "算是朋友吧,",
+      "start": "00:02:19,000",
+      "end": "00:02:20,000",
+      "tr": "I'd say friends,"
+    },
+    {
+      "text": "就是像其他那些我去打籃球遇到的朋友一樣,",
+      "start": "00:02:20,000",
+      "end": "00:02:24,000",
+      "tr": "just like the other friends I meet playing basketball,"
+    },
+    {
+      "text": "就是,",
+      "start": "00:02:24,000",
+      "end": "00:02:25,000",
+      "tr": "you know,"
+    },
+    {
+      "text": "去的時候在球場打球的時候會聊幾句,",
+      "start": "00:02:25,000",
+      "end": "00:02:28,000",
+      "tr": "when I go we chat a bit while playing on the court,"
+    },
+    {
+      "text": "就這樣的,",
+      "start": "00:02:28,000",
+      "end": "00:02:29,000",
+      "tr": "just like that,"
+    },
+    {
+      "text": "也算是朋友吧。",
+      "start": "00:02:29,000",
+      "end": "00:02:31,000",
+      "tr": "so yeah, you could call them friends."
+    },
+    {
+      "text": "那你外國的朋友多不多?",
+      "start": "00:02:31,000",
+      "end": "00:02:34,000",
+      "tr": "So do you have a lot of foreign friends?"
+    },
+    {
+      "text": "不是很多耶,",
+      "start": "00:02:34,000",
+      "end": "00:02:36,000",
+      "tr": "Not really,"
+    },
+    {
+      "text": "特別好的大概就一兩個吧。",
+      "start": "00:02:36,000",
+      "end": "00:02:38,000",
+      "tr": "maybe just one or two really close ones."
+    },
+    {
+      "text": "那他們來自哪一些國家呢?",
+      "start": "00:02:39,000",
+      "end": "00:02:41,000",
+      "tr": "So which countries are they from?"
+    },
+    {
+      "text": "有一個比利時的,",
+      "start": "00:02:41,000",
+      "end": "00:02:44,000",
+      "tr": "One's from Belgium,"
+    },
+    {
+      "text": "有一個澳大利亞的。",
+      "start": "00:02:44,000",
+      "end": "00:02:46,000",
+      "tr": "and one's from Australia."
+    },
+    {
+      "text": "比利時的那個朋友,",
+      "start": "00:02:46,000",
+      "end": "00:02:48,000",
+      "tr": "My Belgian friend,"
+    },
+    {
+      "text": "他是我女朋友的同事的老公。",
+      "start": "00:02:48,000",
+      "end": "00:02:53,000",
+      "tr": "he's the husband of my girlfriend's coworker."
+    },
+    {
+      "text": "我們有一次去那個他們公司的活動嘛,",
+      "start": "00:02:53,000",
+      "end": "00:02:56,000",
+      "tr": "One time we went to one of their company events,"
+    },
+    {
+      "text": "然後我們去吃燒烤,",
+      "start": "00:02:56,000",
+      "end": "00:02:58,000",
+      "tr": "and we went to have barbecue,"
+    },
+    {
+      "text": "那個時候認識的,",
+      "start": "00:02:58,000",
+      "end": "00:02:59,000",
+      "tr": "that's when we met,"
+    },
+    {
+      "text": "然後我們就聊了一些話題,",
+      "start": "00:02:59,000",
+      "end": "00:03:01,000",
+      "tr": "and we talked about some stuff,"
+    },
+    {
+      "text": "然後就慢慢慢慢就熟起來,",
+      "start": "00:03:01,000",
+      "end": "00:03:03,000",
+      "tr": "and gradually got to know each other,"
+    },
+    {
+      "text": "然後就聊了很多,",
+      "start": "00:03:03,000",
+      "end": "00:03:05,000",
+      "tr": "and talked a lot,"
+    },
+    {
+      "text": "其實發現我們有很多共通點。",
+      "start": "00:03:05,000",
+      "end": "00:03:07,000",
+      "tr": "and actually found we had a lot in common."
+    },
+    {
+      "text": "就當時見面的時候就聊了好幾個小時,",
+      "start": "00:03:07,000",
+      "end": "00:03:10,000",
+      "tr": "At that first meeting we ended up talking for several hours,"
+    },
+    {
+      "text": "然後,",
+      "start": "00:03:10,000",
+      "end": "00:03:11,000",
+      "tr": "And then,"
+    },
+    {
+      "text": "就活動結束了,",
+      "start": "00:03:11,000",
+      "end": "00:03:12,000",
+      "tr": "once the event was over,"
+    },
+    {
+      "text": "我們覺得還不過癮,",
+      "start": "00:03:12,000",
+      "end": "00:03:13,000",
+      "tr": "we felt we hadn't had enough,"
+    },
+    {
+      "text": "後來又約出來聊,",
+      "start": "00:03:13,000",
+      "end": "00:03:14,000",
+      "tr": "so later we met up again to chat,"
+    },
+    {
+      "text": "然後就慢慢就變成好朋友了。",
+      "start": "00:03:14,000",
+      "end": "00:03:16,000",
+      "tr": "and gradually we became good friends."
+    },
+    {
+      "text": "他結婚也請我去。",
+      "start": "00:03:16,000",
+      "end": "00:03:17,000",
+      "tr": "He even invited me to his wedding."
+    },
+    {
+      "text": "你有沒有聽過一些外國人來到中國之後,",
+      "start": "00:03:17,000",
+      "end": "00:03:21,000",
+      "tr": "Have you ever heard foreigners who come to China"
+    },
+    {
+      "text": "然後他們抱怨說,",
+      "start": "00:03:21,000",
+      "end": "00:03:22,000",
+      "tr": "complain that"
+    },
+    {
+      "text": "在中國很難交到中國朋友,",
+      "start": "00:03:22,000",
+      "end": "00:03:25,000",
+      "tr": "it's really hard to make Chinese friends here,"
+    },
+    {
+      "text": "或者說交朋友的過程中有一些障礙?",
+      "start": "00:03:25,000",
+      "end": "00:03:28,000",
+      "tr": "or that there are obstacles in the process of making friends?"
+    },
+    {
+      "text": "其實我碰到的外國人很多都是在這工作的人。",
+      "start": "00:03:28,000",
+      "end": "00:03:32,000",
+      "tr": "Actually, a lot of the foreigners I've met are people working here."
+    },
+    {
+      "text": "給我的印象是他們有一個很封閉很小的圈子,",
+      "start": "00:03:32,000",
+      "end": "00:03:35,000",
+      "tr": "My impression is that they have a very closed, very small circle,"
+    },
+    {
+      "text": "然後他們不大願意跟中國人交流。",
+      "start": "00:03:35,000",
+      "end": "00:03:38,000",
+      "tr": "and they aren't all that willing to interact with Chinese people."
+    },
+    {
+      "text": "那為什麼呢?",
+      "start": "00:03:38,000",
+      "end": "00:03:39,000",
+      "tr": "So why is that?"
+    },
+    {
+      "text": "第一個問題我覺得是語言的障礙吧。",
+      "start": "00:03:39,000",
+      "end": "00:03:41,000",
+      "tr": "The first issue, I think, is the language barrier."
+    },
+    {
+      "text": "大部分外國人他的中文其實並不是太好。",
+      "start": "00:03:41,000",
+      "end": "00:03:45,000",
+      "tr": "Most foreigners' Chinese actually isn't all that good."
+    },
+    {
+      "text": "老實說,",
+      "start": "00:03:45,000",
+      "end": "00:03:46,000",
+      "tr": "Honestly,"
+    },
+    {
+      "text": "我碰到的外國人很少能夠用流利的中文來交流的。",
+      "start": "00:03:46,000",
+      "end": "00:03:50,000",
+      "tr": "very few of the foreigners I've met can communicate in fluent Chinese."
+    },
+    {
+      "text": "所以我覺得首先他們得把中文掌握好了,",
+      "start": "00:03:50,000",
+      "end": "00:03:55,000",
+      "tr": "So I think first they need to get a good grasp of Chinese,"
+    },
+    {
+      "text": "然後才能去更深一步的去結交中國朋友。",
+      "start": "00:03:55,000",
+      "end": "00:03:59,000",
+      "tr": "and only then can they go a step deeper and really make Chinese friends."
+    },
+    {
+      "text": "要麼這些中國人本身英文講得很好,",
+      "start": "00:03:59,000",
+      "end": "00:04:03,000",
+      "tr": "Otherwise, the Chinese people themselves have to speak really good English,"
+    },
+    {
+      "text": "然後也熟悉外國的文化。",
+      "start": "00:04:03,000",
+      "end": "00:04:05,000",
+      "tr": "and also be familiar with foreign culture."
+    },
+    {
+      "text": "這樣他們就可以聊到一塊去。",
+      "start": "00:04:05,000",
+      "end": "00:04:07,000",
+      "tr": "That way they can actually hit it off."
+    },
+    {
+      "text": "你第一次交外國朋友是什麼時候?",
+      "start": "00:04:07,000",
+      "end": "00:04:11,000",
+      "tr": "When did you first make a foreign friend?"
+    },
+    {
+      "text": "我第一次交外國朋友可能是高中的時候。",
+      "start": "00:04:11,000",
+      "end": "00:04:16,000",
+      "tr": "The first time I made a foreign friend was probably back in high school."
+    },
+    {
+      "text": "高中的時候我們有一個外教課,",
+      "start": "00:04:16,000",
+      "end": "00:04:19,000",
+      "tr": "In high school we had a class with a foreign teacher,"
+    },
+    {
+      "text": "就是外教老師。",
+      "start": "00:04:19,000",
+      "end": "00:04:21,000",
+      "tr": "a foreign teacher, that is."
+    },
+    {
+      "text": "其實我們認為他們是朋友,",
+      "start": "00:04:21,000",
+      "end": "00:04:23,000",
+      "tr": "We actually considered them friends,"
+    },
+    {
+      "text": "他們也給我們一個感覺就是他們願意來做我們的朋友,",
+      "start": "00:04:23,000",
+      "end": "00:04:27,000",
+      "tr": "and they gave us the sense that they were willing to be our friends,"
+    },
+    {
+      "text": "願意跟我們交流溝通。",
+      "start": "00:04:27,000",
+      "end": "00:04:28,000",
+      "tr": "willing to talk and connect with us."
+    },
+    {
+      "text": "所以我就覺得這也算是朋友吧。",
+      "start": "00:04:28,000",
+      "end": "00:04:31,000",
+      "tr": "So I figured that counts as friendship too."
+    },
+    {
+      "text": "然後我們學校換了好幾個外教,",
+      "start": "00:04:31,000",
+      "end": "00:04:35,000",
+      "tr": "Then our school went through several foreign teachers,"
+    },
+    {
+      "text": "有一個是從南斯拉夫來的,",
+      "start": "00:04:35,000",
+      "end": "00:04:38,000",
+      "tr": "one of them came from Yugoslavia,"
+    },
+    {
+      "text": "原來的南斯拉夫,",
+      "start": "00:04:38,000",
+      "end": "00:04:39,000",
+      "tr": "the former Yugoslavia,"
+    },
+    {
+      "text": "現在這個國家已經不存在了。",
+      "start": "00:04:39,000",
+      "end": "00:04:41,000",
+      "tr": "a country that no longer exists today."
+    },
+    {
+      "text": "他來教我們英文,",
+      "start": "00:04:41,000",
+      "end": "00:04:43,000",
+      "tr": "He came to teach us English,"
+    },
+    {
+      "text": "他就會比較側重於語法,",
+      "start": "00:04:43,000",
+      "end": "00:04:45,000",
+      "tr": "and he'd put more emphasis on grammar,"
+    },
+    {
+      "text": "教我們一些基礎的東西,",
+      "start": "00:04:45,000",
+      "end": "00:04:47,000",
+      "tr": "teaching us the basics,"
+    },
+    {
+      "text": "就像那種蘇聯模式的學英文。",
+      "start": "00:04:47,000",
+      "end": "00:04:50,000",
+      "tr": "kind of like the Soviet way of learning English."
+    },
+    {
+      "text": "那跟我們一樣嘛,",
+      "start": "00:04:50,000",
+      "end": "00:04:51,000",
+      "tr": "Which was just like how we learned,"
+    },
+    {
+      "text": "就很對我不畏口。",
+      "start": "00:04:51,000",
+      "end": "00:04:52,000",
+      "tr": "so it really suited me."
+    },
+    {
+      "text": "對對對。",
+      "start": "00:04:52,000",
+      "end": "00:04:53,000",
+      "tr": "Right, right, right."
+    },
+    {
+      "text": "後來就有美國的,",
+      "start": "00:04:53,000",
+      "end": "00:04:56,000",
+      "tr": "Later there were teachers from the US,"
+    },
+    {
+      "text": "有加拿大的,",
+      "start": "00:04:56,000",
+      "end": "00:04:57,000",
+      "tr": "from Canada,"
+    },
+    {
+      "text": "然後有紐西蘭的。",
+      "start": "00:04:57,000",
+      "end": "00:05:00,000",
+      "tr": "and from New Zealand."
+    },
+    {
+      "text": "其中我記得很清楚有一個加拿大的外教,",
+      "start": "00:05:00,000",
+      "end": "00:05:03,000",
+      "tr": "I remember one Canadian teacher really clearly,"
+    },
+    {
+      "text": "然後他是一個年輕小夥子。",
+      "start": "00:05:03,000",
+      "end": "00:05:05,000",
+      "tr": "he was a young guy."
+    },
+    {
+      "text": "我們那個時候溫度很低,",
+      "start": "00:05:05,000",
+      "end": "00:05:07,000",
+      "tr": "Back then the temperature was really low,"
+    },
+    {
+      "text": "他穿了一個冰球短褲來。",
+      "start": "00:05:07,000",
+      "end": "00:05:09,000",
+      "tr": "and he showed up wearing hockey shorts."
+    },
+    {
+      "text": "我們覺得很震驚。",
+      "start": "00:05:09,000",
+      "end": "00:05:11,000",
+      "tr": "We were totally shocked."
+    },
+    {
+      "text": "哇哦,好神奇。",
+      "start": "00:05:11,000",
+      "end": "00:05:14,000",
+      "tr": "Wow, how amazing."
+    },
+    {
+      "text": "這就是外國人嗎?",
+      "start": "00:05:14,000",
+      "end": "00:05:15,000",
+      "tr": "So this is what foreigners are like?"
+    },
+    {
+      "text": "這就是電視上看到外國人真的不一樣。",
+      "start": "00:05:15,000",
+      "end": "00:05:18,000",
+      "tr": "The foreigners you see on TV really are different in person."
+    },
+    {
+      "text": "然後你會對他的文化產生好奇,",
+      "start": "00:05:18,000",
+      "end": "00:05:21,000",
+      "tr": "And then you get curious about their culture,"
+    },
+    {
+      "text": "你會自然的想去了解他。",
+      "start": "00:05:21,000",
+      "end": "00:05:22,000",
+      "tr": "you naturally want to get to know them."
+    },
+    {
+      "text": "你知道嗎?",
+      "start": "00:05:22,000",
+      "end": "00:05:23,000",
+      "tr": "You know what?"
+    },
+    {
+      "text": "我們有同學,",
+      "start": "00:05:23,000",
+      "end": "00:05:24,000",
+      "tr": "We had this classmate,"
+    },
+    {
+      "text": "因為我們當時很喜歡玩電腦遊戲,",
+      "start": "00:05:24,000",
+      "end": "00:05:26,000",
+      "tr": "and since we were really into computer games back then,"
+    },
+    {
+      "text": "有個遊戲叫星際爭霸。",
+      "start": "00:05:26,000",
+      "end": "00:05:28,000",
+      "tr": "there was this game called StarCraft."
+    },
+    {
+      "text": "我們就約他說能不能夠放學以後,",
+      "start": "00:05:28,000",
+      "end": "00:05:32,000",
+      "tr": "So we asked him if, after school,"
+    },
+    {
+      "text": "然後我們去網咖,",
+      "start": "00:05:32,000",
+      "end": "00:05:34,000",
+      "tr": "we could go to an internet cafe,"
+    },
+    {
+      "text": "然後我們去連機遊戲。",
+      "start": "00:05:34,000",
+      "end": "00:05:35,000",
+      "tr": "and play a LAN game together."
+    },
+    {
+      "text": "其實就是想說通過跟他一起玩遊戲,",
+      "start": "00:05:35,000",
+      "end": "00:05:38,000",
+      "tr": "The idea was that by playing games with him,"
+    },
+    {
+      "text": "然後發展出一段友誼對吧。",
+      "start": "00:05:38,000",
+      "end": "00:05:41,000",
+      "tr": "we'd develop a friendship, right?"
+    },
+    {
+      "text": "還有一個就是美國來的,",
+      "start": "00:05:41,000",
+      "end": "00:05:44,000",
+      "tr": "There was also this guy from America,"
+    },
+    {
+      "text": "我記得他名字叫Tony,",
+      "start": "00:05:44,000",
+      "end": "00:05:46,000",
+      "tr": "his name was Tony, if I remember right,"
+    },
+    {
+      "text": "大概五六十歲。",
+      "start": "00:05:46,000",
+      "end": "00:05:48,000",
+      "tr": "probably in his fifties or sixties."
+    },
+    {
+      "text": "然後他之前去過非洲。",
+      "start": "00:05:48,000",
+      "end": "00:05:50,000",
+      "tr": "He'd been to Africa before."
+    },
+    {
+      "text": "他喜歡一些戶外運動,",
+      "start": "00:05:50,000",
+      "end": "00:05:53,000",
+      "tr": "He was into outdoor sports,"
+    },
+    {
+      "text": "他喜歡攀巖什麼的。",
+      "start": "00:05:53,000",
+      "end": "00:05:54,000",
+      "tr": "he liked rock climbing and stuff like that."
+    },
+    {
+      "text": "上課的時候,",
+      "start": "00:05:54,000",
+      "end": "00:05:55,000",
+      "tr": "In class,"
+    },
+    {
+      "text": "他不會去按照課本來教我們。",
+      "start": "00:05:55,000",
+      "end": "00:05:58,000",
+      "tr": "he wouldn't just teach us straight from the textbook."
+    },
+    {
+      "text": "然後他就教我們一些別的東西,",
+      "start": "00:05:58,000",
+      "end": "00:06:00,000",
+      "tr": "Instead he'd teach us other things,"
+    },
+    {
+      "text": "比如說問我們對攀巖感不感興趣,",
+      "start": "00:06:00,000",
+      "end": "00:06:02,000",
+      "tr": "like asking whether we were into rock climbing,"
+    },
+    {
+      "text": "對搭帳篷感不感興趣。",
+      "start": "00:06:02,000",
+      "end": "00:06:03,000",
+      "tr": "whether we were into setting up tents."
+    },
+    {
+      "text": "他就在教室裡把那個帳篷搭起來。",
+      "start": "00:06:03,000",
+      "end": "00:06:06,000",
+      "tr": "He'd actually pitch a tent right there in the classroom."
+    },
+    {
+      "text": "我們都覺得這些東西很有趣。",
+      "start": "00:06:06,000",
+      "end": "00:06:09,000",
+      "tr": "We all thought it was really interesting."
+    },
+    {
+      "text": "他還講了一些聖經故事吧。",
+      "start": "00:06:09,000",
+      "end": "00:06:11,000",
+      "tr": "He also told us some Bible stories."
+    },
+    {
+      "text": "當時班上沒有人知道這是聖經故事。",
+      "start": "00:06:11,000",
+      "end": "00:06:14,000",
+      "tr": "At the time nobody in the class knew they were Bible stories."
+    },
+    {
+      "text": "但是我讀過,",
+      "start": "00:06:14,000",
+      "end": "00:06:15,000",
+      "tr": "But I'd read them,"
+    },
+    {
+      "text": "我就跟他說,",
+      "start": "00:06:15,000",
+      "end": "00:06:16,000",
+      "tr": "so I told him,"
+    },
+    {
+      "text": "然後他說哇,",
+      "start": "00:06:16,000",
+      "end": "00:06:17,000",
+      "tr": "and he went, wow,"
+    },
+    {
+      "text": "你居然知道這是聖經故事。",
+      "start": "00:06:17,000",
+      "end": "00:06:19,000",
+      "tr": "you actually know this is a Bible story."
+    },
+    {
+      "text": "然後我覺得哇,",
+      "start": "00:06:19,000",
+      "end": "00:06:20,000",
+      "tr": "And I thought, wow,"
+    },
+    {
+      "text": "好有成就感,",
+      "start": "00:06:20,000",
+      "end": "00:06:21,000",
+      "tr": "that felt so rewarding,"
+    },
+    {
+      "text": "我被表揚了,",
+      "start": "00:06:21,000",
+      "end": "00:06:22,000",
+      "tr": "I got praised,"
+    },
+    {
+      "text": "被老師。",
+      "start": "00:06:22,000",
+      "end": "00:06:23,000",
+      "tr": "by the teacher."
+    },
+    {
+      "text": "其實我跟他有一段,",
+      "start": "00:06:23,000",
+      "end": "00:06:25,000",
+      "tr": "Actually he and I had a pretty"
+    },
+    {
+      "text": "蠻長時間的交流。",
+      "start": "00:06:25,000",
+      "end": "00:06:27,000",
+      "tr": "long stretch of talking with each other."
+    },
+    {
+      "text": "不能算是很深層次的友誼,",
+      "start": "00:06:27,000",
+      "end": "00:06:30,000",
+      "tr": "It wasn't exactly a deep friendship,"
+    },
+    {
+      "text": "但是有些話題我們是能夠聊的。",
+      "start": "00:06:30,000",
+      "end": "00:06:32,000",
+      "tr": "but there were some topics we could talk about."
+    },
+    {
+      "text": "再加上當時我的英文也不太好。",
+      "start": "00:06:32,000",
+      "end": "00:06:34,000",
+      "tr": "On top of that, my English wasn't very good back then."
+    },
+    {
+      "text": "我們能聊的話題都很有限,",
+      "start": "00:06:34,000",
+      "end": "00:06:37,000",
+      "tr": "The topics we could talk about were pretty limited,"
+    },
+    {
+      "text": "但是我還是覺得,",
+      "start": "00:06:37,000",
+      "end": "00:06:38,000",
+      "tr": "but I still felt"
+    },
+    {
+      "text": "跟他們互動是一件很有趣的事情。",
+      "start": "00:06:38,000",
+      "end": "00:06:42,000",
+      "tr": "that interacting with them was a really fun thing."
+    },
+    {
+      "text": "就是你也碰到挺多外國人,",
+      "start": "00:06:42,000",
+      "end": "00:06:44,000",
+      "tr": "So you've met quite a lot of foreigners too,"
+    },
+    {
+      "text": "跟很多外國人交流過嘛。",
+      "start": "00:06:44,000",
+      "end": "00:06:47,000",
+      "tr": "and talked with a lot of them."
+    },
+    {
+      "text": "你覺得,",
+      "start": "00:06:47,000",
+      "end": "00:06:48,000",
+      "tr": "Do you think,"
+    },
+    {
+      "text": "在跟中國人交朋友的時候,",
+      "start": "00:06:48,000",
+      "end": "00:06:51,000",
+      "tr": "when it comes to making friends with Chinese people,"
+    },
+    {
+      "text": "有什麼是你注意到的最明顯的不同?",
+      "start": "00:06:51,000",
+      "end": "00:06:54,000",
+      "tr": "what's the most obvious difference you've noticed?"
+    },
+    {
+      "text": "最明顯的不同我注意到的就是我會更願意跟外國人聊一些比較深度的話題。",
+      "start": "00:06:54,000",
+      "end": "00:07:04,000",
+      "tr": "The most obvious difference I've noticed is that I'm more willing to talk about deeper topics with foreigners."
+    },
+    {
+      "text": "跟中國人的話好像除了一些很小的日常話題。",
+      "start": "00:07:04,000",
+      "end": "00:07:10,000",
+      "tr": "With Chinese people it seems like, apart from small everyday topics,"
+    },
+    {
+      "text": "天氣呀,",
+      "start": "00:07:10,000",
+      "end": "00:07:11,000",
+      "tr": "the weather,"
+    },
+    {
+      "text": "然後你結婚沒有啊,",
+      "start": "00:07:11,000",
+      "end": "00:07:15,000",
+      "tr": "or are you married yet,"
+    },
+    {
+      "text": "你的工資多少呀。",
+      "start": "00:07:15,000",
+      "end": "00:07:17,000",
+      "tr": "how much do you make."
+    },
+    {
+      "text": "如果你結婚了,",
+      "start": "00:07:17,000",
+      "end": "00:07:18,000",
+      "tr": "If you're married,"
+    },
+    {
+      "text": "你有沒有小孩?",
+      "start": "00:07:18,000",
+      "end": "00:07:19,000",
+      "tr": "do you have kids?"
+    },
+    {
+      "text": "如果你有小孩,",
+      "start": "00:07:19,000",
+      "end": "00:07:20,000",
+      "tr": "If you have kids,"
+    },
+    {
+      "text": "你有幾個小孩?",
+      "start": "00:07:20,000",
+      "end": "00:07:21,000",
+      "tr": "how many kids do you have?"
+    },
+    {
+      "text": "如果你有幾個小孩,",
+      "start": "00:07:21,000",
+      "end": "00:07:23,000",
+      "tr": "If you have several kids,"
+    },
+    {
+      "text": "這些小孩是男孩還是女孩?",
+      "start": "00:07:23,000",
+      "end": "00:07:25,000",
+      "tr": "Are these kids boys or girls?"
+    },
+    {
+      "text": "如果上學了,",
+      "start": "00:07:25,000",
+      "end": "00:07:26,000",
+      "tr": "If they're in school,"
+    },
+    {
+      "text": "是上了小學,",
+      "start": "00:07:26,000",
+      "end": "00:07:27,000",
+      "tr": "is it elementary school,"
+    },
+    {
+      "text": "中學還是大學?",
+      "start": "00:07:27,000",
+      "end": "00:07:28,000",
+      "tr": "middle school, or college?"
+    },
+    {
+      "text": "還有就是他們會問你住在哪裡啊?",
+      "start": "00:07:28,000",
+      "end": "00:07:31,000",
+      "tr": "And then they'll ask you where you live."
+    },
+    {
+      "text": "如果他知道你住在哪個小區?",
+      "start": "00:07:31,000",
+      "end": "00:07:33,000",
+      "tr": "If they find out which neighborhood you live in,"
+    },
+    {
+      "text": "那個小區,",
+      "start": "00:07:34,000",
+      "end": "00:07:35,000",
+      "tr": "that neighborhood,"
+    },
+    {
+      "text": "你住的房子多大呀?",
+      "start": "00:07:35,000",
+      "end": "00:07:37,000",
+      "tr": "how big is the place you live in?"
+    },
+    {
+      "text": "幾戶型是什麼呀?",
+      "start": "00:07:37,000",
+      "end": "00:07:39,000",
+      "tr": "What's the layout, how many rooms?"
+    },
+    {
+      "text": "他就會問這樣的話題。",
+      "start": "00:07:39,000",
+      "end": "00:07:41,000",
+      "tr": "Those are the kinds of things they'll ask about."
+    },
+    {
+      "text": "其實我,",
+      "start": "00:07:41,000",
+      "end": "00:07:42,000",
+      "tr": "Honestly, I,"
+    },
+    {
+      "text": "不是很願意去講這些屬於個人隱私的話題。",
+      "start": "00:07:43,000",
+      "end": "00:07:47,000",
+      "tr": "I'm really not keen on talking about these personal, private topics."
+    },
+    {
+      "text": "因為,",
+      "start": "00:07:47,000",
+      "end": "00:07:48,000",
+      "tr": "Because,"
+    },
+    {
+      "text": "你知道這些幹什麼呢?",
+      "start": "00:07:48,000",
+      "end": "00:07:50,000",
+      "tr": "what do you even want to know all this for?"
+    },
+    {
+      "text": "你知道我住兩室一廳,",
+      "start": "00:07:50,000",
+      "end": "00:07:53,000",
+      "tr": "So you know I've got a two-bedroom,"
+    },
+    {
+      "text": "三室一廳,",
+      "start": "00:07:53,000",
+      "end": "00:07:54,000",
+      "tr": "a three-bedroom,"
+    },
+    {
+      "text": "一個廁所,",
+      "start": "00:07:54,000",
+      "end": "00:07:55,000",
+      "tr": "one bathroom,"
+    },
+    {
+      "text": "兩個廁所,",
+      "start": "00:07:55,000",
+      "end": "00:07:56,000",
+      "tr": "two bathrooms,"
+    },
+    {
+      "text": "跟你有什麼關係嗎?",
+      "start": "00:07:56,000",
+      "end": "00:07:57,000",
+      "tr": "what's that got to do with you?"
+    },
+    {
+      "text": "可以判斷你有沒有錢?",
+      "start": "00:07:57,000",
+      "end": "00:07:59,000",
+      "tr": "To figure out whether I've got money?"
+    },
+    {
+      "text": "那如果你知道我有錢了,",
+      "start": "00:07:59,000",
+      "end": "00:08:01,000",
+      "tr": "And if you find out I do have money,"
+    },
+    {
+      "text": "那下一步呢?",
+      "start": "00:08:01,000",
+      "end": "00:08:02,000",
+      "tr": "then what's next?"
+    },
+    {
+      "text": "你又要做什麼呢?",
+      "start": "00:08:02,000",
+      "end": "00:08:03,000",
+      "tr": "What are you going to do about it?"
+    },
+    {
+      "text": "我就覺得特別不理解。",
+      "start": "00:08:03,000",
+      "end": "00:08:05,000",
+      "tr": "I just really don't get it."
+    },
+    {
+      "text": "多跟你交流,",
+      "start": "00:08:05,000",
+      "end": "00:08:06,000",
+      "tr": "To chat with you more,"
+    },
+    {
+      "text": "交流一下你是怎麼掙到這個錢的,",
+      "start": "00:08:06,000",
+      "end": "00:08:09,000",
+      "tr": "to talk about how you made that money,"
+    },
+    {
+      "text": "然後也教教我。",
+      "start": "00:08:09,000",
+      "end": "00:08:10,000",
+      "tr": "and then teach me too."
+    },
+    {
+      "text": "如果我能掙到這個錢,",
+      "start": "00:08:11,000",
+      "end": "00:08:12,000",
+      "tr": "If I could make that kind of money,"
+    },
+    {
+      "text": "我還要,",
+      "start": "00:08:12,000",
+      "end": "00:08:13,000",
+      "tr": "would I still,"
+    },
+    {
+      "text": "我還要教你嗎?",
+      "start": "00:08:13,000",
+      "end": "00:08:14,000",
+      "tr": "would I still need to teach you?"
+    },
+    {
+      "text": "如果你都能自己掙到錢了,",
+      "start": "00:08:14,000",
+      "end": "00:08:16,000",
+      "tr": "If you could already make the money yourself,"
+    },
+    {
+      "text": "你就不用請教我了。",
+      "start": "00:08:16,000",
+      "end": "00:08:17,000",
+      "tr": "you wouldn't need to come ask me."
+    },
+    {
+      "text": "關於問工資,",
+      "start": "00:08:18,000",
+      "end": "00:08:19,000",
+      "tr": "As for asking about your salary,"
+    },
+    {
+      "text": "他很常見,",
+      "start": "00:08:19,000",
+      "end": "00:08:20,000",
+      "tr": "it's really common,"
+    },
+    {
+      "text": "常見到什麼狀態呢?",
+      "start": "00:08:20,000",
+      "end": "00:08:21,000",
+      "tr": "how common is it?"
+    },
+    {
+      "text": "就是有的時候我跟陌生人聊天,",
+      "start": "00:08:21,000",
+      "end": "00:08:24,000",
+      "tr": "Sometimes when I chat with strangers,"
+    },
+    {
+      "text": "就比如說出租車司機,",
+      "start": "00:08:24,000",
+      "end": "00:08:25,000",
+      "tr": "like taxi drivers, for example,"
+    },
+    {
+      "text": "我特別喜歡跟出租車司機聊天。",
+      "start": "00:08:25,000",
+      "end": "00:08:27,000",
+      "tr": "I really love chatting with taxi drivers."
+    },
+    {
+      "text": "有的時候就會想問一下行業的現狀嘛,",
+      "start": "00:08:27,000",
+      "end": "00:08:30,000",
+      "tr": "Sometimes I want to ask about how things are going in their line of work,"
+    },
+    {
+      "text": "就是現在生意怎麼樣啊?",
+      "start": "00:08:30,000",
+      "end": "00:08:32,000",
+      "tr": "like, how's business these days?"
+    },
+    {
+      "text": "就是還不等我問他,",
+      "start": "00:08:32,000",
+      "end": "00:08:33,000",
+      "tr": "And before I can even ask him,"
+    },
+    {
+      "text": "你一個月掙多少錢,",
+      "start": "00:08:33,000",
+      "end": "00:08:34,000",
+      "tr": "how much do you make a month,"
+    },
+    {
+      "text": "他直接就告訴我。",
+      "start": "00:08:34,000",
+      "end": "00:08:35,000",
+      "tr": "he just tells me straight up."
+    },
+    {
+      "text": "我一天可能就是有300的流水,",
+      "start": "00:08:35,000",
+      "end": "00:08:37,000",
+      "tr": "In a day I might take in 300 in fares,"
+    },
+    {
+      "text": "然後除去油錢,",
+      "start": "00:08:37,000",
+      "end": "00:08:39,000",
+      "tr": "and then after gas,"
+    },
+    {
+      "text": "除去這個這個這個的,",
+      "start": "00:08:39,000",
+      "end": "00:08:41,000",
+      "tr": "after this and that and the other thing,"
+    },
+    {
+      "text": "我大概就是能夠掙個150啊,",
+      "start": "00:08:41,000",
+      "end": "00:08:43,000",
+      "tr": "I can clear maybe around 150,"
+    },
+    {
+      "text": "200啊這樣子。",
+      "start": "00:08:43,000",
+      "end": "00:08:44,000",
+      "tr": "or 200, something like that."
+    },
+    {
+      "text": "他就已經跟我交代完了。",
+      "start": "00:08:44,000",
+      "end": "00:08:45,000",
+      "tr": "He's already laid it all out for me."
+    },
+    {
+      "text": "因為他,",
+      "start": "00:08:45,000",
+      "end": "00:08:47,000",
+      "tr": "Because they,"
+    },
+    {
+      "text": "尤其是出租車司機啊,",
+      "start": "00:08:47,000",
+      "end": "00:08:49,000",
+      "tr": "taxi drivers especially,"
+    },
+    {
+      "text": "因為他們是很喜歡抱怨的一個群體。",
+      "start": "00:08:49,000",
+      "end": "00:08:52,000",
+      "tr": "because they're a group that really loves to complain."
+    },
+    {
+      "text": "為什麼呢?",
+      "start": "00:08:52,000",
+      "end": "00:08:53,000",
+      "tr": "Why is that?"
+    },
+    {
+      "text": "因為他們的工作很辛苦,",
+      "start": "00:08:53,000",
+      "end": "00:08:54,000",
+      "tr": "Because their work is really hard,"
+    },
+    {
+      "text": "然後他們的收入很低。",
+      "start": "00:08:54,000",
+      "end": "00:08:56,000",
+      "tr": "and their income is really low."
+    },
+    {
+      "text": "他沒有什麼好隱藏的嘛,",
+      "start": "00:08:56,000",
+      "end": "00:08:58,000",
+      "tr": "He's got nothing to hide,"
+    },
+    {
+      "text": "對不對?",
+      "start": "00:08:58,000",
+      "end": "00:08:59,000",
+      "tr": "right?"
+    },
+    {
+      "text": "在中國有一個有一個現象,",
+      "start": "00:08:59,000",
+      "end": "00:09:01,000",
+      "tr": "In China there's this phenomenon,"
+    },
+    {
+      "text": "就是說有些人其實他沒有他看上去這麼有錢。",
+      "start": "00:09:01,000",
+      "end": "00:09:05,000",
+      "tr": "where some people actually aren't as rich as they look."
+    },
+    {
+      "text": "就比如說有很多人談生意對吧?",
+      "start": "00:09:05,000",
+      "end": "00:09:08,000",
+      "tr": "Like, a lot of people doing business, right?"
+    },
+    {
+      "text": "他可能分期付款買了一臺豪車。",
+      "start": "00:09:08,000",
+      "end": "00:09:11,000",
+      "tr": "He might buy a luxury car on an installment plan."
+    },
+    {
+      "text": "OK?",
+      "start": "00:09:11,000",
+      "end": "00:09:12,000",
+      "tr": "OK?"
+    },
+    {
+      "text": "或者說他租了一輛豪車,",
+      "start": "00:09:12,000",
+      "end": "00:09:14,000",
+      "tr": "Or he rents a luxury car,"
+    },
+    {
+      "text": "然後他會營造一種他很有錢的感覺。",
+      "start": "00:09:14,000",
+      "end": "00:09:17,000",
+      "tr": "and then he creates this impression that he's loaded."
+    },
+    {
+      "text": "就是這個社會從上層到中層到下層都有這樣的人。",
+      "start": "00:09:17,000",
+      "end": "00:09:23,000",
+      "tr": "You get people like this at every level of society — upper, middle, and lower."
+    },
+    {
+      "text": "你可以看那個恒大嘛,",
+      "start": "00:09:23,000",
+      "end": "00:09:25,000",
+      "tr": "Look at Evergrande,"
+    },
+    {
+      "text": "對吧?",
+      "start": "00:09:25,000",
+      "end": "00:09:26,000",
+      "tr": "right?"
+    },
+    {
+      "text": "恒大老闆許家印嘛。",
+      "start": "00:09:26,000",
+      "end": "00:09:28,000",
+      "tr": "Evergrande's boss, Xu Jiayin."
+    },
+    {
+      "text": "他營造出他一他有一副很有錢的樣子。",
+      "start": "00:09:28,000",
+      "end": "00:09:31,000",
+      "tr": "He projected this image of being super wealthy."
+    },
+    {
+      "text": "從他穿的衣服,",
+      "start": "00:09:31,000",
+      "end": "00:09:32,000",
+      "tr": "From the clothes he wore,"
+    },
+    {
+      "text": "然後他住的酒店,",
+      "start": "00:09:32,000",
+      "end": "00:09:33,000",
+      "tr": "to the hotels he stayed in,"
+    },
+    {
+      "text": "他吃的東西,",
+      "start": "00:09:33,000",
+      "end": "00:09:34,000",
+      "tr": "to the food he ate,"
+    },
+    {
+      "text": "所有的這些看上去是一個很有錢的人,",
+      "start": "00:09:34,000",
+      "end": "00:09:37,000",
+      "tr": "all of it made him look like a very rich man,"
+    },
+    {
+      "text": "對不對?",
+      "start": "00:09:37,000",
+      "end": "00:09:38,000",
+      "tr": "right?"
+    },
+    {
+      "text": "實際上他是負債的,",
+      "start": "00:09:38,000",
+      "end": "00:09:39,000",
+      "tr": "But in reality he was drowning in debt,"
+    },
+    {
+      "text": "對吧?",
+      "start": "00:09:39,000",
+      "end": "00:09:40,000",
+      "tr": "right?"
+    },
+    {
+      "text": "但是他去找人家借錢,",
+      "start": "00:09:40,000",
+      "end": "00:09:43,000",
+      "tr": "But when he went to borrow money from people,"
+    },
+    {
+      "text": "或者找銀行貸款的時候,",
+      "start": "00:09:43,000",
+      "end": "00:09:45,000",
+      "tr": "or to get a loan from the bank,"
+    },
+    {
+      "text": "或者跟別人談生意的時候,",
+      "start": "00:09:45,000",
+      "end": "00:09:46,000",
+      "tr": "or to talk business with someone,"
+    },
+    {
+      "text": "他永遠顯示出他很有實力的樣子。",
+      "start": "00:09:46,000",
+      "end": "00:09:49,000",
+      "tr": "he always made himself look like he had real financial muscle."
+    },
+    {
+      "text": "你只有兩塊錢,",
+      "start": "00:09:49,000",
+      "end": "00:09:51,000",
+      "tr": "You've only got two bucks,"
+    },
+    {
+      "text": "但你要裝出你有15塊錢的樣子。",
+      "start": "00:09:51,000",
+      "end": "00:09:53,000",
+      "tr": "but you have to act like you've got fifteen."
+    },
+    {
+      "text": "話說回來,",
+      "start": "00:09:53,000",
+      "end": "00:09:54,000",
+      "tr": "That said,"
+    },
+    {
+      "text": "到出租車司機那個地方,",
+      "start": "00:09:54,000",
+      "end": "00:09:56,000",
+      "tr": "coming back to the taxi driver,"
+    },
+    {
+      "text": "他是一個很實在的工作,",
+      "start": "00:09:56,000",
+      "end": "00:09:58,000",
+      "tr": "his is an honest, down-to-earth job,"
+    },
+    {
+      "text": "他就不需要務虛的,",
+      "start": "00:09:58,000",
+      "end": "00:10:00,000",
+      "tr": "so he doesn't need to put on any front,"
+    },
+    {
+      "text": "他不需要讓別人去猜。",
+      "start": "00:10:00,000",
+      "end": "00:10:02,000",
+      "tr": "he doesn't need to leave people guessing."
+    },
+    {
+      "text": "就是我們的平均收入其實不是很高的一個國家,",
+      "start": "00:10:02,000",
+      "end": "00:10:05,000",
+      "tr": "The thing is, we're a country where the average income really isn't very high,"
+    },
+    {
+      "text": "雖然我們的GDP已經世界第二了,",
+      "start": "00:10:05,000",
+      "end": "00:10:07,000",
+      "tr": "even though our GDP is already the second largest in the world,"
+    },
+    {
+      "text": "對吧?",
+      "start": "00:10:07,000",
+      "end": "00:10:08,000",
+      "tr": "right?"
+    },
+    {
+      "text": "社會是創造了很多財富,",
+      "start": "00:10:08,000",
+      "end": "00:10:10,000",
+      "tr": "Society has created a lot of wealth,"
+    },
+    {
+      "text": "但是平均到個人頭上就沒有多少了。",
+      "start": "00:10:10,000",
+      "end": "00:10:12,000",
+      "tr": "but once you spread it out per person, there isn't much left."
+    },
+    {
+      "text": "所以每個人賺錢都很辛苦。",
+      "start": "00:10:12,000",
+      "end": "00:10:14,000",
+      "tr": "So everyone has to grind really hard to make money."
+    },
+    {
+      "text": "我覺得這也是一個為什麼中國人很喜歡問人家有多少錢的原因,",
+      "start": "00:10:14,000",
+      "end": "00:10:19,000",
+      "tr": "I think that's also one reason why Chinese people love asking how much money you have,"
+    },
+    {
+      "text": "就是我們現在還處在一個就是對錢感到飢渴的狀態,",
+      "start": "00:10:19,000",
+      "end": "00:10:27,000",
+      "tr": "it's that we're still in this state of being hungry for money,"
+    },
+    {
+      "text": "你知道嗎?",
+      "start": "00:10:27,000",
+      "end": "00:10:28,000",
+      "tr": "you know?"
+    },
+    {
+      "text": "比如說你買了房,對不對?",
+      "start": "00:10:28,000",
+      "end": "00:10:30,000",
+      "tr": "Like, say you've bought a house, right?"
+    },
+    {
+      "text": "你有了小孩,",
+      "start": "00:10:30,000",
+      "end": "00:10:31,000",
+      "tr": "You've got kids,"
+    },
+    {
+      "text": "你結婚了,",
+      "start": "00:10:31,000",
+      "end": "00:10:32,000",
+      "tr": "you're married,"
+    },
+    {
+      "text": "你有很多花銷,",
+      "start": "00:10:32,000",
+      "end": "00:10:33,000",
+      "tr": "you've got tons of expenses,"
+    },
+    {
+      "text": "然後這些小孩還有讀書,",
+      "start": "00:10:33,000",
+      "end": "00:10:34,000",
+      "tr": "and then the kids have to go to school,"
+    },
+    {
+      "text": "讀書要花錢。",
+      "start": "00:10:34,000",
+      "end": "00:10:36,000",
+      "tr": "and school costs money."
+    },
+    {
+      "text": "如果你是獨生子女的話,",
+      "start": "00:10:36,000",
+      "end": "00:10:38,000",
+      "tr": "If you're an only child,"
+    },
+    {
+      "text": "你還要供養你的父母,",
+      "start": "00:10:38,000",
+      "end": "00:10:40,000",
+      "tr": "you also have to support your parents,"
+    },
+    {
+      "text": "然後還有你老婆的父母。",
+      "start": "00:10:40,000",
+      "end": "00:10:41,000",
+      "tr": "and on top of that your wife's parents too."
+    },
+    {
+      "text": "我們已經沒有多少時間去就是在愛好方面花時間了。",
+      "start": "00:10:41,000",
+      "end": "00:10:47,000",
+      "tr": "We barely have any time left to spend on hobbies."
+    },
+    {
+      "text": "我們覺得這是不務正業,",
+      "start": "00:10:47,000",
+      "end": "00:10:49,000",
+      "tr": "We see that as not doing your proper job,"
+    },
+    {
+      "text": "就是這些是沒有用的事情。",
+      "start": "00:10:49,000",
+      "end": "00:10:51,000",
+      "tr": "like those are useless things to be doing."
+    },
+    {
+      "text": "你不要跟我聊這些沒用的事情。",
+      "start": "00:10:51,000",
+      "end": "00:10:53,000",
+      "tr": "Don't bother talking to me about that useless stuff."
+    },
+    {
+      "text": "什麼叫有用?",
+      "start": "00:10:53,000",
+      "end": "00:10:54,000",
+      "tr": "What do you even mean by 'useful'?"
+    },
+    {
+      "text": "就是能掙錢的東西。",
+      "start": "00:10:54,000",
+      "end": "00:10:56,000",
+      "tr": "Basically, things that make money."
+    },
+    {
+      "text": "你已經沒有時間去研究愛好了。",
+      "start": "00:10:56,000",
+      "end": "00:10:59,000",
+      "tr": "You just don't have any time left to pursue hobbies anymore."
+    },
+    {
+      "text": "所有的時間,",
+      "start": "00:10:59,000",
+      "end": "00:11:00,000",
+      "tr": "All of your time,"
+    },
+    {
+      "text": "要麼你在休息,",
+      "start": "00:11:00,000",
+      "end": "00:11:01,000",
+      "tr": "either you're resting,"
+    },
+    {
+      "text": "要麼你在賺錢。",
+      "start": "00:11:01,000",
+      "end": "00:11:03,000",
+      "tr": "or you're making money."
+    },
+    {
+      "text": "你休息也是為了更好的賺錢,對吧?",
+      "start": "00:11:03,000",
+      "end": "00:11:05,000",
+      "tr": "And even your rest is just so you can make money better, right?"
+    },
+    {
+      "text": "但是從外國人來說,",
+      "start": "00:11:05,000",
+      "end": "00:11:07,000",
+      "tr": "But when it comes to foreigners,"
+    },
+    {
+      "text": "他的收入水平都是比中國人高很多。",
+      "start": "00:11:07,000",
+      "end": "00:11:10,000",
+      "tr": "their income level is way higher than Chinese people's."
+    },
+    {
+      "text": "然後他能過了一個很體面的生活,",
+      "start": "00:11:10,000",
+      "end": "00:11:12,000",
+      "tr": "And then they can live a pretty decent life,"
+    },
+    {
+      "text": "就是工作之餘,",
+      "start": "00:11:12,000",
+      "end": "00:11:14,000",
+      "tr": "so outside of work,"
+    },
+    {
+      "text": "他還可以去發展他的興趣愛好。",
+      "start": "00:11:14,000",
+      "end": "00:11:17,000",
+      "tr": "they can still go develop their interests and hobbies."
+    },
+    {
+      "text": "所以他才在這些方面是有所造詣。",
+      "start": "00:11:17,000",
+      "end": "00:11:21,000",
+      "tr": "That's why they actually get good at these things."
+    },
+    {
+      "text": "他才能聊出東西來。",
+      "start": "00:11:21,000",
+      "end": "00:11:23,000",
+      "tr": "That's how they have something to talk about."
+    },
+    {
+      "text": "我們中國家庭根本沒有時間,",
+      "start": "00:11:23,000",
+      "end": "00:11:26,000",
+      "tr": "Us Chinese families just don't have the time,"
+    },
+    {
+      "text": "根本沒有精力去做這些事情。",
+      "start": "00:11:26,000",
+      "end": "00:11:28,000",
+      "tr": "just don't have the energy to do these kinds of things."
+    },
+    {
+      "text": "其他的人呢,",
+      "start": "00:11:28,000",
+      "end": "00:11:29,000",
+      "tr": "What about other people, though?"
+    },
+    {
+      "text": "也有很多受過高等教育的年輕人呢。",
+      "start": "00:11:29,000",
+      "end": "00:11:32,000",
+      "tr": "There are plenty of young people with a higher education too."
+    },
+    {
+      "text": "那這種年輕人做朋友的話,",
+      "start": "00:11:32,000",
+      "end": "00:11:35,000",
+      "tr": "So if you're friends with those kinds of young people,"
+    },
+    {
+      "text": "應該還是可以聊出一些深度的話題的吧。",
+      "start": "00:11:35,000",
+      "end": "00:11:38,000",
+      "tr": "you should still be able to talk about some deeper topics, right?"
+    },
+    {
+      "text": "最有時間去發展個人愛好,",
+      "start": "00:11:38,000",
+      "end": "00:11:41,000",
+      "tr": "The ones with the most time to develop personal hobbies,"
+    },
+    {
+      "text": "最有精力去發展個人愛好,",
+      "start": "00:11:41,000",
+      "end": "00:11:43,000",
+      "tr": "the ones with the most energy to develop personal hobbies,"
+    },
+    {
+      "text": "大概就是你說的那個受過高等教育的那個等級。",
+      "start": "00:11:43,000",
+      "end": "00:11:47,000",
+      "tr": "are probably that higher-educated group you're talking about."
+    },
+    {
+      "text": "然後他們的工作比較好,",
+      "start": "00:11:47,000",
+      "end": "00:11:50,000",
+      "tr": "Their jobs are pretty good,"
+    },
+    {
+      "text": "然後有很多時間,",
+      "start": "00:11:50,000",
+      "end": "00:11:51,000",
+      "tr": "so they have a lot of time,"
+    },
+    {
+      "text": "有很多,",
+      "start": "00:11:51,000",
+      "end": "00:11:52,000",
+      "tr": "a lot of it,"
+    },
+    {
+      "text": "然後他的經濟狀況也很好,",
+      "start": "00:11:52,000",
+      "end": "00:11:55,000",
+      "tr": "and their financial situation is good too,"
+    },
+    {
+      "text": "可以支撐這樣的愛好。",
+      "start": "00:11:55,000",
+      "end": "00:11:56,000",
+      "tr": "so they can support hobbies like that."
+    },
+    {
+      "text": "還有就是學生。",
+      "start": "00:11:56,000",
+      "end": "00:11:57,000",
+      "tr": "And then there are students."
+    },
+    {
+      "text": "就像我說的,",
+      "start": "00:11:57,000",
+      "end": "00:11:59,000",
+      "tr": "Like I said,"
+    },
+    {
+      "text": "在我們學生時代我們有大把的時間,",
+      "start": "00:11:59,000",
+      "end": "00:12:01,000",
+      "tr": "back in our student days we had tons of time,"
+    },
+    {
+      "text": "錢也不需要考慮是吧,",
+      "start": "00:12:01,000",
+      "end": "00:12:03,000",
+      "tr": "money wasn't something we had to worry about, right,"
+    },
+    {
+      "text": "也沒有壓力。",
+      "start": "00:12:03,000",
+      "end": "00:12:04,000",
+      "tr": "and there was no pressure."
+    },
+    {
+      "text": "所以我們的精力都花在愛好上面。",
+      "start": "00:12:04,000",
+      "end": "00:12:07,000",
+      "tr": "So we put all our energy into our hobbies."
+    },
+    {
+      "text": "但是普遍來說,",
+      "start": "00:12:07,000",
+      "end": "00:12:09,000",
+      "tr": "But generally speaking,"
+    },
+    {
+      "text": "大部分人來說,",
+      "start": "00:12:09,000",
+      "end": "00:12:10,000",
+      "tr": "for most people,"
+    },
+    {
+      "text": "他不是這樣的一個狀況。",
+      "start": "00:12:10,000",
+      "end": "00:12:12,000",
+      "tr": "that's not the situation they're in."
+    },
+    {
+      "text": "所以你很難找到那種跟你聊這些的,",
+      "start": "00:12:12,000",
+      "end": "00:12:15,000",
+      "tr": "So it's really hard to find someone who'll talk about this stuff with you,"
+    },
+    {
+      "text": "聊一些比較深度話題的朋友。",
+      "start": "00:12:15,000",
+      "end": "00:12:18,000",
+      "tr": "friends you can have deeper conversations with."
+    },
+    {
+      "text": "前面我們說到就是中國人,",
+      "start": "00:12:18,000",
+      "end": "00:12:20,000",
+      "tr": "Earlier we were talking about Chinese people,"
+    },
+    {
+      "text": "中國人在一起不是比較喜歡互相問家庭背景。",
+      "start": "00:12:20,000",
+      "end": "00:12:24,000",
+      "tr": "how when Chinese people get together they kind of like to ask each other about family background."
+    },
+    {
+      "text": "可能再深入一點,",
+      "start": "00:12:24,000",
+      "end": "00:12:26,000",
+      "tr": "And maybe going a bit deeper,"
+    },
+    {
+      "text": "他會很直白地去問你掙了多少錢。",
+      "start": "00:12:26,000",
+      "end": "00:12:28,000",
+      "tr": "they'll flat-out ask you how much money you make."
+    },
+    {
+      "text": "你覺得這個話題在外國人之間他們會聊嗎?",
+      "start": "00:12:28,000",
+      "end": "00:12:33,000",
+      "tr": "Do you think this is a topic foreigners would talk about with each other?"
+    },
+    {
+      "text": "不會,",
+      "start": "00:12:33,000",
+      "end": "00:12:35,000",
+      "tr": "No,"
+    },
+    {
+      "text": "不會。",
+      "start": "00:12:35,000",
+      "end": "00:12:36,000",
+      "tr": "no, they wouldn't."
+    },
+    {
+      "text": "除非你們是想要說在一起做一個什麼事業,",
+      "start": "00:12:36,000",
+      "end": "00:12:40,000",
+      "tr": "Unless you're thinking of starting some kind of business together,"
+    },
+    {
+      "text": "做一個什麼工作,",
+      "start": "00:12:40,000",
+      "end": "00:12:41,000",
+      "tr": "doing some kind of job together,"
+    },
+    {
+      "text": "然後有必要去知道這些資訊對吧。",
+      "start": "00:12:41,000",
+      "end": "00:12:43,000",
+      "tr": "and you actually need to know that information, right."
+    },
+    {
+      "text": "但是在平時說就是想通過這個詢問去掌握別人的某種情報,",
+      "start": "00:12:43,000",
+      "end": "00:12:51,000",
+      "tr": "But just casually, trying to use those questions to get some kind of intel on someone,"
+    },
+    {
+      "text": "我覺得是不會聊的。",
+      "start": "00:12:51,000",
+      "end": "00:12:54,000",
+      "tr": "I don't think they'd talk about that."
+    },
+    {
+      "text": "我的那些外國朋友他們就很少去問我生活怎麼樣,",
+      "start": "00:12:54,000",
+      "end": "00:12:58,000",
+      "tr": "Those foreign friends of mine rarely ask me how life's going,"
+    },
+    {
+      "text": "收入怎麼樣,",
+      "start": "00:12:58,000",
+      "end": "00:12:59,000",
+      "tr": "how my income is,"
+    },
+    {
+      "text": "或者怎麼樣。",
+      "start": "00:12:59,000",
+      "end": "00:13:00,000",
+      "tr": "or anything like that."
+    },
+    {
+      "text": "他們一般打招呼就是說你最近怎麼樣。",
+      "start": "00:13:00,000",
+      "end": "00:13:02,000",
+      "tr": "Usually when they say hi it's just, how have you been lately."
+    },
+    {
+      "text": "這可能是一個很模糊的東西。",
+      "start": "00:13:02,000",
+      "end": "00:13:04,000",
+      "tr": "And that's probably a pretty vague thing."
+    },
+    {
+      "text": "就是說你開不開心啊?",
+      "start": "00:13:04,000",
+      "end": "00:13:07,000",
+      "tr": "Like, are you happy or not?"
+    },
+    {
+      "text": "或者說你最近你身上發生了什麼有趣的事情,",
+      "start": "00:13:07,000",
+      "end": "00:13:10,000",
+      "tr": "Or, has anything interesting happened to you lately?"
+    },
+    {
+      "text": "你看了一個什麼電影啊?",
+      "start": "00:13:10,000",
+      "end": "00:13:11,000",
+      "tr": "What movie have you seen?"
+    },
+    {
+      "text": "他們比較會聊這個東西。",
+      "start": "00:13:11,000",
+      "end": "00:13:13,000",
+      "tr": "They're more likely to talk about that kind of thing."
+    },
+    {
+      "text": "如果你跟中國的朋友聊天的話,",
+      "start": "00:13:13,000",
+      "end": "00:13:15,000",
+      "tr": "But if you're chatting with a Chinese friend,"
+    },
+    {
+      "text": "他們很少會問你說,",
+      "start": "00:13:15,000",
+      "end": "00:13:17,000",
+      "tr": "they'll rarely ask you,"
+    },
+    {
+      "text": "你最近看了一個什麼電影沒有啊?",
+      "start": "00:13:17,000",
+      "end": "00:13:20,000",
+      "tr": "\"Have you seen any movies lately?\""
+    },
+    {
+      "text": "我認識的大部分人不會再對這些東西感興趣,",
+      "start": "00:13:20,000",
+      "end": "00:13:24,000",
+      "tr": "Most people I know just aren't interested in that stuff anymore,"
+    },
+    {
+      "text": "也不想跟其他人分享或者聊。",
+      "start": "00:13:24,000",
+      "end": "00:13:27,000",
+      "tr": "and they don't want to share it or talk about it with others either."
+    },
+    {
+      "text": "你昨天晚上看了一個什麼電影。",
+      "start": "00:13:27,000",
+      "end": "00:13:29,000",
+      "tr": "\"What movie did you watch last night?\" — that kind of thing."
+    },
+    {
+      "text": "前面我們講中國朋友之間,",
+      "start": "00:13:29,000",
+      "end": "00:13:31,000",
+      "tr": "Earlier we were saying that among Chinese friends,"
+    },
+    {
+      "text": "會想要探清楚你的經濟狀況。",
+      "start": "00:13:31,000",
+      "end": "00:13:35,000",
+      "tr": "people want to figure out your financial situation."
+    },
+    {
+      "text": "假設你在跟中國朋友聊天的時候,",
+      "start": "00:13:35,000",
+      "end": "00:13:37,000",
+      "tr": "So when you're chatting with a Chinese friend,"
+    },
+    {
+      "text": "你會防備心會搶一點嗎?",
+      "start": "00:13:37,000",
+      "end": "00:13:40,000",
+      "tr": "do you put your guard up a bit?"
+    },
+    {
+      "text": "就是可能不會那麼誠實的跟他聊天。",
+      "start": "00:13:40,000",
+      "end": "00:13:43,000",
+      "tr": "Like, maybe you're not totally honest with them."
+    },
+    {
+      "text": "我絕對不誠實。",
+      "start": "00:13:43,000",
+      "end": "00:13:45,000",
+      "tr": "I'm absolutely not honest."
+    },
+    {
+      "text": "絕對不誠實。",
+      "start": "00:13:45,000",
+      "end": "00:13:46,000",
+      "tr": "Absolutely not honest."
+    },
+    {
+      "text": "我沒有一句誠實的話。",
+      "start": "00:13:46,000",
+      "end": "00:13:47,000",
+      "tr": "Not a single honest word out of me."
+    },
+    {
+      "text": "比如說從籃球場上認識的朋友,",
+      "start": "00:13:47,000",
+      "end": "00:13:50,000",
+      "tr": "For example, there's a guy I met at the basketball court,"
+    },
+    {
+      "text": "我每次去他總是會問,",
+      "start": "00:13:50,000",
+      "end": "00:13:52,000",
+      "tr": "and every time I go, he always asks,"
+    },
+    {
+      "text": "呃,你有沒有女朋友啊?",
+      "start": "00:13:52,000",
+      "end": "00:13:55,000",
+      "tr": "\"Uh, do you have a girlfriend?\""
+    },
+    {
+      "text": "結婚沒有啊?",
+      "start": "00:13:55,000",
+      "end": "00:13:56,000",
+      "tr": "\"Are you married yet?\""
+    },
+    {
+      "text": "然後我說我沒有結婚。",
+      "start": "00:13:56,000",
+      "end": "00:13:58,000",
+      "tr": "And I say I'm not married."
+    },
+    {
+      "text": "我說的沒有,",
+      "start": "00:13:58,000",
+      "end": "00:14:00,000",
+      "tr": "When I say no,"
+    },
+    {
+      "text": "其實是我不想再進行這個話題。",
+      "start": "00:14:00,000",
+      "end": "00:14:03,000",
+      "tr": "what I really mean is I don't want to keep going on this topic."
+    },
+    {
+      "text": "我不想跟他聊這話題。",
+      "start": "00:14:03,000",
+      "end": "00:14:05,000",
+      "tr": "I don't want to talk to him about it."
+    },
+    {
+      "text": "我說打球吧,打球吧。",
+      "start": "00:14:05,000",
+      "end": "00:14:06,000",
+      "tr": "I just say, \"Come on, let's play, let's play.\""
+    },
+    {
+      "text": "後來他在我們住同一個小區,",
+      "start": "00:14:06,000",
+      "end": "00:14:08,000",
+      "tr": "Then later — we live in the same neighborhood —"
+    },
+    {
+      "text": "他就看到我跟我女朋友在一起了,",
+      "start": "00:14:08,000",
+      "end": "00:14:10,000",
+      "tr": "he saw me out with my girlfriend,"
+    },
+    {
+      "text": "你知道嗎?",
+      "start": "00:14:10,000",
+      "end": "00:14:11,000",
+      "tr": "you know?"
+    },
+    {
+      "text": "你知道我們打球有個微信群,",
+      "start": "00:14:11,000",
+      "end": "00:14:13,000",
+      "tr": "You know how we've got a WeChat group for the basketball games?"
+    },
+    {
+      "text": "OK?",
+      "start": "00:14:13,000",
+      "end": "00:14:14,000",
+      "tr": "OK?"
+    },
+    {
+      "text": "他就在微信群裡就說,",
+      "start": "00:14:14,000",
+      "end": "00:14:16,000",
+      "tr": "So he goes into the WeChat group and says,"
+    },
+    {
+      "text": "那天晚上看到那個女孩是誰啊?",
+      "start": "00:14:16,000",
+      "end": "00:14:18,000",
+      "tr": "\"Who was that girl I saw the other night?\""
+    },
+    {
+      "text": "他就問我。",
+      "start": "00:14:18,000",
+      "end": "00:14:19,000",
+      "tr": "He's asking me."
+    },
+    {
+      "text": "我啊!",
+      "start": "00:14:19,000",
+      "end": "00:14:21,000",
+      "tr": "Me?!"
+    },
+    {
+      "text": "我就,我還是沒有回答他。",
+      "start": "00:14:21,000",
+      "end": "00:14:23,000",
+      "tr": "And I — I still didn't answer him."
+    },
+    {
+      "text": "我就說,你在哪偷窺我呢?",
+      "start": "00:14:23,000",
+      "end": "00:14:25,000",
+      "tr": "I just said, \"Where were you spying on me from?\""
+    },
+    {
+      "text": "我說,沒有,我就看到你出來,",
+      "start": "00:14:25,000",
+      "end": "00:14:28,000",
+      "tr": "He goes, \"No, I just saw you come out,"
+    },
+    {
+      "text": "你們兩個在一起。",
+      "start": "00:14:28,000",
+      "end": "00:14:29,000",
+      "tr": "the two of you together.\""
+    },
+    {
+      "text": "我說,那是我妹。",
+      "start": "00:14:29,000",
+      "end": "00:14:31,000",
+      "tr": "I said, \"That's my sister.\""
+    },
+    {
+      "text": "我感覺問婚姻狀態這個真的是太常見了。",
+      "start": "00:14:31,000",
+      "end": "00:14:35,000",
+      "tr": "I feel like asking about your marital status is really super common."
+    },
+    {
+      "text": "就比問你工資還要常見。",
+      "start": "00:14:35,000",
+      "end": "00:14:37,000",
+      "tr": "Even more common than asking your salary."
+    },
+    {
+      "text": "就比如說,我有一次,",
+      "start": "00:14:37,000",
+      "end": "00:14:39,000",
+      "tr": "Like, one time, for instance —"
+    },
+    {
+      "text": "就是經常去散步的時候,",
+      "start": "00:14:39,000",
+      "end": "00:14:41,000",
+      "tr": "I go for walks a lot,"
+    },
+    {
+      "text": "然後就碰到一個店的老闆娘,",
+      "start": "00:14:41,000",
+      "end": "00:14:43,000",
+      "tr": "and I ran into the lady who owns this shop,"
+    },
+    {
+      "text": "然後就每次見面的時候,",
+      "start": "00:14:43,000",
+      "end": "00:14:44,000",
+      "tr": "and every time we'd see each other,"
+    },
+    {
+      "text": "就會打個招呼什麼的。",
+      "start": "00:14:44,000",
+      "end": "00:14:46,000",
+      "tr": "we'd say hi and that sort of thing."
+    },
+    {
+      "text": "然後在第三、四次的時候呢,",
+      "start": "00:14:46,000",
+      "end": "00:14:48,000",
+      "tr": "Then by the third or fourth time,"
+    },
+    {
+      "text": "他就會開始跟你聊天,",
+      "start": "00:14:48,000",
+      "end": "00:14:49,000",
+      "tr": "she started chatting me up,"
+    },
+    {
+      "text": "然後就會問,",
+      "start": "00:14:49,000",
+      "end": "00:14:50,000",
+      "tr": "and she'd ask,"
+    },
+    {
+      "text": "哎,你結婚了沒有啊?",
+      "start": "00:14:50,000",
+      "end": "00:14:52,000",
+      "tr": "\"Hey, are you married?\""
+    },
+    {
+      "text": "你有沒有小孩啊?",
+      "start": "00:14:52,000",
+      "end": "00:14:53,000",
+      "tr": "\"Do you have kids?\""
+    },
+    {
+      "text": "然後我就在想,我要怎麼回答他。",
+      "start": "00:14:53,000",
+      "end": "00:14:55,000",
+      "tr": "And then I'm thinking, how am I going to answer her?"
+    },
+    {
+      "text": "因為如果說我沒有結婚的話,",
+      "start": "00:14:55,000",
+      "end": "00:14:57,000",
+      "tr": "Because if I say I'm not married,"
+    },
+    {
+      "text": "他肯定要張落著給我介紹,",
+      "start": "00:14:57,000",
+      "end": "00:15:00,000",
+      "tr": "He'll definitely insist on setting me up with someone,"
+    },
+    {
+      "text": "或者問,啊,這麼大了,你怎麼還不結婚啊?",
+      "start": "00:15:00,000",
+      "end": "00:15:02,000",
+      "tr": "or he'll ask, oh, you're this old, how come you're still not married?"
+    },
+    {
+      "text": "到時候你女人要結婚的呀?",
+      "start": "00:15:02,000",
+      "end": "00:15:04,000",
+      "tr": "When's your girlfriend going to marry you?"
+    },
+    {
+      "text": "到後面真的跟我說過這個話。",
+      "start": "00:15:04,000",
+      "end": "00:15:06,000",
+      "tr": "Later on he actually said exactly that to me."
+    },
+    {
+      "text": "以至於後來他再問我的時候,",
+      "start": "00:15:06,000",
+      "end": "00:15:08,000",
+      "tr": "So much so that the next time he asked me,"
+    },
+    {
+      "text": "你說這個現象,我還真經歷過,",
+      "start": "00:15:10,000",
+      "end": "00:15:12,000",
+      "tr": "This thing you're talking about, I've actually been through it myself."
+    },
+    {
+      "text": "2009年我在成都上班的時候,",
+      "start": "00:15:12,000",
+      "end": "00:15:14,000",
+      "tr": "Back in 2009 when I was working in Chengdu,"
+    },
+    {
+      "text": "就是我們公司跟另一個公司是有合作關係的。",
+      "start": "00:15:14,000",
+      "end": "00:15:18,000",
+      "tr": "our company had a partnership with another company."
+    },
+    {
+      "text": "我負責就是跟進這個合作關係。",
+      "start": "00:15:18,000",
+      "end": "00:15:22,000",
+      "tr": "I was the one in charge of following up on that partnership."
+    },
+    {
+      "text": "我就會跟對面公司的人打交道。",
+      "start": "00:15:22,000",
+      "end": "00:15:24,000",
+      "tr": "So I'd be dealing with the people at the other company."
+    },
+    {
+      "text": "他們想跟你,好像私底下交朋友。",
+      "start": "00:15:24,000",
+      "end": "00:15:27,000",
+      "tr": "And they wanted to, like, become friends with you off the clock."
+    },
+    {
+      "text": "他們就給我介紹女朋友。",
+      "start": "00:15:27,000",
+      "end": "00:15:29,000",
+      "tr": "And then they started trying to set me up with a girlfriend."
+    },
+    {
+      "text": "他說,哎,我們認識一個女生,",
+      "start": "00:15:29,000",
+      "end": "00:15:31,000",
+      "tr": "They said, hey, we know this girl,"
+    },
+    {
+      "text": "你敢不敢興趣?",
+      "start": "00:15:31,000",
+      "end": "00:15:33,000",
+      "tr": "are you interested?"
+    },
+    {
+      "text": "我不想回答這個東西,你知道嗎?",
+      "start": "00:15:33,000",
+      "end": "00:15:35,000",
+      "tr": "I didn't want to answer that kind of thing, you know?"
+    },
+    {
+      "text": "他們有一天,他們就把照片發過來了。",
+      "start": "00:15:35,000",
+      "end": "00:15:37,000",
+      "tr": "Then one day they just sent over a photo."
+    },
+    {
+      "text": "就說,哎,你覺得這個女生怎麼樣?",
+      "start": "00:15:37,000",
+      "end": "00:15:41,000",
+      "tr": "And said, hey, what do you think of this girl?"
+    },
+    {
+      "text": "我們給你推介了很久了,你怎麼沒有反應?",
+      "start": "00:15:41,000",
+      "end": "00:15:44,000",
+      "tr": "We've been pushing her on you for ages, why no reaction from you?"
+    },
+    {
+      "text": "好熱心啊。",
+      "start": "00:15:44,000",
+      "end": "00:15:46,000",
+      "tr": "So eager to help."
+    },
+    {
+      "text": "我就是,我的,幹麻呀?你們在幹什麼呀?",
+      "start": "00:15:46,000",
+      "end": "00:15:50,000",
+      "tr": "And I'm just like, what are you doing? What are you guys doing?"
+    },
+    {
+      "text": "拜託了,不要這樣。",
+      "start": "00:15:50,000",
+      "end": "00:15:52,000",
+      "tr": "Please, don't do this."
+    },
+    {
+      "text": "我沒有見到任何外國人說,",
+      "start": "00:15:52,000",
+      "end": "00:15:54,000",
+      "tr": "I've never seen any foreigner say,"
+    },
+    {
+      "text": "嘿,嘿,我給你介紹個女朋友,是我妹,",
+      "start": "00:15:54,000",
+      "end": "00:15:57,000",
+      "tr": "hey, hey, let me set you up with a girlfriend, it's my sister,"
+    },
+    {
+      "text": "你要不要看看她的照片啊?",
+      "start": "00:15:57,000",
+      "end": "00:16:00,000",
+      "tr": "do you want to see a photo of her?"
+    },
+    {
+      "text": "在網上就有很多人也有提到過這一點啊,",
+      "start": "00:16:00,000",
+      "end": "00:16:03,000",
+      "tr": "A lot of people online have brought up this exact point too,"
+    },
+    {
+      "text": "就是中國人之間邊界感很弱,",
+      "start": "00:16:03,000",
+      "end": "00:16:06,000",
+      "tr": "which is that Chinese people have a very weak sense of boundaries,"
+    },
+    {
+      "text": "哪怕是不熟的人,他也覺得,",
+      "start": "00:16:06,000",
+      "end": "00:16:09,000",
+      "tr": "even with someone they don't know well, they still feel"
+    },
+    {
+      "text": "他有這個權利去幫助你。",
+      "start": "00:16:09,000",
+      "end": "00:16:12,000",
+      "tr": "they have the right to help you out."
+    },
+    {
+      "text": "我跟你說一個什麼邊界感很弱的事情呢?",
+      "start": "00:16:12,000",
+      "end": "00:16:15,000",
+      "tr": "Let me tell you about something with a really weak sense of boundaries."
+    },
+    {
+      "text": "就是,我經常跟那些不熟的人,",
+      "start": "00:16:15,000",
+      "end": "00:16:17,000",
+      "tr": "It's like, often with people I'm not close with,"
+    },
+    {
+      "text": "我第一次見面,對方就開始評論我了,",
+      "start": "00:16:17,000",
+      "end": "00:16:20,000",
+      "tr": "the very first time we meet, they'll already start commenting on me,"
+    },
+    {
+      "text": "就說,啊,你頭髮怎麼這麼長啊?",
+      "start": "00:16:20,000",
+      "end": "00:16:22,000",
+      "tr": "saying, oh, why is your hair so long?"
+    },
+    {
+      "text": "你頭髮是不是燙的呀?",
+      "start": "00:16:22,000",
+      "end": "00:16:24,000",
+      "tr": "Is your hair permed?"
+    },
+    {
+      "text": "我的頭髮什麼髮型?關你什麼事啊?",
+      "start": "00:16:24,000",
+      "end": "00:16:27,000",
+      "tr": "What hairstyle I have, what's it to you?"
+    },
+    {
+      "text": "你這樣問我,然後打籃球說,",
+      "start": "00:16:27,000",
+      "end": "00:16:29,000",
+      "tr": "You ask me that, and then when we play basketball,"
+    },
+    {
+      "text": "我喜歡穿的比較短的短褲,",
+      "start": "00:16:29,000",
+      "end": "00:16:31,000",
+      "tr": "I like wearing pretty short shorts,"
+    },
+    {
+      "text": "他就說,喂,為什麼你穿那麼多很騷的短褲來?",
+      "start": "00:16:31,000",
+      "end": "00:16:34,000",
+      "tr": "and he goes, hey, why'd you wear such slutty little shorts here?"
+    },
+    {
+      "text": "你不覺得就是,",
+      "start": "00:16:36,000",
+      "end": "00:16:39,000",
+      "tr": "Don't you think that,"
+    },
+    {
+      "text": "對別人的外貌評論,",
+      "start": "00:16:39,000",
+      "end": "00:16:41,000",
+      "tr": "commenting on someone else's appearance,"
+    },
+    {
+      "text": "就是直接告訴別人,",
+      "start": "00:16:41,000",
+      "end": "00:16:43,000",
+      "tr": "like just flat-out telling them,"
+    },
+    {
+      "text": "平頭論足,這很冒犯人嗎?",
+      "start": "00:16:43,000",
+      "end": "00:16:45,000",
+      "tr": "picking apart how they look, that it's really offensive?"
+    },
+    {
+      "text": "比如說,他碰到一個黑人,",
+      "start": "00:16:45,000",
+      "end": "00:16:47,000",
+      "tr": "For example, say he runs into a Black person,"
+    },
+    {
+      "text": "他就盯著人家看,就說,啊,",
+      "start": "00:16:47,000",
+      "end": "00:16:49,000",
+      "tr": "he'll just stare at them and go, oh,"
+    },
+    {
+      "text": "你為什麼這麼黑呀?",
+      "start": "00:16:49,000",
+      "end": "00:16:51,000",
+      "tr": "why are you so dark?"
+    },
+    {
+      "text": "如果是小學生,他肯定會這樣說,",
+      "start": "00:16:51,000",
+      "end": "00:16:53,000",
+      "tr": "If it's a primary school kid, he'd definitely say it like that,"
+    },
+    {
+      "text": "如果是大人,他就說,",
+      "start": "00:16:53,000",
+      "end": "00:16:54,000",
+      "tr": "and if it's an adult, he'll say,"
+    },
+    {
+      "text": "你們黑人是不是基基都很大?",
+      "start": "00:16:54,000",
+      "end": "00:16:56,000",
+      "tr": "you Black guys, your dicks are all really big, right?"
+    },
+    {
+      "text": "他直接就問了,我的媽呀!",
+      "start": "00:16:56,000",
+      "end": "00:16:58,000",
+      "tr": "He just comes right out and asks. Oh my god!"
+    },
+    {
+      "text": "哇,有這樣子問的人嗎?我沒聽過,",
+      "start": "00:16:58,000",
+      "end": "00:17:00,000",
+      "tr": "Wow, are there really people who ask like that? I've never heard of it,"
+    },
+    {
+      "text": "這也太冒犯了吧。",
+      "start": "00:17:00,000",
+      "end": "00:17:01,000",
+      "tr": "that's way too offensive."
+    },
+    {
+      "text": "B站上有一個黑人博主,",
+      "start": "00:17:01,000",
+      "end": "00:17:03,000",
+      "tr": "There's this Black vlogger on Bilibili,"
+    },
+    {
+      "text": "他會講四川話,很多人問他,",
+      "start": "00:17:03,000",
+      "end": "00:17:06,000",
+      "tr": "he can speak Sichuanese, and tons of people ask him,"
+    },
+    {
+      "text": "你們黑人基基是不是很大?",
+      "start": "00:17:06,000",
+      "end": "00:17:08,000",
+      "tr": "you Black guys, are your dicks really big?"
+    },
+    {
+      "text": "就沒有任何掩飾的。",
+      "start": "00:17:08,000",
+      "end": "00:17:10,000",
+      "tr": "Without holding back at all."
+    },
+    {
+      "text": "我被人家評論最多的就是,",
+      "start": "00:17:10,000",
+      "end": "00:17:12,000",
+      "tr": "The thing people comment on me the most is,"
+    },
+    {
+      "text": "我最近皮膚又黑了。",
+      "start": "00:17:12,000",
+      "end": "00:17:14,000",
+      "tr": "My skin got tanned again recently."
+    },
+    {
+      "text": "因為我之前不是去東南亞嗎?",
+      "start": "00:17:14,000",
+      "end": "00:17:16,000",
+      "tr": "Because I went to Southeast Asia a while ago, remember?"
+    },
+    {
+      "text": "然後就,就學游泳嗎?",
+      "start": "00:17:16,000",
+      "end": "00:17:18,000",
+      "tr": "And I was learning to swim there."
+    },
+    {
+      "text": "曬得很黑。",
+      "start": "00:17:18,000",
+      "end": "00:17:19,000",
+      "tr": "I got really tanned."
+    },
+    {
+      "text": "然後,每次回老家的時候,",
+      "start": "00:17:19,000",
+      "end": "00:17:22,000",
+      "tr": "And every time I go back to my hometown,"
+    },
+    {
+      "text": "或者是見到那種好久不見的朋友,",
+      "start": "00:17:22,000",
+      "end": "00:17:24,000",
+      "tr": "or run into friends I haven't seen in ages,"
+    },
+    {
+      "text": "他們一定會說,哇,你黑了好多喔。",
+      "start": "00:17:24,000",
+      "end": "00:17:28,000",
+      "tr": "they always go, \"Whoa, you got so dark!\""
+    },
+    {
+      "text": "就村裡面的人,不是疫情的時候我沒有回家嗎?",
+      "start": "00:17:28,000",
+      "end": "00:17:31,000",
+      "tr": "The people in my village — during the pandemic I didn't go home, right?"
+    },
+    {
+      "text": "然後有兩三年沒有見了。",
+      "start": "00:17:31,000",
+      "end": "00:17:33,000",
+      "tr": "So I hadn't seen them for two or three years."
+    },
+    {
+      "text": "就有一個大人,他見到我說,",
+      "start": "00:17:33,000",
+      "end": "00:17:34,000",
+      "tr": "And this one grown-up saw me and said,"
+    },
+    {
+      "text": "哇,你怎麼瘦成這樣子了?",
+      "start": "00:17:34,000",
+      "end": "00:17:36,000",
+      "tr": "\"Whoa, how'd you get so skinny?\""
+    },
+    {
+      "text": "哇,他們就好關心喔,就覺得,",
+      "start": "00:17:36,000",
+      "end": "00:17:38,000",
+      "tr": "They were so concerned, like,"
+    },
+    {
+      "text": "你是不是病了呀?還是怎麼樣?",
+      "start": "00:17:38,000",
+      "end": "00:17:40,000",
+      "tr": "\"Are you sick or something?\""
+    },
+    {
+      "text": "就是看他的表情,",
+      "start": "00:17:40,000",
+      "end": "00:17:41,000",
+      "tr": "Just from the look on his face,"
+    },
+    {
+      "text": "好像我生了很大的病一樣的。",
+      "start": "00:17:41,000",
+      "end": "00:17:43,000",
+      "tr": "it was like I'd come down with some serious illness."
+    },
+    {
+      "text": "如果你留一個很奇怪的髮型,",
+      "start": "00:17:44,000",
+      "end": "00:17:46,000",
+      "tr": "If you have a really weird hairstyle,"
+    },
+    {
+      "text": "或者說你留一個墨西幹頭,",
+      "start": "00:17:46,000",
+      "end": "00:17:48,000",
+      "tr": "or say you've got a mohawk,"
+    },
+    {
+      "text": "或者是你留一個黑人那種髒辯的話,",
+      "start": "00:17:48,000",
+      "end": "00:17:51,000",
+      "tr": "or you've got dreadlocks like Black people wear,"
+    },
+    {
+      "text": "別人就會覺得你這個好奇怪喔。",
+      "start": "00:17:51,000",
+      "end": "00:17:54,000",
+      "tr": "people will think you're so strange."
+    },
+    {
+      "text": "但在外國的話,",
+      "start": "00:17:54,000",
+      "end": "00:17:56,000",
+      "tr": "But abroad,"
+    },
+    {
+      "text": "我不是說在全部國家都一樣,",
+      "start": "00:17:56,000",
+      "end": "00:17:59,000",
+      "tr": "I'm not saying it's the same in every country,"
+    },
+    {
+      "text": "比如說那些保守的國家,",
+      "start": "00:17:59,000",
+      "end": "00:18:01,000",
+      "tr": "like in those conservative countries,"
+    },
+    {
+      "text": "可能有比中國還嚴重的。",
+      "start": "00:18:01,000",
+      "end": "00:18:03,000",
+      "tr": "it might be even worse than in China."
+    },
+    {
+      "text": "但是在一些比較國際化,",
+      "start": "00:18:03,000",
+      "end": "00:18:06,000",
+      "tr": "But in some of the more international,"
+    },
+    {
+      "text": "歐美國家。",
+      "start": "00:18:06,000",
+      "end": "00:18:07,000",
+      "tr": "Western countries."
+    },
+    {
+      "text": "都不說歐美,",
+      "start": "00:18:07,000",
+      "end": "00:18:08,000",
+      "tr": "Forget the West even,"
+    },
+    {
+      "text": "就在東南亞,在泰國,在日本。",
+      "start": "00:18:08,000",
+      "end": "00:18:10,000",
+      "tr": "just in Southeast Asia, in Thailand, in Japan."
+    },
+    {
+      "text": "你看到一個留髒辯的人,",
+      "start": "00:18:10,000",
+      "end": "00:18:14,000",
+      "tr": "When you see someone with dreadlocks,"
+    },
+    {
+      "text": "你不會覺得很奇怪,對吧?",
+      "start": "00:18:14,000",
+      "end": "00:18:16,000",
+      "tr": "you don't find it strange, right?"
+    },
+    {
+      "text": "他喜歡那樣的打扮,是他的個性,",
+      "start": "00:18:16,000",
+      "end": "00:18:18,000",
+      "tr": "He likes dressing that way — it's his personality,"
+    },
+    {
+      "text": "是他自己的選擇,",
+      "start": "00:18:18,000",
+      "end": "00:18:19,000",
+      "tr": "it's his own choice,"
+    },
+    {
+      "text": "他對時尚的理解。",
+      "start": "00:18:19,000",
+      "end": "00:18:21,000",
+      "tr": "his take on fashion."
+    },
+    {
+      "text": "大家已經見怪不怪了,",
+      "start": "00:18:21,000",
+      "end": "00:18:23,000",
+      "tr": "Everyone's already used to it,"
+    },
+    {
+      "text": "沒有人會覺得這是一個奇怪的事情。",
+      "start": "00:18:23,000",
+      "end": "00:18:25,000",
+      "tr": "and nobody thinks it's a strange thing."
+    },
+    {
+      "text": "但中國就非得要說一下,",
+      "start": "00:18:25,000",
+      "end": "00:18:27,000",
+      "tr": "But in China people just have to say something about it,"
+    },
+    {
+      "text": "就非常奇怪,",
+      "start": "00:18:27,000",
+      "end": "00:18:28,000",
+      "tr": "which is really odd."
+    },
+    {
+      "text": "就是,",
+      "start": "00:18:28,000",
+      "end": "00:18:29,000",
+      "tr": "Like,"
+    },
+    {
+      "text": "當他們交一個外國朋友的時候,",
+      "start": "00:18:29,000",
+      "end": "00:18:32,000",
+      "tr": "when they make a foreign friend,"
+    },
+    {
+      "text": "他們首先留意到的是,",
+      "start": "00:18:32,000",
+      "end": "00:18:34,000",
+      "tr": "the first thing they notice is,"
+    },
+    {
+      "text": "這些外國人跟他們身上最大的不同,",
+      "start": "00:18:34,000",
+      "end": "00:18:38,000",
+      "tr": "what's the biggest difference between these foreigners and themselves,"
+    },
+    {
+      "text": "在什麼地方。",
+      "start": "00:18:38,000",
+      "end": "00:18:39,000",
+      "tr": "where it lies."
+    },
+    {
+      "text": "他們為什麼交朋友留於表面?",
+      "start": "00:18:39,000",
+      "end": "00:18:41,000",
+      "tr": "Why do they keep their friendships so superficial?"
+    },
+    {
+      "text": "就是,",
+      "start": "00:18:41,000",
+      "end": "00:18:42,000",
+      "tr": "It's that,"
+    },
+    {
+      "text": "他們首先是預設了一個環境,",
+      "start": "00:18:42,000",
+      "end": "00:18:44,000",
+      "tr": "they start by assuming a certain framing,"
+    },
+    {
+      "text": "就是說,",
+      "start": "00:18:44,000",
+      "end": "00:18:45,000",
+      "tr": "which is,"
+    },
+    {
+      "text": "外國人跟我有多不一樣,",
+      "start": "00:18:45,000",
+      "end": "00:18:47,000",
+      "tr": "how different foreigners are from me,"
+    },
+    {
+      "text": "從外表就不一樣,",
+      "start": "00:18:47,000",
+      "end": "00:18:48,000",
+      "tr": "different even in appearance,"
+    },
+    {
+      "text": "你的思維跟我有多麼多麼多麼不一樣。",
+      "start": "00:18:48,000",
+      "end": "00:18:51,000",
+      "tr": "and how incredibly different your way of thinking is from mine."
+    },
+    {
+      "text": "所以我們就不能聊到一起,",
+      "start": "00:18:51,000",
+      "end": "00:18:53,000",
+      "tr": "So we just can't click,"
+    },
+    {
+      "text": "我們不能聊深度話題。",
+      "start": "00:18:53,000",
+      "end": "00:18:55,000",
+      "tr": "we can't talk about anything deep."
+    },
+    {
+      "text": "這是我們中國的才會有的事情,",
+      "start": "00:18:55,000",
+      "end": "00:18:58,000",
+      "tr": "\"This is something only we Chinese have,"
+    },
+    {
+      "text": "這是我們中國的傳統,",
+      "start": "00:18:58,000",
+      "end": "00:19:00,000",
+      "tr": "this is our Chinese tradition,"
+    },
+    {
+      "text": "你不懂的。",
+      "start": "00:19:00,000",
+      "end": "00:19:01,000",
+      "tr": "you wouldn't understand.\""
+    },
+    {
+      "text": "他就已經把外國人拒之門外了。",
+      "start": "00:19:01,000",
+      "end": "00:19:03,000",
+      "tr": "They've already shut the foreigner out."
+    },
+    {
+      "text": "比如說別人問你一個問題,",
+      "start": "00:19:03,000",
+      "end": "00:19:05,000",
+      "tr": "For example, say someone asks you a question,"
+    },
+    {
+      "text": "這件事情為什麼會這個樣子?",
+      "start": "00:19:05,000",
+      "end": "00:19:07,000",
+      "tr": "Why are things this way?"
+    },
+    {
+      "text": "他就會說,",
+      "start": "00:19:07,000",
+      "end": "00:19:09,000",
+      "tr": "And he'll just say,"
+    },
+    {
+      "text": "這是我們中國的傳統,",
+      "start": "00:19:09,000",
+      "end": "00:19:11,000",
+      "tr": "this is our Chinese tradition,"
+    },
+    {
+      "text": "這是我們中國特有的一個現象,",
+      "start": "00:19:11,000",
+      "end": "00:19:13,000",
+      "tr": "this is something unique to China,"
+    },
+    {
+      "text": "你不懂的。",
+      "start": "00:19:13,000",
+      "end": "00:19:15,000",
+      "tr": "you wouldn't get it."
+    },
+    {
+      "text": "在這種情況下,",
+      "start": "00:19:15,000",
+      "end": "00:19:16,000",
+      "tr": "In a situation like that,"
+    },
+    {
+      "text": "你們怎麼去發展一個深度的友誼呢?",
+      "start": "00:19:16,000",
+      "end": "00:19:21,000",
+      "tr": "how are you supposed to build a deep friendship?"
+    },
+    {
+      "text": "你們怎麼去交流一個有深度的話題呢?",
+      "start": "00:19:21,000",
+      "end": "00:19:24,000",
+      "tr": "How are you supposed to have a conversation with any real depth?"
+    },
+    {
+      "text": "而我跟外國人可以聊很多各種各樣不同的話題,",
+      "start": "00:19:24,000",
+      "end": "00:19:28,000",
+      "tr": "Whereas with foreigners, I can talk about all kinds of different topics."
+    },
+    {
+      "text": "有很多話題他們是不同意我的,",
+      "start": "00:19:28,000",
+      "end": "00:19:30,000",
+      "tr": "There's plenty of stuff they disagree with me on,"
+    },
+    {
+      "text": "但我們還是可以聊可以辯論對吧?",
+      "start": "00:19:30,000",
+      "end": "00:19:32,000",
+      "tr": "but we can still talk it through, still debate it, right?"
+    },
+    {
+      "text": "他們也認同我說的一些話,",
+      "start": "00:19:32,000",
+      "end": "00:19:34,000",
+      "tr": "They'll also agree with some of the things I say,"
+    },
+    {
+      "text": "他們也會去反思,",
+      "start": "00:19:34,000",
+      "end": "00:19:36,000",
+      "tr": "and they'll actually reflect on it,"
+    },
+    {
+      "text": "也許他們從前的看法,",
+      "start": "00:19:36,000",
+      "end": "00:19:38,000",
+      "tr": "thinking about whether their old views,"
+    },
+    {
+      "text": "有哪些地方他們有看到的。",
+      "start": "00:19:38,000",
+      "end": "00:19:40,000",
+      "tr": "had something they hadn't seen before."
+    },
+    {
+      "text": "但是在你跟中國人的,",
+      "start": "00:19:40,000",
+      "end": "00:19:42,000",
+      "tr": "But when you're talking with Chinese people,"
+    },
+    {
+      "text": "跟中國人交流的時候,",
+      "start": "00:19:42,000",
+      "end": "00:19:44,000",
+      "tr": "when you're having a conversation with them,"
+    },
+    {
+      "text": "一個話題已經定死了,",
+      "start": "00:19:44,000",
+      "end": "00:19:47,000",
+      "tr": "the topic is already locked in,"
+    },
+    {
+      "text": "已經設定好了一個答案了。",
+      "start": "00:19:47,000",
+      "end": "00:19:50,000",
+      "tr": "the answer's already been set in stone."
+    },
+    {
+      "text": "我有個朋友叫白菜,",
+      "start": "00:19:50,000",
+      "end": "00:19:52,000",
+      "tr": "I have a friend nicknamed Baicai,"
+    },
+    {
+      "text": "然後我跟他聊一些遊戲的話題,",
+      "start": "00:19:52,000",
+      "end": "00:19:54,000",
+      "tr": "and I was chatting with him about some gaming stuff,"
+    },
+    {
+      "text": "我們就聊動畫。",
+      "start": "00:19:54,000",
+      "end": "00:19:56,000",
+      "tr": "and we got onto anime."
+    },
+    {
+      "text": "有一個動畫叫高達,",
+      "start": "00:19:56,000",
+      "end": "00:19:58,000",
+      "tr": "There's an anime called Gundam,"
+    },
+    {
+      "text": "非常出名的,",
+      "start": "00:19:58,000",
+      "end": "00:19:59,000",
+      "tr": "it's super famous,"
+    },
+    {
+      "text": "大型機器人打架的一個科幻的動畫,",
+      "start": "00:19:59,000",
+      "end": "00:20:02,000",
+      "tr": "a sci-fi anime about giant robots fighting,"
+    },
+    {
+      "text": "然後有兩個國家,",
+      "start": "00:20:02,000",
+      "end": "00:20:05,000",
+      "tr": "and there are two nations in it,"
+    },
+    {
+      "text": "兩個政治勢力,",
+      "start": "00:20:05,000",
+      "end": "00:20:06,000",
+      "tr": "two political factions,"
+    },
+    {
+      "text": "一個是集翁,",
+      "start": "00:20:06,000",
+      "end": "00:20:08,000",
+      "tr": "one is Zeon,"
+    },
+    {
+      "text": "一個是聯邦,",
+      "start": "00:20:08,000",
+      "end": "00:20:09,000",
+      "tr": "the other is the Federation,"
+    },
+    {
+      "text": "然後我就跟白菜講,",
+      "start": "00:20:09,000",
+      "end": "00:20:11,000",
+      "tr": "and so I said to Baicai,"
+    },
+    {
+      "text": "我說我挺喜歡集翁和他們代表的那種價值的。",
+      "start": "00:20:11,000",
+      "end": "00:20:16,000",
+      "tr": "I said I really like Zeon and the kind of values they stand for."
+    },
+    {
+      "text": "那是從主流的觀點來說,",
+      "start": "00:20:16,000",
+      "end": "00:20:19,000",
+      "tr": "Now from the mainstream point of view,"
+    },
+    {
+      "text": "集翁就是反派嘛,",
+      "start": "00:20:19,000",
+      "end": "00:20:20,000",
+      "tr": "Zeon is the bad guys,"
+    },
+    {
+      "text": "就是壞的嘛,",
+      "start": "00:20:20,000",
+      "end": "00:20:21,000",
+      "tr": "they're the villains,"
+    },
+    {
+      "text": "你就不應該去喜歡他。",
+      "start": "00:20:21,000",
+      "end": "00:20:23,000",
+      "tr": "so you're not supposed to like them."
+    },
+    {
+      "text": "後來我們幾個朋友又組織起來,",
+      "start": "00:20:23,000",
+      "end": "00:20:26,000",
+      "tr": "Later a few of us got together again,"
+    },
+    {
+      "text": "我們又做了一次popcast,",
+      "start": "00:20:26,000",
+      "end": "00:20:28,000",
+      "tr": "and we did another podcast,"
+    },
+    {
+      "text": "做這個popcast的時候,",
+      "start": "00:20:28,000",
+      "end": "00:20:29,000",
+      "tr": "and while we were doing this podcast,"
+    },
+    {
+      "text": "他就提到了我上次跟他講這個話題的時候,",
+      "start": "00:20:29,000",
+      "end": "00:20:32,000",
+      "tr": "he brought up that conversation we'd had,"
+    },
+    {
+      "text": "他認為我支援集翁,",
+      "start": "00:20:32,000",
+      "end": "00:20:34,000",
+      "tr": "saying that me siding with Zeon,"
+    },
+    {
+      "text": "會讓他感到生氣。",
+      "start": "00:20:34,000",
+      "end": "00:20:36,000",
+      "tr": "had made him angry."
+    },
+    {
+      "text": "你喜歡了他不喜歡的角色,",
+      "start": "00:20:36,000",
+      "end": "00:20:38,000",
+      "tr": "You like a character he doesn't like,"
+    },
+    {
+      "text": "他就覺得你這個人有問題,",
+      "start": "00:20:38,000",
+      "end": "00:20:41,000",
+      "tr": "and suddenly he thinks there's something wrong with you,"
+    },
+    {
+      "text": "他就說沒有辦法聊,",
+      "start": "00:20:41,000",
+      "end": "00:20:42,000",
+      "tr": "and he says there's no way to even talk about it,"
+    },
+    {
+      "text": "他甚至覺得很生氣,",
+      "start": "00:20:42,000",
+      "end": "00:20:44,000",
+      "tr": "he actually gets angry,"
+    },
+    {
+      "text": "他會覺得跟你這個人沒有辦法共處,",
+      "start": "00:20:44,000",
+      "end": "00:20:46,000",
+      "tr": "he feels like he can't even get along with you,"
+    },
+    {
+      "text": "就到了那個地步。",
+      "start": "00:20:46,000",
+      "end": "00:20:48,000",
+      "tr": "it gets to that point."
+    },
+    {
+      "text": "我有一次也是跟一個朋友,",
+      "start": "00:20:48,000",
+      "end": "00:20:50,000",
+      "tr": "Another time, also with a friend,"
+    },
+    {
+      "text": "他不太關心國際史事吧,",
+      "start": "00:20:50,000",
+      "end": "00:20:52,000",
+      "tr": "who doesn't really follow international affairs,"
+    },
+    {
+      "text": "然後我們就聊這種比較,",
+      "start": "00:20:52,000",
+      "end": "00:20:54,000",
+      "tr": "we were talking about these comparatively,"
+    },
+    {
+      "text": "算是大一點的國際史事的時候呢,",
+      "start": "00:20:54,000",
+      "end": "00:20:58,000",
+      "tr": "sort of bigger international events,"
+    },
+    {
+      "text": "我就跟他說了很多事情,",
+      "start": "00:20:58,000",
+      "end": "00:21:00,000",
+      "tr": "and I told him a whole bunch of things,"
+    },
+    {
+      "text": "他原先是不知道的,",
+      "start": "00:21:00,000",
+      "end": "00:21:02,000",
+      "tr": "that he hadn't known before,"
+    },
+    {
+      "text": "然後他覺得很震驚,",
+      "start": "00:21:02,000",
+      "end": "00:21:04,000",
+      "tr": "and he was shocked,"
+    },
+    {
+      "text": "並且他拒絕相信。",
+      "start": "00:21:04,000",
+      "end": "00:21:06,000",
+      "tr": "and he flat-out refused to believe it."
+    },
+    {
+      "text": "就是後面聊到我們差點都吵起來了,",
+      "start": "00:21:06,000",
+      "end": "00:21:08,000",
+      "tr": "Later in the conversation we almost got into an argument,"
+    },
+    {
+      "text": "然後我當時就很後悔我跟他聊這個話題。",
+      "start": "00:21:08,000",
+      "end": "00:21:11,000",
+      "tr": "and at that point I really regretted bringing up the topic with him."
+    },
+    {
+      "text": "就反正到現在的話,",
+      "start": "00:21:11,000",
+      "end": "00:21:12,000",
+      "tr": "So up to now,"
+    },
+    {
+      "text": "我就很少跟朋友聊這種話題,",
+      "start": "00:21:12,000",
+      "end": "00:21:16,000",
+      "tr": "I rarely talk about that kind of topic with friends,"
+    },
+    {
+      "text": "因為我知道他最終是走不下去的。",
+      "start": "00:21:16,000",
+      "end": "00:21:19,000",
+      "tr": "because I know it's just not going to go anywhere in the end."
+    },
+    {
+      "text": "如果你有不同的觀點,",
+      "start": "00:21:19,000",
+      "end": "00:21:21,000",
+      "tr": "If you have a different point of view,"
+    },
+    {
+      "text": "我覺得外國人最大的反應是,",
+      "start": "00:21:21,000",
+      "end": "00:21:24,000",
+      "tr": "I think the typical reaction from a foreigner is,"
+    },
+    {
+      "text": "他會首先他問你為什麼,",
+      "start": "00:21:24,000",
+      "end": "00:21:26,000",
+      "tr": "first of all they'll ask you why,"
+    },
+    {
+      "text": "你也提出你的觀點,",
+      "start": "00:21:26,000",
+      "end": "00:21:28,000",
+      "tr": "you lay out your point of view,"
+    },
+    {
+      "text": "他提出他的觀點,",
+      "start": "00:21:28,000",
+      "end": "00:21:29,000",
+      "tr": "they lay out theirs,"
+    },
+    {
+      "text": "你們這個辯論首先是不會破裂的,",
+      "start": "00:21:29,000",
+      "end": "00:21:31,000",
+      "tr": "and for one thing the debate won't fall apart,"
+    },
+    {
+      "text": "不會變成一種仇恨的。",
+      "start": "00:21:31,000",
+      "end": "00:21:33,000",
+      "tr": "it won't turn into something hateful."
+    },
+    {
+      "text": "你們都可以提出各自的觀點,",
+      "start": "00:21:33,000",
+      "end": "00:21:36,000",
+      "tr": "You can each put forward your own views,"
+    },
+    {
+      "text": "然後你們再進行討論,",
+      "start": "00:21:36,000",
+      "end": "00:21:38,000",
+      "tr": "and then go on discussing it,"
+    },
+    {
+      "text": "這是一件很有趣的事情。",
+      "start": "00:21:38,000",
+      "end": "00:21:40,000",
+      "tr": "which is a really interesting thing."
+    },
+    {
+      "text": "尤其是當你們觀點相反的時候,",
+      "start": "00:21:40,000",
+      "end": "00:21:43,000",
+      "tr": "Especially when your views are opposed."
+    },
+    {
+      "text": "如果你老是跟一些跟你觀點一樣的人對話的話,",
+      "start": "00:21:43,000",
+      "end": "00:21:46,000",
+      "tr": "If you're always talking to people who think exactly like you,"
+    },
+    {
+      "text": "那你們不是就在一個echo chamber裡面嗎?",
+      "start": "00:21:46,000",
+      "end": "00:21:50,000",
+      "tr": "then aren't you just stuck in an echo chamber?"
+    },
+    {
+      "text": "就是在一個迴音室裡面嗎?",
+      "start": "00:21:50,000",
+      "end": "00:21:52,000",
+      "tr": "I mean, inside an echo chamber, right?"
+    },
+    {
+      "text": "你們說話都是自說自話,",
+      "start": "00:21:52,000",
+      "end": "00:21:54,000",
+      "tr": "You're all just talking past each other, talking to yourselves,"
+    },
+    {
+      "text": "但稍微有點不同呢,",
+      "start": "00:21:54,000",
+      "end": "00:21:56,000",
+      "tr": "but when there's a bit of a difference,"
+    },
+    {
+      "text": "你跟他交流的時候,",
+      "start": "00:21:56,000",
+      "end": "00:21:57,000",
+      "tr": "when you talk with the other person,"
+    },
+    {
+      "text": "你反而覺得有意思對吧?",
+      "start": "00:21:57,000",
+      "end": "00:21:59,000",
+      "tr": "you actually find it interesting, right?"
+    },
+    {
+      "text": "對,我覺得你也可以成長,",
+      "start": "00:21:59,000",
+      "end": "00:22:01,000",
+      "tr": "Right, and I think you can grow from it too,"
+    },
+    {
+      "text": "因為你接受到了不同的觀點,",
+      "start": "00:22:01,000",
+      "end": "00:22:03,000",
+      "tr": "because you're being exposed to different perspectives."
+    },
+    {
+      "text": "還有一個就是中國人對外國人有一個刻板印象,",
+      "start": "00:22:03,000",
+      "end": "00:22:06,000",
+      "tr": "And another thing is that Chinese people have a stereotype about foreigners,"
+    },
+    {
+      "text": "就是覺得他們思想很開放。",
+      "start": "00:22:06,000",
+      "end": "00:22:09,000",
+      "tr": "namely that they're very open-minded."
+    },
+    {
+      "text": "你覺得是嗎?",
+      "start": "00:22:09,000",
+      "end": "00:22:11,000",
+      "tr": "Do you think that's true?"
+    },
+    {
+      "text": "或者說他們指的是什麼開放?",
+      "start": "00:22:11,000",
+      "end": "00:22:13,000",
+      "tr": "Or, what kind of openness are they actually referring to?"
+    },
+    {
+      "text": "可能就像我們剛才聊的那話題,",
+      "start": "00:22:13,000",
+      "end": "00:22:16,000",
+      "tr": "Maybe it's like the topic we were just talking about,"
+    },
+    {
+      "text": "比如說他們說話的方式比較直接,",
+      "start": "00:22:16,000",
+      "end": "00:22:18,000",
+      "tr": "for example, the fact that they speak pretty directly,"
+    },
+    {
+      "text": "可能這就是一個開放的表現。",
+      "start": "00:22:18,000",
+      "end": "00:22:20,000",
+      "tr": "maybe that's one expression of being open."
+    },
+    {
+      "text": "還有就是他們不大喜歡掩飾自己的情感情緒,",
+      "start": "00:22:20,000",
+      "end": "00:22:25,000",
+      "tr": "And also they don't really like to hide their feelings and emotions,"
+    },
+    {
+      "text": "這就是一種開放。",
+      "start": "00:22:25,000",
+      "end": "00:22:26,000",
+      "tr": "that's a kind of openness too."
+    },
+    {
+      "text": "第二種很老舊的一個刻板印象,",
+      "start": "00:22:26,000",
+      "end": "00:22:31,000",
+      "tr": "The second stereotype, a really old one,"
+    },
+    {
+      "text": "就是覺得外國人的性開放。",
+      "start": "00:22:31,000",
+      "end": "00:22:34,000",
+      "tr": "is the idea that foreigners are sexually open."
+    },
+    {
+      "text": "奇怪的是,",
+      "start": "00:22:34,000",
+      "end": "00:22:35,000",
+      "tr": "The strange thing is,"
+    },
+    {
+      "text": "有很多外國人到中國來,",
+      "start": "00:22:35,000",
+      "end": "00:22:36,000",
+      "tr": "a lot of foreigners come to China,"
+    },
+    {
+      "text": "他們的還真的是就符合了這個刻板印象。",
+      "start": "00:22:36,000",
+      "end": "00:22:40,000",
+      "tr": "and they really do live up to that stereotype."
+    },
+    {
+      "text": "他們真的就會變開放,",
+      "start": "00:22:40,000",
+      "end": "00:22:42,000",
+      "tr": "They actually do become more open,"
+    },
+    {
+      "text": "就是變成了你中國人設想的那種外國人的樣子。",
+      "start": "00:22:42,000",
+      "end": "00:22:46,000",
+      "tr": "turning into exactly the kind of foreigner that Chinese people imagine."
+    },
+    {
+      "text": "比如說,",
+      "start": "00:22:46,000",
+      "end": "00:22:47,000",
+      "tr": "For example,"
+    },
+    {
+      "text": "你經常在社交媒體上看到有一些外國人喜歡炫耀,",
+      "start": "00:22:47,000",
+      "end": "00:22:50,000",
+      "tr": "you often see foreigners on social media who like to show off"
+    },
+    {
+      "text": "他們在中國叫了多然女朋友,",
+      "start": "00:22:50,000",
+      "end": "00:22:52,000",
+      "tr": "how many girlfriends they've gotten in China,"
+    },
+    {
+      "text": "然後他可能會發床照啊,",
+      "start": "00:22:52,000",
+      "end": "00:22:54,000",
+      "tr": "and they'll post photos of them in bed,"
+    },
+    {
+      "text": "發小影片啊,",
+      "start": "00:22:54,000",
+      "end": "00:22:55,000",
+      "tr": "post little videos,"
+    },
+    {
+      "text": "發那個什麼,",
+      "start": "00:22:55,000",
+      "end": "00:22:56,000",
+      "tr": "post all sorts of stuff,"
+    },
+    {
+      "text": "然後在網上兜售這些東西啊。",
+      "start": "00:22:56,000",
+      "end": "00:23:02,000",
+      "tr": "and then peddle this kind of thing online."
+    },
+    {
+      "text": "我覺得這就很符合中國人所說的那種刻板印象。",
+      "start": "00:23:02,000",
+      "end": "00:23:05,000",
+      "tr": "I think that fits the stereotype Chinese people have pretty well."
+    },
+    {
+      "text": "但這不代表所有的外國人都是這個樣子。",
+      "start": "00:23:05,000",
+      "end": "00:23:08,000",
+      "tr": "But that doesn't mean all foreigners are like that."
+    },
+    {
+      "text": "那下面我們說一下就是關於社交活動吧。",
+      "start": "00:23:08,000",
+      "end": "00:23:11,000",
+      "tr": "Next let's talk about social activities."
+    },
+    {
+      "text": "就是外國朋友跟中國朋友出去玩的時候,",
+      "start": "00:23:11,000",
+      "end": "00:23:15,000",
+      "tr": "When foreign friends go out with Chinese friends,"
+    },
+    {
+      "text": "一般喜歡做什麼樣的活動。",
+      "start": "00:23:15,000",
+      "end": "00:23:17,000",
+      "tr": "what kind of activities do they usually like to do?"
+    },
+    {
+      "text": "中國男生在一起喜歡幹嘛?打遊戲嗎?",
+      "start": "00:23:17,000",
+      "end": "00:23:22,000",
+      "tr": "What do Chinese guys like to do when they hang out? Play video games?"
+    },
+    {
+      "text": "最多就是飯局。",
+      "start": "00:23:22,000",
+      "end": "00:23:24,000",
+      "tr": "At most it's going out for a meal together."
+    },
+    {
+      "text": "喝酒,然後吃燒烤,KTV這些。",
+      "start": "00:23:24,000",
+      "end": "00:23:27,000",
+      "tr": "Drinking, then having barbecue, KTV, that kind of stuff."
+    },
+    {
+      "text": "其他就是有興趣的活動吧。",
+      "start": "00:23:27,000",
+      "end": "00:23:30,000",
+      "tr": "Other than that, it's activities you're into, I guess."
+    },
+    {
+      "text": "這個在中國比較少,",
+      "start": "00:23:30,000",
+      "end": "00:23:31,000",
+      "tr": "That sort of thing is pretty rare in China,"
+    },
+    {
+      "text": "我就很羨慕一些外國,",
+      "start": "00:23:31,000",
+      "end": "00:23:33,000",
+      "tr": "so I really envy how it is abroad."
+    },
+    {
+      "text": "比如說他們有一些gamer的大型的活動啊。",
+      "start": "00:23:33,000",
+      "end": "00:23:36,000",
+      "tr": "Like, they have these big gamer events, for example."
+    },
+    {
+      "text": "就是玩遊戲的人,",
+      "start": "00:23:36,000",
+      "end": "00:23:37,000",
+      "tr": "You know, people who play video games,"
+    },
+    {
+      "text": "他們有一些很多各種各樣的活動。",
+      "start": "00:23:37,000",
+      "end": "00:23:39,000",
+      "tr": "they have all kinds of different events."
+    },
+    {
+      "text": "然後他們有一些運動的活動。",
+      "start": "00:23:39,000",
+      "end": "00:23:41,000",
+      "tr": "And then they have sports events too."
+    },
+    {
+      "text": "這些都很多,",
+      "start": "00:23:41,000",
+      "end": "00:23:42,000",
+      "tr": "There's tons of that stuff,"
+    },
+    {
+      "text": "但在中國真的是很少很少。",
+      "start": "00:23:42,000",
+      "end": "00:23:44,000",
+      "tr": "but in China it's really, really rare."
+    },
+    {
+      "text": "我經常約別人的一個事情,",
+      "start": "00:23:44,000",
+      "end": "00:23:46,000",
+      "tr": "There's something I'm always trying to get people to do with me."
+    },
+    {
+      "text": "就是比如說我有一次我在我的舞蹈課裡面認識了幾個女生朋友。",
+      "start": "00:23:46,000",
+      "end": "00:23:51,000",
+      "tr": "Like, one time I met a few girls in my dance class."
+    },
+    {
+      "text": "然後我就說,",
+      "start": "00:23:51,000",
+      "end": "00:23:52,000",
+      "tr": "And I said to them,"
+    },
+    {
+      "text": "我們去約爬山好不好?",
+      "start": "00:23:52,000",
+      "end": "00:23:55,000",
+      "tr": "how about we go hiking together?"
+    },
+    {
+      "text": "然後他說爬山我不感興趣。",
+      "start": "00:23:55,000",
+      "end": "00:23:56,000",
+      "tr": "And they said, hiking? I'm not interested."
+    },
+    {
+      "text": "然後我就約他們,",
+      "start": "00:23:56,000",
+      "end": "00:23:57,000",
+      "tr": "So then I asked them,"
+    },
+    {
+      "text": "我說我們早上早起來去散個步行不行?",
+      "start": "00:23:57,000",
+      "end": "00:24:00,000",
+      "tr": "I said, how about we get up early and go for a walk?"
+    },
+    {
+      "text": "哇,沒有人跟我散步,",
+      "start": "00:24:00,000",
+      "end": "00:24:01,000",
+      "tr": "Wow, nobody would go for a walk with me."
+    },
+    {
+      "text": "誰要跟你散步?",
+      "start": "00:24:01,000",
+      "end": "00:24:03,000",
+      "tr": "Who's going to go for a walk with you?"
+    },
+    {
+      "text": "我唯一碰到了一個很年輕的,",
+      "start": "00:24:03,000",
+      "end": "00:24:05,000",
+      "tr": "The only person I ever came across was someone really young,"
+    },
+    {
+      "text": "就是比我小,",
+      "start": "00:24:05,000",
+      "end": "00:24:06,000",
+      "tr": "younger than me,"
+    },
+    {
+      "text": "大概快十歲的一個女孩子。",
+      "start": "00:24:06,000",
+      "end": "00:24:09,000",
+      "tr": "a girl about ten years younger."
+    },
+    {
+      "text": "就是我們見面了三次之後,",
+      "start": "00:24:09,000",
+      "end": "00:24:11,000",
+      "tr": "After we'd met up three times,"
+    },
+    {
+      "text": "我就發現她很喜歡讀書,",
+      "start": "00:24:11,000",
+      "end": "00:24:13,000",
+      "tr": "I found out she really loves reading,"
+    },
+    {
+      "text": "讀文學。",
+      "start": "00:24:13,000",
+      "end": "00:24:14,000",
+      "tr": "reading literature."
+    },
+    {
+      "text": "然後就這個我們就開始聊天。",
+      "start": "00:24:14,000",
+      "end": "00:24:16,000",
+      "tr": "And so we started chatting."
+    },
+    {
+      "text": "然後每一次我們見面就是聊文學,",
+      "start": "00:24:16,000",
+      "end": "00:24:18,000",
+      "tr": "And every time we met up, we'd talk about literature,"
+    },
+    {
+      "text": "聊我們讀過的書,",
+      "start": "00:24:18,000",
+      "end": "00:24:19,000",
+      "tr": "talk about the books we'd read,"
+    },
+    {
+      "text": "看過的電影。",
+      "start": "00:24:19,000",
+      "end": "00:24:20,000",
+      "tr": "the movies we'd seen."
+    },
+    {
+      "text": "我就覺得這種交友模式是能夠讓我覺得很過癮的。",
+      "start": "00:24:20,000",
+      "end": "00:24:24,000",
+      "tr": "And I felt like that way of making friends was really satisfying for me."
+    },
+    {
+      "text": "我覺得現在中國人的業餘愛好可能也越來越多樣化。",
+      "start": "00:24:24,000",
+      "end": "00:24:30,000",
+      "tr": "I think Chinese people's hobbies these days are probably getting more and more diverse too."
+    },
+    {
+      "text": "戶外活動是真的很少。",
+      "start": "00:24:30,000",
+      "end": "00:24:32,000",
+      "tr": "Outdoor activities really are pretty scarce, though."
+    },
+    {
+      "text": "比如說我小時候我就經常抱怨說我連打球的球場我都找不到。",
+      "start": "00:24:32,000",
+      "end": "00:24:37,000",
+      "tr": "Like when I was a kid, I'd always complain that I couldn't even find a court to play ball on."
+    },
+    {
+      "text": "你知道嗎?",
+      "start": "00:24:37,000",
+      "end": "00:24:38,000",
+      "tr": "You know?"
+    },
+    {
+      "text": "那找一個球場多難。",
+      "start": "00:24:38,000",
+      "end": "00:24:39,000",
+      "tr": "It was so hard to find a court."
+    },
+    {
+      "text": "當我到廣東來的時候,",
+      "start": "00:24:39,000",
+      "end": "00:24:40,000",
+      "tr": "When I came to Guangdong,"
+    },
+    {
+      "text": "我就發現這邊好多好多的球場。",
+      "start": "00:24:40,000",
+      "end": "00:24:43,000",
+      "tr": "I found there were so many courts here."
+    },
+    {
+      "text": "我覺得吧,",
+      "start": "00:24:43,000",
+      "end": "00:24:44,000",
+      "tr": "The way I see it,"
+    },
+    {
+      "text": "不管是外國人還是中國人,",
+      "start": "00:24:44,000",
+      "end": "00:24:45,000",
+      "tr": "whether you're a foreigner or Chinese,"
+    },
+    {
+      "text": "對那個運動啊,",
+      "start": "00:24:45,000",
+      "end": "00:24:48,000",
+      "tr": "that love for sports,"
+    },
+    {
+      "text": "會對戶外啊那種那種喜愛。",
+      "start": "00:24:48,000",
+      "end": "00:24:50,000",
+      "tr": "and for the outdoors, that kind of passion,"
+    },
+    {
+      "text": "其實我認為那種情感情緒是差不多的。",
+      "start": "00:24:50,000",
+      "end": "00:24:52,000",
+      "tr": "I actually think those feelings are pretty much the same."
+    },
+    {
+      "text": "只是有一個什麼東西阻止了中國人去進行這樣的愛好呢?",
+      "start": "00:24:52,000",
+      "end": "00:24:57,000",
+      "tr": "It's just, what is it that stops Chinese people from pursuing these kinds of hobbies?"
+    },
+    {
+      "text": "首先是我們時間真的好少啊。",
+      "start": "00:24:57,000",
+      "end": "00:24:59,000",
+      "tr": "First of all, we really have so little time."
+    },
+    {
+      "text": "第二就是我們真的工作太忙。",
+      "start": "00:24:59,000",
+      "end": "00:25:01,000",
+      "tr": "Second, our work really is just too busy."
+    },
+    {
+      "text": "然後我們收收入相對來說比較少。",
+      "start": "00:25:01,000",
+      "end": "00:25:04,000",
+      "tr": "And then our incomes are relatively low."
+    },
+    {
+      "text": "然後很難去維持一個那樣的活動。",
+      "start": "00:25:04,000",
+      "end": "00:25:07,000",
+      "tr": "So it's hard to keep up an activity like that."
+    },
+    {
+      "text": "我忽然想到一個點啊,",
+      "start": "00:25:09,000",
+      "end": "00:25:10,000",
+      "tr": "Something just came to mind,"
+    },
+    {
+      "text": "就是有一些。",
+      "start": "00:25:10,000",
+      "end": "00:25:12,000",
+      "tr": "which is, there are some..."
+    },
+    {
+      "text": "我聽過一個外國人說,",
+      "start": "00:25:12,000",
+      "end": "00:25:15,000",
+      "tr": "I heard a foreigner say"
+    },
+    {
+      "text": "在中國有些人想跟他們做朋友,",
+      "start": "00:25:15,000",
+      "end": "00:25:18,000",
+      "tr": "that in China some people want to be friends with them,"
+    },
+    {
+      "text": "但他們是很有目的性的,",
+      "start": "00:25:18,000",
+      "end": "00:25:20,000",
+      "tr": "but they have a real agenda,"
+    },
+    {
+      "text": "就是想要跟他們練英文。",
+      "start": "00:25:20,000",
+      "end": "00:25:22,000",
+      "tr": "which is they just want to practice English with them."
+    },
+    {
+      "text": "你覺得是嗎?",
+      "start": "00:25:22,000",
+      "end": "00:25:24,000",
+      "tr": "Do you think that's true?"
+    },
+    {
+      "text": "不敢說所有吧,",
+      "start": "00:25:24,000",
+      "end": "00:25:25,000",
+      "tr": "I wouldn't say all of them,"
+    },
+    {
+      "text": "但很大一部分中國人跟外國人交朋友的目的就是為了練習英文。",
+      "start": "00:25:25,000",
+      "end": "00:25:31,000",
+      "tr": "But for a lot of Chinese people, the whole point of befriending a foreigner is just to practice English."
+    },
+    {
+      "text": "我覺得對外國人來說他可能會覺得是個問題啊。",
+      "start": "00:25:31,000",
+      "end": "00:25:35,000",
+      "tr": "I think for the foreigner, that might feel like a problem."
+    },
+    {
+      "text": "就是,",
+      "start": "00:25:35,000",
+      "end": "00:25:37,000",
+      "tr": "Like,"
+    },
+    {
+      "text": "他覺得這個友誼是不純的。",
+      "start": "00:25:37,000",
+      "end": "00:25:39,000",
+      "tr": "they feel the friendship isn't genuine."
+    },
+    {
+      "text": "友誼,",
+      "start": "00:25:39,000",
+      "end": "00:25:40,000",
+      "tr": "Friendship,"
+    },
+    {
+      "text": "我們雖然說的好像精神上很高尚,",
+      "start": "00:25:40,000",
+      "end": "00:25:43,000",
+      "tr": "we talk about it like it's this lofty, spiritual thing,"
+    },
+    {
+      "text": "但實際上,",
+      "start": "00:25:43,000",
+      "end": "00:25:44,000",
+      "tr": "but in reality,"
+    },
+    {
+      "text": "就像你跟他說的,",
+      "start": "00:25:44,000",
+      "end": "00:25:45,000",
+      "tr": "just like you said to him,"
+    },
+    {
+      "text": "你有一個朋友可以跟他聊電影,",
+      "start": "00:25:45,000",
+      "end": "00:25:47,000",
+      "tr": "you've got a friend you can talk about movies with,"
+    },
+    {
+      "text": "可以跟他聊文學,",
+      "start": "00:25:47,000",
+      "end": "00:25:48,000",
+      "tr": "talk about literature with,"
+    },
+    {
+      "text": "跟他的交流中你獲得了東西,",
+      "start": "00:25:48,000",
+      "end": "00:25:51,000",
+      "tr": "and from those exchanges you get something out of it,"
+    },
+    {
+      "text": "或者精神上的快感。",
+      "start": "00:25:51,000",
+      "end": "00:25:52,000",
+      "tr": "or some kind of intellectual satisfaction."
+    },
+    {
+      "text": "其實是有來有往的。",
+      "start": "00:25:52,000",
+      "end": "00:25:54,000",
+      "tr": "It actually goes both ways."
+    },
+    {
+      "text": "你不可能只有一方輸出,",
+      "start": "00:25:54,000",
+      "end": "00:25:56,000",
+      "tr": "It can't just be one side giving,"
+    },
+    {
+      "text": "你沒有輸入對吧?",
+      "start": "00:25:56,000",
+      "end": "00:25:58,000",
+      "tr": "with you getting nothing back, right?"
+    },
+    {
+      "text": "你去這樣的朋友就會,",
+      "start": "00:25:58,000",
+      "end": "00:26:00,000",
+      "tr": "A friendship like that becomes,"
+    },
+    {
+      "text": "關係是不健康的,",
+      "start": "00:26:00,000",
+      "end": "00:26:01,000",
+      "tr": "the relationship's unhealthy,"
+    },
+    {
+      "text": "讓你覺得很疲勞。",
+      "start": "00:26:01,000",
+      "end": "00:26:03,000",
+      "tr": "it leaves you exhausted."
+    },
+    {
+      "text": "所以,",
+      "start": "00:26:03,000",
+      "end": "00:26:04,000",
+      "tr": "So,"
+    },
+    {
+      "text": "有一定的你來我往,",
+      "start": "00:26:04,000",
+      "end": "00:26:06,000",
+      "tr": "a certain amount of give and take,"
+    },
+    {
+      "text": "我覺得是正常的有一些。",
+      "start": "00:26:06,000",
+      "end": "00:26:08,000",
+      "tr": "I think some of that is normal."
+    },
+    {
+      "text": "但是如果說你只是為了學英語,",
+      "start": "00:26:08,000",
+      "end": "00:26:12,000",
+      "tr": "But if you're just in it to learn English,"
+    },
+    {
+      "text": "然後你就,",
+      "start": "00:26:12,000",
+      "end": "00:26:13,000",
+      "tr": "and then you,"
+    },
+    {
+      "text": "不把別人當人看,",
+      "start": "00:26:13,000",
+      "end": "00:26:15,000",
+      "tr": "don't treat the other person as a person,"
+    },
+    {
+      "text": "只把別人當成一個,",
+      "start": "00:26:15,000",
+      "end": "00:26:17,000",
+      "tr": "and just treat them as a,"
+    },
+    {
+      "text": "一個學習工具,",
+      "start": "00:26:17,000",
+      "end": "00:26:19,000",
+      "tr": "a learning tool,"
+    },
+    {
+      "text": "一個復讀機,",
+      "start": "00:26:19,000",
+      "end": "00:26:20,000",
+      "tr": "a parrot,"
+    },
+    {
+      "text": "一個多林格一樣的東西。",
+      "start": "00:26:20,000",
+      "end": "00:26:22,000",
+      "tr": "something like a Duolingo,"
+    },
+    {
+      "text": "確實很糟糕。",
+      "start": "00:26:22,000",
+      "end": "00:26:24,000",
+      "tr": "that really is pretty awful."
+    },
+    {
+      "text": "我那個朋友Russell,",
+      "start": "00:26:24,000",
+      "end": "00:26:26,000",
+      "tr": "My friend Russell,"
+    },
+    {
+      "text": "他一直找我幫他在淘寶上買東西,",
+      "start": "00:26:26,000",
+      "end": "00:26:30,000",
+      "tr": "he's always asking me to help him buy stuff on Taobao,"
+    },
+    {
+      "text": "你知道他拿護照是沒有辦法申請淘寶號的嗎?",
+      "start": "00:26:30,000",
+      "end": "00:26:33,000",
+      "tr": "did you know you can't register a Taobao account with a passport?"
+    },
+    {
+      "text": "到年底的時候,",
+      "start": "00:26:33,000",
+      "end": "00:26:34,000",
+      "tr": "Around the end of the year,"
+    },
+    {
+      "text": "他又請我去唱K,",
+      "start": "00:26:34,000",
+      "end": "00:26:36,000",
+      "tr": "he invited me out to karaoke again,"
+    },
+    {
+      "text": "雖然我不是很喜歡唱K,",
+      "start": "00:26:36,000",
+      "end": "00:26:38,000",
+      "tr": "even though I'm not really a fan of karaoke,"
+    },
+    {
+      "text": "他認為你要去感謝別人,",
+      "start": "00:26:38,000",
+      "end": "00:26:40,000",
+      "tr": "he figured he had to thank me somehow,"
+    },
+    {
+      "text": "因為他在中國學到的經驗就是,",
+      "start": "00:26:40,000",
+      "end": "00:26:43,000",
+      "tr": "because what he'd learned living in China was that,"
+    },
+    {
+      "text": "所有的人情都在KTV裡面還的。",
+      "start": "00:26:43,000",
+      "end": "00:26:46,000",
+      "tr": "all favors get repaid at the KTV."
+    },
+    {
+      "text": "我就直接跟他說,",
+      "start": "00:26:46,000",
+      "end": "00:26:47,000",
+      "tr": "So I just told him straight,"
+    },
+    {
+      "text": "我說別浪費錢了,",
+      "start": "00:26:47,000",
+      "end": "00:26:49,000",
+      "tr": "I said don't waste your money,"
+    },
+    {
+      "text": "其實去KTV,",
+      "start": "00:26:49,000",
+      "end": "00:26:50,000",
+      "tr": "honestly, going to KTV,"
+    },
+    {
+      "text": "我也不是很喜歡去KTV,",
+      "start": "00:26:50,000",
+      "end": "00:26:52,000",
+      "tr": "I'm not even that into KTV,"
+    },
+    {
+      "text": "你直接給我現金好不好?",
+      "start": "00:26:52,000",
+      "end": "00:26:53,000",
+      "tr": "just give me cash directly, how about that?"
+    },
+    {
+      "text": "中國人肯定會說一句,",
+      "start": "00:26:53,000",
+      "end": "00:26:55,000",
+      "tr": "A Chinese person would definitely say,"
+    },
+    {
+      "text": "談錢傷感情。",
+      "start": "00:26:55,000",
+      "end": "00:26:56,000",
+      "tr": "talking about money hurts the friendship."
+    },
+    {
+      "text": "我覺得中國人處事方式是這樣子的,",
+      "start": "00:26:56,000",
+      "end": "00:26:59,000",
+      "tr": "I think the Chinese way of handling these things is like this,"
+    },
+    {
+      "text": "就是假設我今天幫了你一個忙,",
+      "start": "00:26:59,000",
+      "end": "00:27:01,000",
+      "tr": "say I do you a favor today,"
+    },
+    {
+      "text": "你不會說直接給錢來給我,",
+      "start": "00:27:01,000",
+      "end": "00:27:04,000",
+      "tr": "you wouldn't just hand me cash for it,"
+    },
+    {
+      "text": "而是你會記下這個人情,",
+      "start": "00:27:04,000",
+      "end": "00:27:07,000",
+      "tr": "instead you'd keep that favor in mind,"
+    },
+    {
+      "text": "然後下一次的時候,",
+      "start": "00:27:07,000",
+      "end": "00:27:08,000",
+      "tr": "and then next time,"
+    },
+    {
+      "text": "你可能我找你幫忙的時候,",
+      "start": "00:27:08,000",
+      "end": "00:27:10,000",
+      "tr": "when I come to you for help,"
+    },
+    {
+      "text": "你也會來幫我,",
+      "start": "00:27:10,000",
+      "end": "00:27:11,000",
+      "tr": "you'll help me out too,"
+    },
+    {
+      "text": "或者說你會以請飯,",
+      "start": "00:27:11,000",
+      "end": "00:27:13,000",
+      "tr": "or you'll treat me to a meal,"
+    },
+    {
+      "text": "請吃飯這個方式來表達你的感謝。",
+      "start": "00:27:13,000",
+      "end": "00:27:16,000",
+      "tr": "treat me to dinner, as a way of showing your thanks."
+    },
+    {
+      "text": "我就特別不喜歡這樣的方式,",
+      "start": "00:27:16,000",
+      "end": "00:27:18,000",
+      "tr": "I really don't like doing it that way,"
+    },
+    {
+      "text": "因為這個賬算得很不清楚,",
+      "start": "00:27:18,000",
+      "end": "00:27:20,000",
+      "tr": "Because these accounts get really fuzzy,"
+    },
+    {
+      "text": "很模糊,",
+      "start": "00:27:20,000",
+      "end": "00:27:21,000",
+      "tr": "really vague,"
+    },
+    {
+      "text": "如果你少算了一個的話,",
+      "start": "00:27:21,000",
+      "end": "00:27:22,000",
+      "tr": "and if you happen to leave one person out,"
+    },
+    {
+      "text": "就特別別人會記在心裡面,",
+      "start": "00:27:22,000",
+      "end": "00:27:25,000",
+      "tr": "they'll really hold it against you,"
+    },
+    {
+      "text": "知道嗎?",
+      "start": "00:27:25,000",
+      "end": "00:27:26,000",
+      "tr": "you know?"
+    },
+    {
+      "text": "對你來講,",
+      "start": "00:27:26,000",
+      "end": "00:27:27,000",
+      "tr": "For you,"
+    },
+    {
+      "text": "你只是一個舒服,",
+      "start": "00:27:27,000",
+      "end": "00:27:28,000",
+      "tr": "it's just about being comfortable,"
+    },
+    {
+      "text": "比如說我經常去籃球場吧,",
+      "start": "00:27:28,000",
+      "end": "00:27:30,000",
+      "tr": "like, I go to the basketball court a lot,"
+    },
+    {
+      "text": "有朋友就會給我買水,",
+      "start": "00:27:30,000",
+      "end": "00:27:32,000",
+      "tr": "and some friends will buy me a drink,"
+    },
+    {
+      "text": "我實在不想接受這個,",
+      "start": "00:27:32,000",
+      "end": "00:27:34,000",
+      "tr": "and honestly I really don't want to accept it,"
+    },
+    {
+      "text": "你喝了嗎?",
+      "start": "00:27:34,000",
+      "end": "00:27:35,000",
+      "tr": "because once you've drunk it,"
+    },
+    {
+      "text": "你下次就要請回他們。",
+      "start": "00:27:35,000",
+      "end": "00:27:37,000",
+      "tr": "next time you have to treat them back."
+    },
+    {
+      "text": "如果你不請到某一些人的話,",
+      "start": "00:27:37,000",
+      "end": "00:27:39,000",
+      "tr": "And if you don't treat certain people,"
+    },
+    {
+      "text": "那個人又不開心了。",
+      "start": "00:27:39,000",
+      "end": "00:27:40,000",
+      "tr": "then that person gets upset."
+    },
+    {
+      "text": "最好就是AA,",
+      "start": "00:27:40,000",
+      "end": "00:27:41,000",
+      "tr": "The best thing is to just go Dutch,"
+    },
+    {
+      "text": "你們可以找一個人去幫大家買飲料,",
+      "start": "00:27:41,000",
+      "end": "00:27:45,000",
+      "tr": "you can have one person buy drinks for everyone,"
+    },
+    {
+      "text": "但是每個人都應該付錢,",
+      "start": "00:27:45,000",
+      "end": "00:27:46,000",
+      "tr": "but everyone should chip in,"
+    },
+    {
+      "text": "這是最好的方式。",
+      "start": "00:27:46,000",
+      "end": "00:27:47,000",
+      "tr": "that's the best way to do it."
+    },
+    {
+      "text": "但不是,",
+      "start": "00:27:47,000",
+      "end": "00:27:48,000",
+      "tr": "But that's not how it goes,"
+    },
+    {
+      "text": "他們經常就是一個人就請所有人。",
+      "start": "00:27:48,000",
+      "end": "00:27:51,000",
+      "tr": "usually one person ends up treating everybody."
+    },
+    {
+      "text": "還有就是中國的朋友吧,",
+      "start": "00:27:51,000",
+      "end": "00:27:54,000",
+      "tr": "And another thing with Chinese friends,"
+    },
+    {
+      "text": "如果你跟他非常好的話,",
+      "start": "00:27:54,000",
+      "end": "00:27:56,000",
+      "tr": "if you're really close with someone,"
+    },
+    {
+      "text": "是可以互相借錢的,",
+      "start": "00:27:56,000",
+      "end": "00:27:57,000",
+      "tr": "you can lend each other money,"
+    },
+    {
+      "text": "我覺得在外國應該不是很常見吧。",
+      "start": "00:27:57,000",
+      "end": "00:28:00,000",
+      "tr": "which I don't think is very common abroad."
+    },
+    {
+      "text": "我的印象是,",
+      "start": "00:28:00,000",
+      "end": "00:28:01,000",
+      "tr": "My impression is,"
+    },
+    {
+      "text": "我覺得跟外國人就不太會去涉及到金錢方面,",
+      "start": "00:28:01,000",
+      "end": "00:28:06,000",
+      "tr": "with foreigners you usually don't get money involved at all,"
+    },
+    {
+      "text": "就是哪怕涉及到金錢,",
+      "start": "00:28:06,000",
+      "end": "00:28:08,000",
+      "tr": "and even if money does come into it,"
+    },
+    {
+      "text": "他一定會算得很清楚,",
+      "start": "00:28:08,000",
+      "end": "00:28:10,000",
+      "tr": "they'll definitely keep very careful track of it,"
+    },
+    {
+      "text": "你一定要會寫借條呀,",
+      "start": "00:28:10,000",
+      "end": "00:28:11,000",
+      "tr": "you have to write an IOU,"
+    },
+    {
+      "text": "或者是有一個書面的證據,",
+      "start": "00:28:11,000",
+      "end": "00:28:13,000",
+      "tr": "or have some kind of written proof,"
+    },
+    {
+      "text": "我向你借了多少錢。",
+      "start": "00:28:13,000",
+      "end": "00:28:14,000",
+      "tr": "of how much I borrowed from you."
+    },
+    {
+      "text": "但是中國人會,",
+      "start": "00:28:14,000",
+      "end": "00:28:16,000",
+      "tr": "But with Chinese people,"
+    },
+    {
+      "text": "你如果是作為借的那一方,",
+      "start": "00:28:16,000",
+      "end": "00:28:18,000",
+      "tr": "if you're the one borrowing,"
+    },
+    {
+      "text": "你提出來寫借條,",
+      "start": "00:28:18,000",
+      "end": "00:28:20,000",
+      "tr": "and you suggest writing an IOU,"
+    },
+    {
+      "text": "那個借你錢的人會有一點心裡不舒服,",
+      "start": "00:28:20,000",
+      "end": "00:28:23,000",
+      "tr": "the person lending you the money feels a bit uncomfortable,"
+    },
+    {
+      "text": "覺得你不相信我,",
+      "start": "00:28:23,000",
+      "end": "00:28:25,000",
+      "tr": "like you don't trust them,"
+    },
+    {
+      "text": "難道你以為我會不還你的錢嗎?",
+      "start": "00:28:25,000",
+      "end": "00:28:27,000",
+      "tr": "as if you think I wouldn't pay you back?"
+    },
+    {
+      "text": "我就是一個借錢的受害者,",
+      "start": "00:28:27,000",
+      "end": "00:28:30,000",
+      "tr": "I've actually been a victim of lending money,"
+    },
+    {
+      "text": "就是我原來借錢給一個同學,",
+      "start": "00:28:30,000",
+      "end": "00:28:33,000",
+      "tr": "I once lent money to a classmate,"
+    },
+    {
+      "text": "他找我借錢的時候,",
+      "start": "00:28:33,000",
+      "end": "00:28:35,000",
+      "tr": "and when he came to me to borrow,"
+    },
+    {
+      "text": "我特別容易就借出去了。",
+      "start": "00:28:35,000",
+      "end": "00:28:37,000",
+      "tr": "I lent it out really easily."
+    },
+    {
+      "text": "我給他四五千塊錢,",
+      "start": "00:28:37,000",
+      "end": "00:28:39,000",
+      "tr": "I gave him four or five thousand yuan,"
+    },
+    {
+      "text": "分很多次了,",
+      "start": "00:28:39,000",
+      "end": "00:28:40,000",
+      "tr": "spread over many times,"
+    },
+    {
+      "text": "他說什麼時候什麼時候就還給我,",
+      "start": "00:28:40,000",
+      "end": "00:28:43,000",
+      "tr": "and he kept saying he'd pay me back by such and such a time,"
+    },
+    {
+      "text": "當然說的很模糊了,",
+      "start": "00:28:43,000",
+      "end": "00:28:44,000",
+      "tr": "but of course he was always really vague about it,"
+    },
+    {
+      "text": "沒有一次還給我的。",
+      "start": "00:28:44,000",
+      "end": "00:28:47,000",
+      "tr": "and he never paid me back, not once."
+    },
+    {
+      "text": "很多年以後吧,",
+      "start": "00:28:47,000",
+      "end": "00:28:48,000",
+      "tr": "Many years later,"
+    },
+    {
+      "text": "有一次我回老家,",
+      "start": "00:28:48,000",
+      "end": "00:28:50,000",
+      "tr": "one time when I went back to my hometown,"
+    },
+    {
+      "text": "然後他又聯絡上我了,",
+      "start": "00:28:50,000",
+      "end": "00:28:52,000",
+      "tr": "he got back in touch with me,"
+    },
+    {
+      "text": "然後第一件事又是找我借錢,",
+      "start": "00:28:52,000",
+      "end": "00:28:54,000",
+      "tr": "and the first thing he did was ask to borrow money again,"
+    },
+    {
+      "text": "說他現在陷入了什麼困境裡面,",
+      "start": "00:28:54,000",
+      "end": "00:28:57,000",
+      "tr": "saying he'd run into some kind of trouble,"
+    },
+    {
+      "text": "找我借錢。",
+      "start": "00:28:57,000",
+      "end": "00:28:58,000",
+      "tr": "and wanted to borrow from me."
+    },
+    {
+      "text": "我認為他不覺得我們的友誼值多少錢,",
+      "start": "00:28:58,000",
+      "end": "00:29:02,000",
+      "tr": "I figure he doesn't think our friendship is worth anything,"
+    },
+    {
+      "text": "他真的就是在完全的利用我,",
+      "start": "00:29:02,000",
+      "end": "00:29:04,000",
+      "tr": "he's just completely using me,"
+    },
+    {
+      "text": "他覺得我就是這樣一個人,",
+      "start": "00:29:04,000",
+      "end": "00:29:05,000",
+      "tr": "he just thinks I'm that kind of person,"
+    },
+    {
+      "text": "只要他說借錢,",
+      "start": "00:29:05,000",
+      "end": "00:29:06,000",
+      "tr": "As soon as he said he needed to borrow money,"
+    },
+    {
+      "text": "我就肯定會借給他。",
+      "start": "00:29:06,000",
+      "end": "00:29:07,000",
+      "tr": "I'd definitely lend it to him."
+    },
+    {
+      "text": "我明白,",
+      "start": "00:29:07,000",
+      "end": "00:29:08,000",
+      "tr": "I got it."
+    },
+    {
+      "text": "我看明白了是什麼回事了,",
+      "start": "00:29:08,000",
+      "end": "00:29:09,000",
+      "tr": "I saw clearly what was really going on,"
+    },
+    {
+      "text": "我就說好,",
+      "start": "00:29:09,000",
+      "end": "00:29:10,000",
+      "tr": "so I said, fine,"
+    },
+    {
+      "text": "只要一千塊嗎?",
+      "start": "00:29:10,000",
+      "end": "00:29:12,000",
+      "tr": "is a thousand all you need?"
+    },
+    {
+      "text": "夠嗎?這樣夠嗎?",
+      "start": "00:29:12,000",
+      "end": "00:29:13,000",
+      "tr": "Is that enough? Is that gonna be enough?"
+    },
+    {
+      "text": "我說要不多給你打一點。",
+      "start": "00:29:13,000",
+      "end": "00:29:15,000",
+      "tr": "I said, why don't I send you a little extra."
+    },
+    {
+      "text": "他說好啊,",
+      "start": "00:29:15,000",
+      "end": "00:29:17,000",
+      "tr": "And he said, sure,"
+    },
+    {
+      "text": "好啊,",
+      "start": "00:29:17,000",
+      "end": "00:29:18,000",
+      "tr": "sure,"
+    },
+    {
+      "text": "如果你有多錢當然很好咯。",
+      "start": "00:29:18,000",
+      "end": "00:29:20,000",
+      "tr": "if you've got some to spare, that'd be great, of course."
+    },
+    {
+      "text": "他就說那我去銀行等你啊,",
+      "start": "00:29:20,000",
+      "end": "00:29:22,000",
+      "tr": "Then he said, okay, I'll go wait for you at the bank,"
+    },
+    {
+      "text": "當時還要去銀行轉錢呢。",
+      "start": "00:29:22,000",
+      "end": "00:29:25,000",
+      "tr": "because back then you still had to go to the bank to transfer money."
+    },
+    {
+      "text": "好,",
+      "start": "00:29:25,000",
+      "end": "00:29:26,000",
+      "tr": "Okay,"
+    },
+    {
+      "text": "你先去吧,",
+      "start": "00:29:26,000",
+      "end": "00:29:27,000",
+      "tr": "you go ahead first,"
+    },
+    {
+      "text": "然後我馬上打給你。",
+      "start": "00:29:27,000",
+      "end": "00:29:28,000",
+      "tr": "and I'll send it to you right away."
+    },
+    {
+      "text": "他後來給我打了很多電話,",
+      "start": "00:29:28,000",
+      "end": "00:29:31,000",
+      "tr": "Afterward he called me a bunch of times,"
+    },
+    {
+      "text": "發了很多簡訊,",
+      "start": "00:29:31,000",
+      "end": "00:29:32,000",
+      "tr": "sent me a bunch of texts,"
+    },
+    {
+      "text": "我都不回他了。",
+      "start": "00:29:32,000",
+      "end": "00:29:33,000",
+      "tr": "and I just stopped answering him."
+    },
+    {
+      "text": "這個朋友我就沒有了。",
+      "start": "00:29:33,000",
+      "end": "00:29:34,000",
+      "tr": "And that's how I lost that friend."
+    },
+    {
+      "text": "算是報復他了是嗎?",
+      "start": "00:29:34,000",
+      "end": "00:29:36,000",
+      "tr": "So that was basically you getting back at him, right?"
+    },
+    {
+      "text": "我這個報復相當的輕微,",
+      "start": "00:29:36,000",
+      "end": "00:29:39,000",
+      "tr": "My revenge was pretty mild,"
+    },
+    {
+      "text": "都不算是什麼報復,",
+      "start": "00:29:39,000",
+      "end": "00:29:40,000",
+      "tr": "it barely counts as revenge at all,"
+    },
+    {
+      "text": "我就覺得,",
+      "start": "00:29:40,000",
+      "end": "00:29:41,000",
+      "tr": "I just felt,"
+    },
+    {
+      "text": "我已經看穿你了,",
+      "start": "00:29:41,000",
+      "end": "00:29:43,000",
+      "tr": "I've already seen right through you,"
+    },
+    {
+      "text": "朋友,",
+      "start": "00:29:43,000",
+      "end": "00:29:44,000",
+      "tr": "buddy,"
+    },
+    {
+      "text": "我看穿你了,",
+      "start": "00:29:45,000",
+      "end": "00:29:46,000",
+      "tr": "I've seen through you,"
+    },
+    {
+      "text": "別這樣了。",
+      "start": "00:29:46,000",
+      "end": "00:29:47,000",
+      "tr": "so cut it out."
+    },
+    {
+      "text": "我們不是有一句話說,",
+      "start": "00:29:47,000",
+      "end": "00:29:49,000",
+      "tr": "Don't we have that saying,"
+    },
+    {
+      "text": "親兄弟明算帳嗎?",
+      "start": "00:29:49,000",
+      "end": "00:29:52,000",
+      "tr": "that even close brothers should keep clear accounts?"
+    },
+    {
+      "text": "但是很多是做不到的,",
+      "start": "00:29:52,000",
+      "end": "00:29:54,000",
+      "tr": "But a lot of people can't actually live up to it,"
+    },
+    {
+      "text": "就是親戚之間,",
+      "start": "00:29:54,000",
+      "end": "00:29:56,000",
+      "tr": "because between relatives,"
+    },
+    {
+      "text": "朋友之間,",
+      "start": "00:29:56,000",
+      "end": "00:29:57,000",
+      "tr": "between friends,"
+    },
+    {
+      "text": "家人之間,",
+      "start": "00:29:57,000",
+      "end": "00:29:58,000",
+      "tr": "between family members,"
+    },
+    {
+      "text": "其實在金錢方面是非常模糊的。",
+      "start": "00:29:58,000",
+      "end": "00:30:00,000",
+      "tr": "things actually get really blurry when it comes to money."
+    },
+    {
+      "text": "當發生了一些矛盾的時候,",
+      "start": "00:30:00,000",
+      "end": "00:30:03,000",
+      "tr": "And when some conflict comes up,"
+    },
+    {
+      "text": "算不清楚的時候,",
+      "start": "00:30:03,000",
+      "end": "00:30:06,000",
+      "tr": "when the accounts can't be sorted out,"
+    },
+    {
+      "text": "他就會變成更大的矛盾,",
+      "start": "00:30:06,000",
+      "end": "00:30:09,000",
+      "tr": "it turns into an even bigger conflict,"
+    },
+    {
+      "text": "然後導致他們的關係破裂。",
+      "start": "00:30:09,000",
+      "end": "00:30:11,000",
+      "tr": "and that ends up breaking the relationship."
+    },
+    {
+      "text": "我曾經也有過借錢給親戚,",
+      "start": "00:30:11,000",
+      "end": "00:30:14,000",
+      "tr": "I've lent money to a relative before too,"
+    },
+    {
+      "text": "我借錢給他的時候,",
+      "start": "00:30:14,000",
+      "end": "00:30:15,000",
+      "tr": "and when I lent it to him,"
+    },
+    {
+      "text": "他當然很感謝我,",
+      "start": "00:30:15,000",
+      "end": "00:30:16,000",
+      "tr": "he was of course very grateful,"
+    },
+    {
+      "text": "但是他過了很多年,",
+      "start": "00:30:16,000",
+      "end": "00:30:17,000",
+      "tr": "but many years went by,"
+    },
+    {
+      "text": "他都沒有還這個錢。",
+      "start": "00:30:17,000",
+      "end": "00:30:18,000",
+      "tr": "and he never paid the money back."
+    },
+    {
+      "text": "然後到後面他就開始,",
+      "start": "00:30:18,000",
+      "end": "00:30:20,000",
+      "tr": "And then later on he started,"
+    },
+    {
+      "text": "你要找他還錢的時候,",
+      "start": "00:30:20,000",
+      "end": "00:30:21,000",
+      "tr": "when you go to ask him to pay it back,"
+    },
+    {
+      "text": "他就開始憎恨你了。",
+      "start": "00:30:21,000",
+      "end": "00:30:23,000",
+      "tr": "that's when he starts to resent you."
+    },
+    {
+      "text": "所以我覺得親兄弟明算帳,",
+      "start": "00:30:23,000",
+      "end": "00:30:25,000",
+      "tr": "So I think that saying about close brothers keeping clear accounts,"
+    },
+    {
+      "text": "這個老一輩留下來的古話,",
+      "start": "00:30:25,000",
+      "end": "00:30:28,000",
+      "tr": "this old saying passed down by the older generation,"
+    },
+    {
+      "text": "我覺得是很有道理的。",
+      "start": "00:30:28,000",
+      "end": "00:30:29,000",
+      "tr": "I think it really makes a lot of sense."
+    },
+    {
+      "text": "這個就是外國人做得很自然,",
+      "start": "00:30:29,000",
+      "end": "00:30:32,000",
+      "tr": "This is something foreigners do very naturally,"
+    },
+    {
+      "text": "我們還沒有到那個地步。",
+      "start": "00:30:32,000",
+      "end": "00:30:34,000",
+      "tr": "and we're not at that point yet."
+    },
+    {
+      "text": "我是從一個很幼稚的階段,",
+      "start": "00:30:34,000",
+      "end": "00:30:37,000",
+      "tr": "I started out at a really naive stage,"
+    },
+    {
+      "text": "學會瞭如何跟人打交道,",
+      "start": "00:30:37,000",
+      "end": "00:30:39,000",
+      "tr": "and learned how to deal with people,"
+    },
+    {
+      "text": "我覺得跟中國人打交道,",
+      "start": "00:30:39,000",
+      "end": "00:30:40,000",
+      "tr": "I feel that dealing with Chinese people,"
+    },
+    {
+      "text": "臣服真的很多。",
+      "start": "00:30:40,000",
+      "end": "00:30:41,000",
+      "tr": "There's really a lot of that kind of submission."
+    },
+    {
+      "text": "沒有那麼多單純的友誼的,",
+      "start": "00:30:41,000",
+      "end": "00:30:43,000",
+      "tr": "There isn't all that much simple, pure friendship."
+    },
+    {
+      "text": "這是我的經驗。",
+      "start": "00:30:43,000",
+      "end": "00:30:45,000",
+      "tr": "That's been my experience."
+    },
+    {
+      "text": "我以前是一個很注重感情情感的人。",
+      "start": "00:30:45,000",
+      "end": "00:30:49,000",
+      "tr": "I used to be someone who really valued feelings and emotional bonds."
+    },
+    {
+      "text": "我認為你這個人是朋友的話,",
+      "start": "00:30:49,000",
+      "end": "00:30:51,000",
+      "tr": "If I considered you a friend,"
+    },
+    {
+      "text": "我就會為你,",
+      "start": "00:30:51,000",
+      "end": "00:30:52,000",
+      "tr": "then I'd go out of my way for you."
+    },
+    {
+      "text": "雖然我沒有什麼資源,",
+      "start": "00:30:52,000",
+      "end": "00:30:53,000",
+      "tr": "Even though I didn't have many resources,"
+    },
+    {
+      "text": "雖然我很窮,",
+      "start": "00:30:53,000",
+      "end": "00:30:54,000",
+      "tr": "even though I was broke,"
+    },
+    {
+      "text": "但是我還是盡我全能去幫你。",
+      "start": "00:30:54,000",
+      "end": "00:30:57,000",
+      "tr": "I'd still do everything I possibly could to help you."
+    },
+    {
+      "text": "我認為這是友誼的體現。",
+      "start": "00:30:57,000",
+      "end": "00:30:59,000",
+      "tr": "To me, that's what friendship looks like."
+    },
+    {
+      "text": "但是我真的很幼稚了。",
+      "start": "00:30:59,000",
+      "end": "00:31:01,000",
+      "tr": "But honestly, I was being really naive."
+    },
+    {
+      "text": "那社會上很多人不是這麼想的,",
+      "start": "00:31:01,000",
+      "end": "00:31:03,000",
+      "tr": "A lot of people out there don't think that way at all."
+    },
+    {
+      "text": "他並不認為你們之間有什麼真正的友誼。",
+      "start": "00:31:03,000",
+      "end": "00:31:08,000",
+      "tr": "They don't actually believe there's any real friendship between you."
+    },
+    {
+      "text": "那麼他就會利用我這個屬性去為他的利益著想,",
+      "start": "00:31:08,000",
+      "end": "00:31:14,000",
+      "tr": "So they'll take advantage of that side of me for their own benefit,"
+    },
+    {
+      "text": "去設計你。",
+      "start": "00:31:14,000",
+      "end": "00:31:16,000",
+      "tr": "and set you up."
+    },
+    {
+      "text": "我覺得這在外國的社會都很難出現的。",
+      "start": "00:31:16,000",
+      "end": "00:31:19,000",
+      "tr": "I feel like this is something that would rarely happen in Western societies."
+    },
+    {
+      "text": "大家還是一個比較單純的,",
+      "start": "00:31:19,000",
+      "end": "00:31:21,000",
+      "tr": "Over there, people are still in a more straightforward,"
+    },
+    {
+      "text": "純友誼的狀態。",
+      "start": "00:31:21,000",
+      "end": "00:31:22,000",
+      "tr": "purely friendly kind of mode."
+    },
+    {
+      "text": "大概只有政治家才會這樣去騙人,對吧?",
+      "start": "00:31:22,000",
+      "end": "00:31:25,000",
+      "tr": "Probably only politicians would deceive people like that, right?"
+    },
+    {
+      "text": "不是的,在中國我覺得有很多人都是政治家。",
+      "start": "00:31:25,000",
+      "end": "00:31:28,000",
+      "tr": "No, in China I think a lot of people are basically politicians."
+    },
+    {
+      "text": "我們有一句話說,",
+      "start": "00:31:28,000",
+      "end": "00:31:31,000",
+      "tr": "We have a saying that goes,"
+    },
+    {
+      "text": "多個朋友多條路嘛。",
+      "start": "00:31:31,000",
+      "end": "00:31:33,000",
+      "tr": "the more friends you have, the more options open up for you."
+    },
+    {
+      "text": "就是指朋友之間是可以互相幫忙的。",
+      "start": "00:31:33,000",
+      "end": "00:31:36,000",
+      "tr": "It means friends can help each other out."
+    },
+    {
+      "text": "然後我們通常幫忙是不太會去收錢的,對吧?",
+      "start": "00:31:36,000",
+      "end": "00:31:41,000",
+      "tr": "And usually when we help, we don't really charge money for it, right?"
+    },
+    {
+      "text": "但是西方人吧,",
+      "start": "00:31:41,000",
+      "end": "00:31:44,000",
+      "tr": "But Westerners,"
+    },
+    {
+      "text": "都不說所有的外國人吧,",
+      "start": "00:31:44,000",
+      "end": "00:31:45,000",
+      "tr": "well, not all foreigners,"
+    },
+    {
+      "text": "可能他們會覺得工作是工作,",
+      "start": "00:31:45,000",
+      "end": "00:31:49,000",
+      "tr": "they might feel that work is work,"
+    },
+    {
+      "text": "友情是友情,",
+      "start": "00:31:49,000",
+      "end": "00:31:51,000",
+      "tr": "and friendship is friendship."
+    },
+    {
+      "text": "就是該收的錢還得收。",
+      "start": "00:31:51,000",
+      "end": "00:31:52,000",
+      "tr": "So whatever they're owed, they'll still charge for it."
+    },
+    {
+      "text": "就假設你是一個設計師,",
+      "start": "00:31:52,000",
+      "end": "00:31:55,000",
+      "tr": "Say you're a designer,"
+    },
+    {
+      "text": "然後我找你幫我設計個東西。",
+      "start": "00:31:55,000",
+      "end": "00:31:57,000",
+      "tr": "and I come to you to design something for me."
+    },
+    {
+      "text": "做我中國朋友,",
+      "start": "00:31:57,000",
+      "end": "00:31:58,000",
+      "tr": "As my Chinese friend,"
+    },
+    {
+      "text": "你會說,",
+      "start": "00:31:58,000",
+      "end": "00:31:59,000",
+      "tr": "you'd say,"
+    },
+    {
+      "text": "沒事包在我身上。",
+      "start": "00:31:59,000",
+      "end": "00:32:00,000",
+      "tr": "No problem, leave it to me."
+    },
+    {
+      "text": "哎呀,不要談錢。",
+      "start": "00:32:00,000",
+      "end": "00:32:02,000",
+      "tr": "Come on, don't talk about money."
+    },
+    {
+      "text": "不需要錢。",
+      "start": "00:32:02,000",
+      "end": "00:32:03,000",
+      "tr": "No need to pay."
+    },
+    {
+      "text": "然後你可能就做了。",
+      "start": "00:32:03,000",
+      "end": "00:32:05,000",
+      "tr": "And then you'd probably just do it."
+    },
+    {
+      "text": "但我如果真的不給你錢,",
+      "start": "00:32:05,000",
+      "end": "00:32:06,000",
+      "tr": "But if I really didn't give you anything,"
+    },
+    {
+      "text": "也沒有任何表示的話,",
+      "start": "00:32:06,000",
+      "end": "00:32:08,000",
+      "tr": "didn't show any appreciation at all,"
+    },
+    {
+      "text": "你心裡肯定不舒服,對吧?",
+      "start": "00:32:08,000",
+      "end": "00:32:09,000",
+      "tr": "you'd definitely feel put out, right?"
+    },
+    {
+      "text": "所以我得請你吃頓飯。",
+      "start": "00:32:09,000",
+      "end": "00:32:10,000",
+      "tr": "So I'd have to treat you to a meal."
+    },
+    {
+      "text": "這種事我碰到很多。",
+      "start": "00:32:12,000",
+      "end": "00:32:13,000",
+      "tr": "I've run into this kind of thing a lot."
+    },
+    {
+      "text": "我覺得這樣拜託最不好的一個點就是,",
+      "start": "00:32:13,000",
+      "end": "00:32:17,000",
+      "tr": "I think the worst part about asking favors this way is,"
+    },
+    {
+      "text": "首先你要做一件事情是跟工作有關的。",
+      "start": "00:32:17,000",
+      "end": "00:32:20,000",
+      "tr": "first off, the thing you need done is work-related."
+    },
+    {
+      "text": "然後你想通過一段友誼就來換取他為你服務,",
+      "start": "00:32:20,000",
+      "end": "00:32:24,000",
+      "tr": "And then you're trying to use the friendship to get them to do work for you,"
+    },
+    {
+      "text": "或者幫你做一件事情。",
+      "start": "00:32:24,000",
+      "end": "00:32:26,000",
+      "tr": "or to do something for you."
+    },
+    {
+      "text": "就像你剛才說的吧,",
+      "start": "00:32:26,000",
+      "end": "00:32:27,000",
+      "tr": "Like you just said,"
+    },
+    {
+      "text": "你要做一個美術設計,",
+      "start": "00:32:27,000",
+      "end": "00:32:29,000",
+      "tr": "you need some graphic design done,"
+    },
+    {
+      "text": "然後你請這個設計師吃一頓飯。",
+      "start": "00:32:29,000",
+      "end": "00:32:31,000",
+      "tr": "and then you treat the designer to a meal."
+    },
+    {
+      "text": "但他這個設計可能就比你這頓飯貴很多。",
+      "start": "00:32:31,000",
+      "end": "00:32:34,000",
+      "tr": "But their design work might be worth way more than that one meal."
+    },
+    {
+      "text": "我女朋友他們公司,",
+      "start": "00:32:34,000",
+      "end": "00:32:36,000",
+      "tr": "At my girlfriend's company,"
+    },
+    {
+      "text": "他們老闆是日語教師。",
+      "start": "00:32:36,000",
+      "end": "00:32:41,000",
+      "tr": "their boss is a Japanese teacher."
+    },
+    {
+      "text": "他是一個教育機構,",
+      "start": "00:32:41,000",
+      "end": "00:32:42,000",
+      "tr": "It's an educational institution,"
+    },
+    {
+      "text": "然後他有一些日本朋友,",
+      "start": "00:32:42,000",
+      "end": "00:32:44,000",
+      "tr": "and he has some Japanese friends,"
+    },
+    {
+      "text": "他們就來中國玩的時候,",
+      "start": "00:32:44,000",
+      "end": "00:32:46,000",
+      "tr": "so when they came to China to visit,"
+    },
+    {
+      "text": "這個老闆請他們吃了一頓飯。",
+      "start": "00:32:46,000",
+      "end": "00:32:48,000",
+      "tr": "This boss treated them to a meal."
+    },
+    {
+      "text": "從日本的文化來說,",
+      "start": "00:32:48,000",
+      "end": "00:32:49,000",
+      "tr": "In Japanese culture,"
+    },
+    {
+      "text": "他們也是以不打擾朋友為主的。",
+      "start": "00:32:49,000",
+      "end": "00:32:52,000",
+      "tr": "they also operate on the principle of not bothering their friends."
+    },
+    {
+      "text": "我不能讓你幫我做什麼事情。",
+      "start": "00:32:52,000",
+      "end": "00:32:54,000",
+      "tr": "\"I can't have you do something for me.\""
+    },
+    {
+      "text": "可是他就要拜託別人幫他做一個LOGO。",
+      "start": "00:32:54,000",
+      "end": "00:32:57,000",
+      "tr": "But this guy wanted to ask someone to design a logo for him."
+    },
+    {
+      "text": "你知道做LOGO是一個很複雜的事情。",
+      "start": "00:32:57,000",
+      "end": "00:33:00,000",
+      "tr": "You know, designing a logo is a really complicated thing."
+    },
+    {
+      "text": "別人其實就很委婉地拒絕了。",
+      "start": "00:33:00,000",
+      "end": "00:33:03,000",
+      "tr": "So the other person actually turned him down pretty tactfully."
+    },
+    {
+      "text": "但是這個老闆他是沒有眼力嫁的。",
+      "start": "00:33:03,000",
+      "end": "00:33:06,000",
+      "tr": "But this boss just couldn't read the room."
+    },
+    {
+      "text": "他心裡的內心獨白是,",
+      "start": "00:33:06,000",
+      "end": "00:33:08,000",
+      "tr": "His inner monologue was,"
+    },
+    {
+      "text": "我都請你吃飯了,",
+      "start": "00:33:08,000",
+      "end": "00:33:09,000",
+      "tr": "\"I even bought you a meal,"
+    },
+    {
+      "text": "你為什麼還不幫我做?",
+      "start": "00:33:09,000",
+      "end": "00:33:10,000",
+      "tr": "so why won't you help me out?"
+    },
+    {
+      "text": "難道我的友誼不值錢嗎?",
+      "start": "00:33:10,000",
+      "end": "00:33:12,000",
+      "tr": "Is my friendship worth nothing?\""
+    },
+    {
+      "text": "他做事的方式啊,",
+      "start": "00:33:12,000",
+      "end": "00:33:14,000",
+      "tr": "The way he handles things,"
+    },
+    {
+      "text": "這個老闆其實很有代表性,",
+      "start": "00:33:14,000",
+      "end": "00:33:16,000",
+      "tr": "this boss is actually pretty typical,"
+    },
+    {
+      "text": "跟很多中國的老闆都一樣。",
+      "start": "00:33:16,000",
+      "end": "00:33:18,000",
+      "tr": "just like a lot of Chinese bosses."
+    },
+    {
+      "text": "他們很喜歡說,",
+      "start": "00:33:18,000",
+      "end": "00:33:20,000",
+      "tr": "They love to say,"
+    },
+    {
+      "text": "我找熟人去做一個什麼東西。",
+      "start": "00:33:20,000",
+      "end": "00:33:22,000",
+      "tr": "\"I'll get someone I know to do this for me.\""
+    },
+    {
+      "text": "我找朋友幫我做,",
+      "start": "00:33:22,000",
+      "end": "00:33:24,000",
+      "tr": "\"I'll get a friend to do it for me,"
+    },
+    {
+      "text": "然後多少錢?",
+      "start": "00:33:24,000",
+      "end": "00:33:25,000",
+      "tr": "and then how much will it cost?"
+    },
+    {
+      "text": "這個朋友少收錢,",
+      "start": "00:33:25,000",
+      "end": "00:33:26,000",
+      "tr": "The friend charges less,"
+    },
+    {
+      "text": "給我友誼一架。",
+      "start": "00:33:26,000",
+      "end": "00:33:27,000",
+      "tr": "out of friendship.\""
+    },
+    {
+      "text": "實際上這個事情,",
+      "start": "00:33:27,000",
+      "end": "00:33:28,000",
+      "tr": "But in reality, this kind of thing,"
+    },
+    {
+      "text": "99%的情況都不會做好。",
+      "start": "00:33:28,000",
+      "end": "00:33:31,000",
+      "tr": "99% of the time it won't turn out well."
+    },
+    {
+      "text": "他做不好,你還不好說?",
+      "start": "00:33:31,000",
+      "end": "00:33:33,000",
+      "tr": "He does a bad job, and then it's awkward to even say anything, right?"
+    },
+    {
+      "text": "對,",
+      "start": "00:33:33,000",
+      "end": "00:33:34,000",
+      "tr": "Right."
+    },
+    {
+      "text": "但是他沒有這個意識,",
+      "start": "00:33:34,000",
+      "end": "00:33:35,000",
+      "tr": "But he's not aware of that,"
+    },
+    {
+      "text": "他覺得自己特別聰明,",
+      "start": "00:33:35,000",
+      "end": "00:33:36,000",
+      "tr": "he thinks he's being really clever,"
+    },
+    {
+      "text": "他省錢了,",
+      "start": "00:33:36,000",
+      "end": "00:33:37,000",
+      "tr": "he saved money,"
+    },
+    {
+      "text": "他覺得自己省錢了。",
+      "start": "00:33:37,000",
+      "end": "00:33:39,000",
+      "tr": "he thinks he saved money."
+    },
+    {
+      "text": "但是這是一個非常小老闆的思維。",
+      "start": "00:33:39,000",
+      "end": "00:33:41,000",
+      "tr": "But this is the mindset of a really small-time boss."
+    },
+    {
+      "text": "他們不但沒有省到錢,",
+      "start": "00:33:41,000",
+      "end": "00:33:43,000",
+      "tr": "Not only did they not save any money,"
+    },
+    {
+      "text": "這個事情最後還要搞砸,",
+      "start": "00:33:43,000",
+      "end": "00:33:44,000",
+      "tr": "the whole thing ends up getting botched,"
+    },
+    {
+      "text": "然後你還要再花錢,",
+      "start": "00:33:44,000",
+      "end": "00:33:46,000",
+      "tr": "and then you have to spend money again,"
+    },
+    {
+      "text": "去僱一群真正的專業人士,",
+      "start": "00:33:46,000",
+      "end": "00:33:48,000",
+      "tr": "to hire a team of actual professionals,"
+    },
+    {
+      "text": "再做一遍。",
+      "start": "00:33:48,000",
+      "end": "00:33:49,000",
+      "tr": "to do it all over."
+    },
+    {
+      "text": "就是你浪費時間浪費錢。",
+      "start": "00:33:49,000",
+      "end": "00:33:51,000",
+      "tr": "So you waste both time and money."
+    },
+    {
+      "text": "然後還有一點,",
+      "start": "00:33:51,000",
+      "end": "00:33:52,000",
+      "tr": "And there's another thing,"
+    },
+    {
+      "text": "還有一點就是我有注意到的,",
+      "start": "00:33:52,000",
+      "end": "00:33:53,000",
+      "tr": "another thing I've noticed,"
+    },
+    {
+      "text": "中國人有一個思想就是,",
+      "start": "00:33:53,000",
+      "end": "00:33:56,000",
+      "tr": "is that Chinese people have this idea that,"
+    },
+    {
+      "text": "在什麼樣的年齡做什麼樣的事情。",
+      "start": "00:33:56,000",
+      "end": "00:33:58,000",
+      "tr": "you should do certain things at certain ages."
+    },
+    {
+      "text": "這個就導致中國人很難跟比自己年齡相差很大的人做朋友。",
+      "start": "00:33:58,000",
+      "end": "00:34:05,000",
+      "tr": "This makes it really hard for Chinese people to be friends with someone of a very different age."
+    },
+    {
+      "text": "我覺得第一個方面就是外國人涉獵很廣,",
+      "start": "00:34:05,000",
+      "end": "00:34:08,000",
+      "tr": "I think the first thing is that foreigners dabble in a lot,"
+    },
+    {
+      "text": "他們的愛好,",
+      "start": "00:34:08,000",
+      "end": "00:34:09,000",
+      "tr": "their hobbies,"
+    },
+    {
+      "text": "興趣愛好非常的廣泛。",
+      "start": "00:34:09,000",
+      "end": "00:34:10,000",
+      "tr": "their interests and hobbies are really wide-ranging."
+    },
+    {
+      "text": "然後他們不會盲目去拒絕一些東西。",
+      "start": "00:34:10,000",
+      "end": "00:34:13,000",
+      "tr": "And they won't blindly reject certain things."
+    },
+    {
+      "text": "比如說,",
+      "start": "00:34:13,000",
+      "end": "00:34:14,000",
+      "tr": "For example,"
+    },
+    {
+      "text": "中國人就說我到了一定年齡,",
+      "start": "00:34:14,000",
+      "end": "00:34:15,000",
+      "tr": "a Chinese person would say, once I hit a certain age,"
+    },
+    {
+      "text": "我就不去接觸這個東西了。",
+      "start": "00:34:15,000",
+      "end": "00:34:17,000",
+      "tr": "I won't get into this kind of thing anymore."
+    },
+    {
+      "text": "比如說,",
+      "start": "00:34:17,000",
+      "end": "00:34:18,000",
+      "tr": "For example,"
+    },
+    {
+      "text": "我年齡大了,",
+      "start": "00:34:18,000",
+      "end": "00:34:20,000",
+      "tr": "\"I'm getting older,"
+    },
+    {
+      "text": "我就不打遊戲了。",
+      "start": "00:34:20,000",
+      "end": "00:34:21,000",
+      "tr": "so I won't play video games anymore.\""
+    },
+    {
+      "text": "跳廣場舞了。",
+      "start": "00:34:21,000",
+      "end": "00:34:22,000",
+      "tr": "Time to do square dancing instead."
+    },
+    {
+      "text": "對,",
+      "start": "00:34:22,000",
+      "end": "00:34:23,000",
+      "tr": "Right,"
+    },
+    {
+      "text": "我就該跳廣場舞了,",
+      "start": "00:34:23,000",
+      "end": "00:34:24,000",
+      "tr": "\"now I should be doing square dancing,"
+    },
+    {
+      "text": "你就該進入那個老人圈子了。",
+      "start": "00:34:24,000",
+      "end": "00:34:26,000",
+      "tr": "you should be joining that old-folks crowd.\""
+    },
+    {
+      "text": "他們不是,",
+      "start": "00:34:26,000",
+      "end": "00:34:27,000",
+      "tr": "No, they're not,"
+    },
+    {
+      "text": "他們有一些興趣愛好是一輩子的。",
+      "start": "00:34:27,000",
+      "end": "00:34:29,000",
+      "tr": "they have hobbies that last a lifetime."
+    },
+    {
+      "text": "我覺得我們對年紀是很敏感的。",
+      "start": "00:34:29,000",
+      "end": "00:34:31,000",
+      "tr": "I think we're really sensitive about age."
+    },
+    {
+      "text": "你沒有發現,",
+      "start": "00:34:31,000",
+      "end": "00:34:33,000",
+      "tr": "Haven't you noticed,"
+    },
+    {
+      "text": "兩個陌生人見面很喜歡問的就是年紀。",
+      "start": "00:34:33,000",
+      "end": "00:34:38,000",
+      "tr": "when two strangers meet, the thing they love to ask is your age."
+    },
+    {
+      "text": "你是九幾後的?",
+      "start": "00:34:38,000",
+      "end": "00:34:39,000",
+      "tr": "What year were you born?"
+    },
+    {
+      "text": "你是90後的嗎?",
+      "start": "00:34:39,000",
+      "end": "00:34:40,000",
+      "tr": "Were you born in the 90s?"
+    },
+    {
+      "text": "你是80後的嗎?",
+      "start": "00:34:40,000",
+      "end": "00:34:41,000",
+      "tr": "Were you born in the 80s?"
+    },
+    {
+      "text": "你是60後的嗎?",
+      "start": "00:34:41,000",
+      "end": "00:34:42,000",
+      "tr": "Were you born in the 60s?"
+    },
+    {
+      "text": "你是80後的,",
+      "start": "00:34:42,000",
+      "end": "00:34:43,000",
+      "tr": "You were born in the 80s,"
+    },
+    {
+      "text": "我是90後的。",
+      "start": "00:34:43,000",
+      "end": "00:34:44,000",
+      "tr": "I was born in the 90s."
+    },
+    {
+      "text": "那我得叫你一聲大哥。",
+      "start": "00:34:44,000",
+      "end": "00:34:46,000",
+      "tr": "Then I have to call you big brother."
+    },
+    {
+      "text": "你如果是70後,",
+      "start": "00:34:46,000",
+      "end": "00:34:47,000",
+      "tr": "If you were born in the 70s,"
+    },
+    {
+      "text": "或者60後我爸這個年紀的,",
+      "start": "00:34:47,000",
+      "end": "00:34:49,000",
+      "tr": "or the 60s, around my dad's age,"
+    },
+    {
+      "text": "我得叫你一聲大叔。",
+      "start": "00:34:49,000",
+      "end": "00:34:51,000",
+      "tr": "then I have to call you uncle."
+    },
+    {
+      "text": "就這個稱呼已經把我們的距離拉開了。",
+      "start": "00:34:51,000",
+      "end": "00:34:55,000",
+      "tr": "Just that title already puts distance between us."
+    },
+    {
+      "text": "沒有辦法再去以平等的地位來溝通了。",
+      "start": "00:34:55,000",
+      "end": "00:34:59,000",
+      "tr": "There's no way to talk as equals anymore."
+    },
+    {
+      "text": "就當你們倆的那個地位是相差這麼大的,",
+      "start": "00:34:59,000",
+      "end": "00:35:02,000",
+      "tr": "When the gap in status between the two of you is that big,"
+    },
+    {
+      "text": "你怎麼溝通啊?",
+      "start": "00:35:02,000",
+      "end": "00:35:03,000",
+      "tr": "how do you even communicate?"
+    },
+    {
+      "text": "你怎麼去聊?",
+      "start": "00:35:03,000",
+      "end": "00:35:04,000",
+      "tr": "How do you have a conversation?"
+    },
+    {
+      "text": "我就不明白了,",
+      "start": "00:35:04,000",
+      "end": "00:35:06,000",
+      "tr": "I just don't get it,"
+    },
+    {
+      "text": "我就不明白了為什麼現在一些比我小的人要叫我叔叔,",
+      "start": "00:35:06,000",
+      "end": "00:35:09,000",
+      "tr": "I just don't get why some people younger than me call me uncle,"
+    },
+    {
+      "text": "而且叫我叔叔的人還不少。",
+      "start": "00:35:09,000",
+      "end": "00:35:11,000",
+      "tr": "and quite a few of them do."
+    },
+    {
+      "text": "我跟90後的人,",
+      "start": "00:35:11,000",
+      "end": "00:35:13,000",
+      "tr": "When I play ball with people born in the 90s,"
+    },
+    {
+      "text": "跟一些2K後的人打球的話,",
+      "start": "00:35:13,000",
+      "end": "00:35:16,000",
+      "tr": "or some people born after 2000,"
+    },
+    {
+      "text": "他們就說,",
+      "start": "00:35:16,000",
+      "end": "00:35:18,000",
+      "tr": "they'll say,"
+    },
+    {
+      "text": "跟我說不要丟90後的臉。",
+      "start": "00:35:18,000",
+      "end": "00:35:21,000",
+      "tr": "they tell me not to embarrass the 90s generation."
+    },
+    {
+      "text": "他們認為我也是90後,",
+      "start": "00:35:21,000",
+      "end": "00:35:23,000",
+      "tr": "They figure I'm also a 90s kid,"
+    },
+    {
+      "text": "我跟他們是一個集團的。",
+      "start": "00:35:23,000",
+      "end": "00:35:25,000",
+      "tr": "that I'm part of their crew."
+    },
+    {
+      "text": "我要維護捍衛90後的尊嚴。",
+      "start": "00:35:25,000",
+      "end": "00:35:28,000",
+      "tr": "So I should defend the honor of the 90s generation."
+    },
+    {
+      "text": "要分得這麼清楚嗎大哥?",
+      "start": "00:35:28,000",
+      "end": "00:35:30,000",
+      "tr": "Do we really have to split hairs like that, dude?"
+    },
+    {
+      "text": "然後你叫我叔叔什麼意思?",
+      "start": "00:35:30,000",
+      "end": "00:35:32,000",
+      "tr": "And then you call me uncle, what's that about?"
+    },
+    {
+      "text": "人為的一下那種距離感就來了,",
+      "start": "00:35:32,000",
+      "end": "00:35:34,000",
+      "tr": "That artificial sense of distance just kicks in,"
+    },
+    {
+      "text": "你知道嗎?",
+      "start": "00:35:34,000",
+      "end": "00:35:35,000",
+      "tr": "you know?"
+    },
+    {
+      "text": "還有一種情況就是有很多外國人,",
+      "start": "00:35:35,000",
+      "end": "00:35:38,000",
+      "tr": "There's another situation, where a lot of foreigners,"
+    },
+    {
+      "text": "他對中國人,",
+      "start": "00:35:38,000",
+      "end": "00:35:39,000",
+      "tr": "toward Chinese people,"
+    },
+    {
+      "text": "尤其是中國大陸的人,",
+      "start": "00:35:39,000",
+      "end": "00:35:41,000",
+      "tr": "especially people from mainland China,"
+    },
+    {
+      "text": "他已經有一種先入為主的印象了。",
+      "start": "00:35:41,000",
+      "end": "00:35:44,000",
+      "tr": "they already have a preconceived impression."
+    },
+    {
+      "text": "就是他認為你就是某一種有集體思維的人,",
+      "start": "00:35:44,000",
+      "end": "00:35:48,000",
+      "tr": "They assume you're a certain kind of person with a collectivist mindset,"
+    },
+    {
+      "text": "然後他沒有辦法跟你聊。",
+      "start": "00:35:48,000",
+      "end": "00:35:50,000",
+      "tr": "and then they can't really talk to you."
+    },
+    {
+      "text": "其實這個門是關上的,",
+      "start": "00:35:50,000",
+      "end": "00:35:52,000",
+      "tr": "The door is already shut,"
+    },
+    {
+      "text": "他不願意跟你交流。",
+      "start": "00:35:52,000",
+      "end": "00:35:54,000",
+      "tr": "they're not willing to interact with you."
+    },
+    {
+      "text": "那你最想要跟哪個國家的人做朋友?",
+      "start": "00:35:54,000",
+      "end": "00:35:58,000",
+      "tr": "So which country's people do you most want to be friends with?"
+    },
+    {
+      "text": "有跟各個國家不同的人聊過吧,",
+      "start": "00:35:58,000",
+      "end": "00:36:02,000",
+      "tr": "You've talked with people from all sorts of countries, right?"
+    },
+    {
+      "text": "我覺得東南亞的朋友很不錯,",
+      "start": "00:36:02,000",
+      "end": "00:36:05,000",
+      "tr": "I think friends from Southeast Asia are really great,"
+    },
+    {
+      "text": "我覺得他們的思維很國際化,",
+      "start": "00:36:05,000",
+      "end": "00:36:08,000",
+      "tr": "I think they have a very international way of thinking,"
+    },
+    {
+      "text": "然後他們也很開放的心態聊。",
+      "start": "00:36:08,000",
+      "end": "00:36:10,000",
+      "tr": "and they talk with a really open-minded attitude."
+    },
+    {
+      "text": "他們也會諷刺,",
+      "start": "00:36:10,000",
+      "end": "00:36:13,000",
+      "tr": "They'll be sarcastic too,"
+    },
+    {
+      "text": "也會一些幽默,",
+      "start": "00:36:13,000",
+      "end": "00:36:16,000",
+      "tr": "and have a sense of humor,"
+    },
+    {
+      "text": "自我諷刺什麼的,",
+      "start": "00:36:16,000",
+      "end": "00:36:17,000",
+      "tr": "self-deprecating and all that,"
+    },
+    {
+      "text": "我覺得非常有意思。",
+      "start": "00:36:17,000",
+      "end": "00:36:18,000",
+      "tr": "I find it really fun."
+    },
+    {
+      "text": "然後互相之間這種幽默都是可以理解的。",
+      "start": "00:36:18,000",
+      "end": "00:36:22,000",
+      "tr": "And that kind of humor between us is mutually understood."
+    },
+    {
+      "text": "然後我很享受跟他們聊天的過程。",
+      "start": "00:36:22,000",
+      "end": "00:36:25,000",
+      "tr": "I really enjoy the whole process of chatting with them."
+    },
+    {
+      "text": "我很少跟美國人聊天吧,",
+      "start": "00:36:25,000",
+      "end": "00:36:30,000",
+      "tr": "I rarely chat with Americans,"
+    },
+    {
+      "text": "我覺得美國人好像沒有什麼耐心去聽你講話。",
+      "start": "00:36:30,000",
+      "end": "00:36:35,000",
+      "tr": "I feel like Americans don't really have the patience to listen to what you're saying."
+    },
+    {
+      "text": "而且他們對中國人都是有一種先入為主的那種感覺吧。",
+      "start": "00:36:35,000",
+      "end": "00:36:41,000",
+      "tr": "And they all have this kind of preconceived idea about Chinese people."
+    },
+    {
+      "text": "我有碰到過美國人,",
+      "start": "00:36:41,000",
+      "end": "00:36:44,000",
+      "tr": "I've run into Americans"
+    },
+    {
+      "text": "他還比較有耐心的,",
+      "start": "00:36:44,000",
+      "end": "00:36:46,000",
+      "tr": "who were pretty patient,"
+    },
+    {
+      "text": "他會聽你聊什麼。",
+      "start": "00:36:46,000",
+      "end": "00:36:47,000",
+      "tr": "who'd actually listen to what you had to say."
+    },
+    {
+      "text": "然後你說的一些話,",
+      "start": "00:36:47,000",
+      "end": "00:36:48,000",
+      "tr": "And some of the things you said,"
+    },
+    {
+      "text": "他覺得很有意思。",
+      "start": "00:36:48,000",
+      "end": "00:36:50,000",
+      "tr": "they found really interesting."
+    },
+    {
+      "text": "可能我碰到的都是那個樣子吧,",
+      "start": "00:36:50,000",
+      "end": "00:36:53,000",
+      "tr": "Maybe the ones I happened to meet were just like that, I don't know."
+    },
+    {
+      "text": "我不知道。",
+      "start": "00:36:53,000",
+      "end": "00:36:55,000",
+      "tr": "I really don't know."
+    },
+    {
+      "text": "但確實也碰到過像你說的那種,",
+      "start": "00:36:55,000",
+      "end": "00:36:57,000",
+      "tr": "But I have definitely run into the kind you're describing too,"
+    },
+    {
+      "text": "就是他先天就覺得自己高人一等,",
+      "start": "00:36:57,000",
+      "end": "00:37:00,000",
+      "tr": "the kind who just inherently think they're a cut above everyone else,"
+    },
+    {
+      "text": "因為他會覺得你的英文不夠好,",
+      "start": "00:37:00,000",
+      "end": "00:37:03,000",
+      "tr": "because they figure your English isn't good enough,"
+    },
+    {
+      "text": "或者是你的表達不夠好,",
+      "start": "00:37:03,000",
+      "end": "00:37:04,000",
+      "tr": "or you can't express yourself well enough,"
+    },
+    {
+      "text": "他就不想跟你聊天,",
+      "start": "00:37:04,000",
+      "end": "00:37:06,000",
+      "tr": "so they just don't want to talk to you."
+    },
+    {
+      "text": "這種的也碰到過。",
+      "start": "00:37:06,000",
+      "end": "00:37:07,000",
+      "tr": "I've come across that type too."
+    },
+    {
+      "text": "對,他覺得你對這個事情的觀點沒有達到某種高度,",
+      "start": "00:37:07,000",
+      "end": "00:37:11,000",
+      "tr": "Right, they feel your take on something doesn't reach a certain level,"
+    },
+    {
+      "text": "他就不想浪費時間跟你聊。",
+      "start": "00:37:11,000",
+      "end": "00:37:13,000",
+      "tr": "so they don't want to waste their time talking to you."
+    },
+    {
+      "text": "他就覺得你們不就是那樣的思維嗎?",
+      "start": "00:37:13,000",
+      "end": "00:37:15,000",
+      "tr": "They just figure, isn't that exactly how you people think?"
+    },
+    {
+      "text": "你們都是那樣想的。",
+      "start": "00:37:15,000",
+      "end": "00:37:17,000",
+      "tr": "You all think that way."
+    },
+    {
+      "text": "所以他已經閉上那個門,",
+      "start": "00:37:17,000",
+      "end": "00:37:19,000",
+      "tr": "So they've already shut that door,"
+    },
+    {
+      "text": "他不跟你聊。",
+      "start": "00:37:19,000",
+      "end": "00:37:21,000",
+      "tr": "He just won't talk to you."
+    }
+  ],
+  "sections": [
+    {
+      "start": "00:01:26,000",
+      "end": "00:02:31,000",
+      "title": "Intro and foreigners in Zhongshan",
+      "summary": "Eileen 和 Kerr 開場，聊到 Kerr 在中山這個小工業城市打籃球時，遇到的南亞和其他外國工作者。",
+      "tr": "Eileen and Kerr open the show and discuss the South Asian and other foreign workers Kerr meets playing basketball in his small industrial city of Zhongshan."
+    },
+    {
+      "start": "00:02:31,000",
+      "end": "00:03:17,000",
+      "title": "Kerr's close foreign friends",
+      "summary": "Kerr 講他那一兩個比較要好的外國朋友，包括一個在公司烤肉時聊了好幾個小時、後來還去參加他婚禮的比利時人。",
+      "tr": "Kerr describes his one or two close foreign friends, including a Belgian he bonded with for hours at a company barbecue and later attended the wedding of."
+    },
+    {
+      "start": "00:03:17,000",
+      "end": "00:04:07,000",
+      "title": "Barriers to foreigners making Chinese friends",
+      "summary": "他們解釋為什麼在中國的外國人大多待在封閉的小圈子裡——語言是個障礙，要嘛中文要很好，要嘛得有一個會說英文、又懂文化的中國伴侶。",
+      "tr": "They explain why foreigners in China stay in closed circles, citing the language barrier and the need for either strong Chinese or an English-speaking, culturally-aware Chinese partner."
+    },
+    {
+      "start": "00:04:07,000",
+      "end": "00:06:42,000",
+      "title": "Kerr's first foreign teachers in high school",
+      "summary": "Kerr 回憶他最早的外國朋友，也就是高中時換來換去的外籍英文老師，包括一個南斯拉夫人、一個穿曲棍球短褲的加拿大人，還有教攀岩和講聖經故事的 Tony。",
+      "tr": "Kerr reminisces about his earliest foreign friends, the rotating foreign English teachers in high school, including a Yugoslav, a Canadian in hockey shorts, and Tony who taught climbing and Bible stories."
+    },
+    {
+      "start": "00:06:42,000",
+      "end": "00:08:18,000",
+      "title": "Privacy and nosy small-talk questions",
+      "summary": "他們把跟外國人能聊得很深，對比中國人愛問的那些很私人的問題——結婚了沒、薪水多少、房子多大、錢的事——Kerr 覺得這些既愛打聽又沒什麼意義。",
+      "tr": "They contrast deep talk with foreigners against the typical intrusive Chinese small-talk about marriage, salary, housing size, and personal finances that Kerr finds prying and pointless."
+    },
+    {
+      "start": "00:08:18,000",
+      "end": "00:10:14,000",
+      "title": "Why Chinese people ask about money",
+      "summary": "他們聊到計程車司機會大方說自己收入很低，有些人卻裝有錢（提到恆大的許家印），並把這種對錢的執著，連到中國雖然 GDP 很大、平均收入卻偏低。",
+      "tr": "They discuss how taxi drivers openly share their low incomes while others fake wealth (citing Evergrande's Xu Jiayin), and link the obsession with money to China's low average income despite a huge GDP."
+    },
+    {
+      "start": "00:10:14,000",
+      "end": "00:12:18,000",
+      "title": "No time for hobbies vs. foreigners' leisure",
+      "summary": "他們認為經濟壓力讓一般中國人沒時間也沒精力培養興趣，而比較有錢的外國人、受過教育的專業人士和學生，反而能發展嗜好，聊起來也更有深度。",
+      "tr": "They argue that financial pressure leaves ordinary Chinese no time or energy for hobbies, whereas wealthier foreigners, educated professionals, and students can cultivate interests that make for deeper conversation."
+    },
+    {
+      "start": "00:12:18,000",
+      "end": "00:13:41,000",
+      "title": "What foreigners talk about instead",
+      "summary": "他們說外國人很少追問收入，反而會問你最近過得如何、看了什麼電影、有什麼有趣的事，而這些話題 Kerr 的中國熟人大多覺得很無聊。",
+      "tr": "They note foreigners rarely probe income and instead ask how you're doing, what films you've seen, or interesting events, topics most of Kerr's Chinese acquaintances find uninteresting."
+    },
+    {
+      "start": "00:13:41,000",
+      "end": "00:16:00,000",
+      "title": "Lying to deflect prying questions",
+      "summary": "Kerr 承認他對愛打聽的熟人從不老實，講他怎麼閃球友和店老闆問女朋友的事，還有同事一直想幫他介紹對象。",
+      "tr": "Kerr admits he is never honest with prying acquaintances, recounting dodging questions about his girlfriend from basketball buddies and a shop owner, and colleagues pushing to set him up with a girlfriend."
+    },
+    {
+      "start": "00:16:00,000",
+      "end": "00:18:28,000",
+      "title": "Weak boundaries and blunt appearance comments",
+      "summary": "他們聊到中國人界線很模糊，會隨口評論別人的頭髮、衣服、膚色、胖瘦，甚至對黑人問很沒禮貌的問題，相對之下國際上和東南亞的態度比較包容。",
+      "tr": "They discuss how Chinese people have weak boundaries, freely commenting on hair, clothes, skin color, weight, and even crude questions to Black people, versus more tolerant international and Southeast Asian attitudes."
+    },
+    {
+      "start": "00:18:28,000",
+      "end": "00:21:11,000",
+      "title": "Surface-level friendship and refusing to debate",
+      "summary": "他們解釋中國人常先入為主，覺得外國人差太多、聊不來，也不願意辯論——像是有個朋友因為 Kerr 喜歡鋼彈裡的反派而生氣，另一個則死不相信某些國際上發生的事。",
+      "tr": "They explain how Chinese people preset foreigners as too different to connect with and shut down debate, illustrated by a friend angered over Kerr liking the Gundam villains and another refusing to believe world events."
+    },
+    {
+      "start": "00:21:11,000",
+      "end": "00:23:08,000",
+      "title": "Debate, open-mindedness, and stereotypes",
+      "summary": "他們稱讚外國人能就事論事地辯論、不帶恨意，還能從不同意見中成長；接著談到中國人對外國人的刻板印象——以為他們思想開放、性觀念也開放，有些老外乾脆就在網路上演這個樣子。",
+      "tr": "They praise how foreigners debate without hatred and grow from opposing views, then examine Chinese stereotypes that foreigners are open-minded and sexually liberal, which some expats end up performing online."
+    },
+    {
+      "start": "00:23:08,000",
+      "end": "00:25:09,000",
+      "title": "Social activities and lack of outdoor culture",
+      "summary": "他們比較雙方的社交活動，說中國男生大多就是吃飯、喝酒、唱 KTV，不太願意去爬山或散步，並把戶外嗜好少的原因歸在時間、錢和場地都有限。",
+      "tr": "They compare social activities, noting Chinese men mostly do dinners, drinking, and KTV while rejecting hiking or walks, and blame the scarcity of outdoor hobbies on limited time, money, and venues."
+    },
+    {
+      "start": "00:25:09,000",
+      "end": "00:27:16,000",
+      "title": "English-practice friendships and favor-trading",
+      "summary": "他們回應外國人的抱怨——說中國人交朋友只是為了練英文、把人當工具；也聊到中國人還人情的方式，是靠累積的人情和請唱 KTV，而不是直接給錢。",
+      "tr": "They address foreigners' complaint that Chinese befriend them just to practice English, treating people as tools, and discuss how Chinese repay favors through saved-up obligations and KTV rather than cash."
+    },
+    {
+      "start": "00:27:16,000",
+      "end": "00:31:01,000",
+      "title": "Money, lending, and a betrayed friendship",
+      "summary": "他們把西方算錢算得很清楚，對比中國人不喜歡打借據、錢的事含糊不清；Kerr 還講到自己被一個借了好幾千塊的朋友一再佔便宜，最後乾脆絕交。",
+      "tr": "They contrast clear Western money dealings with the blurry Chinese aversion to IOUs, and Kerr recounts being repeatedly exploited by a friend he lent thousands to, whom he finally cut off."
+    },
+    {
+      "start": "00:31:01,000",
+      "end": "00:33:52,000",
+      "title": "Exploiting friendship for free work",
+      "summary": "他們感嘆把交情和錢摻在一起就容易被背叛，也批評有些中國老闆會利用關係，叫人免費做設計或商標，結果做得很差、反而更花錢。",
+      "tr": "They lament that mixing friendship with money invites betrayal, and criticize Chinese bosses who exploit connections for free design or logo work that ends up done badly and costing more."
+    },
+    {
+      "start": "00:33:52,000",
+      "end": "00:35:35,000",
+      "title": "Age hierarchy as a barrier to friendship",
+      "summary": "他們聊到中國人很在意「什麼年紀該有什麼樣子」，還有叔叔、大哥這類稱呼，這種輩分觀念會擋住不同年齡之間的平等友誼。",
+      "tr": "They discuss how the Chinese fixation on age-appropriate behavior and honorific titles like uncle or big brother creates hierarchy that blocks equal friendships across age gaps."
+    },
+    {
+      "start": "00:35:35,000",
+      "end": "00:37:21,000",
+      "title": "Preferred nationalities and closed-minded encounters",
+      "summary": "Kerr 說他最喜歡的朋友是東南亞人，因為他們比較國際化、又會自嘲；他把沒耐性或有偏見的美國人，對比那些少數很有耐心的；最後談到那些對中國大陸人關上門、不願往來的外國人。",
+      "tr": "Kerr names Southeast Asians as his favorite friends for their international, self-deprecating humor, and contrasts impatient or prejudiced Americans with the rare patient ones, closing on foreigners who shut the door on mainland Chinese."
+    }
+  ]
+}

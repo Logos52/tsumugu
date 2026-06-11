@@ -1,20 +1,23 @@
 /**
- * Dev-server vault (local convenience). Reads/writes the word store over the
- * `/@vault/` HTTP bridge the Vite dev plugin serves from a real folder, so the
- * app auto-loads on page-load (no File System Access click) and grades persist.
- * Only available under `pnpm dev`; the production build falls back to the File
- * System Access vault (`pickVaultFolder`).
+ * HTTP-backed vault: dev bridge (`/@vault/`) or static publish (`/vault/`).
+ * Production builds ship readings under `public/vault/` (see `scripts/publish-public-vault.ts`).
  */
 
 import type { VaultIO } from "@tsumugu/engine";
 
-const BASE = "/@vault/";
+const DEV_BASE = "/@vault/";
 
 const url = (base: string, path: string): string =>
   base + path.replace(/^\/+/, "").split("/").map(encodeURIComponent).join("/");
 
-/** A VaultIO backed by the dev server's `/@vault/` bridge. */
-export function createHttpVault(base = BASE): VaultIO {
+/** Published static vault root (respects Vite `base`, e.g. `/tsumugu/app/vault/`). */
+export function staticVaultBase(): string {
+  const base = import.meta.env.BASE_URL || "/";
+  return base + (base.endsWith("/") ? "" : "/") + "vault/";
+}
+
+/** A VaultIO backed by HTTP fetch (dev bridge or static publish). */
+export function createHttpVault(base = DEV_BASE): VaultIO {
   return {
     async readText(path: string): Promise<string | null> {
       const r = await fetch(url(base, path));
@@ -39,8 +42,8 @@ export function createHttpVault(base = BASE): VaultIO {
   };
 }
 
-/** Whether the dev-server vault bridge is present (true only under `vite dev`). */
-export async function devVaultAvailable(base = BASE): Promise<boolean> {
+/** Whether the Vite dev-server vault bridge is present. */
+export async function devVaultAvailable(base = DEV_BASE): Promise<boolean> {
   try {
     const r = await fetch(base + "__ping");
     return r.headers.get("x-tsumugu-vault") === "1";
@@ -49,17 +52,33 @@ export async function devVaultAvailable(base = BASE): Promise<boolean> {
   }
 }
 
-/** A `*.prepared.json` reading discovered in the dev vault. */
+/** Whether a static published vault is present (production GitHub Pages). */
+export async function staticVaultAvailable(base = staticVaultBase()): Promise<boolean> {
+  try {
+    const r = await fetch(url(base, "__readings.json"));
+    return r.ok;
+  } catch {
+    return false;
+  }
+}
+
+/** A `*.prepared.json` reading discovered in a vault. */
 export interface VaultReading {
   path: string;
   lang?: string;
   title?: string;
+  kind?: "youtube" | "gsm-dialogue" | "gsm-rewrite" | "other";
 }
 
-/** List the prepared readings under the dev vault (empty if unavailable). */
-export async function listVaultReadings(base = BASE): Promise<VaultReading[]> {
+/** List prepared readings (dev `__readings` or static `__readings.json`). */
+export async function listVaultReadings(vaultBase = DEV_BASE): Promise<VaultReading[]> {
   try {
-    const r = await fetch(base + "__readings");
+    if (vaultBase === DEV_BASE && (await devVaultAvailable())) {
+      const r = await fetch(DEV_BASE + "__readings");
+      if (!r.ok) return [];
+      return (await r.json()) as VaultReading[];
+    }
+    const r = await fetch(url(vaultBase === DEV_BASE ? staticVaultBase() : vaultBase, "__readings.json"));
     if (!r.ok) return [];
     return (await r.json()) as VaultReading[];
   } catch {

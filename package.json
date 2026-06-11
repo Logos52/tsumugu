@@ -11,6 +11,7 @@
     "test:watch": "vitest",
     "build": "pnpm -r --filter \"./packages/*\" build",
     "dev": "pnpm --filter @tsumugu/web dev",
+    "publish-vault": "tsx scripts/publish-public-vault.ts",
     "gen": "tsx scripts/gen/cli.ts",
     "validate:phase0": "tsx scripts/validate-phase0.ts"
   },

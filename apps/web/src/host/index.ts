@@ -4,7 +4,13 @@
  */
 
 export { MemoryVault, pickVaultFolder } from "./fsVault.js";
-export { createHttpVault, devVaultAvailable, listVaultReadings } from "./httpVault.js";
+export {
+  createHttpVault,
+  devVaultAvailable,
+  staticVaultAvailable,
+  staticVaultBase,
+  listVaultReadings,
+} from "./httpVault.js";
 export type { VaultReading } from "./httpVault.js";
 export { createWebAudio } from "./webAudio.js";
 export { exportAndDownloadApkg, downloadBytes } from "./anki.js";

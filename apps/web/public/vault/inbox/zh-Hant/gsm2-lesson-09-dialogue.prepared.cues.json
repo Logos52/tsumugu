@@ -1,0 +1,182 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-09-dialogue.txt",
+  "cues": [
+    {
+      "text": "我想當網紅",
+      "tr": "Lesson 9: I want to be an internet celebrity",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.760"
+    },
+    {
+      "text": "你想過未來要做什麼嗎？",
+      "tr": "Have you thought about what you want to do in the future?",
+      "speaker": "A",
+      "start": "2.110",
+      "end": "4.270"
+    },
+    {
+      "text": "我想想，我對音樂和影片感興趣，特別是創作音樂。",
+      "tr": "Let's see, I'm interested in music and movies, especially composing music.",
+      "speaker": "B",
+      "start": "4.620",
+      "end": "9.740"
+    },
+    {
+      "text": "你想成為音樂家嗎？",
+      "tr": "Do you want to be a musician?",
+      "speaker": "A",
+      "start": "10.090",
+      "end": "12.090"
+    },
+    {
+      "text": "不，我想當網紅，把我的音樂分享給更多人。",
+      "tr": "No, I want to be an internet celebrity and share my music with more people.",
+      "speaker": "B",
+      "start": "12.440",
+      "end": "16.680"
+    },
+    {
+      "text": "當網紅很有趣，但也有點難哦。",
+      "tr": "Being an internet celebrity is fun, but it's kind of hard.",
+      "speaker": "A",
+      "start": "17.030",
+      "end": "19.990"
+    },
+    {
+      "text": "是啊，但我覺得我能做得很好。",
+      "tr": "Yeah, but I think I can do it well.",
+      "speaker": "B",
+      "start": "20.340",
+      "end": "23.860"
+    },
+    {
+      "text": "那你打算怎麼開始呢？",
+      "tr": "How are you going to start?",
+      "speaker": "A",
+      "start": "24.210",
+      "end": "26.050"
+    },
+    {
+      "text": "我先會拍一些跟音樂相關的影片。",
+      "tr": "I'm going to make some music-related movies first.",
+      "speaker": "B",
+      "start": "26.400",
+      "end": "29.440"
+    },
+    {
+      "text": "聽起來不錯，題材很重要。",
+      "tr": "Sounds good. The subject matter is important.",
+      "speaker": "A",
+      "start": "29.790",
+      "end": "32.430"
+    },
+    {
+      "text": "我也這麼覺得，我會選一些新奇的主題來吸引大家。",
+      "tr": "I think so, too. I'll choose some new themes to attract people.",
+      "speaker": "B",
+      "start": "32.780",
+      "end": "37.020"
+    },
+    {
+      "text": "你會自己剪輯影片嗎？",
+      "tr": "Do you edit your own videos?",
+      "speaker": "A",
+      "start": "37.370",
+      "end": "39.050"
+    },
+    {
+      "text": "會，我覺得我剪輯得不錯。",
+      "tr": "Yes, I think I'm pretty good at it.",
+      "speaker": "B",
+      "start": "39.400",
+      "end": "41.880"
+    },
+    {
+      "text": "那你的創意也一定很多吧？",
+      "tr": "So you must have a lot of creativity, right?",
+      "speaker": "A",
+      "start": "42.230",
+      "end": "44.390"
+    },
+    {
+      "text": "應該還行，我喜歡創新，不想做一樣的東西。",
+      "tr": "I think so. I like to be creative and don't want to do the same thing.",
+      "speaker": "B",
+      "start": "44.740",
+      "end": "49.060"
+    },
+    {
+      "text": "你覺得這樣能吸引很多流量嗎？",
+      "tr": "Do you think this will attract a lot of traffic?",
+      "speaker": "A",
+      "start": "49.410",
+      "end": "51.730"
+    },
+    {
+      "text": "我希望可以，如果內容有趣就有可能。",
+      "tr": "I hope so, if the content is interesting, it's possible.",
+      "speaker": "B",
+      "start": "52.080",
+      "end": "55.920"
+    },
+    {
+      "text": "你打算什麼時候開始呢？",
+      "tr": "When are you going to start?",
+      "speaker": "A",
+      "start": "56.270",
+      "end": "57.950"
+    },
+    {
+      "text": "我已經開始準備了，過幾天就上傳第一支影片。",
+      "tr": "I've already started preparing, I'll upload the first video in a few days.",
+      "speaker": "B",
+      "start": "58.300",
+      "end": "62.060"
+    },
+    {
+      "text": "真棒！希望你很快就能出名。",
+      "tr": "That's great! I hope you'll be famous soon.",
+      "speaker": "A",
+      "start": "62.410",
+      "end": "65.450"
+    },
+    {
+      "text": "謝謝你！我會努力創作更多好的內容。",
+      "tr": "Thank you! I'll try my best to create more good content.",
+      "speaker": "B",
+      "start": "65.800",
+      "end": "69.880"
+    },
+    {
+      "text": "如果影片不紅，你會怎麼辦？",
+      "tr": "What will you do if the movie is not popular?",
+      "speaker": "A",
+      "start": "70.230",
+      "end": "72.950"
+    },
+    {
+      "text": "我不會放棄，我會繼續創作，找到更好的題材。",
+      "tr": "I won't give up, I'll keep on creating and find better subjects.",
+      "speaker": "B",
+      "start": "73.300",
+      "end": "79.700"
+    },
+    {
+      "text": "那你真的很有毅力，我相信你會成功的！",
+      "tr": "Then you are really persistent, I believe you will succeed!",
+      "speaker": "A",
+      "start": "80.050",
+      "end": "83.490"
+    },
+    {
+      "text": "謝謝你的支持，我一定會努力的！",
+      "tr": "Thank you for your support, I will definitely work hard!",
+      "speaker": "B",
+      "start": "83.840",
+      "end": "86.560"
+    }
+  ]
+}

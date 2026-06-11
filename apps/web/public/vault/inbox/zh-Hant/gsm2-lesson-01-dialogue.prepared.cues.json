@@ -1,0 +1,175 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-01-dialogue.txt",
+  "cues": [
+    {
+      "text": "你休假的時候一般做什麼？",
+      "tr": "What do you usually do when you are on vacation?",
+      "speaker": "A",
+      "start": "0.000",
+      "end": "2.080"
+    },
+    {
+      "text": "我喜歡去旅行。你呢？",
+      "tr": "I like traveling. What about you?",
+      "speaker": "B",
+      "start": "2.430",
+      "end": "4.750"
+    },
+    {
+      "text": "我也喜歡旅行。你上次去哪裡旅行了？",
+      "tr": "I like traveling too. Where did you travel last time?",
+      "speaker": "A",
+      "start": "5.100",
+      "end": "8.940"
+    },
+    {
+      "text": "我上次去了桂林，風景很美。",
+      "tr": "I went to Guilin last time. The scenery was very beautiful.",
+      "speaker": "B",
+      "start": "9.290",
+      "end": "12.330"
+    },
+    {
+      "text": "真的嗎？我一直想去桂林。你玩了哪些地方？",
+      "tr": "Really? I've always wanted to go to Guilin. What places did you visit?",
+      "speaker": "A",
+      "start": "12.680",
+      "end": "16.600"
+    },
+    {
+      "text": "我去了漓江和陽朔，還坐了竹筏。",
+      "tr": "I went to Li River and Yangshuo, and rode a bamboo raft.",
+      "speaker": "B",
+      "start": "16.950",
+      "end": "19.510"
+    },
+    {
+      "text": "聽起來很有意思！你住在那裡的什麼地方？",
+      "tr": "That sounds interesting! Which place did you stay there?",
+      "speaker": "A",
+      "start": "19.860",
+      "end": "24.020"
+    },
+    {
+      "text": "我住在一個小旅館，環境很好，交通非常方便，服務也很熱情。",
+      "tr": "I stayed in a small hotel. The environment was very nice, the transportation was very convenient, and the service was very warm.",
+      "speaker": "B",
+      "start": "24.370",
+      "end": "30.770"
+    },
+    {
+      "text": "那裡的食物好吃嗎？",
+      "tr": "Was the food good?",
+      "speaker": "A",
+      "start": "31.120",
+      "end": "32.800"
+    },
+    {
+      "text": "很好吃，我特別喜歡那裡的米粉。",
+      "tr": "Very good, I especially like the rice noodles there.",
+      "speaker": "B",
+      "start": "33.150",
+      "end": "36.110"
+    },
+    {
+      "text": "除了旅行，你休假的時候還喜歡做什麼？",
+      "tr": "Besides traveling, what else do you like to do when you are on vacation?",
+      "speaker": "A",
+      "start": "36.460",
+      "end": "39.340"
+    },
+    {
+      "text": "我還喜歡看書和看電影。你呢？",
+      "tr": "I like to read books and watch movies. What about you?",
+      "speaker": "B",
+      "start": "39.690",
+      "end": "43.130"
+    },
+    {
+      "text": "我喜歡運動，休假的時候經常去游泳。",
+      "tr": "I like sports. I often go swimming when I'm on vacation.",
+      "speaker": "A",
+      "start": "43.480",
+      "end": "46.600"
+    },
+    {
+      "text": "游泳不錯，我也喜歡。你游泳游得怎麼樣？",
+      "tr": "Swimming is good, I like it too. How well do you swim?",
+      "speaker": "B",
+      "start": "46.950",
+      "end": "50.550"
+    },
+    {
+      "text": "我游得還可以，不過還需要多練習。",
+      "tr": "I'm not bad, but I need more practice.",
+      "speaker": "A",
+      "start": "50.900",
+      "end": "54.260"
+    },
+    {
+      "text": "我也是，下次我們可以一起去游泳。",
+      "tr": "So do I. Next time we can go swimming together.",
+      "speaker": "B",
+      "start": "54.610",
+      "end": "57.810"
+    },
+    {
+      "text": "好主意！還有什麼是你喜歡做的事嗎？",
+      "tr": "Good idea! Is there anything else you like to do?",
+      "speaker": "A",
+      "start": "58.160",
+      "end": "61.280"
+    },
+    {
+      "text": "我喜歡做飯，尤其是做中國菜。你呢？",
+      "tr": "I like cooking, especially Chinese food. What about you?",
+      "speaker": "B",
+      "start": "61.630",
+      "end": "65.070"
+    },
+    {
+      "text": "我喜歡畫畫，有時候會畫一些風景畫。",
+      "tr": "I like to paint, sometimes I paint landscapes.",
+      "speaker": "A",
+      "start": "65.420",
+      "end": "70.940"
+    },
+    {
+      "text": "那你畫過桂林的風景嗎？",
+      "tr": "Have you ever painted a landscape in Guilin?",
+      "speaker": "B",
+      "start": "71.290",
+      "end": "73.290"
+    },
+    {
+      "text": "還沒呢，我想等我去過桂林後再畫。",
+      "tr": "Not yet, I want to wait until I've been to Guilin.",
+      "speaker": "A",
+      "start": "73.640",
+      "end": "76.920"
+    },
+    {
+      "text": "那太好了，我們可以一起去桂林旅行。",
+      "tr": "That's great, we can travel to Guilin together.",
+      "speaker": "B",
+      "start": "77.270",
+      "end": "80.550"
+    },
+    {
+      "text": "好啊，我們可以一起去看看那裡的美景，然後我再畫。",
+      "tr": "Yes, we can go there together to see the beautiful scenery, and then I will paint it.",
+      "speaker": "A",
+      "start": "80.900",
+      "end": "85.140"
+    },
+    {
+      "text": "沒問題，我們一起計劃一下吧！",
+      "tr": "No problem, let's plan it together!",
+      "speaker": "B",
+      "start": "85.490",
+      "end": "88.770"
+    }
+  ]
+}

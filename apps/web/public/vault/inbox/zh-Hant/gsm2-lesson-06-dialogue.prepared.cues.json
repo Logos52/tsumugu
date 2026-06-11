@@ -1,0 +1,168 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-06-dialogue.txt",
+  "cues": [
+    {
+      "text": "這個週末一起去踢球吧！",
+      "tr": "Lesson 6: Let's go play soccer this weekend!",
+      "speaker": "",
+      "start": "0.000",
+      "end": "1.600"
+    },
+    {
+      "text": "這個週末你有空嗎？",
+      "tr": "Are you free this weekend?",
+      "speaker": "A",
+      "start": "1.950",
+      "end": "3.790"
+    },
+    {
+      "text": "有啊，你有什麼計劃嗎？",
+      "tr": "Yes, do you have any plans?",
+      "speaker": "B",
+      "start": "4.140",
+      "end": "5.980"
+    },
+    {
+      "text": "我想去踢球，你要不要一起去？",
+      "tr": "I'd like to play soccer, do you want to go with me?",
+      "speaker": "A",
+      "start": "6.330",
+      "end": "8.810"
+    },
+    {
+      "text": "好主意！我很久沒踢球了，這次正好可以鍛鍊一下。",
+      "tr": "Good idea! I haven't played soccer for a long time, and this is a good time to practice.",
+      "speaker": "B",
+      "start": "9.160",
+      "end": "15.480"
+    },
+    {
+      "text": "那我們定在星期六早上怎麼樣？",
+      "tr": "How about Saturday morning?",
+      "speaker": "A",
+      "start": "15.830",
+      "end": "17.910"
+    },
+    {
+      "text": "星期六早上幾點？",
+      "tr": "What time on Saturday morning?",
+      "speaker": "B",
+      "start": "18.260",
+      "end": "19.860"
+    },
+    {
+      "text": "大概九點左右，這樣我們有足夠的時間鍛鍊。",
+      "tr": "Around nine o'clock, so we'll have enough time to practise.",
+      "speaker": "A",
+      "start": "20.210",
+      "end": "24.450"
+    },
+    {
+      "text": "九點可以，我也喜歡早上鍛鍊，特別是天氣好的時候。",
+      "tr": "nine o'clock can, I also like to exercise in the morning, especially when the weather is good.",
+      "speaker": "B",
+      "start": "24.800",
+      "end": "29.680"
+    },
+    {
+      "text": "沒錯，早上的空氣特別新鮮，踢球更有意思。",
+      "tr": "Yes, the air is especially fresh in the morning, and it's more fun to play soccer.",
+      "speaker": "A",
+      "start": "30.030",
+      "end": "34.910"
+    },
+    {
+      "text": "對了，你知道哪裡有好一點的球場嗎？",
+      "tr": "By the way, do you know where there is a better ball field?",
+      "speaker": "B",
+      "start": "35.260",
+      "end": "38.140"
+    },
+    {
+      "text": "有啊，我知道一個離我們不遠的公園，裡面有一個特別大的球場。",
+      "tr": "Yes, I know a park not far from us, there is a particularly large ball field.",
+      "speaker": "A",
+      "start": "38.490",
+      "end": "44.810"
+    },
+    {
+      "text": "太好了！那我們星期六早上見吧。",
+      "tr": "That's great! I'll see you Saturday morning.",
+      "speaker": "B",
+      "start": "45.160",
+      "end": "47.960"
+    },
+    {
+      "text": "需要帶什麼東西嗎？",
+      "tr": "Do you need to bring anything?",
+      "speaker": "A",
+      "start": "48.310",
+      "end": "49.590"
+    },
+    {
+      "text": "帶一瓶水和一些點心吧，踢完球我們可以休息一下。",
+      "tr": "Bring a bottle of water and some snacks, so we can take a break after playing soccer.",
+      "speaker": "B",
+      "start": "49.940",
+      "end": "54.900"
+    },
+    {
+      "text": "好的，那我準備一些水果，你準備水怎麼樣？",
+      "tr": "Okay, I'll prepare some fruits and you prepare water.",
+      "speaker": "A",
+      "start": "55.250",
+      "end": "59.490"
+    },
+    {
+      "text": "沒問題，我會帶幾瓶水過去。",
+      "tr": "No problem, I will bring a few bottles of water.",
+      "speaker": "B",
+      "start": "59.840",
+      "end": "64.560"
+    },
+    {
+      "text": "說實話，我有點擔心，因為我很久沒踢球了。",
+      "tr": "To be honest, I'm a bit worried because I haven't played soccer for a long time.",
+      "speaker": "A",
+      "start": "64.910",
+      "end": "69.550"
+    },
+    {
+      "text": "別擔心，萬事起頭難，我們可以慢慢來。",
+      "tr": "Don't worry, everything is difficult at the beginning, we can take our time.",
+      "speaker": "B",
+      "start": "69.900",
+      "end": "73.980"
+    },
+    {
+      "text": "你說得對，重要的是鍛鍊和放鬆，不用太在意輸贏。",
+      "tr": "You're right, the important thing is to train and relax, not to care too much about winning or losing.",
+      "speaker": "A",
+      "start": "74.330",
+      "end": "79.290"
+    },
+    {
+      "text": "是啊，我們可以互相教學，讓彼此進步。",
+      "tr": "Yes, we can teach each other to make progress.",
+      "speaker": "B",
+      "start": "79.640",
+      "end": "83.560"
+    },
+    {
+      "text": "那就這麼說定了，星期六九點見！",
+      "tr": "So it's settled, see you at nine o'clock on Saturday!",
+      "speaker": "A",
+      "start": "83.910",
+      "end": "87.030"
+    },
+    {
+      "text": "好的，一言為定！",
+      "tr": "Okay, it's a deal!",
+      "speaker": "B",
+      "start": "87.380",
+      "end": "89.140"
+    }
+  ]
+}

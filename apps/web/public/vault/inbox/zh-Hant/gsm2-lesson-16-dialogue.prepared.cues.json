@@ -1,0 +1,161 @@
+{
+  "schema": "tsumugu/transcript-cues@1",
+  "lang": "zh-Hant",
+  "source": "transcript:gsm2-lesson-16-dialogue.txt",
+  "cues": [
+    {
+      "text": "第十六課：他總是笑著跟人說話",
+      "tr": "Lesson 16: He Always Talks to People with a Smile",
+      "speaker": "",
+      "start": "0.000",
+      "end": "3.920"
+    },
+    {
+      "text": "場景： 小李和小仁在一間咖啡廳聊著天。",
+      "tr": "Scene: Xiao Li and Xiao Ren are chatting in a café.",
+      "speaker": "",
+      "start": "4.270",
+      "end": "8.670"
+    },
+    {
+      "text": "小仁，你有沒有注意到我們公司新來的那個年輕人？",
+      "tr": "Xiao Li: Xiao Ren, have you noticed the new young man in our company?",
+      "speaker": "小李",
+      "start": "9.020",
+      "end": "15.020"
+    },
+    {
+      "text": "嗯，我注意到了。他總是笑著跟人說話，看起來很熱情。",
+      "tr": "Xiao Ren: Yes, I have. He always talks to people with a smile; he seems very enthusiastic.",
+      "speaker": "小仁",
+      "start": "15.370",
+      "end": "21.370"
+    },
+    {
+      "text": "對啊，而且他對每個人都很有禮貌，真的讓人很舒服。",
+      "tr": "Xiao Li: Yeah, and he’s polite to everyone, which makes people feel very comfortable.",
+      "speaker": "小李",
+      "start": "21.720",
+      "end": "27.160"
+    },
+    {
+      "text": "是啊，他越來越受大家的喜歡了。你知道他是哪裡人嗎？",
+      "tr": "Xiao Ren: That’s true. He’s becoming more and more popular. Do you know where he’s from?",
+      "speaker": "小仁",
+      "start": "27.510",
+      "end": "33.670"
+    },
+    {
+      "text": "聽說是北方來的。他很認真，工作做得特別細心。",
+      "tr": "Xiao Li: I heard he’s from the north. He’s very serious and meticulous in his work.",
+      "speaker": "小李",
+      "start": "34.020",
+      "end": "40.100"
+    },
+    {
+      "text": "難怪他每次都努力地學習新技能，看起來很上進呢。",
+      "tr": "Xiao Ren: No wonder he’s always working hard to learn new skills. He seems very ambitious.",
+      "speaker": "小仁",
+      "start": "40.450",
+      "end": "47.570"
+    },
+    {
+      "text": "是啊，而且每次遇到困難，他還是笑著面對，不容易啊。",
+      "tr": "Xiao Li: Exactly, and even when he faces difficulties, he still smiles through them. That’s not easy.",
+      "speaker": "小李",
+      "start": "47.920",
+      "end": "54.000"
+    },
+    {
+      "text": "我覺得他這種態度很好，熱情又努力，真是個好榜樣。",
+      "tr": "Xiao Ren: I think his attitude is great—enthusiastic and hardworking. He’s truly a role model.",
+      "speaker": "小仁",
+      "start": "54.350",
+      "end": "61.070"
+    },
+    {
+      "text": "沒錯！像他這樣年輕又熱情的人，以後一定會有很好的發展。",
+      "tr": "Xiao Li: Right! Young and passionate people like him are bound to have a bright future.",
+      "speaker": "小李",
+      "start": "61.420",
+      "end": "69.180"
+    },
+    {
+      "text": "是啊！有志者事竟成，我也很看好他的。",
+      "tr": "Xiao Ren: Yes! Where there’s a will, there’s a way. I really have high hopes for him.",
+      "speaker": "小仁",
+      "start": "69.530",
+      "end": "73.850"
+    },
+    {
+      "text": "我們可以一起學習他的工作態度。",
+      "tr": "Xiao Li: We can learn from his work attitude together.",
+      "speaker": "小李",
+      "start": "74.200",
+      "end": "77.240"
+    },
+    {
+      "text": "對，我覺得我們也應該像他一樣，更努力工作。",
+      "tr": "Xiao Ren: I agree. We should also work harder, just like him.",
+      "speaker": "小仁",
+      "start": "77.590",
+      "end": "82.950"
+    },
+    {
+      "text": "不光是工作，他的生活也很有規律。他每天都運動，保持健康。",
+      "tr": "Xiao Li: Not just his work, but his lifestyle is also very disciplined. He exercises every day to stay healthy.",
+      "speaker": "小李",
+      "start": "83.300",
+      "end": "91.300"
+    },
+    {
+      "text": "我覺得他這種生活方式很好，有機會可以向他學習。",
+      "tr": "Xiao Ren: I think his lifestyle is great. We should learn from him if we get the chance.",
+      "speaker": "小仁",
+      "start": "91.650",
+      "end": "97.890"
+    },
+    {
+      "text": "對！他真的是我們的好榜樣。我想多觀察他，看他是怎麼安排時間的。",
+      "tr": "Xiao Li: Definitely! He’s a great role model for us. I’d like to observe him more and see how he manages his time.",
+      "speaker": "小李",
+      "start": "98.240",
+      "end": "105.600"
+    },
+    {
+      "text": "是啊，跟他在一起，會覺得自己也越來越有動力。",
+      "tr": "Xiao Ren: Yes, being around him makes you feel more motivated.",
+      "speaker": "小仁",
+      "start": "105.950",
+      "end": "111.230"
+    },
+    {
+      "text": "不過啊，他也不是一直都笑著的呢。有時候遇到比較大的壓力，他也是會認真起來的。",
+      "tr": "Xiao Li: However, he’s not always smiling. When he faces greater pressures, he becomes serious.",
+      "speaker": "小李",
+      "start": "111.580",
+      "end": "119.500"
+    },
+    {
+      "text": "看來他真的很努力！他這種認真工作的態度讓人佩服。",
+      "tr": "Xiao Ren: It seems he’s really hardworking! His serious attitude towards work is admirable.",
+      "speaker": "小仁",
+      "start": "119.850",
+      "end": "126.090"
+    },
+    {
+      "text": "是啊，大家都覺得他越來越棒了。",
+      "tr": "Xiao Li: Absolutely, everyone thinks he’s getting better and better.",
+      "speaker": "小李",
+      "start": "126.440",
+      "end": "130.200"
+    },
+    {
+      "text": "希望我們也能像他一樣，變得越來越好！",
+      "tr": "Xiao Ren: I hope we can also improve and become better, just like him!",
+      "speaker": "小仁",
+      "start": "130.550",
+      "end": "134.790"
+    }
+  ]
+}

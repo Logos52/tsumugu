@@ -33,6 +33,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # Build the workspace packages the reader imports, then the web app.
       - run: pnpm -r --filter "./packages/*" build
+      - run: pnpm publish-vault
       - run: pnpm --filter @tsumugu/web build
         env:
           GH_PAGES: "1"

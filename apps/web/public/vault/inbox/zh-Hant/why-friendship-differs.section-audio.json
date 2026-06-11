@@ -1,0 +1,81 @@
+{
+  "schema": "tsumugu/section-audio@1",
+  "lang": "zh-Hant",
+  "voice": "Serena",
+  "engine": "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16@mlx-audio",
+  "generatedAt": "2026-06-07T08:30:17.263Z",
+  "notes": [
+    {
+      "sectionIndex": 0,
+      "audio": "audio/sections/section-0000.mp3"
+    },
+    {
+      "sectionIndex": 1,
+      "audio": "audio/sections/section-0001.mp3"
+    },
+    {
+      "sectionIndex": 2,
+      "audio": "audio/sections/section-0002.mp3"
+    },
+    {
+      "sectionIndex": 3,
+      "audio": "audio/sections/section-0003.mp3"
+    },
+    {
+      "sectionIndex": 4,
+      "audio": "audio/sections/section-0004.mp3"
+    },
+    {
+      "sectionIndex": 5,
+      "audio": "audio/sections/section-0005.mp3"
+    },
+    {
+      "sectionIndex": 6,
+      "audio": "audio/sections/section-0006.mp3"
+    },
+    {
+      "sectionIndex": 7,
+      "audio": "audio/sections/section-0007.mp3"
+    },
+    {
+      "sectionIndex": 8,
+      "audio": "audio/sections/section-0008.mp3"
+    },
+    {
+      "sectionIndex": 9,
+      "audio": "audio/sections/section-0009.mp3"
+    },
+    {
+      "sectionIndex": 10,
+      "audio": "audio/sections/section-0010.mp3"
+    },
+    {
+      "sectionIndex": 11,
+      "audio": "audio/sections/section-0011.mp3"
+    },
+    {
+      "sectionIndex": 12,
+      "audio": "audio/sections/section-0012.mp3"
+    },
+    {
+      "sectionIndex": 13,
+      "audio": "audio/sections/section-0013.mp3"
+    },
+    {
+      "sectionIndex": 14,
+      "audio": "audio/sections/section-0014.mp3"
+    },
+    {
+      "sectionIndex": 15,
+      "audio": "audio/sections/section-0015.mp3"
+    },
+    {
+      "sectionIndex": 16,
+      "audio": "audio/sections/section-0016.mp3"
+    },
+    {
+      "sectionIndex": 17,
+      "audio": "audio/sections/section-0017.mp3"
+    }
+  ]
+}

@@ -1297,8 +1297,10 @@ html {
 .tsg-cue-rows .tsg-cue-row { display: flex; align-items: center; gap: 1rem; padding: var(--space-2) 0; border-top: 1px solid var(--wnac-border); }
 .tsg-cue-rows .tsg-cue-row.tsg-cw-active { background: color-mix(in oklab, var(--tsg-accent) 8%, transparent); border-radius: var(--tsg-radius-xs); }
 .tsg-cue-rows .tsg-cue-text { flex: 1 1 auto; line-height: 1.6; }
-.tsg-cue-wavewrap { flex: 0 0 auto; display: flex; align-items: center; gap: .4rem; }
-.tsg-cw-wave { width: 220px; height: 30px; flex: 0 0 auto; }
+.tsg-cue-wavestack { flex: 0 0 auto; display: flex; flex-direction: column; gap: 0.35rem; min-width: 280px; }
+.tsg-cue-wavewrap { display: flex; align-items: center; gap: 0.35rem; }
+.tsg-cw-label { flex: 0 0 5.5rem; font-size: 0.68rem; font-weight: 600; color: var(--tsg-ink-faint); text-align: right; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tsg-cw-wave { width: 200px; height: 28px; flex: 0 0 auto; }
 .tsg-cw-btn { background: var(--tsg-surface-alt); color: var(--tsg-ink); border: 1px solid var(--tsg-border); border-radius: var(--tsg-radius-sm); height: 24px; min-width: 24px; cursor: pointer; font-size: var(--type-sm); transition: background var(--dur-fast) var(--ease-standard); }
 .tsg-cw-btn:hover { background: var(--wnac-surface1); }
 .tsg-cw-btn.on { background: var(--tsg-topic); color: var(--tsg-accent-ink); border-color: var(--tsg-topic); }
