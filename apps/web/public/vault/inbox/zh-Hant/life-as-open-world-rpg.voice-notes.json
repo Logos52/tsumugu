@@ -1,0 +1,246 @@
+{
+  "schema": "tsumugu/voice-notes@1",
+  "lang": "zh-Hant",
+  "slug": "life-as-open-world-rpg",
+  "engine": "mlx-community/Qwen3-TTS-12Hz-1.7B-CustomVoice-bf16@mlx-audio",
+  "voice": "Serena",
+  "generatedAt": "2026-06-11T05:44:40.317Z",
+  "notes": [
+    {
+      "cueIndex": 0,
+      "audio": "audio/life-as-open-world-rpg/cue-0000.mp3"
+    },
+    {
+      "cueIndex": 1,
+      "audio": "audio/life-as-open-world-rpg/cue-0001.mp3"
+    },
+    {
+      "cueIndex": 2,
+      "audio": "audio/life-as-open-world-rpg/cue-0002.mp3"
+    },
+    {
+      "cueIndex": 3,
+      "audio": "audio/life-as-open-world-rpg/cue-0003.mp3"
+    },
+    {
+      "cueIndex": 4,
+      "audio": "audio/life-as-open-world-rpg/cue-0004.mp3"
+    },
+    {
+      "cueIndex": 5,
+      "audio": "audio/life-as-open-world-rpg/cue-0005.mp3"
+    },
+    {
+      "cueIndex": 6,
+      "audio": "audio/life-as-open-world-rpg/cue-0006.mp3"
+    },
+    {
+      "cueIndex": 7,
+      "audio": "audio/life-as-open-world-rpg/cue-0007.mp3"
+    },
+    {
+      "cueIndex": 8,
+      "audio": "audio/life-as-open-world-rpg/cue-0008.mp3"
+    },
+    {
+      "cueIndex": 9,
+      "audio": "audio/life-as-open-world-rpg/cue-0009.mp3"
+    },
+    {
+      "cueIndex": 10,
+      "audio": "audio/life-as-open-world-rpg/cue-0010.mp3"
+    },
+    {
+      "cueIndex": 11,
+      "audio": "audio/life-as-open-world-rpg/cue-0011.mp3"
+    },
+    {
+      "cueIndex": 12,
+      "audio": "audio/life-as-open-world-rpg/cue-0012.mp3"
+    },
+    {
+      "cueIndex": 13,
+      "audio": "audio/life-as-open-world-rpg/cue-0013.mp3"
+    },
+    {
+      "cueIndex": 14,
+      "audio": "audio/life-as-open-world-rpg/cue-0014.mp3"
+    },
+    {
+      "cueIndex": 15,
+      "audio": "audio/life-as-open-world-rpg/cue-0015.mp3"
+    },
+    {
+      "cueIndex": 16,
+      "audio": "audio/life-as-open-world-rpg/cue-0016.mp3"
+    },
+    {
+      "cueIndex": 17,
+      "audio": "audio/life-as-open-world-rpg/cue-0017.mp3"
+    },
+    {
+      "cueIndex": 18,
+      "audio": "audio/life-as-open-world-rpg/cue-0018.mp3"
+    },
+    {
+      "cueIndex": 19,
+      "audio": "audio/life-as-open-world-rpg/cue-0019.mp3"
+    },
+    {
+      "cueIndex": 20,
+      "audio": "audio/life-as-open-world-rpg/cue-0020.mp3"
+    },
+    {
+      "cueIndex": 21,
+      "audio": "audio/life-as-open-world-rpg/cue-0021.mp3"
+    },
+    {
+      "cueIndex": 22,
+      "audio": "audio/life-as-open-world-rpg/cue-0022.mp3"
+    },
+    {
+      "cueIndex": 23,
+      "audio": "audio/life-as-open-world-rpg/cue-0023.mp3"
+    },
+    {
+      "cueIndex": 24,
+      "audio": "audio/life-as-open-world-rpg/cue-0024.mp3"
+    },
+    {
+      "cueIndex": 25,
+      "audio": "audio/life-as-open-world-rpg/cue-0025.mp3"
+    },
+    {
+      "cueIndex": 26,
+      "audio": "audio/life-as-open-world-rpg/cue-0026.mp3"
+    },
+    {
+      "cueIndex": 27,
+      "audio": "audio/life-as-open-world-rpg/cue-0027.mp3"
+    },
+    {
+      "cueIndex": 28,
+      "audio": "audio/life-as-open-world-rpg/cue-0028.mp3"
+    },
+    {
+      "cueIndex": 29,
+      "audio": "audio/life-as-open-world-rpg/cue-0029.mp3"
+    },
+    {
+      "cueIndex": 30,
+      "audio": "audio/life-as-open-world-rpg/cue-0030.mp3"
+    },
+    {
+      "cueIndex": 31,
+      "audio": "audio/life-as-open-world-rpg/cue-0031.mp3"
+    },
+    {
+      "cueIndex": 32,
+      "audio": "audio/life-as-open-world-rpg/cue-0032.mp3"
+    },
+    {
+      "cueIndex": 33,
+      "audio": "audio/life-as-open-world-rpg/cue-0033.mp3"
+    },
+    {
+      "cueIndex": 34,
+      "audio": "audio/life-as-open-world-rpg/cue-0034.mp3"
+    },
+    {
+      "cueIndex": 35,
+      "audio": "audio/life-as-open-world-rpg/cue-0035.mp3"
+    },
+    {
+      "cueIndex": 36,
+      "audio": "audio/life-as-open-world-rpg/cue-0036.mp3"
+    },
+    {
+      "cueIndex": 37,
+      "audio": "audio/life-as-open-world-rpg/cue-0037.mp3"
+    },
+    {
+      "cueIndex": 38,
+      "audio": "audio/life-as-open-world-rpg/cue-0038.mp3"
+    },
+    {
+      "cueIndex": 39,
+      "audio": "audio/life-as-open-world-rpg/cue-0039.mp3"
+    },
+    {
+      "cueIndex": 40,
+      "audio": "audio/life-as-open-world-rpg/cue-0040.mp3"
+    },
+    {
+      "cueIndex": 41,
+      "audio": "audio/life-as-open-world-rpg/cue-0041.mp3"
+    },
+    {
+      "cueIndex": 42,
+      "audio": "audio/life-as-open-world-rpg/cue-0042.mp3"
+    },
+    {
+      "cueIndex": 43,
+      "audio": "audio/life-as-open-world-rpg/cue-0043.mp3"
+    },
+    {
+      "cueIndex": 44,
+      "audio": "audio/life-as-open-world-rpg/cue-0044.mp3"
+    },
+    {
+      "cueIndex": 45,
+      "audio": "audio/life-as-open-world-rpg/cue-0045.mp3"
+    },
+    {
+      "cueIndex": 46,
+      "audio": "audio/life-as-open-world-rpg/cue-0046.mp3"
+    },
+    {
+      "cueIndex": 47,
+      "audio": "audio/life-as-open-world-rpg/cue-0047.mp3"
+    },
+    {
+      "cueIndex": 48,
+      "audio": "audio/life-as-open-world-rpg/cue-0048.mp3"
+    },
+    {
+      "cueIndex": 49,
+      "audio": "audio/life-as-open-world-rpg/cue-0049.mp3"
+    },
+    {
+      "cueIndex": 50,
+      "audio": "audio/life-as-open-world-rpg/cue-0050.mp3"
+    },
+    {
+      "cueIndex": 51,
+      "audio": "audio/life-as-open-world-rpg/cue-0051.mp3"
+    },
+    {
+      "cueIndex": 52,
+      "audio": "audio/life-as-open-world-rpg/cue-0052.mp3"
+    },
+    {
+      "cueIndex": 53,
+      "audio": "audio/life-as-open-world-rpg/cue-0053.mp3"
+    },
+    {
+      "cueIndex": 54,
+      "audio": "audio/life-as-open-world-rpg/cue-0054.mp3"
+    },
+    {
+      "cueIndex": 55,
+      "audio": "audio/life-as-open-world-rpg/cue-0055.mp3"
+    },
+    {
+      "cueIndex": 56,
+      "audio": "audio/life-as-open-world-rpg/cue-0056.mp3"
+    },
+    {
+      "cueIndex": 57,
+      "audio": "audio/life-as-open-world-rpg/cue-0057.mp3"
+    },
+    {
+      "cueIndex": 58,
+      "audio": "audio/life-as-open-world-rpg/cue-0058.mp3"
+    }
+  ]
+}

@@ -120,9 +120,21 @@
     "kind": "gsm-dialogue"
   },
   {
+    "path": "inbox/zh-Hant/life-as-open-world-rpg.prepared.json",
+    "lang": "zh-Hant",
+    "title": "把生活變成開放世界 RPG (小寧子)",
+    "kind": "youtube"
+  },
+  {
+    "path": "inbox/zh-Hant/steam-controller-review.prepared.json",
+    "lang": "zh-Hant",
+    "title": "Steam 手柄評測 (小寧子)",
+    "kind": "youtube"
+  },
+  {
     "path": "inbox/zh-Hant/why-friendship-differs.prepared.json",
     "lang": "zh-Hant",
-    "title": "why-friendship-differs",
+    "title": "外國人與中國人的友誼觀 (Mandarin Corner)",
     "kind": "youtube"
   }
 ]
