@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.3 — absorbs both Round 3 decisions (Wedge, 2026-06-11): the four re-flagged demo lines + the distraction upgrade to the deletion-test rationale (v1.2), and the zero-uncertainty-budget rule — §3 rewritten declarative, §1 fixtures updated to the shipped 鬧 lines, hedging vocabulary added to the §7.1 lint. v1.1 added round-2 decisions and the four-lens adversarial review fixes."
+revision: "v1.4 — adds §0.5 Round 4 (Wedge): the condensed register — conciseness and clarity as the prose standard, length an output never a target, deletion test extended to clause level (announcements, restatement, scaffolding idioms, pointer clauses), with fixture; and the §2.5 example-sentence contract — loose three-kind mix (simple-producible / most-common-words / looser definition ties, ≈2+2+2, ratio varies per entry), easiest sentence first with order otherwise free. v1.3 absorbed Round 3 (distraction ban + zero uncertainty budget); v1.1 round-2 decisions + adversarial review fixes."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -59,6 +59,12 @@ Wedge re-flagged four demo lines verbatim — 射's "Wrong as history (the 字�
 - 🚫 **Meta is a distraction, not merely low signal.** A sentence in this register doesn't just spend attention and buy nothing — it pulls the student's attention off the character mid-encoding. The cost is negative, not zero ("everything I flagged is not just low signal but a distraction to the student").
 - 🚫 **This register never appears in the dictionary, in any phrasing** ("please don't ever say things like this in the dictionary"). The ban applies at authoring time, in every voice and language, on every student-facing surface — not as a lint cleanup after the fact.
 - 🚫 **The uncertainty budget on student surfaces is zero** (same day, separate session; supersedes v1.1's §3 one-sentence budget). Epistemic hedging — "uncertain", "unclear", "historically unverified" — is the same distraction wearing scholarly clothes. FORM states the surface reading declaratively; a component with no claimed role renders bare (no chip, no color, no comment); everything about the open question lives in `meta.openQuestions`. §3 is rewritten to match; 鬧 ships this way.
+
+### 0.5 Round 4 (Wedge, 2026-06-11) — the condensed register
+
+- ✅ **Conciseness and clarity are the prose standard; length is an output, never a target.** The register model is the condensed-reference register of Wedge's course-condensation documents: every sentence carries one load-bearing fact, stated once, in concrete words — complete sentences, never telegraphic, one reading per sentence. A section shrinks whenever fewer words are clearer; an entry runs long only when the character needs it.
+- ✅ **The deletion test extends to clause level** (§1). Delete any clause: if the student lost no fact and no key, the clause was filler. The recurring offenders, named so new ones fail the same way: **announcement clauses** ("The graph originally wrote a word meaning X" → "The original word: X"), **restatement** of a fact already on the page in other words, **scaffolding idioms** ("carries the idea of going" → "carries *going*"), **pointer clauses** to content already in view ("(see the meaning tree)").
+- **Fixture** (造 FORM, v1.3 → v1.4): "A foot on the road (辶) carries the idea of *going*; 告 carries the sound. The graph originally wrote a word meaning "to arrive; to go to." The everyday senses "make, build" don't come from the picture at all — they ride the sound (see the meaning tree)." → "A foot on the road (辶) carries *going*; 告 carries the sound. The original word: "to arrive; to go to." The everyday senses — make, build — ride the sound, not the picture."
 
 ---
 
@@ -126,7 +132,8 @@ An entry keeps exactly two pieces of rendered apparatus: the component color leg
 - The one-line notation key — apparatus, kept.
 
 ### 2.5 例句 EXAMPLES
-- **5–6 sentences (floor 5, matching v2's target)**, everyday register, ordered easy → harder.
+- **5–6 sentences (floor 5, matching v2's target)**, everyday register. **The first sentence is the easiest in the set**; beyond that, order is free — no difficulty ramp required.
+- **Sentence mix (Wedge, 2026-06-11 — a loose contract):** every set draws on three kinds — (a) **simple sentences the student can make with the word** (core sense, plain grammar, immediately producible), which open the set; (b) the character **inside the words it is most commonly met in**; (c) **looser ties to the definition** — extension and derived senses, where the deep tree node lives. Default mix ≈ 2+2+2; vary the ratio per entry (1/3/2, 2/1/3, …) — variety keeps the sets interesting.
 - The target character is highlighted at every occurrence; words above the learner's level carry hover glosses.
 - Collectively the sentences cover **≥ 2 meaning-tree branches including one deep node** (depth ≥ 2 where the tree has one) — 造's 捏造, 射's 影射. This requirement is stated identically here, in §4, and in §7.4.
 - Each sentence: 中文 + English translation + `sayText` (the sentence itself, for voicing). Translations carry no commentary about the page or its apparatus.
@@ -180,13 +187,14 @@ An entry ships when every line is true. This closes the "missing extra content" 
 - [ ] FORM: paragraph + one row per visible component; every component typed or left bare (§3); every identity names a concrete, drawable thing in one line; corruptions and loans stated plainly where present; zero hedging anywhere (§0.4).
 - [ ] STORY: zh line + EN scene; passes the rebuild test (§7.3).
 - [ ] MEANINGS: tree with original sense, base sense tagged COMMON, ≥ 1 extension; loan node where applicable.
-- [ ] EXAMPLES: 5–6 (floor 5), graded order, target highlighted, glosses present, ≥ 2 meaning-tree branches covered including one deep node, every sentence with EN + sayText.
+- [ ] EXAMPLES: 5–6 (floor 5), easiest sentence first (order otherwise free), the §2.5 sentence mix present, target highlighted, glosses present, ≥ 2 meaning-tree branches covered including one deep node, every sentence with EN + sayText.
 - [ ] RELATED: 3–4 items, each with a "why" tied to this character; series link present when the character contains or donates a sound component.
 - [ ] EVOLUTION: present with real content, or omitted. No placeholders anywhere on the page.
 - [ ] Component links: every component row links its component page (§2.9); new components enter the registry with identity + stroke data ticket.
 - [ ] sayText present for FORM, STORY, MEANINGS, and every example (繁中, natural spoken register; no tier-name prefixes like 字源層/專家層).
 - [ ] `meta` populated: per-claim grounding, sources, open questions. Zero `meta` content rendered.
 - [ ] Every rendered and voiced sentence passes the deletion test (§1) and the voice-of-page test (§7.2) — run by Fable, fresh-context (§8 A10).
+- [ ] Prose passes the clause-level deletion test (§0.5): no announcements, no restatement, no scaffolding idioms, no pointer clauses — every sentence one load-bearing fact, stated clearly.
 - [ ] Lint clean (§7.1) and OpenCC-clean (zh-Hant throughout).
 
 **Series pages:** donor HEAD complete; ≥ 3 members across ≥ 2 drift bands; per-member reading + gloss + drift note; 5 voiced donor examples; closing observation; same lint, deletion-test, and sayText lines as above.
@@ -280,7 +288,7 @@ Read every rendered and voiced sentence and ask who it addresses, about what. Pa
 Give a reader the story and the component identities; they should be able to reconstruct the glyph — every visible component present in the scene, spatial arrangement matching the layout. 造 and 射 pass; a story that decorates without assembling fails.
 
 ### 7.4 Examples gate
-5–6 sentences (floor 5); graded easy → harder; natural everyday register; ≥ 2 meaning-tree branches covered including one deep node; target highlighted at every occurrence; glosses on above-level words; translations faithful and free of page commentary.
+5–6 sentences (floor 5); easiest sentence first, order otherwise free; the §2.5 sentence mix present; natural everyday register; ≥ 2 meaning-tree branches covered including one deep node; target highlighted at every occurrence; glosses on above-level words; translations faithful and free of page commentary.
 
 ### 7.5 Round-trip gate (implementation, in CI)
 Artifact validates **including the §4 structural minima** (definition present + band-checked, example count, related count with "why" fields, sayText coverage, component links, COMMON tag). Renders with zero `meta` leakage, zero placeholders, and **zero depth/study-mode/reveal controls**. Every sayText has a Serena clip that passes transcribe-back QA. Lint runs in CI and fails the build on a hit.
