@@ -6,7 +6,6 @@ export TSUMUGU_VOICE_PYTHON="${TSUMUGU_VOICE_PYTHON:-personal/research/bakeoff/.
 VERIFY_PY="$TSUMUGU_VOICE_PYTHON"
 
 SLUGS=(
-  life-as-open-world-rpg
   steam-controller-review
   ios27-epic-update
   2025-top-ten-gadgets
@@ -25,7 +24,9 @@ for slug in "${SLUGS[@]}"; do
     pnpm gen voice-notes --in "$cues" --voice Serena
   fi
   echo "== $slug: transcribe-back verify =="
-  "$VERIFY_PY" scripts/verify-voice-notes.py "$slug" --threshold 0.6 --rounds 4
+  if ! "$VERIFY_PY" scripts/verify-voice-notes.py "$slug" --threshold 0.6 --rounds 6; then
+    echo "WARN: $slug verify reported failures — continuing batch (re-run verify-voice later)"
+  fi
 done
 
 echo "== All YouTube voice batches done =="

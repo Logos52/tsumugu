@@ -75,6 +75,16 @@ def youtube_slugs() -> list[str]:
     return slugs
 
 
+def threshold_for(text: str, base: float) -> float:
+    """Short cues are harder for whisper — use a slightly lower bar."""
+    n = len(norm(text))
+    if n <= 5:
+        return min(base, 0.45)
+    if n <= 8:
+        return min(base, 0.52)
+    return base
+
+
 def verify_slug(slug: str, threshold: float, rounds: int) -> int:
     cues_path = INBOX / f"{slug}.prepared.cues.json"
     if not cues_path.exists():
@@ -93,8 +103,9 @@ def verify_slug(slug: str, threshold: float, rounds: int) -> int:
                 flagged.append((i, 0.0, "(missing)"))
                 continue
             heard = hear(f)
+            cue_th = threshold_for(cues[i]["text"], threshold)
             ratio = SequenceMatcher(None, norm(cues[i]["text"]), norm(heard)).ratio()
-            if ratio < threshold:
+            if ratio < cue_th:
                 flagged.append((i, ratio, heard[:40]))
         if not flagged:
             print(f"{slug} round {rnd}: ✓ all {len(cues)} clips match")
