@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.7 — §0.6.7 over-cut guard (the assembly fact is FORM's own fact — 造 regains "— zào, 'to arrive'"); v1.6 — §0.6 grows moves 7–8 (one home per fact — the row usually wins; no exposition: inferable action, summaries of the visible, restated contrasts stay unwritten) and the binding process rule: the eight moves are author-side checks on every rewrite — a fix that introduces a new clause of the same kind has failed the round. v1.5 added §0.6 Round 5 (show, don't tell, moves 1–6); v1.4 §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3; v1.1 round-2 + adversarial review."
+revision: "v1.8 — word entries activate (§0.7 Round 6 + §2.10 contract, word-author@1): video-vocab batch is the unit; 拆解 rows anchored in known words, assembly fact only when characters don't add up, story by transparency triage, §2.5 slot mix with the source-reading sentence reusing its verified clip. v1.7 — §0.6.7 over-cut guard (the assembly fact is FORM's own fact — 造 regains "— zào, 'to arrive'"); v1.6 — §0.6 grows moves 7–8 (one home per fact — the row usually wins; no exposition: inferable action, summaries of the visible, restated contrasts stay unwritten) and the binding process rule: the eight moves are author-side checks on every rewrite — a fix that introduces a new clause of the same kind has failed the round. v1.5 added §0.6 Round 5 (show, don't tell, moves 1–6); v1.4 §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3; v1.1 round-2 + adversarial review."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -80,6 +80,11 @@ Wedge re-flagged four demo lines verbatim — 射's "Wrong as history (the 字�
 8. **Exposition.** "everyone shouting at once" — the reader infers the shouting from a quarrel wrapped around a market ("stop giving me exposition. i need details and components only. enough for the user to fill in the blanks"). Scenes carry components and concrete details; inferable action, summaries of the visible ("one donor, four everyday words"), and restated contrasts ("Same shape, different jobs") stay unwritten.
 
 **Process rule (binding):** these eight moves are author-side checks, run on every rewrite before it ships — including rewrites made to fix a flagged line. A revision that removes one flagged clause and introduces a new clause of the same kind has failed the round. Wedge's strikes are not the QA loop.
+
+### 0.7 Round 6 (Wedge, 2026-06-11) — word entries activate
+
+- ✅ **Word-page authoring starts** with the video-vocab batch: the new words of the most recent reading become dictionary entries ("extend this dictionary to the new vocab words from the recently added youtube video"). §2.10 is the contract; `word-author@1` is the artifact shape (flagged for the C1 schema merge). The student rule, the register (§0.5–§0.6), the lint, and the QA gates apply unchanged.
+- ✅ **Fable writes content only; voice is a handoff.** Per §6 — the implementation agent renders and voices (Serena / Qwen3-TTS pipeline), with transcribe-back QA. Source-reading sentences reuse their existing verified clips; they are never re-rendered.
 
 ---
 
@@ -177,6 +182,16 @@ An entry keeps exactly two pieces of rendered apparatus: the component color leg
 - Contents: large glyph · the registry identity (§5), the same line every entry shows · **stroke order** (numbered diagram or animation; data from open stroke-data sets — implementation agent sources and licenses) · "characters you've met that use it," generated from the corpus · series link when the component is also a sound donor.
 - Character entries link each component row here. Full characters get no stroke-order diagrams: stroke order is compositional, and the assembly rules (left→right, top→bottom, outside→inside) live once on the about page.
 - **Exceptions list:** characters whose stroke order violates compositional assembly (必) carry one content line on their own entry ("必 is written as its own sequence: …"), maintained as a short list in the corpus.
+
+### 2.10 Word entries (`word-author@1`)
+- **HEAD:** word, zhuyin + pinyin, definition (one EN line with part of speech + one 簡明中文 line at the corpus floor). Proficiency labels stay in `meta`.
+- **拆解 rows:** one per character (per sub-word for 工作記憶-class compounds): glyph · reading · identity anchored in a word the student knows (認識's 識) · an optional one-line detail for an invisible fact (理 — the grain in jade; 依 — 衣 gives the sound, exact). Character-internal decomposition only where it carries memory load (the two-realms rule, one level up); `charRef` links the character entry when one exists.
+- **Assembly fact** (§0.6.7) only when the characters don't add up to the meaning (甲方); transparent compounds skip it (失眠).
+- **STORY:** optional — ships when a scene earns its place (transparency triage); §0.6 rules apply in full.
+- **例句:** 5–6, the §2.5 slot mix, easiest first. One sentence is the source-reading sentence — where the student met the word; its existing verified clip is reused.
+- **RELATED:** 3–4 with whys: shared-character siblings (注意力 ↔ 專注), near-twins with a register contrast, the opposite, the word's pair where one exists (甲方/乙方).
+- **MEANINGS / EVOLUTION:** omissible. Branching senses live in the examples first; a tree ships only when examples can't carry them.
+- **sayText:** FORM, STORY (when present), and every example.
 
 ---
 
