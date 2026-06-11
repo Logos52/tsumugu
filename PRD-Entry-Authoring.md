@@ -4,7 +4,7 @@ type: prd
 status: draft
 created: 2026-06-10
 updated: 2026-06-11
-revision: "v1.4 — adds §0.5 Round 4 (Wedge): the condensed register — conciseness and clarity as the prose standard, length an output never a target, deletion test extended to clause level (announcements, restatement, scaffolding idioms, pointer clauses), with fixture; and the §2.5 example-sentence contract — loose three-kind mix (simple-producible / most-common-words / looser definition ties, ≈2+2+2, ratio varies per entry), easiest sentence first with order otherwise free. v1.3 absorbed Round 3 (distraction ban + zero uncertainty budget); v1.1 round-2 decisions + adversarial review fixes."
+revision: "v1.5 — adds §0.6 Round 5 (Wedge): show, don't tell — details in, reader's imagination fills the blanks; six banned moves with Batch 0 fixtures (instruction verbs, mood labels, interpretive paraphrase, label-openers, stating what the page shows, device commentary); 想像/Picture/Imagine lint line. v1.4 added §0.5 condensed register + §2.5 sentence mix; v1.3 Round 3 (distraction ban + zero uncertainty budget); v1.1 round-2 + adversarial review."
 parent: "[[PRD-Private-Dictionary-v2]] — owns the engine schema (tridict/char@1), phases, and curation lifecycle. This PRD owns the CONTENT LAYER: what an entry says, who writes it, and the quality gates it must pass. Every conflict with the parent is recorded in §0.3."
 division-of-labor: "Claude Fable authors entry content (§5–§8). A second agent implements rendering, formatting, and the voice pipeline (§6). Wedge spot-reviews and signs off."
 demo: "https://logos52.github.io/tsumugu-wiki/static/dict-demo/ · source at tsumugu-wiki/quartz/static/dict-demo/"
@@ -64,7 +64,18 @@ Wedge re-flagged four demo lines verbatim — 射's "Wrong as history (the 字�
 
 - ✅ **Conciseness and clarity are the prose standard; length is an output, never a target.** The register model is the condensed-reference register of Wedge's course-condensation documents: every sentence carries one load-bearing fact, stated once, in concrete words — complete sentences, never telegraphic, one reading per sentence. A section shrinks whenever fewer words are clearer; an entry runs long only when the character needs it.
 - ✅ **The deletion test extends to clause level** (§1). Delete any clause: if the student lost no fact and no key, the clause was filler. The recurring offenders, named so new ones fail the same way: **announcement clauses** ("The graph originally wrote a word meaning X" → "The original word: X"), **restatement** of a fact already on the page in other words, **scaffolding idioms** ("carries the idea of going" → "carries *going*"), **pointer clauses** to content already in view ("(see the meaning tree)").
-- **Fixture** (造 FORM, v1.3 → v1.4): "A foot on the road (辶) carries the idea of *going*; 告 carries the sound. The graph originally wrote a word meaning "to arrive; to go to." The everyday senses "make, build" don't come from the picture at all — they ride the sound (see the meaning tree)." → "A foot on the road (辶) carries *going*; 告 carries the sound. The original word: "to arrive; to go to." The everyday senses — make, build — ride the sound, not the picture."
+- **Fixture** (造 FORM, v1.3 → v1.4): "A foot on the road (辶) carries the idea of *going*; 告 carries the sound. The graph originally wrote a word meaning "to arrive; to go to." The everyday senses "make, build" don't come from the picture at all — they ride the sound (see the meaning tree)." → "A foot on the road (辶) carries *going*; 告 carries the sound. The original word: "to arrive; to go to." The everyday senses — make, build — ride the sound, not the picture." (Superseded again by §0.6 — label-openers out: "…告 gives the sound — together they wrote "to arrive; to go to." Make and build ride the sound, not the picture.")
+
+### 0.6 Round 5 (Wedge, 2026-06-11) — show, don't tell
+
+✅ **Put in the details; the reader's imagination fills the blanks.** Scenes and form paragraphs render concrete details — components, identities, things in spatial order — and stop. The banned moves, each from a live Batch 0 fixture:
+
+1. **Instruction verbs.** "Picture a night market: steam, vendors yelling…" → "A night market: steam, vendors yelling, shoulder to shoulder." The imperative tells the reader to imagine; the details make them.
+2. **Mood labels.** "a happy crush of people" → "shoulder to shoulder." Steam, yelling, and crowding imply the mood; naming it hands the reader a conclusion they would reach themselves.
+3. **Interpretive paraphrase after the details.** "鬧 is 鬥 quarreling wrapped around 市 market — a quarrel's noise filling the marketplace." → "鬧 is 鬥 quarreling wrapped around 市 market." The trailing clause re-narrates what the components just showed ("yes the student can already see that — it's obvious").
+4. **Label-openers.** "The original word: X." / "The everyday senses — make, build —…" → verbs carry the facts: "together they wrote "to arrive; to go to." Make and build ride the sound, not the picture."
+5. **Stating what the page shows.** "市 'market' — the square inside the quarreling frame" → "shì — market." The layout is on screen; identity lines carry invisible facts only — depiction, meaning, reading, function.
+6. **Device commentary.** "Feet first, walls after — the scene's order is the glyph's order." → "Feet first, walls after." The scene-to-glyph mapping is the story's job, done silently.
 
 ---
 
@@ -117,7 +128,7 @@ An entry keeps exactly two pieces of rendered apparatus: the component color leg
 - The component color legend (形/義/聲/空) — apparatus, kept.
 
 ### 2.2 FORM 字源
-- One short paragraph: what each component does **in this character**, in concrete words. 造: "A foot on the road (辶) carries the idea of *going*; 告 carries the *sound*." That register is the bar, and it is checkable: every component identity names a concrete, drawable thing in one line (§4).
+- One short paragraph: what each component does **in this character**, in concrete words — and nothing the layout already shows (§0.6). 造: "A foot on the road (辶) carries *going*; 告 gives the *sound* — together they wrote 'to arrive; to go to.'" That register is the bar, and it is checkable: every component identity names a concrete, drawable thing in one line (§4), and every clause carries a fact the student cannot see on the page.
 - When a component is a corruption: say plainly what the early form drew and that the modern shape is a look-alike (射's 身 paragraph is the model). When a sense rides the sound: state it as a fact about the word.
 - Per-component rows: glyph · role chip (形/義/聲/空) · one-line concrete identity · one-line detail. Sound components link their series page; every component links its component page (§2.9). Identities come from the component registry (§5) so 辶 reads the same on every entry that contains it.
 
@@ -125,7 +136,7 @@ An entry keeps exactly two pieces of rendered apparatus: the component color leg
 - Section chips carry fixed, template-level subtitles — apparatus that travels with every entry, so a student who deep-links still knows what each card is: **字源 — what the parts really do** · **故事 — a scene to remember it by**. The subtitles are set once in the template; entries never restate or elaborate them.
 - One Chinese line with the components bolded, then two-to-three English sentences of scene.
 - **The combination contract:** the scene uses every visible component under the identity FORM gave it (or the surface look-alike identity, for corrupted or uncertain ones), arranged so the glyph's own layout maps onto the scene — the student should be able to redraw the character from the story. 造: the foot arrives first, then the building begins. 射: a body leans in and draws, inch by inch — release.
-- Sensory, concrete, specific (Rules #4, #7). The story never comments on itself, never grades its own historicity, never mentions the dictionary.
+- Sensory, concrete, specific (Rules #4, #7) — details only; the reader's imagination assembles them (§0.6). No instruction verbs ("Picture…", "Imagine…", 想像), no mood labels, no paraphrase of what the details just showed. The story never comments on itself, never grades its own historicity, never mentions the dictionary.
 
 ### 2.4 MEANINGS
 - The tree: original sense → extensions, one arrow per step of extension (→, ⇒); loan senses get the 〇 borrowed-for-sound node (造's 製造); the modern base sense carries the COMMON tag. Every node: 中文 + English.
@@ -275,6 +286,7 @@ Fable's artifact contains no HTML, no audio paths, no styling. The implementatio
 - Attribution: Outlier, Expert-contract, "Lesson N", "functional-component framework", "Rules of Effective Memory", course or contract names of any kind.
 - Infrastructure: TTS, Qwen, Serena, clip, pre-baked, browser's voice, 語音檔, 合成.
 - Symbols: ⓢ ⓐ ⚠.
+- Imperative scene-openers in prose and sayText: "Picture …", "Imagine …", 想像 (the noun "picture" stays legal — 射's "the fossil of a picture").
 
 **Banned in prose fields (identity, detail, why, definition, zhLine, all `*.prose`, all `sayText`), exempt in example sentence text/translations** — these are ordinary words that legitimate example sentences will contain ("fill in the form", "a batch of cookies", 誠實 sentences):
 - queued, pending, unresolved, uncertain, unclear, fill, sourced, speculative, tagged, grounding, provenance, honesty, pipeline, batch, prototype, feedback, schema, expert, G0–G7 stage refs, "folk decomposition", empty-state; 待補, 待考, 尚未, 考證中, 暫缺, 佔位, 開放來源, 不確定, 未明. (EVOLUTION prose may discuss the character's attested record and scholarly disagreement as content; it still never describes our process.)
