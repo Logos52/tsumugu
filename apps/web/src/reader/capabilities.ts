@@ -13,9 +13,6 @@
  * Pure + unit-tested; the controller wires the runtime objects to these flags.
  */
 
-/** Cues above this get lazy waveform init (DOM rows always; wavesurfer on scroll). */
-export const CUE_WAVEFORM_LAZY_THRESHOLD = 80;
-
 export interface CapabilityInputs {
   /** The transcript carries a `videoId` (an embeddable picture + a video clock). */
   hasVideoId: boolean;
@@ -40,7 +37,7 @@ export interface ReadingCapabilities {
   hasVoice: boolean;
   /** The segment-loop practice bar can load cue audio. */
   canPractice: boolean;
-  /** Per-sentence inline waveforms (lazy-init when cue count is large). */
+  /** Per-sentence inline waveforms beside each cue. */
   canWaveforms: boolean;
   /** ≥2 voice tracks → a per-speaker (甲/乙) voice picker. */
   hasDualVoice: boolean;

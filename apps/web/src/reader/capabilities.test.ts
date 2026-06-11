@@ -35,7 +35,7 @@ describe("resolveCapabilities", () => {
     expect(c.hasPicture).toBe(false);
     expect(c.hasVoice).toBe(true);
     expect(c.canPractice).toBe(true);
-    expect(c.canWaveforms).toBe(true); // 10 cues ≤ limit
+    expect(c.canWaveforms).toBe(true);
     expect(c.hasDualVoice).toBe(false);
     expect(c.defaultVoiceLed).toBe(true); // no picture → always voice-led
   });
@@ -64,7 +64,7 @@ describe("resolveCapabilities", () => {
     expect(resolveCapabilities({ ...base, hasVault: true, hasVoiceNotes: true }).canPractice).toBe(false);
   });
 
-  it("waveforms require practice audio (no cue-count cap — lazy mount for long readings)", () => {
+  it("waveforms require practice audio (no cue-count cap)", () => {
     const practice = { hasVoicePlayer: true, hasVault: true, hasVoiceNotes: true };
     expect(resolveCapabilities({ ...base, ...practice, cueCount: 1010 }).canWaveforms).toBe(true);
     expect(resolveCapabilities({ ...base, cueCount: 10 }).canWaveforms).toBe(false);

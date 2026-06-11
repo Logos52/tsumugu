@@ -55,23 +55,15 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
   interface Region {
     play: () => void;
   }
-  type Ws = import("wavesurfer.js").default;
-  interface Pending {
+  interface Inst {
     cue: number;
     trackIdx: number;
     row: HTMLElement;
-    waveEl: HTMLElement;
-    pp: HTMLButtonElement;
-    lp: HTMLButtonElement;
-    audio: string;
-    binding: VoiceNotesBinding;
-  }
-  interface Inst extends Pending {
-    ws: Ws | null;
+    ws: import("wavesurfer.js").default;
     region: Region | null;
     looping: boolean;
+    lp: HTMLButtonElement;
     url: string | null;
-    init: Promise<void> | null;
   }
 
   container.classList.add("tsg-cue-rows");
@@ -160,62 +152,9 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     if (first >= 0) setActive(first);
     onActivate?.(inst.cue);
   }
-  async function ensureReady(inst: Inst): Promise<Ws | null> {
-    if (inst.ws) return inst.ws;
-    if (inst.init) {
-      await inst.init;
-      return inst.ws;
-    }
-    inst.init = (async () => {
-      const ws = WaveSurfer.create({
-        container: inst.waveEl,
-        height: 28,
-        waveColor: cssVar("--wnac-overlay0", "#2e466b"),
-        progressColor:
-          inst.trackIdx === 0
-            ? cssVar("--wnac-blue", "#5089d8")
-            : cssVar("--wnac-mauve", "#b36ef5"),
-        cursorColor: cssVar("--wnac-blue-bright", "#66aaf7"),
-        normalize: true,
-        barWidth: 2,
-        barGap: 1,
-        barRadius: 2,
-      });
-      const regions = ws.registerPlugin(RegionsPlugin.create());
-      regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });
-      regions.on("region-created", (r) => {
-        for (const o of regions.getRegions()) if (o !== r) o.remove();
-        inst.region = r as unknown as Region;
-        activateFrom(inst);
-      });
-      regions.on("region-updated", (r) => {
-        inst.region = r as unknown as Region;
-      });
-      regions.on("region-out", (r) => {
-        if (inst.looping && (r as unknown as Region) === inst.region) (r as unknown as Region).play();
-      });
-      ws.on("finish", () => onFinish(inst));
-      ws.on("interaction", () => activateFrom(inst));
-      try {
-        const bytes = await vault.readBytes!(resolveAudioPath(inst.binding.baseDir, inst.audio));
-        if (bytes) {
-          inst.url = URL.createObjectURL(new Blob([new Uint8Array(bytes).buffer]));
-          await ws.load(inst.url);
-        }
-      } catch {
-        /* missing clip */
-      }
-      inst.ws = ws;
-    })();
-    await inst.init;
-    return inst.ws;
-  }
-
-  async function playInst(inst: Inst, fromStart: boolean): Promise<void> {
-    const ws = await ensureReady(inst);
-    if (!ws) return;
+  function playInst(inst: Inst, fromStart: boolean): void {
     for (const o of insts) {
-      if (o.cue === inst.cue && o !== inst && o.ws) {
+      if (o.cue === inst.cue && o !== inst) {
         try {
           o.ws.pause();
         } catch {
@@ -227,8 +166,8 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       inst.region.play();
       return;
     }
-    if (fromStart) ws.setTime(0);
-    void ws.play();
+    if (fromStart) inst.ws.setTime(0);
+    void inst.ws.play();
   }
   function onFinish(inst: Inst): void {
     if (inst.looping && !inst.region) {
@@ -249,54 +188,74 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     }
   }
 
-  const observer =
-    typeof IntersectionObserver !== "undefined"
-      ? new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (!e.isIntersecting) continue;
-              const inst = (e.target as HTMLElement).closest(".tsg-cue-wavewrap")?.querySelector(".tsg-cw-wave");
-              const hit = insts.find((x) => x.waveEl === inst);
-              if (hit) void ensureReady(hit);
-            }
-          },
-          { rootMargin: "240px 0px" },
-        )
-      : null;
-
   for (const p of pendings) {
+    const ws = WaveSurfer.create({
+      container: p.waveEl,
+      height: 28,
+      waveColor: cssVar("--wnac-overlay0", "#2e466b"),
+      progressColor:
+        p.trackIdx === 0
+          ? cssVar("--wnac-blue", "#5089d8")
+          : cssVar("--wnac-mauve", "#b36ef5"),
+      cursorColor: cssVar("--wnac-blue-bright", "#66aaf7"),
+      normalize: true,
+      barWidth: 2,
+      barGap: 1,
+      barRadius: 2,
+    });
+    const regions = ws.registerPlugin(RegionsPlugin.create());
+    regions.enableDragSelection({ color: "rgba(80,137,216,0.20)" });
     const inst: Inst = {
-      ...p,
-      ws: null,
+      cue: p.cue,
+      trackIdx: p.trackIdx,
+      row: p.row,
+      ws,
       region: null,
       looping: false,
+      lp: p.lp,
       url: null,
-      init: null,
     };
-    observer?.observe(p.waveEl);
+    regions.on("region-created", (r) => {
+      for (const o of regions.getRegions()) if (o !== r) o.remove();
+      inst.region = r as unknown as Region;
+      activateFrom(inst);
+    });
+    regions.on("region-updated", (r) => {
+      inst.region = r as unknown as Region;
+    });
+    regions.on("region-out", (r) => {
+      if (inst.looping && (r as unknown as Region) === inst.region) (r as unknown as Region).play();
+    });
+    ws.on("finish", () => onFinish(inst));
+    ws.on("interaction", () => activateFrom(inst));
+
+    void (async () => {
+      try {
+        const bytes = await vault.readBytes!(resolveAudioPath(p.binding.baseDir, p.audio));
+        if (!bytes) return;
+        inst.url = URL.createObjectURL(new Blob([new Uint8Array(bytes).buffer]));
+        await ws.load(inst.url);
+      } catch {
+        /* missing clip */
+      }
+    })();
 
     p.pp.onclick = () => {
       const i = insts.findIndex((x) => x.cue === p.cue && x.trackIdx === p.trackIdx);
       if (i >= 0) active = i;
       activateFrom(inst);
       chaining = false;
-      void (async () => {
-        const ws = await ensureReady(inst);
-        if (!ws) return;
-        ws.isPlaying() ? ws.pause() : playInst(inst, false);
-      })();
+      inst.ws.isPlaying() ? inst.ws.pause() : playInst(inst, false);
     };
     p.lp.onclick = () => {
       activateFrom(inst);
       inst.looping = !inst.looping;
       p.lp.classList.toggle("on", inst.looping);
-      if (inst.looping) void playInst(inst, true);
+      if (inst.looping) playInst(inst, true);
     };
     if (!idxByCue.has(p.cue)) idxByCue.set(p.cue, insts.length);
     insts.push(inst);
   }
-  // Eager-init the first screen of rows so waveforms appear immediately.
-  for (const inst of insts.slice(0, 48)) void ensureReady(inst);
   if (insts.length) setActive(0);
 
   function primaryOnRow(cue: number): Inst | undefined {
@@ -307,11 +266,7 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     const inst = insts[active] ?? primaryOnRow(insts[active]?.cue ?? 0);
     if (!inst) return;
     chaining = false;
-    void (async () => {
-      const ws = await ensureReady(inst);
-      if (!ws) return;
-      ws.isPlaying() ? ws.pause() : playInst(inst, false);
-    })();
+    inst.ws.isPlaying() ? inst.ws.pause() : playInst(inst, false);
   }
 
   return {
@@ -359,12 +314,11 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       const inst = primaryOnRow(insts[active]?.cue ?? insts[0]!.cue);
       if (!inst) return;
       chaining = true;
-      void playInst(inst, true);
+      playInst(inst, true);
     },
     stop() {
       chaining = false;
       for (const i of insts) {
-        if (!i.ws) continue;
         try {
           i.ws.pause();
         } catch {
@@ -374,7 +328,6 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
     },
     isPlaying() {
       return insts.some((i) => {
-        if (!i.ws) return false;
         try {
           return i.ws.isPlaying();
         } catch {
@@ -383,9 +336,7 @@ export async function mountCueWaveforms(opts: CueWaveformOpts): Promise<CueWavef
       });
     },
     destroy() {
-      observer?.disconnect();
       for (const i of insts) {
-        if (!i.ws) continue;
         try {
           i.ws.destroy();
         } catch {
