@@ -37,12 +37,14 @@ jobs:
       - run: pnpm --filter @tsumugu/web build
         env:
           GH_PAGES: "1"
-      # Assemble the site: a landing hub at /tsumugu/, the reader at /tsumugu/app/.
+      # Assemble the site: landing hub + cast static pages at /tsumugu/, reader at /tsumugu/app/.
+      # site-static/ holds cast-profiles.html + cast/ + portraits/ + voice-samples/ (vault mirror).
       - run: |
           mkdir -p _site/app
           cp -r apps/web/dist/. _site/app/
           cp apps/web/landing/index.html _site/index.html
           cp apps/web/public/logo-glyph.svg _site/logo-glyph.svg
+          cp -R site-static/. _site/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

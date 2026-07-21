@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tsumugu — Cast</title><style>
+  :root{ --cream:#f7f3ea; --paper:#fffdf8; --ink:#2c3136; --muted:#7d7768; --teal:#4f6f70; --line:#e7e0d3; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5;}
+  .wrap{max-width:940px;margin:0 auto;padding:34px 18px 64px;}
+  header.top{text-align:center;margin-bottom:6px;}
+  header.top h1{font-size:30px;margin:0 0 5px;color:var(--teal);letter-spacing:.3px;}
+  header.top .sub{font-size:13.5px;color:var(--muted);margin:0;}
+  .ph-banner{max-width:660px;margin:14px auto 28px;font-size:12px;color:#5c6d45;background:#f1f3e6;
+    border:1px solid #dce3c9;border-radius:9px;padding:8px 14px;text-align:center;}
+  .group{margin-bottom:30px;}
+  .group>h2{font-size:12px;text-transform:uppercase;letter-spacing:1.3px;color:var(--teal);
+    margin:0 0 14px;padding-bottom:6px;border-bottom:1px solid var(--line);font-weight:700;}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(192px,1fr));gap:14px;align-items:start;}
+
+  /* ---- profile card ---- */
+  .pcard{background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--accent);
+    border-radius:14px;box-shadow:0 2px 6px rgba(60,50,30,.06);overflow:hidden;display:flex;flex-direction:column;}
+  .pcard .portrait{width:100%;height:auto;background:#efe7da;display:block;}
+  .pbody{padding:10px 11px 11px;display:flex;flex-direction:column;flex:1 1 auto;min-width:0;}
+  .phead{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 8px;}
+  .phead .zh{font-size:17px;font-weight:700;color:var(--teal);}
+  .phead .en{font-size:10.5px;color:#5f6d7a;font-weight:500;margin-left:4px;}
+  .phead .role{width:100%;color:var(--accent);font-weight:600;font-size:10px;}
+  .pdesc{font-size:10.5px;color:#454a50;margin:6px 0 9px;line-height:1.45;}
+  .pphrase{margin:0 0 9px;padding-top:8px;border-top:1px solid var(--line);}
+  .pphrase .hant{display:block;font-size:14px;font-weight:600;letter-spacing:.2px;color:#3a4048;}
+  .pphrase .py{font-size:9px;color:#b3874f;font-style:italic;margin-right:5px;}
+  .pphrase .gloss{font-size:9px;color:var(--muted);}
+
+  /* ---- voice lines (4 mini waveforms) ---- */
+  .vlines{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:auto;padding-top:6px;}
+  .vlines.one{grid-template-columns:1fr;}
+  .vline{display:flex;flex-direction:column;gap:2px;padding:0;}
+  .vlabel{font-size:8px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);font-weight:700;}
+  .vline.catch .vlabel{color:var(--accent);}
+
+  /* ---- player ---- */
+  .player{display:flex;align-items:center;gap:5px;}
+  .play{flex:0 0 auto;width:20px;height:20px;border-radius:50%;border:none;cursor:pointer;background:var(--accent);
+    color:#fff;display:grid;place-items:center;box-shadow:0 1px 2px rgba(0,0,0,.14);}
+  .play:active{transform:scale(.93);} .play svg{width:9px;height:9px;fill:currentColor;}
+  .play .i-pause{display:none;}
+  .player.playing .play .i-play{display:none;} .player.playing .play .i-pause{display:block;}
+  .wave{position:relative;flex:1 1 auto;height:17px;cursor:pointer;border-radius:5px;min-width:0;}
+  .wave .bars{position:absolute;inset:0;display:flex;align-items:center;gap:1px;overflow:hidden;border-radius:5px;}
+  .wave .bar{flex:1 1 0;min-width:1px;background:#d6cfbe;border-radius:1px;transition:background .05s;}
+  .wave .bar.played{background:var(--accent);}
+  .wave .playhead{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.45;left:0;pointer-events:none;}
+
+  /* ---- profile links ---- */
+  .plink{display:block;line-height:0;}
+  .plink:hover .portrait{filter:brightness(1.06);}
+  a.nlink{text-decoration:none;}
+  a.nlink:hover .zh{text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:3px;}
+
+  footer{margin-top:34px;text-align:center;font-size:10.5px;color:#9a917f;line-height:1.7;}
+  footer code{background:#efe9dc;border-radius:4px;padding:0 4px;}
+
+  @media(max-width:430px){ .cards{grid-template-columns:1fr 1fr;gap:11px;} }
+</style></head>
+<body><div class="wrap">
+  <header class="top">
+    <h1>Tsumugu — Cast</h1>
+    <p class="sub">Spoiler-free profiles · one catchphrase + three voice moods each · click a portrait or name for the full profile</p>
+  </header>
+  <p class="ph-banner">Spoiler-free. Portraits &amp; voices are final; blurbs are the surface only — no arcs, no backstory.</p>
+
+  <section class="group"><h2>The students</h2><div class="cards">
+
+    <article class="pcard" style="--accent:#8aa653">
+      <a class="plink" href="cast/shen-wen.html" title="Open profile"><img class="portrait" src="portraits/locked/shen-wen.jpg" alt="沈文"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/shen-wen.html" title="Open profile"><span class="name"><span class="zh">沈文</span><span class="en">Shěn Wén</span></span></a><span class="role">— the builder —</span></div>
+        <p class="pdesc">The easygoing American strangers keep addressing in quick Chinese — he reads local until he answers. He builds: robotics, AI, whatever’s broken on the table in front of him. He says the least of anyone there and is the reason there’s a table; his handmade robot, 小圖, rides on his bag strap wherever he goes.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">小圖，我們開始吧。</span><span class="py">Xiǎotú, wǒmen kāishǐ ba.</span><span class="gloss">“Xiao Tu, let’s get started.”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/shenwen-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/shenwen-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/shenwen-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/shenwen-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#c48a8a">
+      <a class="plink" href="cast/ruan-cao.html" title="Open profile"><img class="portrait" src="portraits/locked/ruan-cao.jpg" alt="阮草"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/ruan-cao.html" title="Open profile"><span class="name"><span class="zh">阮草</span><span class="en">Ruǎn Cǎo</span></span></a><span class="role">— the Tender —</span></div>
+        <p class="pdesc">Things live for her. She grows mushrooms and runs ferments off a shelf in the corner of the café, and the group borrowed her word for it — mát tay, the cool hand. Headstrong, direct, and warmly certain she’s right, she shows love by doing: the right mushroom pulled for the right person on the right day.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">原來是這個意思！</span><span class="py">Yuánlái shì zhège yìsi!</span><span class="gloss">“Oh — so that’s what it means!”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/ruancao-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/ruancao-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/ruancao-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/ruancao-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#cf8a5c">
+      <a class="plink" href="cast/hoshino-haruka.html" title="Open profile"><img class="portrait" src="portraits/locked/hoshino-haruka.jpg" alt="星野遙香"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/hoshino-haruka.html" title="Open profile"><span class="name"><span class="zh">星野遙香</span><span class="en">Xīngyě Yáoxiāng</span></span></a><span class="role">— the super-fan —</span></div>
+        <p class="pdesc">The Osaka super-fan who’s more into Taiwan than the locals are — loud, quick, and always behind her film camera, documenting everything. She’s the group’s energy, the half-step-ahead one who gets everyone out the door: first to try the stinky tofu, last to want the night to end.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">欸，這個超有趣的！</span><span class="py">Éi, zhège chāo yǒuqù de!</span><span class="gloss">“Ooh, this is super interesting!”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/yaoxiang-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/yaoxiang-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/yaoxiang-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/yaoxiang-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#7d7488">
+      <a class="plink" href="cast/kim-da-eun.html" title="Open profile"><img class="portrait" src="portraits/locked/kim-da-eun.jpg" alt="金多恩"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/kim-da-eun.html" title="Open profile"><span class="name"><span class="zh">金多恩</span><span class="en">Jīn Duō’ēn</span></span></a><span class="role">— the conservator —</span></div>
+        <p class="pdesc">Quiet, sharp, unhurried — the group’s best test-taker, who says the least and notices the most. She lands the plain hard verdict in a handful of cold words, then quietly picks up the broken thing everyone else stepped over and mends it.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">修東西這種事，快不了。</span><span class="py">Xiū dōngxi zhè zhǒng shì, kuài bùliǎo.</span><span class="gloss">“Mending things — you can’t rush them.”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/duoen-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/duoen-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/duoen-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/duoen-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#c58a55">
+      <a class="plink" href="cast/adi.html" title="Open profile"><img class="portrait" src="portraits/locked/adi.jpg" alt="阿迪"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/adi.html" title="Open profile"><span class="name"><span class="zh">阿迪</span><span class="en">Ā Dí</span></span></a><span class="role">— the maker &amp; odds-man —</span></div>
+        <p class="pdesc">The warm, laid-back maker from Jakarta who stitches batik into streetwear and plans the whole day around the next meal — the one who ends an argument by getting everyone to sit down and eat. Then anything gets a score on it and he flips: locked in, running the numbers, talking trash — and chill again before you’ve finished blinking.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">放輕鬆，沒問題的。</span><span class="py">Fàng qīngsōng, méi wèntí de.</span><span class="gloss">“Relax — it’ll be fine.”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/adi-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/adi-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/adi-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/adi-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#5f7285">
+      <a class="plink" href="cast/bai-long.html" title="Open profile"><img class="portrait" src="portraits/locked/bai-long.jpg" alt="白龍"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/bai-long.html" title="Open profile"><span class="name"><span class="zh">白龍</span><span class="en">Bái Lóng</span></span></a><span class="role">— the deadpan far-seer —</span></div>
+        <p class="pdesc">A towering, bone-dry Englishman with a cavernous bass and binoculars round his neck — he says the least in any room and sees the furthest, calling the rain or the crowd a beat before it lands, then saying nothing about having been right. The café’s ginger tom 將軍, who likes nobody, sleeps across his shoulder.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">別問我，我沒意見。</span><span class="py">Bié wèn wǒ, wǒ méi yìjiàn.</span><span class="gloss">“Don’t ask me — I’ve no opinion.”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/bailong-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/bailong-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/bailong-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/bailong-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#4f8f86">
+      <a class="plink" href="cast/lin-wei.html" title="Open profile"><img class="portrait" src="portraits/locked/lin-wei.jpg" alt="林薇"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/lin-wei.html" title="Open profile"><span class="name"><span class="zh">林薇</span><span class="en">Lín Wēi</span></span></a><span class="role">— the insider &amp; fixer —</span></div>
+        <p class="pdesc">The only local in the group, and the only one with tools — practical, quick, a little cheeky. She knows the right stall and the right bus, ducks into a temple to 拜拜 between errands, and will have your scooter running before you’ve finished explaining what it’s doing.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">交給我就對了！</span><span class="py">Jiāo gěi wǒ jiù duì le!</span><span class="gloss">“Just leave it to me!”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/linwei-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/linwei-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/linwei-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/linwei-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+  </div></section>
+
+  <section class="group"><h2>Faculty &amp; the café</h2><div class="cards">
+
+    <article class="pcard" style="--accent:#8f8a94">
+      <a class="plink" href="cast/teacher-su.html" title="Open profile"><img class="portrait" src="portraits/locked/teacher-su.jpg" alt="蘇老師"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/teacher-su.html" title="Open profile"><span class="name"><span class="zh">蘇老師</span><span class="en">Sū Lǎoshī</span></span></a><span class="role">— the name-giver —</span></div>
+        <p class="pdesc">Their warm, unhurried teacher, who has your name by the end of day one and hands you the Chinese one you’ll answer to from then on — 白龍’s too-grand name is hers, and so is 小圖’s. Then she asks the question you’d been steering around, and waits.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">慢慢來，不要急。</span><span class="py">Mànman lái, búyào jí.</span><span class="gloss">“Take your time, don’t rush.”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/sulaoshi-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/sulaoshi-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/sulaoshi-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/sulaoshi-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#b08748">
+      <a class="plink" href="cast/boss-wu.html" title="Open profile"><img class="portrait" src="portraits/locked/boss-wu.jpg" alt="吳老闆"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/boss-wu.html" title="Open profile"><span class="name"><span class="zh">吳老闆</span><span class="en">Wú Lǎobǎn</span></span></a><span class="role">— the host —</span></div>
+        <p class="pdesc">The gruff-but-soft host of 珍貓 — the cat café that also pours bubble tea, and the group’s living room. He knows the students have no money, so the cups come back a little too full and a red-bean bun turns up that nobody ordered — then he swears the extra scoop was an accident.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">老規矩，珍奶一杯！</span><span class="py">Lǎo guīju, zhēnnǎi yì bēi!</span><span class="gloss">“The usual — one bubble tea!”</span></div>
+        <div class="vlines">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/laoban-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Neutral</span><div class="player" data-src="voice-samples/laoban-neutral.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Excited</span><div class="player" data-src="voice-samples/laoban-excited.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+          <div class="vline"><span class="vlabel">Tired</span><div class="player" data-src="voice-samples/laoban-tired.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+  </div></section>
+
+  <section class="group"><h2>The café’s own</h2><div class="cards">
+
+    <article class="pcard" style="--accent:#6bab9e">
+      <a class="plink" href="cast/xiao-tu.html" title="Open profile"><img class="portrait" src="portraits/locked/xiao-tu.jpg" alt="小圖"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/xiao-tu.html" title="Open profile"><span class="name"><span class="zh">小圖</span><span class="en">Xiǎo Tú</span></span></a><span class="role">— the handmade companion —</span></div>
+        <p class="pdesc">沈文’s keychain-sized handmade robot — dreamy, soft-spoken, always a half-step inside his own world. He rides on 沈文’s bag strap to class and sits on the desk through the whole lesson, listening: lit sprout-green eyes for a whole face, and more heart than a palm-sized toy has any right to.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">小圖、開機、完成！</span><span class="py">Xiǎotú, kāijī, wánchéng!</span><span class="gloss">“Xiao Tu — boot up — complete!”</span></div>
+        <div class="vlines one">
+          <div class="vline catch"><span class="vlabel">Catchphrase</span><div class="player" data-src="voice-samples/xiaotu-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="pcard" style="--accent:#d08a4a">
+      <a class="plink" href="cast/general.html" title="Open profile"><img class="portrait" src="portraits/locked/general.jpg" alt="將軍"></a>
+      <div class="pbody">
+        <div class="phead"><a class="nlink" href="cast/general.html" title="Open profile"><span class="name"><span class="zh">將軍</span><span class="en">General</span></span></a><span class="role">— the café cat, 白龍’s first friend —</span></div>
+        <p class="pdesc">The café’s resident ginger tom — 將軍不喜歡人, he doesn’t like people, and naps where he pleases. He long ago chose exactly one person, 白龍, for reasons nobody — 白龍 included — can explain.</p>
+        <div class="pphrase"><span class="hant" lang="zh-Hant">喵嗚。</span><span class="py">(a low, unimpressed meow)</span></div>
+        <div class="vlines one">
+          <div class="vline catch"><span class="vlabel">Meow</span><div class="player" data-src="voice-samples/jiangjun-catch.wav"><button class="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg></button><div class="wave"><div class="bars"></div><div class="playhead"></div></div></div></div>
+        </div>
+      </div>
+    </article>
+
+  </div></section>
+
+  <footer>
+    Spoiler-free cast page · portraits in <code>portraits/locked/</code> · voices in <code>voice-samples/</code> · profile pages in <code>cast/</code><br>
+    One catchphrase + three moods (neutral · excited · tired) per character. 小圖 &amp; 將軍: catchphrase only.
+  </footer>
+</div>
+
+<script>
+(function(){
+  // deterministic pseudo-waveform per file, so every render is stable
+  function seedFrom(s){ var h=2166136261; for(var i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619);} return h>>>0; }
+  function rng(seed){ return function(){ seed=(Math.imul(seed,1664525)+1013904223)>>>0; return seed/4294967296; }; }
+  var current=null;
+
+  document.querySelectorAll('.player').forEach(function(el){
+    var src=el.getAttribute('data-src')||'x';
+    var wave=el.querySelector('.wave'), bars=el.querySelector('.bars'),
+        playhead=el.querySelector('.playhead'), playBtn=el.querySelector('.play');
+
+    // build bars
+    var N=20, r=rng(seedFrom(src)), frag=document.createDocumentFragment();
+    for(var i=0;i<N;i++){
+      var env=Math.pow(Math.sin((i/(N-1))*Math.PI),0.6);      // speech-like fade in/out
+      var h=Math.max(7, Math.round((0.20+0.80*r())*env*100));
+      var b=document.createElement('span'); b.className='bar'; b.style.height=h+'%'; frag.appendChild(b);
+    }
+    bars.appendChild(frag);
+    var barEls=bars.querySelectorAll('.bar'), audio=null;
+
+    function paint(f){ var idx=Math.floor(f*barEls.length);
+      for(var i=0;i<barEls.length;i++) barEls[i].classList.toggle('played', f>0 && i<=idx);
+      playhead.style.left=(f*100)+'%'; }
+    function stopUI(){ el.classList.remove('playing'); }
+    function stop(){ if(audio)audio.pause(); stopUI(); }
+    function play(){
+      if(current&&current.el!==el) current.stop();
+      if(!audio){
+        audio=new Audio(src);
+        audio.addEventListener('timeupdate',function(){ paint(audio.currentTime/(audio.duration||1)); });
+        audio.addEventListener('ended',function(){ stopUI(); paint(0); });
+      }
+      var p=audio.play(); if(p&&p.catch)p.catch(function(){});
+      el.classList.add('playing'); current={el:el,stop:stop};
+    }
+    playBtn.addEventListener('click',function(){ if(audio&&!audio.paused)stop(); else play(); });
+    wave.addEventListener('click',function(e){
+      var rect=wave.getBoundingClientRect(), f=Math.min(1,Math.max(0,(e.clientX-rect.left)/rect.width));
+      if(!audio){ play(); }
+      var set=function(){ audio.currentTime=f*(audio.duration||0); paint(f); };
+      if(audio.readyState>=1) set(); else audio.addEventListener('loadedmetadata',set,{once:true});
+    });
+  });
+})();
+</script>
+</body></html>
